@@ -1,0 +1,39 @@
+⚠️ Undefined index →  voir dans url 
+
+Récupérer qqch dans url → $_GET['idClient'] 
+
+				        → depuis une méthode private → utiliser les get() →  $ligne->getId(); 
+
+
+$tab[]= quand retourne une liste 
+$tab= quand retourne 1 seul ment 
+
+
+
+
+
+Le premier paramètre d’un foreach est un tableau. 
+$infoVetement->nom()
+
+
+faire un foreach quand y'a "array" dans var_dump
+
+
+
+1. Je veux faire quoi? 
+2. la page où il y aura l'action
+3. l'action
+4. le résultat de l'action
+
+
+------TRANSFERER DANS URL------
+mettre dans a href: ...?idVet=<?php echo ... ->id() ;?>
+
+------RECUPERER DANS URL------
+$id= $_GET['idVet]; 
+
+
+------UTILISER OBJET DANS OBJET------
+- utiliser le 1er objet: $nomMethodeGet() as $...
+- utiliser le 2eme: 	 $...-> méthode de l'attribut
+

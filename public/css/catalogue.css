@@ -1,0 +1,119 @@
+/* Cadre des vêtements */
+section#catalogue{
+   text-align: center;
+}
+
+.cadreVet{
+   background-color: #f9f9f9;
+   min-width: 300px;
+   min-height: 500px;
+   margin: 10px 20px;
+   display: inline-block;
+   text-align: left;
+   font-size: 0.8rem;
+}
+
+.cadreVet:hover{
+   border: 1px black solid;
+   
+}
+
+.img{
+   width: 100%;
+   height: 400px;
+   background-position: center;
+   background-size: 100%;
+   cursor: pointer;
+
+}
+
+/* Liste des couelurs */
+
+ul.listeCouleur{
+   padding: 0 5px;
+}
+
+
+
+ul.listeCouleur li{
+   list-style-type: none;
+   display: flex;
+   display: inline-block;
+   background-color: white;
+   border: 1px solid grey;
+   margin: 0 4px;
+  
+
+}
+
+ul.listeCouleur li input{
+   display: none;
+   
+
+}
+
+
+ul.listeCouleur li label{
+   width: 20px;
+   height: 20px;
+   display: block;
+   margin: 3px 3px;
+   cursor: pointer;
+}
+
+
+
+.titre{
+   color:#909090;
+   padding: 6px 2px;
+   display: block;
+}
+
+/* Autres */
+.prix{
+   display: block;
+   color:#ea0770;
+   font-weight: bold;
+   font-size: 1.1rem;
+   
+}
+
+
+/*  Info */
+.cadreVet p{
+  margin: 0;
+}
+
+
+
+
+.pagination{
+   display: table;
+   margin: 60px auto 60px auto;
+}
+
+.pagination a, .pagination span{
+   padding: 4px;
+   background-color: #da8e1c;
+   color: white;
+   margin: 3px;
+   text-decoration: none;
+   min-width: 15px;
+   display: inline-block;
+}
+
+.pagination span{
+   padding: 2px;
+   background-color: white;
+   color: #bd7811;
+   border: solid 2px #e09b33;
+}
+
+
+ 
+/* Navigation */
+
+#contenu{
+   margin-left: 150px;
+
+  }

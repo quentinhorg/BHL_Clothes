@@ -1,0 +1,13 @@
+.erreur{
+   text-align: center;
+   margin-top: 100px;
+}
+
+.erreur input{
+   margin-top: 50px;
+   padding: 10px;
+}
+
+.erreur input:hover{
+   transform: scale(1.1);
+}

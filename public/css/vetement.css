@@ -1,0 +1,47 @@
+.img{
+   width: 520px;
+   height: 600px;
+   background-position: center;
+   background-size: 100% 100%;
+   cursor: pointer;
+   background-repeat: no-repeat;
+   float: left;
+   margin-top: 90px;
+   margin-right: 200px;
+   margin-left: 200px;
+}
+
+.infoVet{
+   margin-top: 90px;
+}
+
+.infoVet input[type="button"]{
+   margin-top: 20px;
+   margin-left: 20px;
+   padding: 5px;
+   width: 200px;
+   height: 50px;
+   font-size: 20px;
+   border-radius: 3px;
+   border: 1px solid #c7c1c1;
+}
+
+.infoVet select{
+   padding: 3px;
+   border: 1px solid #c7c1c1;
+   border-radius: 3px;
+}
+
+.infoVet label{
+   font-size: 18px;
+
+}
+
+.infoVet input[type="number"]{
+   border: 1px solid #c7c1c1;
+   border-radius: 3px;
+}
+
+.infoVet h3{
+   color: #e76c35;
+}
