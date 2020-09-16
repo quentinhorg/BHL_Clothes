@@ -27,7 +27,6 @@ class ControleurVetement{
    private function infoVetement($id){
       $VetementManageur = new VetementManager();
       $infoVetement= $VetementManageur->getVetement($id);
-   
       
       return $infoVetement;
      
