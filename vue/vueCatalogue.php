@@ -5,7 +5,7 @@
 <div id="navCatalog">
 <h5> Homme </h5>
 <u>
-<li> T-shirt ddddddddd</li>
+<li> T-shirt </li>
 <li> Pantalon </li>
 <li> Vestes </li>
 </u>
