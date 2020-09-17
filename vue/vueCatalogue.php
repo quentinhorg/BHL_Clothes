@@ -8,11 +8,12 @@
 
     <h3> Taille </h3>
     <ul>
-        <li> <input type="checkbox"> X </li>
-        <li> <input type="checkbox"> XS</li>
-        <li> <input type="checkbox"> S </li>
+        <?php
+            foreach ($listeTaille as $libelle ){
+                ?> <li> <input <?php echo "name='Taille'". ?> type ="checkbox"><?php echo $libelle->libelle(); ?> </li> 
+           <?php }
+        ?>
     </ul>
-
     <h3> Taille </h3>
     <input type="number">
 

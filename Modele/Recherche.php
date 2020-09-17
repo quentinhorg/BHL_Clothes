@@ -1,70 +1,63 @@
 <?php 
 
 class Recherche{
-    private $prix;
-    private $taille;
-    private $couleur;
+    private $intervalePrix = array();
+    private $listeTaille = array();
+    private $listeCouleur = array();
     private $categorie;
-    private $genreHomme;
-    private $genreFemme;
-    private $genreMixte;
+    private $genre;
 
-    public function __construct($prix ){
-        
+
+    public function __construct($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre){
+        $this->intervalePrix = $prixIntervale ;
+        $this->listeTaille = $listeTaille ;
+        $this->listeCouleur = $listeCouleur ;
+        $this->categorie = $categorie ;
+        $this->genre = $genre;
     }
 
+    public function getReqTaille(){
+        if($this->listeTaille != null){
+            $req = "t.taille IN(".implode(",", $this->listeTaille ).")";
+        }else{ $req = null ;}
+
+        return $req;
+    }
+
+    
 
 }
 
 /*
 
-SELECT * 
-FROM taille
-WHERE libelle IN("S")        req pour S
 
 SELECT * 
-FROM taille
-WHERE libelle IN("XS")        req pour XS
-
-SELECT * 
-FROM taille
-WHERE libelle IN("M")           req pour M
-
-SELECT * 
-FROM taille
-WHERE libelle IN("L")        req pour L
-
-SELECT * 
-FROM taille
-WHERE libelle IN("XL")             req pour XL
-
-SELECT * 
-FROM taille
-WHERE libelle IN("XL","L")          req pour XL + L
-
-SELECT * 
-FROM taille
-WHERE libelle IN("XS","S")          REQ POUR XS + S
-
-SELECT * 
-FROM taille
-WHERE libelle IN("M","S")           req pour M + S
+FROM vetement v
+INNER JOIN vet_taille t ON t.idVet=v.id
+INNER JOIN vet_couleur c ON c.idVet=v.id
+INNER JOIN vue_vet_disponibilite d ON d.idVet=v.id          
+INNER JOIN taille ON taille.id=t.idTaille
+WHERE libelle IN("XS", "S", "L", "M", "XL")
 
 
 SELECT * 
-FROM taille
-WHERE libelle IN("M","L")            req pour M + L
+FROM vetement
+INNER JOIN vet_taille t ON t.idVet=vetement.id
+INNER JOIN vet_couleur c ON c.idVet=vetement.id
+INNER JOIN vue_vet_disponibilite d ON d.idVet=vetement.id
+INNER JOIN taille ON taille.id=t.idTaille
+WHERE c.nom IN("Jaune","Beige","Rouge")
 
 
+taille 
+couleur
+
+taille + couleur 
+
+vet possède au moins 1 taille, 1 couleur
 
 
-
-
-
-
-
-
-
+fonction estDispo= si possède 1 couleur ET 1 taille= dispo sinon pas dispo
 
 
 

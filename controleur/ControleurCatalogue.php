@@ -13,9 +13,6 @@ class ControleurCatalogue{
       }
       else{
 
-
-   
-         
          if( isset($url[1]) && isset($url[2]) ){
             $donnee =  $this->listeVetement($url[1], $url[2]);
          }
@@ -23,16 +20,16 @@ class ControleurCatalogue{
             $donnee =  $this->listeVetement($url[1], null);
          }
          else{
+            
             $donnee =  $this->listeVetement(null, null);
          }
 
 
-       
-         
          $this->vue = new Vue('Catalogue') ;
          $this->vue->genererVue(array( 
             "listeVetement"=> $donnee,
-            "vuePagination" => $this->vetementManager->Pagination->getVuePagination("catalogue&page=")
+            "vuePagination" => $this->vetementManager->Pagination->getVuePagination("catalogue&page="),
+            "listeTaille"=>$this->TaillesCatalogue()
          )) ;
          
       }
@@ -57,11 +54,20 @@ class ControleurCatalogue{
       
    }
 
+   public function TaillesCatalogue(){
+      $TaillesCatalogue = new TailleManager();
+      return $TaillesCatalogue->getListeTaille();
+   }
+
+   public function recherche(){
+      $TaillesCatalogue = new TailleManager();
+      return $TaillesCatalogue->getListeTaille();
+   }
+
+
 
    
-   public function testJerem(){
-      
-   }
+   
 
 
 
