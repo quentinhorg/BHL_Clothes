@@ -113,13 +113,25 @@ ul.listeCouleur li label{
  
 /* Navigation */
 
-#contenu{
-   margin-left: 150px;
-
-  }
 
 
 
-#navCatalog{
-   
+#navCatalogue{
+   float: left;
+   min-width: 200px;
+   min-height: 100vh;
 }
+
+#navCatalogue li{
+   list-style-type: none;
+   text-decoration: none;
+}
+
+#navCatalogue ul{
+   padding: 0;
+  
+}
+
+
+
+

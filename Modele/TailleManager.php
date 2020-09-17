@@ -6,7 +6,13 @@ class TailleManager extends DataBase{
         $req = "SELECT * FROM taille WHERE id = ?";
         $this->getBdd();
         return $this->getModele($req, [$id], "Taille")[0];
+    }
 
+    public function getListeTaille(){
+        $req = "SELECT * FROM taille";
+
+        $this->getBdd();
+        
     }
 
 

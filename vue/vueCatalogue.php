@@ -1,14 +1,17 @@
-<?php //var_dump($listeVetement[0]) ; //public/media/vetement/id2.jpg
-  echo "<img src='".$listeVetement[0]->getTextureDefaut()."'>";
-?>
+<div id="navCatalogue">
+    <h3> Homme </h3>
+    <ul>
+        <li> T-shirt </li>
+        <li> Pantalon </li>
+        <li> Vestes </li>
+    </ul>
 
-<div id="navCatalog">
-<h5> Homme </h5>
-<u>
-<li> T-shirt </li>
-<li> Pantalon </li>
-<li> Vestes </li>
-</u>
+    <h3> Taille </h3>
+    <ul>
+        <li> <input type="checkbox"> X </li>
+        <li> <input type="checkbox"> XS</li>
+        <li> <input type="checkbox"> S </li>
+    </ul>
 
 
 </div>
@@ -25,7 +28,6 @@
         <ul class="listeCouleur">
             <?php 
                 //Affichage des listes de couleurs disponible
-                
                 if($vetement->listeCouleurDispo() != null){
                     foreach ($vetement->listeCouleurDispo() as $couleur) {
                         $idInput = "vet".$vetement->id()."_couleur".$couleur->num();
