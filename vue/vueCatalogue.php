@@ -13,6 +13,9 @@
         <li> <input type="checkbox"> S </li>
     </ul>
 
+    <h3> Taille </h3>
+    <input type="number">
+
 
 </div>
 

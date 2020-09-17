@@ -37,12 +37,12 @@ class ClientManager extends DataBase{
         $this->getBdd();
         $verif_user= "Select id from client WHERE email like ? AND mdp like ?";
         $resultat = $this->execBDD($verif_user,[$mail,$mdp] );
-        var_dump($resultat);
+        // var_dump($resultat);
 
         if (count($resultat)==1){
             echo " connectééé";
             $_SESSION['id_client_en_ligne'] = $resultat[0]['id'];
-            var_dump($_SESSION['id_client_en_ligne']);
+            // var_dump($_SESSION['id_client_en_ligne']);
         }else{
             echo "pas co";
         }

@@ -9,11 +9,14 @@ class Recherche{
     private $genreFemme;
     private $genreMixte;
 
+    public function __construct($prix ){
+        
+    }
+
 
 }
 
 /*
-
 
 SELECT * 
 FROM taille

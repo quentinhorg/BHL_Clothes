@@ -3,7 +3,6 @@
    <nav id="navPrincipale">
          <span id="logo">
             <a href="accueil"> BHL Clothes</a>
-           
          </span>
 
          <div id="recherche">
