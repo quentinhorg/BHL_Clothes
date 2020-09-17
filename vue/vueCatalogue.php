@@ -2,10 +2,17 @@
   echo "<img src='".$listeVetement[0]->getTextureDefaut()."'>";
 ?>
 
-<div>
+<div id="navCatalog">
+<h5> Homme </h5>
+<u>
+<li> T-shirt </li>
+<li> Pantalon </li>
+<li> Vestes </li>
+</u>
 
 
 </div>
+
 <section id="catalogue">
 <?php echo $vuePagination ; ?>
 <?php foreach ($listeVetement as $vetement) { ?>
