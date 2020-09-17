@@ -1,8 +1,11 @@
 <?php //var_dump($listeVetement[0]) ; //public/media/vetement/id2.jpg
   echo "<img src='".$listeVetement[0]->getTextureDefaut()."'>";
-
 ?>
 
+<div>
+
+
+</div>
 <section id="catalogue">
 <?php echo $vuePagination ; ?>
 <?php foreach ($listeVetement as $vetement) { ?>
