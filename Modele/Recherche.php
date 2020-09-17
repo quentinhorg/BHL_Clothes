@@ -24,6 +24,14 @@ class Recherche{
         return $req;
     }
 
+    public function get(){
+        if($this->listeTaille != null){
+            $req = "t.taille IN(".implode(",", $this->listeTaille ).")";
+        }else{ $req = null ;}
+
+        return $req;
+    }
+
     
 
 }
