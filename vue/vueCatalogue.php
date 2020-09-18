@@ -10,7 +10,7 @@
     <h3> Taille </h3>
     <ul>
         <?php foreach ($listeTaille as $libelle ){ ?> 
-        <li> <input <?php echo "name='taille_".$libelle->libelle()."'"; ?> type ="checkbox"><?php echo $libelle->libelle() ; ?> </li> 
+        <li> <input <?php echo "name='taille".$libelle->libelle()."'"; ?> type ="checkbox"><?php echo $libelle->libelle() ; ?> </li> 
            <?php }
          ?>
         

@@ -69,7 +69,7 @@ class ControleurCatalogue{
 
       if( isset($_POST["recherche"]) ){
          $RechercheManager = new RechercheManager();
-            $prixIntervale= [0.5, 80];
+            $prixIntervale= [0, 80];
             $listeTaille= [1,2];
             $listeCouleur= ["noir", "bleu"];
             $categorie= null;
@@ -86,8 +86,14 @@ class ControleurCatalogue{
          echo "\n".$resultat ."\n" ;
       }
 
-      $prix = $_POST['prix'];
-      echo p
+      //$prix = $_POST['prix'];
+      //echo "<h1>".$prix."</h1>";
+
+      // if (isset($_POST['taille'])) {
+      //    foreach ($_POST['taille'] as $recup){
+      //       echo "<h1>".$recup."</h1><br>";
+      //    }
+      // }
 
       //return $RechercheManager->getRecherche();
    }

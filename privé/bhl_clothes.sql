@@ -5,6 +5,7 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP DATABASE IF EXISTS `bhl_clothes`;
 CREATE DATABASE `bhl_clothes` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bhl_clothes`;
 
@@ -26,7 +27,8 @@ CREATE TABLE `article_panier` (
 INSERT INTO `article_panier` (`numCmd`, `idVet`, `idTaille`, `qte`, `idCouleur`) VALUES
 (1,	1,	1,	2,	0),
 (1,	2,	2,	1,	0),
-(1,	3,	2,	1,	0);
+(1,	3,	2,	1,	0)
+ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `idTaille` = VALUES(`idTaille`), `qte` = VALUES(`qte`), `idCouleur` = VALUES(`idCouleur`);
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
@@ -48,12 +50,14 @@ INSERT INTO `categorie` (`id`, `nom`) VALUES
 (10,	'Shorts & Bermudas'),
 (5,	'Shorts de bain'),
 (2,	'T-shirts & Débardeurs'),
-(8,	'Vestes & Manteaux');
+(8,	'Vestes & Manteaux')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`);
 
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(150) NOT NULL,
+  `mdp` varchar(150) NOT NULL,
   `nom` varchar(50) NOT NULL,
   `prenom` varchar(50) NOT NULL,
   `adresse` varchar(100) NOT NULL,
@@ -61,13 +65,14 @@ CREATE TABLE `client` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
-INSERT INTO `client` (`id`, `email`, `nom`, `prenom`, `adresse`, `tel`) VALUES
-(1,	'andrea@gmail.com',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990'),
-(2,	'quentin@live.fr',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553'),
-(3,	'lebon@outlook.fr',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478'),
-(4,	'grondin.sam@gmail.com',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645'),
-(5,	'ryan.lauret974@gmail.com',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347'),
-(6,	'mathilde20@gmail.com',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212');
+INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`) VALUES
+(1,	'andrea@gmail.com',	'',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990'),
+(2,	'quentin@live.fr',	'12345',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553'),
+(3,	'lebon@outlook.fr',	'',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478'),
+(4,	'grondin.sam@gmail.com',	'',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645'),
+(5,	'ryan.lauret974@gmail.com',	'',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347'),
+(6,	'mathilde20@gmail.com',	'',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`);
 
 DELIMITER ;;
 
@@ -101,16 +106,23 @@ INSERT INTO `client_histo` (`id`, `nom`, `prenom`, `adresse`, `tel`, `date_histo
 (1,	'BIGOT',	'test',	'St Joseph',	'0692466990',	'2020-09-13 18:25:46',	'UPDATE'),
 (1,	'BIGOT',	'Andréa',	'St Joseph',	'0692466990',	'2020-09-13 18:32:19',	'UPDATE'),
 (1,	'BIGOT',	'Andréa',	'St Joseph',	'0692466990',	'2020-09-13 18:36:43',	'UPDATE'),
+(1,	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'2020-09-14 15:40:14',	'UPDATE'),
 (2,	'HOAREAU',	'Quentin',	'St pierre',	'426525',	'2020-09-13 18:31:38',	'UPDATE'),
 (2,	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'2020-09-13 18:32:37',	'UPDATE'),
 (2,	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'2020-09-13 18:37:01',	'UPDATE'),
+(2,	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	'2020-09-14 15:40:14',	'UPDATE'),
 (3,	'LEBON',	'Jérémy',	'St denis',	'8285252',	'2020-09-13 18:31:56',	'UPDATE'),
 (3,	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'2020-09-13 18:32:27',	'UPDATE'),
 (3,	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'2020-09-13 18:37:31',	'UPDATE'),
+(3,	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'2020-09-14 15:40:14',	'UPDATE'),
 (4,	'test',	'test',	'22 st jo',	'2485',	'2020-09-07 00:00:00',	'DELETE'),
+(4,	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	'2020-09-14 15:40:14',	'UPDATE'),
 (5,	'',	'',	'',	'',	'2020-09-07 00:00:00',	'DELETE'),
+(5,	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'2020-09-14 15:40:14',	'UPDATE'),
 (6,	'aa',	'aa',	'ashia',	'798',	'2020-09-07 00:00:00',	'DELETE'),
-(7,	'azeaze',	'zerzer',	'10 rue ouaiso uais',	'azeaze',	'2020-09-07 00:00:00',	'DELETE');
+(6,	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	'2020-09-14 15:40:14',	'UPDATE'),
+(7,	'azeaze',	'zerzer',	'10 rue ouaiso uais',	'azeaze',	'2020-09-07 00:00:00',	'DELETE')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `date_histo` = VALUES(`date_histo`), `evenement_histo` = VALUES(`evenement_histo`);
 
 DROP TABLE IF EXISTS `commande`;
 CREATE TABLE `commande` (
@@ -128,7 +140,8 @@ INSERT INTO `commande` (`num`, `date`, `idClient`) VALUES
 (3,	'2020-12-23 08:02:08',	3),
 (4,	'2020-09-01 21:49:35',	6),
 (5,	'2020-09-17 11:00:00',	5),
-(6,	'2020-09-13 14:18:23',	4);
+(6,	'2020-09-13 14:18:23',	4)
+ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `date` = VALUES(`date`), `idClient` = VALUES(`idClient`);
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
@@ -144,7 +157,8 @@ CREATE TABLE `contact` (
 INSERT INTO `contact` (`idContact`, `nom`, `email`, `numero`, `sujet`, `message`) VALUES
 (1,	'Andréa',	'andrea@bigot974',	692466990,	'compte',	'J\'ai oublié mon mot de passe'),
 (2,	'Andréa',	'andrea@bigot974',	692458565,	'subject',	'Problème'),
-(3,	'Jérémy',	'andrea@bigot974',	69232231,	'subject',	'Problème avec ma commande');
+(3,	'Jérémy',	'andrea@bigot974',	69232231,	'subject',	'Problème avec ma commande')
+ON DUPLICATE KEY UPDATE `idContact` = VALUES(`idContact`), `nom` = VALUES(`nom`), `email` = VALUES(`email`), `numero` = VALUES(`numero`), `sujet` = VALUES(`sujet`), `message` = VALUES(`message`);
 
 DROP TABLE IF EXISTS `genre`;
 CREATE TABLE `genre` (
@@ -159,7 +173,8 @@ CREATE TABLE `genre` (
 INSERT INTO `genre` (`num`, `libelle`, `genre`) VALUES
 (1,	'Femme',	'F'),
 (2,	'Homme',	'H'),
-(3,	'Mixte',	'M');
+(3,	'Mixte',	'M')
+ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `libelle` = VALUES(`libelle`), `genre` = VALUES(`genre`);
 
 DROP TABLE IF EXISTS `taille`;
 CREATE TABLE `taille` (
@@ -173,7 +188,8 @@ INSERT INTO `taille` (`id`, `libelle`) VALUES
 (2,	'S'),
 (3,	'M'),
 (4,	'L'),
-(5,	'XL');
+(5,	'XL')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `libelle` = VALUES(`libelle`);
 
 DROP TABLE IF EXISTS `vetement`;
 CREATE TABLE `vetement` (
@@ -219,7 +235,8 @@ INSERT INTO `vetement` (`id`, `nom`, `prix`, `codeRgbOriginal`, `motifPosition`,
 (24,	'Mini Robe à Carreaux Ligne A',	11.2,	'',	'',	1,	'Détendu en forme, féminin dans le style, cette robe cami dispose d\'une impression tout au long de ceindre, fines bretelles et une coupe mini longueur séduisante, dans une silhouette évasée. portez-le avec des talons pour un style charmant.\r\nMatières: Polyester',	1),
 (25,	'Jupe Ligne A Teintée à Cordon',	13,	'',	'',	1,	'Jupe colorée en polyester. ',	6),
 (26,	'Mini Jupe Ligne A Nouée',	14,	'',	'',	1,	'Jupe courte avec une fermeture zippée. \r\nMatières: Polyester,Polyuréthane',	6),
-(27,	'Short Déchiré Zippé Design En Denim',	19.65,	'',	'',	2,	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	10);
+(27,	'Short Déchiré Zippé Design En Denim',	19.65,	'',	'',	2,	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	10)
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prix` = VALUES(`prix`), `codeRgbOriginal` = VALUES(`codeRgbOriginal`), `motifPosition` = VALUES(`motifPosition`), `numGenre` = VALUES(`numGenre`), `description` = VALUES(`description`), `idCateg` = VALUES(`idCateg`);
 
 DROP TABLE IF EXISTS `vet_couleur`;
 CREATE TABLE `vet_couleur` (
@@ -241,7 +258,8 @@ INSERT INTO `vet_couleur` (`num`, `nom`, `idVet`, `filterCssCode`, `dispo`) VALU
 (5,	'Blanc cassé',	3,	NULL,	1),
 (6,	'Rouge',	1,	NULL,	1),
 (7,	'Jaune',	6,	NULL,	1),
-(8,	'Beige',	5,	NULL,	1);
+(8,	'Beige',	5,	NULL,	1)
+ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `nom` = VALUES(`nom`), `idVet` = VALUES(`idVet`), `filterCssCode` = VALUES(`filterCssCode`), `dispo` = VALUES(`dispo`);
 
 DROP TABLE IF EXISTS `vet_taille`;
 CREATE TABLE `vet_taille` (
@@ -278,7 +296,8 @@ INSERT INTO `vet_taille` (`idVet`, `idTaille`) VALUES
 (8,	4),
 (1,	5),
 (6,	5),
-(8,	5);
+(8,	5)
+ON DUPLICATE KEY UPDATE `idVet` = VALUES(`idVet`), `idTaille` = VALUES(`idTaille`);
 
 DROP VIEW IF EXISTS `vue_categpargenre`;
 CREATE TABLE `vue_categpargenre` (`num` int(11), `libelle` varchar(20), `genre` varchar(1), `ListeIdCategorie` mediumtext);
@@ -294,4 +313,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`idTaille` separator ',') AS `listeIdTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-09-13 19:32:36
+-- 2020-09-18 16:46:40

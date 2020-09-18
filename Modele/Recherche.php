@@ -62,7 +62,9 @@ class Recherche{
             INNER JOIN taille t ON t.id = vt.idVet
             WHERE ".$this->getReqCouleur().
             " AND " .$this->getReqTaille().
-            " AND ".$this->getReqPrix();
+            " AND ".$this->getReqPrix()?
+            " AND ".$this->getReqCateg().
+            " AND ".$this->getReqGenre();
         return $reqFinal;
     }
     
