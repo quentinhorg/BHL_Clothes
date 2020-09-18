@@ -86,6 +86,9 @@ class ControleurCatalogue{
          echo "\n".$resultat ."\n" ;
       }
 
+      $prix = $_POST['prix'];
+      echo p
+
       //return $RechercheManager->getRecherche();
    }
 
