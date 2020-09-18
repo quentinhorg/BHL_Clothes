@@ -10,11 +10,16 @@
     <h3> Taille </h3>
     <ul>
         <?php foreach ($listeTaille as $libelle ){ ?> 
-        <li> <input <?php echo "name='taille".$libelle->libelle()."'"; ?> type ="checkbox"><?php echo $libelle->libelle() ; ?> </li> 
+        <li> 
+            <input <?php echo "name='taille[]'"; ?> type ="checkbox" <?php echo "value='".$libelle->id()."'" ?> > 
+            <?php echo $libelle->libelle() ; ?> 
+        </li> 
            <?php }
          ?>
         
     </ul>
+    <h3>Couleur</h3>
+    <input type="text" name="couleur">
     <h3> Prix </h3>
     <input name="prix" type="number">      
             <br>
@@ -25,7 +30,15 @@
 </div>
 
 <section id="catalogue">
-<?php echo $vuePagination ; ?>
+<?php
+
+if( $vuePagination != null){
+    echo $vuePagination ; 
+}
+
+
+
+?>
 <?php foreach ($listeVetement as $vetement) { ?>
     <div class="cadreVet">
         <a href="vetement/<?php echo $vetement->id() ?>"><div class="img" style="background-image: url(public/media/vetement/id<?php echo $vetement->id() ?>.jpg)" ></div></a>
@@ -56,7 +69,13 @@
 
 <?php } ?>
 
-<?php echo $vuePagination ; ?>
+<?php 
+
+if( $vuePagination != null){
+    echo $vuePagination ; 
+}
+
+?>
 
 
 </section>

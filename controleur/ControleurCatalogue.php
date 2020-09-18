@@ -13,28 +13,45 @@ class ControleurCatalogue{
       }
       else{
          
-         //DEBUG
-      
-            $this->recherche();
-       
+         //Systeme de recherche
+
+         $idCateg= null;
+         if( isset( $url[2])){
+            $idCateg = $url[2];
+         }
+
+         $libGenre = null;
+         if( isset( $url[1])){
+            $libGenre = $url[1];
+         }
 
 
-         if( isset($url[1]) && isset($url[2]) ){
+
+         if(isset($_POST['recherche'])){
+            $donnee = $this->recherche($libGenre, $idCateg);
+         }
+         else if( isset($url[1]) && isset($url[2]) ){
             $donnee =  $this->listeVetement($url[1], $url[2]);
          }
          else if( isset($url[1]) && !isset($url[2]) ){
             $donnee =  $this->listeVetement($url[1], null);
          }
          else{
-            
             $donnee =  $this->listeVetement(null, null);
          }
+
+
+
+         //A optimisé
+         if( $this->vetementManager != null){
+            $vuePagination = $this->vetementManager->Pagination->getVuePagination("catalogue&page=") ;
+         }else{ $vuePagination = null ;}
 
 
          $this->vue = new Vue('Catalogue') ;
          $this->vue->genererVue(array( 
             "listeVetement"=> $donnee,
-            "vuePagination" => $this->vetementManager->Pagination->getVuePagination("catalogue&page="),
+            "vuePagination" => $vuePagination,
             "listeTaille"=>$this->TaillesCatalogue()
          )) ;
          
@@ -65,15 +82,30 @@ class ControleurCatalogue{
       return $TaillesCatalogue->getListeTaille();
    }
 
-   public function recherche(){
+   public function recherche($genre, $categorie){
 
-      if( isset($_POST["recherche"]) ){
+ 
+
          $RechercheManager = new RechercheManager();
-            $prixIntervale= [0, 80];
-            $listeTaille= [1,2];
-            $listeCouleur= ["noir", "bleu"];
-            $categorie= null;
-            $genre = null;
+
+            $prixIntervale = null;
+            if (!empty($_POST['prix']) ){
+               $prixIntervale = [0, $_POST['prix']];
+            }
+
+            $listeTaille = null;
+            if (isset($_POST['taille'])){
+               $listeTaille = $_POST['taille'];
+            }
+            
+            $listeCouleur=null;
+            if(!empty($_POST['couleur'])){
+               $listeCouleur = $_POST['couleur'];
+            }
+            
+          
+
+            
 
          $resultat = $RechercheManager->getRecherche(
             $prixIntervale, 
@@ -83,17 +115,11 @@ class ControleurCatalogue{
             $genre
          );
 
-         echo "\n".$resultat ."\n" ;
-      }
+         return $resultat ;
 
-      //$prix = $_POST['prix'];
-      //echo "<h1>".$prix."</h1>";
 
-      // if (isset($_POST['taille'])) {
-      //    foreach ($_POST['taille'] as $recup){
-      //       echo "<h1>".$recup."</h1><br>";
-      //    }
-      // }
+      
+      
 
       //return $RechercheManager->getRecherche();
    }

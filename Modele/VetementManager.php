@@ -40,7 +40,6 @@ class VetementManager extends DataBase{
         }
        
         return $resultat;
-
     }
 
     public function getListeVetByCategGenre($libelleGenre, $idCateg){
