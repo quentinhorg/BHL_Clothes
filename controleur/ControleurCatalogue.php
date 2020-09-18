@@ -69,9 +69,9 @@ class ControleurCatalogue{
 
       if( isset($_POST["recherche"]) ){
          $RechercheManager = new RechercheManager();
-            $prixIntervale= null;
+            $prixIntervale= [0.5, 80];
             $listeTaille= [1,2];
-            $listeCouleur= null;
+            $listeCouleur= ["noir", "bleu"];
             $categorie= null;
             $genre = null;
 

@@ -17,29 +17,45 @@ class Recherche{
 
     public function getReqTaille(){
         if($this->listeTaille != null){
-            $req = "t.taille IN(".implode(",", $this->listeTaille ).")";
-        }else{ $req = "t.taille = t.taille" ;}
+            $req = "t.id IN(".implode(",", $this->listeTaille ).")";
+        }else{ $req = "t.id = t.id" ;}
 
         return $req;
     }
 
     public function getReqCouleur(){
         if($this->listeCouleur != null){
-            $req = "(vc.nom LIKE ".implode("OR vc.nom LIKE ", "%".$this->listeTaille."%" ).")";
+            $req = "(vc.nom LIKE '%".implode("%' OR vc.nom LIKE '%", $this->listeCouleur )."%')";
+        }else{ $req = "vc.nom = vc.nom" ;}
+
+        return $req;
+    }
+    public function getReqCateg(){
+        if($this->categorie != null){
+            $req = "(v.nom LIKE )";
         }else{ $req = "vc.nom = vc.nom" ;}
 
         return $req;
     }
 
+    public function getReqPrix(){
+        if($this->listeCouleur != null){
+            $req = "v.prix BETWEEN ".$this->intervalePrix[0]." AND ".$this->intervalePrix[1]."";
+        }else{ $req = "v.prix = v.prix" ;}
+
+        return $req;
+    }
+
     public function getReqFinal(){
-        $reqFinal = "SELECT * 
-            FROM vetement v
-            INNER JOIN vet_taille t ON t.idVet=v.id
-            INNER JOIN vet_couleur cc ON vc.idVet=v.id
-            INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet=v.id          
-            INNER JOIN taille ON taille.id=t.idTaille
+        $reqFinal = "SELECT DISTINCT(v.id), v.*
+            FROM vetement v 
+            INNER JOIN vet_taille vt ON vt.idVet = v.id 
+            INNER JOIN vet_couleur vc ON vc.idVet= v.id 
+            INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet= v.id 
+            INNER JOIN taille t ON t.id = vt.idVet
             WHERE ".$this->getReqCouleur().
-            " AND " .$this->getReqTaille();
+            " AND " .$this->getReqTaille().
+            " AND ".$this->getReqPrix();
         return $reqFinal;
     }
     
