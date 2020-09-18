@@ -13,10 +13,12 @@
         <li> <input <?php echo "name='taille_".$libelle->libelle()."'"; ?> type ="checkbox"><?php echo $libelle->libelle() ; ?> </li> 
            <?php }
          ?>
-         <input type="submit" name="submit_taille">
+        
     </ul>
     <h3> Prix </h3>
-    <input type="number">                 
+    <input type="number">      
+            <br>
+     <input type="submit" name="recherche">           
     </form>
 
 

@@ -12,6 +12,12 @@ class ControleurCatalogue{
          throw new Exception('Page introuvable');
       }
       else{
+         
+         //DEBUG
+      
+            $this->recherche();
+       
+
 
          if( isset($url[1]) && isset($url[2]) ){
             $donnee =  $this->listeVetement($url[1], $url[2]);
@@ -60,8 +66,27 @@ class ControleurCatalogue{
    }
 
    public function recherche(){
-      $TaillesCatalogue = new TailleManager();
-      return $TaillesCatalogue->getListeTaille();
+
+      if( isset($_POST["recherche"]) ){
+         $RechercheManager = new RechercheManager();
+            $prixIntervale= null;
+            $listeTaille= [1,2];
+            $listeCouleur= null;
+            $categorie= null;
+            $genre = null;
+
+         $resultat = $RechercheManager->getRecherche(
+            $prixIntervale, 
+            $listeTaille, 
+            $listeCouleur, 
+            $categorie, 
+            $genre
+         );
+
+         echo "\n".$resultat ."\n" ;
+      }
+
+      //return $RechercheManager->getRecherche();
    }
 
 

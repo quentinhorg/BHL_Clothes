@@ -7,7 +7,6 @@ class Recherche{
     private $categorie;
     private $genre;
 
-
     public function __construct($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre){
         $this->intervalePrix = $prixIntervale ;
         $this->listeTaille = $listeTaille ;
@@ -19,18 +18,31 @@ class Recherche{
     public function getReqTaille(){
         if($this->listeTaille != null){
             $req = "t.taille IN(".implode(",", $this->listeTaille ).")";
-        }else{ $req = null ;}
+        }else{ $req = "t.taille = t.taille" ;}
 
         return $req;
     }
 
-    public function get(){
-        if($this->listeTaille != null){
-            $req = "t.taille IN(".implode(",", $this->listeTaille ).")";
-        }else{ $req = null ;}
+    public function getReqCouleur(){
+        if($this->listeCouleur != null){
+            $req = "(vc.nom LIKE ".implode("OR vc.nom LIKE ", "%".$this->listeTaille."%" ).")";
+        }else{ $req = "vc.nom = vc.nom" ;}
 
         return $req;
     }
+
+    public function getReqFinal(){
+        $reqFinal = "SELECT * 
+            FROM vetement v
+            INNER JOIN vet_taille t ON t.idVet=v.id
+            INNER JOIN vet_couleur cc ON vc.idVet=v.id
+            INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet=v.id          
+            INNER JOIN taille ON taille.id=t.idTaille
+            WHERE ".$this->getReqCouleur().
+            " AND " .$this->getReqTaille();
+        return $reqFinal;
+    }
+    
 
     
 
