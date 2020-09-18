@@ -32,8 +32,15 @@ class Recherche{
     }
     public function getReqCateg(){
         if($this->categorie != null){
-            $req = "(v.nom LIKE )";
-        }else{ $req = "vc.nom = vc.nom" ;}
+            $req = "v.idCateg = ".$this->categorie;
+        }else{ $req = "v.idCateg = v.idCateg" ;}
+
+        return $req;
+    }
+    public function getReqGenre(){
+        if($this->categorie != null){
+            $req = "v.numGenre = ".$this->genre;
+        }else{ $req = "v.numGenre = v.numGenre" ;}
 
         return $req;
     }
@@ -64,40 +71,7 @@ class Recherche{
 
 }
 
-/*
 
-
-SELECT * 
-FROM vetement v
-INNER JOIN vet_taille t ON t.idVet=v.id
-INNER JOIN vet_couleur c ON c.idVet=v.id
-INNER JOIN vue_vet_disponibilite d ON d.idVet=v.id          
-INNER JOIN taille ON taille.id=t.idTaille
-WHERE libelle IN("XS", "S", "L", "M", "XL")
-
-
-SELECT * 
-FROM vetement
-INNER JOIN vet_taille t ON t.idVet=vetement.id
-INNER JOIN vet_couleur c ON c.idVet=vetement.id
-INNER JOIN vue_vet_disponibilite d ON d.idVet=vetement.id
-INNER JOIN taille ON taille.id=t.idTaille
-WHERE c.nom IN("Jaune","Beige","Rouge")
-
-
-taille 
-couleur
-
-taille + couleur 
-
-vet possède au moins 1 taille, 1 couleur
-
-
-fonction estDispo= si possède 1 couleur ET 1 taille= dispo sinon pas dispo
-
-
-
-*/
 
 
 
