@@ -16,7 +16,7 @@
         
     </ul>
     <h3> Prix </h3>
-    <input type="number" name"prix">      
+    <input type="number">      
             <br>
      <input type="submit" name="recherche">           
     </form>
