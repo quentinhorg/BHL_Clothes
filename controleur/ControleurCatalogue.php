@@ -84,38 +84,34 @@ class ControleurCatalogue{
 
    public function recherche($genre, $categorie){
 
- 
+      $this->vetementManager = new VetementManager;
+      $this->vetementManager->setPagination(10);
 
-         $RechercheManager = new RechercheManager();
+      $prixIntervale = null;
+      if (!empty($_POST['prix']) ){
+         $prixIntervale = [0, $_POST['prix']];
+      }
 
-            $prixIntervale = null;
-            if (!empty($_POST['prix']) ){
-               $prixIntervale = [0, $_POST['prix']];
-            }
+      $listeTaille = null;
+      if (isset($_POST['taille'])){
+         $listeTaille = $_POST['taille'];
+      }
+      
+      $listeCouleur=null;
+      if(!empty($_POST['couleur'])){
+         $listeCouleur = $_POST['couleur'];
+      }
+      
 
-            $listeTaille = null;
-            if (isset($_POST['taille'])){
-               $listeTaille = $_POST['taille'];
-            }
-            
-            $listeCouleur=null;
-            if(!empty($_POST['couleur'])){
-               $listeCouleur = $_POST['couleur'];
-            }
-            
-          
+   $resultat = $this->vetementManager->getRechercheVetement(
+      $prixIntervale, 
+      $listeTaille, 
+      $listeCouleur, 
+      $categorie, 
+      $genre
+   );
 
-            
-
-         $resultat = $RechercheManager->getRecherche(
-            $prixIntervale, 
-            $listeTaille, 
-            $listeCouleur, 
-            $categorie, 
-            $genre
-         );
-
-         return $resultat ;
+   return $resultat ;
 
 
       

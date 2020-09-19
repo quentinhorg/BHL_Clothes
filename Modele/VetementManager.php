@@ -22,8 +22,6 @@ class VetementManager extends DataBase{
     public function getVetement($id){
         $req = $this->reqBase." WHERE v.id = ?" ;
         $this->getBdd();
-
-        
         return $this->getModele($req, [$id], "Vetement")[0];
     }
 
@@ -32,7 +30,8 @@ class VetementManager extends DataBase{
     public function getListeVetement(){
         $resultat = null;
         if( $this->Pagination != null){
-            $req = $this->reqBase." ";
+            $req = $this->reqBase." WHERE vvd.listeIdCouleurDispo IS NOT NULL
+            AND vvd.listeIdTailleDispo IS NOT NULL";
             $this->Pagination->getBdd();
     
             $newReq = $this->Pagination->getReqPagination($req, ["*"]);
@@ -40,6 +39,23 @@ class VetementManager extends DataBase{
         }
        
         return $resultat;
+    }
+
+    public function getRechercheVetement($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre){
+       
+        $resultat = null;
+        if( $this->Pagination != null){
+            $Recherche = new Recherche($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre) ;
+            $reqRecherche = $Recherche->getReqFinal() ;
+            $this->Pagination->getBdd();
+    
+            $newReq = $this->Pagination->getReqPagination($reqRecherche, ["*"]);
+            $resultat = $this->Pagination->getModele($newReq, ["*"], "Vetement") ;
+        }
+       
+        return $resultat;
+        
+     
     }
 
     public function getListeVetByCategGenre($libelleGenre, $idCateg){

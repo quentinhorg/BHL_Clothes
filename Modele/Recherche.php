@@ -17,8 +17,8 @@ class Recherche{
 
     public function getReqTaille(){
         if($this->listeTaille != null){
-            $req = "t.id IN(".implode(",", $this->listeTaille ).")";
-        }else{ $req = "t.id = t.id" ;}
+            $req = " AND t.id IN(".implode(",", $this->listeTaille ).")";
+        }else{ $req = null ;}
 
         return $req;
     }
@@ -28,31 +28,31 @@ class Recherche{
 
             $tabCouleur = explode(" ", $this->couleurText);
 
-            $req = "(vc.nom LIKE '%".implode("%' OR vc.nom LIKE '%", $tabCouleur )."%')";
-        }else{ $req = "vc.nom = vc.nom" ;}
+            $req = "AND (vc.nom LIKE '%".implode("%' OR vc.nom LIKE '%", $tabCouleur )."%')";
+        }else{ $req = null ;}
 
         return $req;
     }
     public function getReqCateg(){
         if($this->categorie != null){
-            $req = "v.idCateg = ".$this->categorie;
-        }else{ $req = "v.idCateg = v.idCateg" ;}
+            $req = "AND v.idCateg = ".$this->categorie;
+        }else{ $req = null ;}
 
         return $req;
     }
     
     public function getReqGenre(){
         if($this->genre != null){
-            $req = "g.libelle LIKE  '".$this->genre."'";
-        }else{ $req = "g.libelle = g.libelle" ;}
+            $req = "AND g.libelle LIKE  '".$this->genre."'";
+        }else{ $req = null ;}
 
         return $req;
     }
 
     public function getReqPrix(){
         if($this->intervalePrix != null){
-            $req = "v.prix BETWEEN ".$this->intervalePrix[0]." AND ".$this->intervalePrix[1]."";
-        }else{ $req = "v.prix = v.prix" ;}
+            $req = "AND v.prix BETWEEN ".$this->intervalePrix[0]." AND ".$this->intervalePrix[1]."";
+        }else{ $req = null;}
         
         return $req;
     }
@@ -64,12 +64,14 @@ class Recherche{
             INNER JOIN vet_couleur vc ON vc.idVet= v.id 
             INNER JOIN genre g ON g.num = v.numGenre
             INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet= v.id 
-            INNER JOIN taille t ON t.id = vt.idVet
-            WHERE ".$this->getReqCouleur().
-            " AND " .$this->getReqTaille().
-            " AND ".$this->getReqPrix().
-            " AND ".$this->getReqCateg().
-            " AND ".$this->getReqGenre();
+            LEFT JOIN taille t ON t.id = vt.idVet
+            WHERE vvd.listeIdCouleurDispo IS NOT NULL
+            AND vvd.listeIdTailleDispo IS NOT NULL".
+            " ".$this->getReqCouleur().
+            " " .$this->getReqTaille().
+            " ".$this->getReqPrix().
+            " ".$this->getReqCateg().
+            " ".$this->getReqGenre();
         return $reqFinal;
     }
     
