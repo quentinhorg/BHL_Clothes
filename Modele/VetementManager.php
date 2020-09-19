@@ -65,7 +65,8 @@ class VetementManager extends DataBase{
         $numGenre = $this->execBDD($reqGnere, [$libelleGenre])[0]["num"];
 
         $this->getBdd();
-        $req = $this->reqBase." WHERE v.idCateg = ? AND numGenre = ?";
+        $req = $this->reqBase." WHERE v.idCateg = ? AND numGenre = ? AND vvd.listeIdCouleurDispo IS NOT NULL
+        AND vvd.listeIdTailleDispo IS NOT NULL";
         
         return $this->getModele($req, [$idCateg, $numGenre], "Vetement");
     }
@@ -77,7 +78,8 @@ class VetementManager extends DataBase{
         $numGenre = $this->execBDD($reqGnere, [$libelleGenre])[0]["num"];
 
 
-        $req = $this->reqBase." WHERE numGenre = ?";
+        $req = $this->reqBase." WHERE numGenre = ? AND vvd.listeIdCouleurDispo IS NOT NULL
+        AND vvd.listeIdTailleDispo IS NOT NULL";
         $this->getBdd();
         return $this->getModele($req, [$numGenre], "Vetement");
     }
