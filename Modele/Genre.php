@@ -1,9 +1,8 @@
 <?php 
 
 class Genre{
-   private  $num;
+   private  $code;
    private  $libelle;
-   private  $genre;
    private  $listeCateg; //Objet
    
    
@@ -39,21 +38,21 @@ class Genre{
       }
    }
 
-   public function setGenre($genre){
-      if(is_string($genre)){
-         $this->genre = $genre;
+   public function setcode($code){
+      if(is_string($code)){
+         $this->code = $code;
       }
    }
 
-   public function setListeIdCategorie($listeIdCateg){
+   public function setListecodeCategorie($listecodeCateg){
       
       
-      if($listeIdCateg != null ){
-         $listeIdCateg = explode(",", $listeIdCateg);
+      if($listecodeCateg != null ){
+         $listecodeCateg = explode(",", $listecodeCateg);
          $categManager = new CategorieManager ;
-         foreach ($listeIdCateg as $categId) {
+         foreach ($listecodeCateg as $categcode) {
            
-            $this->listeCateg[] = $categManager->getCateg($categId) ;
+            $this->listeCateg[] = $categManager->getCateg($categcode) ;
          }
       }
       
@@ -67,8 +66,8 @@ class Genre{
       return $this->num;
    }
 
-   public function genre(){
-      return $this->genre;
+   public function code(){
+      return $this->code;
    }
    public function libelle(){
       return $this->libelle;

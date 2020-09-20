@@ -9,10 +9,10 @@ class GenreManager extends DataBase{
     }
 
     public function getListeGenre(){
-        $req = "SELECT * FROM vue_categpargenre";
+        $req = "SELECT * FROM vue_categpargenre vcg 
+        INNER JOIN genre g ON vcg.codeGenre = g.code";
         $this->getBdd();
         return $this->getModele($req, ["*"], "Genre");
-
     }
 
 

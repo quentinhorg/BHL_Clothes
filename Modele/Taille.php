@@ -3,6 +3,7 @@
 class Taille{
    private  $id;
    private  $libelle;
+   private  $type;
    
    
    public function __construct(array $donnee){
@@ -38,6 +39,12 @@ class Taille{
       }
    }
 
+   public function setType($type){
+      if(is_string($type)){
+         $this->type = $type;
+      }
+   }
+
  
    
 
@@ -49,6 +56,10 @@ class Taille{
 
    public function libelle(){
       return $this->libelle;
+   }
+
+   public function type(){
+      return $this->type;
    }
 
 

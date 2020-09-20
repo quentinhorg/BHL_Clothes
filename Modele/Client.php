@@ -43,6 +43,7 @@ class Client{
         }
     }
 
+    
     public function setPrenom($prenom){
         if(is_string($prenom)){
             $this->prenomnom = $prenomnom;
