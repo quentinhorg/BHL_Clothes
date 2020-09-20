@@ -54,7 +54,7 @@
             <a class="genreNav" href="catalogue/<?php echo strtolower($genre->libelle()); ?>"><?php echo $genre->libelle() ?></a>
             <div class="dropdown-content">
                <?php foreach ($genre->listeCateg() as $categ) { ?>
-                  <a href="catalogue/<?php echo strtolower($genre->libelle()); ?>/<?php echo $categ->id() ?>"><?php echo $categ->nom() ?></a>
+                  <a href="catalogue/<?php echo strtolower($genre->code()); ?>/<?php echo $categ->id() ?>"><?php echo $categ->nom() ?></a>
                <?php } ?>
             </div>
          </div>

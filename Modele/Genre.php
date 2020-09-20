@@ -44,18 +44,17 @@ class Genre{
       }
    }
 
-   public function setListecodeCategorie($listecodeCateg){
+   public function setListeIdCategorie($listeIdCateg){
       
-      
-      if($listecodeCateg != null ){
-         $listecodeCateg = explode(",", $listecodeCateg);
+
+      if($listeIdCateg != null ){
+         $listeIdCateg = explode(",", $listeIdCateg);
          $categManager = new CategorieManager ;
-         foreach ($listecodeCateg as $categcode) {
+         foreach ($listeIdCateg as $categcode) {
            
             $this->listeCateg[] = $categManager->getCateg($categcode) ;
          }
       }
-      
 
    }
  
