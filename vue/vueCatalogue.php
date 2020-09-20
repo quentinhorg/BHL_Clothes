@@ -9,13 +9,13 @@
 
     <h3> Taille </h3>
     <ul>
-        <?php foreach ($listeTaille as $libelle ){ ?> 
-        <li> 
-            <input <?php echo "name='taille[]'"; ?> type ="checkbox" <?php echo "value='".$libelle->id()."'" ?> > 
-            <?php echo $libelle->libelle() ; ?> 
-        </li> 
-           <?php }
-         ?>
+        <?php foreach ($listeTaille as $libelle ){ 
+             echo "<li> " ;
+             echo     "<input name='taille[]' id='taille_".$libelle->id()."' type='checkbox' value='".$libelle->id()."'>  <label for='taille_".$libelle->id()."'> ".$libelle->libelle()."</label>" ;
+             echo "</li>";
+            }
+        ?>
+ 
         
     </ul>
     <h3>Couleur</h3>
@@ -25,7 +25,9 @@
     <?php 
     
     foreach ($listClrPrincipale as $couleur) {
-       echo "<li> <input name='couleur[]' id='clr_$couleur' type='checkbox' value='$couleur'>  <label for='clr_$couleur'>  $couleur </li>";
+       echo "<li> " ;
+       echo     "<input name='couleur[]' id='clr_$couleur' type='checkbox' value='$couleur'>  <label for='clr_$couleur'>  $couleur </label>" ;
+       echo "</li>";
     }
     
     
