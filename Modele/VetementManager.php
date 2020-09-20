@@ -58,30 +58,23 @@ class VetementManager extends DataBase{
      
     }
 
-    public function getListeVetByCategGenre($libelleGenre, $idCateg){
+    public function getListeVetByCategGenre($codeGenre, $idCateg){
         $this->getBdd();
-        //Obtention de l'id du genre
-        $reqGnere= "SELECT num FROM genre WHERE libelle LIKE ?" ;
-        $numGenre = $this->execBDD($reqGnere, [$libelleGenre])[0]["num"];
 
         $this->getBdd();
-        $req = $this->reqBase." WHERE v.idCateg = ? AND numGenre = ? AND vvd.listeIdCouleurDispo IS NOT NULL
+        $req = $this->reqBase." WHERE v.idCateg = ? AND codeGenre = ? AND vvd.listeIdCouleurDispo IS NOT NULL
         AND vvd.listeIdTailleDispo IS NOT NULL";
         
-        return $this->getModele($req, [$idCateg, $numGenre], "Vetement");
+        return $this->getModele($req, [$idCateg, $codeGenre], "Vetement");
     }
 
-    public function getListeVetByGenre($libelleGenre){
+    public function getListeVetByGenre($codeGenre){
         $this->getBdd();
-        //Obtention de l'id du genre
-        $reqGnere = "SELECT num FROM genre WHERE libelle LIKE ?" ;
-        $numGenre = $this->execBDD($reqGnere, [$libelleGenre])[0]["num"];
 
-
-        $req = $this->reqBase." WHERE numGenre = ? AND vvd.listeIdCouleurDispo IS NOT NULL
+        $req = $this->reqBase." WHERE codeGenre = ? AND vvd.listeIdCouleurDispo IS NOT NULL
         AND vvd.listeIdTailleDispo IS NOT NULL";
         $this->getBdd();
-        return $this->getModele($req, [$numGenre], "Vetement");
+        return $this->getModele($req, [$codeGenre], "Vetement");
     }
 
 }

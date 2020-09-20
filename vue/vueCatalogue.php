@@ -15,8 +15,6 @@
              echo "</li>";
             }
         ?>
- 
-        
     </ul>
     <h3>Couleur</h3>
 
@@ -29,8 +27,6 @@
        echo     "<input name='couleur[]' id='clr_$couleur' type='checkbox' value='$couleur'>  <label for='clr_$couleur'>  $couleur </label>" ;
        echo "</li>";
     }
-    
-    
     ?>
 
     </ul>

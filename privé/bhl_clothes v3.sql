@@ -162,34 +162,39 @@ ON DUPLICATE KEY UPDATE `idContact` = VALUES(`idContact`), `nom` = VALUES(`nom`)
 
 DROP TABLE IF EXISTS `genre`;
 CREATE TABLE `genre` (
-  `num` int(11) NOT NULL,
+  `code` varchar(1) NOT NULL,
   `libelle` varchar(20) NOT NULL,
-  `genre` varchar(1) NOT NULL,
-  PRIMARY KEY (`num`),
-  UNIQUE KEY `libelle` (`libelle`),
-  UNIQUE KEY `genre` (`genre`)
+  PRIMARY KEY (`code`),
+  UNIQUE KEY `libelle` (`libelle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `genre` (`num`, `libelle`, `genre`) VALUES
-(1,	'Femme',	'F'),
-(2,	'Homme',	'H'),
-(3,	'Mixte',	'M')
-ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `libelle` = VALUES(`libelle`), `genre` = VALUES(`genre`);
+INSERT INTO `genre` (`code`, `libelle`) VALUES
+('F',	'Femme'),
+('H',	'Homme'),
+('M',	'Mixte')
+ON DUPLICATE KEY UPDATE `code` = VALUES(`code`), `libelle` = VALUES(`libelle`);
 
 DROP TABLE IF EXISTS `taille`;
 CREATE TABLE `taille` (
   `id` int(3) NOT NULL,
   `libelle` varchar(20) NOT NULL,
+  `type` varchar(15) NOT NULL DEFAULT 'chiffre',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `taille` (`id`, `libelle`) VALUES
-(1,	'XS'),
-(2,	'S'),
-(3,	'M'),
-(4,	'L'),
-(5,	'XL')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `libelle` = VALUES(`libelle`);
+INSERT INTO `taille` (`id`, `libelle`, `type`) VALUES
+(1,	'XS',	'lettre'),
+(2,	'S',	'lettre'),
+(3,	'M',	'lettre'),
+(4,	'L',	'lettre'),
+(5,	'XL',	'lettre'),
+(6,	'32',	'chiffre'),
+(7,	'33',	'chiffre'),
+(8,	'34',	'chiffre'),
+(9,	'35',	'chiffre'),
+(10,	'36',	'chiffre'),
+(11,	'42',	'chiffre')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `libelle` = VALUES(`libelle`), `type` = VALUES(`type`);
 
 DROP TABLE IF EXISTS `vetement`;
 CREATE TABLE `vetement` (
@@ -198,45 +203,45 @@ CREATE TABLE `vetement` (
   `prix` float NOT NULL,
   `codeRgbOriginal` varchar(10) NOT NULL,
   `motifPosition` varchar(150) NOT NULL,
-  `numGenre` int(11) NOT NULL,
+  `codeGenre` varchar(1) NOT NULL,
   `description` text NOT NULL,
   `idCateg` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `numGenre` (`numGenre`),
+  KEY `numGenre` (`codeGenre`),
   KEY `idCateg` (`idCateg`),
-  CONSTRAINT `vetement_ibfk_1` FOREIGN KEY (`numGenre`) REFERENCES `genre` (`num`),
-  CONSTRAINT `vetement_ibfk_2` FOREIGN KEY (`idCateg`) REFERENCES `categorie` (`id`)
+  CONSTRAINT `vetement_ibfk_2` FOREIGN KEY (`idCateg`) REFERENCES `categorie` (`id`),
+  CONSTRAINT `vetement_ibfk_3` FOREIGN KEY (`codeGenre`) REFERENCES `genre` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `vetement` (`id`, `nom`, `prix`, `codeRgbOriginal`, `motifPosition`, `numGenre`, `description`, `idCateg`) VALUES
-(1,	'Robe D\'Eté Superposée Fleurie Imprimée',	25.5,	'#fff',	'test',	1,	'Petite robe imprimée en coton avec des bretelles fines. Matières: rayonne.',	1),
-(2,	'Short de Survêtement à Cordon',	10,	'#f3b2c2',	'',	1,	'Short',	5),
-(3,	'T-shirt Manche longue unicolore',	15,	'#fff',	'',	1,	'Tshirt manche longue en coton.',	2),
-(4,	'Pull Court Simple Surdimensionné',	37,	'#8ba3ad',	'testr',	1,	'Pull court manches longues. Matières: coton, polyester',	4),
-(5,	'Pull Court Rayé à Col Rond',	38.2,	'#fff',	'',	1,	'Pull rayé manches longues au col rond. Matières: polyester, coton',	4),
-(6,	'Short Décontracté En Couleur Jointive à Taille Elastique',	13.8,	'#fff',	'',	2,	'Matières: Polyamide',	5),
-(7,	'T-shirt Motif De Lettre Dessin Animé',	15,	'',	'',	2,	'T-shirt pour homme en coton, col rond.',	2),
-(8,	'Pull Tordu à Epaule Dénudée',	20,	'',	'',	3,	'Pull qui décore avec un design torsadé à l\'avant. Matières: coton, polyacrylique.',	4),
-(9,	'Veste Déchirée En Couleur Unie En Denim',	34.9,	'',	'',	3,	'Veste déchirée avec un col rabattu à manches longues. Matières: coton, polyester.',	8),
-(10,	'Pantalon slim',	12,	'',	'',	1,	'222',	12),
-(11,	'Bermuda chino uni',	15,	'',	'',	2,	'222',	10),
-(12,	'T-shirt Graphique Grue Barboteuse Chinoise Fleurie Imprimé',	17.99,	'',	'',	2,	'T-shirt manches courtes imprimé en coton.',	2),
-(13,	'T-shirt Court Sanglé à Col V',	10,	'',	'',	1,	'T-shirt Court Sanglé à Col V.\r\nMatières: Polyuréthane,Rayonne',	2),
-(14,	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée',	11,	'',	'',	1,	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée. \r\nMatières: Coton,Polyester',	2),
-(15,	'Haut Court Côtelé Sans Dos à Bretelle ',	12,	'',	'',	1,	'Haut Court Côtelé Sans Dos à Bretelle qui met en valeur la taille marquée. \r\nMatières: Polyuréthane,Rayonne',	2),
-(16,	' Haut Court Côtelé à Bretelle Trodu',	15,	'',	'',	1,	'Haut Court Côtelé à Bretelle Trodu.\r\nHaut qui flatte la silhouette avec des fines bretelles mettant en avant le décolleté et le dos. \r\nMatières: Polyuréthane,Rayonne',	2),
-(17,	'T-Shirt à Imprimé Rayures En Blocs De Couleurs',	10,	'',	'',	2,	'Un t-shirt avec un motif à rayures panachées, un col rond, des manches courtes et une coupe classique.\r\nMatières: Polyester',	2),
-(18,	'T-shirt Rose Brodée à Manches Courtes',	13.5,	'',	'',	2,	'T-shirt basique surmonté d\'un col rond et manches courtes.\r\nMatières: Coton,Polyester,Spandex',	2),
-(19,	'Veste Déchirée Avec Poche à Rabat En Denim',	37.6,	'',	'',	2,	'Veste déchirée manches longues.\r\nMatières: Coton,Polyester,Spandex',	8),
-(20,	'Pantalon de Survêtement Lettre Applique à Cordon en Laine',	23.5,	'',	'',	2,	'Pantalon de Survêtement avec élastique à la taille en coton.',	12),
-(21,	'Pantalon Panneau En Blocs De Couleurs à Taille Elastique',	19.99,	'',	'',	2,	'Pantalon à Taille Elastique en polyesther. ',	12),
-(22,	'T-shirt Rayé Chiffre Brodé à Manches Longues',	14.9,	'',	'',	2,	'T-shirt Rayé Chiffre Brodé à Manches Longues\r\nMatières: Coton,Polyacrylique,Polyester',	4),
-(23,	'Robe à Bretelle Fleurie Plissée à Volants',	20,	'',	'',	1,	'Robe à Bretelle Fleurie Plissée à Volants.\r\nLes plis sont réunis avec la taille élastique et le dos smocké aide à façonner les courbes.\r\nMatières: Polyester',	1),
-(24,	'Mini Robe à Carreaux Ligne A',	11.2,	'',	'',	1,	'Détendu en forme, féminin dans le style, cette robe cami dispose d\'une impression tout au long de ceindre, fines bretelles et une coupe mini longueur séduisante, dans une silhouette évasée. portez-le avec des talons pour un style charmant.\r\nMatières: Polyester',	1),
-(25,	'Jupe Ligne A Teintée à Cordon',	13,	'',	'',	1,	'Jupe colorée en polyester. ',	6),
-(26,	'Mini Jupe Ligne A Nouée',	14,	'',	'',	1,	'Jupe courte avec une fermeture zippée. \r\nMatières: Polyester,Polyuréthane',	6),
-(27,	'Short Déchiré Zippé Design En Denim',	19.65,	'',	'',	2,	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	10)
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prix` = VALUES(`prix`), `codeRgbOriginal` = VALUES(`codeRgbOriginal`), `motifPosition` = VALUES(`motifPosition`), `numGenre` = VALUES(`numGenre`), `description` = VALUES(`description`), `idCateg` = VALUES(`idCateg`);
+INSERT INTO `vetement` (`id`, `nom`, `prix`, `codeRgbOriginal`, `motifPosition`, `codeGenre`, `description`, `idCateg`) VALUES
+(1,	'Robe D\'Eté Superposée Fleurie Imprimée',	25.5,	'#fff',	'test',	'F',	'Petite robe imprimée en coton avec des bretelles fines. Matières: rayonne.',	1),
+(2,	'Short de Survêtement à Cordon',	10,	'#f3b2c2',	'',	'F',	'Short',	5),
+(3,	'T-shirt Manche longue unicolore',	15,	'#fff',	'',	'F',	'Tshirt manche longue en coton.',	2),
+(4,	'Pull Court Simple Surdimensionné',	37,	'#8ba3ad',	'testr',	'F',	'Pull court manches longues. Matières: coton, polyester',	4),
+(5,	'Pull Court Rayé à Col Rond',	38.2,	'#fff',	'',	'F',	'Pull rayé manches longues au col rond. Matières: polyester, coton',	4),
+(6,	'Short Décontracté En Couleur Jointive à Taille Elastique',	13.8,	'#fff',	'',	'H',	'Matières: Polyamide',	5),
+(7,	'T-shirt Motif De Lettre Dessin Animé',	15,	'',	'',	'H',	'T-shirt pour homme en coton, col rond.',	2),
+(8,	'Pull Tordu à Epaule Dénudée',	20,	'',	'',	'M',	'Pull qui décore avec un design torsadé à l\'avant. Matières: coton, polyacrylique.',	4),
+(9,	'Veste Déchirée En Couleur Unie En Denim',	34.9,	'',	'',	'M',	'Veste déchirée avec un col rabattu à manches longues. Matières: coton, polyester.',	8),
+(10,	'Pantalon slim',	12,	'',	'',	'F',	'222',	12),
+(11,	'Bermuda chino uni',	15,	'',	'',	'H',	'222',	10),
+(12,	'T-shirt Graphique Grue Barboteuse Chinoise Fleurie Imprimé',	17.99,	'',	'',	'H',	'T-shirt manches courtes imprimé en coton.',	2),
+(13,	'T-shirt Court Sanglé à Col V',	10,	'',	'',	'F',	'T-shirt Court Sanglé à Col V.\r\nMatières: Polyuréthane,Rayonne',	2),
+(14,	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée',	11,	'',	'',	'F',	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée. \r\nMatières: Coton,Polyester',	2),
+(15,	'Haut Court Côtelé Sans Dos à Bretelle ',	12,	'',	'',	'F',	'Haut Court Côtelé Sans Dos à Bretelle qui met en valeur la taille marquée. \r\nMatières: Polyuréthane,Rayonne',	2),
+(16,	' Haut Court Côtelé à Bretelle Trodu',	15,	'',	'',	'F',	'Haut Court Côtelé à Bretelle Trodu.\r\nHaut qui flatte la silhouette avec des fines bretelles mettant en avant le décolleté et le dos. \r\nMatières: Polyuréthane,Rayonne',	2),
+(17,	'T-Shirt à Imprimé Rayures En Blocs De Couleurs',	10,	'',	'',	'H',	'Un t-shirt avec un motif à rayures panachées, un col rond, des manches courtes et une coupe classique.\r\nMatières: Polyester',	2),
+(18,	'T-shirt Rose Brodée à Manches Courtes',	13.5,	'',	'',	'H',	'T-shirt basique surmonté d\'un col rond et manches courtes.\r\nMatières: Coton,Polyester,Spandex',	2),
+(19,	'Veste Déchirée Avec Poche à Rabat En Denim',	37.6,	'',	'',	'H',	'Veste déchirée manches longues.\r\nMatières: Coton,Polyester,Spandex',	8),
+(20,	'Pantalon de Survêtement Lettre Applique à Cordon en Laine',	23.5,	'',	'',	'H',	'Pantalon de Survêtement avec élastique à la taille en coton.',	12),
+(21,	'Pantalon Panneau En Blocs De Couleurs à Taille Elastique',	19.99,	'',	'',	'H',	'Pantalon à Taille Elastique en polyesther. ',	12),
+(22,	'T-shirt Rayé Chiffre Brodé à Manches Longues',	14.9,	'',	'',	'H',	'T-shirt Rayé Chiffre Brodé à Manches Longues\r\nMatières: Coton,Polyacrylique,Polyester',	4),
+(23,	'Robe à Bretelle Fleurie Plissée à Volants',	20,	'',	'',	'F',	'Robe à Bretelle Fleurie Plissée à Volants.\r\nLes plis sont réunis avec la taille élastique et le dos smocké aide à façonner les courbes.\r\nMatières: Polyester',	1),
+(24,	'Mini Robe à Carreaux Ligne A',	11.2,	'',	'',	'F',	'Détendu en forme, féminin dans le style, cette robe cami dispose d\'une impression tout au long de ceindre, fines bretelles et une coupe mini longueur séduisante, dans une silhouette évasée. portez-le avec des talons pour un style charmant.\r\nMatières: Polyester',	1),
+(25,	'Jupe Ligne A Teintée à Cordon',	13,	'',	'',	'F',	'Jupe colorée en polyester. ',	6),
+(26,	'Mini Jupe Ligne A Nouée',	14,	'',	'',	'F',	'Jupe courte avec une fermeture zippée. \r\nMatières: Polyester,Polyuréthane',	6),
+(27,	'Short Déchiré Zippé Design En Denim',	19.65,	'',	'',	'H',	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	10)
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prix` = VALUES(`prix`), `codeRgbOriginal` = VALUES(`codeRgbOriginal`), `motifPosition` = VALUES(`motifPosition`), `codeGenre` = VALUES(`codeGenre`), `description` = VALUES(`description`), `idCateg` = VALUES(`idCateg`);
 
 DROP TABLE IF EXISTS `vet_couleur`;
 CREATE TABLE `vet_couleur` (
@@ -300,7 +305,7 @@ INSERT INTO `vet_taille` (`idVet`, `idTaille`) VALUES
 ON DUPLICATE KEY UPDATE `idVet` = VALUES(`idVet`), `idTaille` = VALUES(`idTaille`);
 
 DROP VIEW IF EXISTS `vue_categpargenre`;
-CREATE TABLE `vue_categpargenre` (`num` int(11), `libelle` varchar(20), `genre` varchar(1), `ListeIdCategorie` mediumtext);
+CREATE TABLE `vue_categpargenre` (`codeGenre` varchar(1), `ListeIdCategorie` mediumtext);
 
 
 DROP VIEW IF EXISTS `vue_vet_disponibilite`;
@@ -308,9 +313,9 @@ CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeIdCouleurDispo` med
 
 
 DROP TABLE IF EXISTS `vue_categpargenre`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`num` AS `num`,`g`.`libelle` AS `libelle`,`g`.`genre` AS `genre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`numGenre` = `g`.`num`)) group by `v`.`numGenre` order by `g`.`num`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`idTaille` separator ',') AS `listeIdTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-09-18 16:46:40
+-- 2020-09-20 17:04:37
