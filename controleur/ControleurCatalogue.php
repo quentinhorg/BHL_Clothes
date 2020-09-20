@@ -99,7 +99,7 @@ class ControleurCatalogue{
       }
 
       $listeTaille = null;
-      if (isset($_POST['taille'])){
+      if (!empty($_POST['taille'])){
          $listeTaille = $_POST['taille'];
       }
       
@@ -108,7 +108,7 @@ class ControleurCatalogue{
          $listeCouleur = $_POST['couleur'];
       }
       
-
+      
    $resultat = $this->vetementManager->getRechercheVetement(
       $prixIntervale, 
       $listeTaille, 

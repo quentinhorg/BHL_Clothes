@@ -13,6 +13,8 @@ class Recherche{
         $this->listeCouleur = $listeCouleur ;
         $this->categorie = $categorie ;
         $this->genre = $genre;
+
+       
     }
 
     public function getReqTaille(){
@@ -25,7 +27,7 @@ class Recherche{
 
     public function getReqCouleur(){
         if($this->listeCouleur != null){
-            $req = "AND (vc.nom LIKE \'%". implode("%' OR vc.nom LIKE '%", $this->listeCouleur )."%')";
+            $req = "AND (vc.nom LIKE '%". implode("%' OR vc.nom LIKE '%", $this->listeCouleur )."%')";
         }else{ $req = null ;}
 
         return $req;

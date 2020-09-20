@@ -48,7 +48,7 @@ class VetementManager extends DataBase{
             $Recherche = new Recherche($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre) ;
             $reqRecherche = $Recherche->getReqFinal() ;
             $this->Pagination->getBdd();
-    
+            echo "$reqRecherche";
             $newReq = $this->Pagination->getReqPagination($reqRecherche, ["*"]);
             $resultat = $this->Pagination->getModele($newReq, ["*"], "Vetement") ;
         }

@@ -30,13 +30,9 @@
     
     
     ?>
-      
 
     </ul>
-    <input type="text" name="couleur">
-    <h3> Prix </h3>
-    <input name="prix" type="number">      
-            <br>
+
      <input type="submit" name="recherche">           
     </form>
 
