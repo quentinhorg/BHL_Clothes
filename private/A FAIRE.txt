@@ -66,3 +66,13 @@
 ❌
 
 
+•••••••••••••• BASE DE DONNEES. ••••••••••••••
+❌ Ajouter un trigger pour vérifier que la couleur chosis correspond bien 
+à une couleur disponible et si la couleur appartient au vetement (table article_panier)
+❌Ajouter un trigger pour vérifier que la taille chosis est bien disponible par rapport
+au vetement chosis (table article_panier)
+❌
+❌
+❌
+
+
