@@ -19,6 +19,20 @@
         
     </ul>
     <h3>Couleur</h3>
+
+    <ul>
+
+    <?php 
+    
+    foreach ($listClrPrincipale as $couleur) {
+       echo "<li> <input name='couleur[]' id='clr_$couleur' type='checkbox' value='$couleur'>  <label for='clr_$couleur'>  $couleur </li>";
+    }
+    
+    
+    ?>
+      
+
+    </ul>
     <input type="text" name="couleur">
     <h3> Prix </h3>
     <input name="prix" type="number">      

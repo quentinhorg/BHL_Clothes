@@ -9,6 +9,24 @@ class CouleurManager extends DataBase{
 
     }
 
+    public function getPrincipaleCouleur(){
+        $listeClr = [
+            "Rouge",
+             "Bleu", 
+             "Jaune", 
+             "Noir", 
+             "Blanc", 
+             "Vert", 
+             "Rose" ,
+             "Orange", 
+             "Gris", 
+             "Mauve" 
+        ] ;
+
+        return $listeClr;
+
+    }
+
 
 
 
