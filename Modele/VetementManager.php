@@ -31,7 +31,7 @@ class VetementManager extends DataBase{
         $resultat = null;
         if( $this->Pagination != null){
             $req = $this->reqBase." WHERE vvd.listeIdCouleurDispo IS NOT NULL
-            AND vvd.listeIdTailleDispo IS NOT NULL";
+            AND vvd.listeTailleDispo IS NOT NULL";
             $this->Pagination->getBdd();
             
             $newReq = $this->Pagination->getReqPagination($req, ["*"]);
@@ -62,8 +62,10 @@ class VetementManager extends DataBase{
         $this->getBdd();
 
         $this->getBdd();
-        $req = $this->reqBase." WHERE v.idCateg = ? AND codeGenre = ? AND vvd.listeIdCouleurDispo IS NOT NULL
-        AND vvd.listeIdTailleDispo IS NOT NULL";
+        $req = $this->reqBase." WHERE v.idCateg = ? 
+        AND codeGenre = ? 
+        AND vvd.listeIdCouleurDispo IS NOT NULL
+        AND vvd.listeTailleDispo IS NOT NULL";
         
         return $this->getModele($req, [$idCateg, $codeGenre], "Vetement");
     }
@@ -71,8 +73,9 @@ class VetementManager extends DataBase{
     public function getListeVetByGenre($codeGenre){
         $this->getBdd();
 
-        $req = $this->reqBase." WHERE codeGenre = ? AND vvd.listeIdCouleurDispo IS NOT NULL
-        AND vvd.listeIdTailleDispo IS NOT NULL";
+        $req = $this->reqBase." WHERE codeGenre = ? 
+        AND vvd.listeIdCouleurDispo IS NOT NULL
+        AND vvd.listeTailleDispo IS NOT NULL";
         $this->getBdd();
         return $this->getModele($req, [$codeGenre], "Vetement");
     }

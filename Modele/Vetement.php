@@ -94,16 +94,13 @@ class Vetement{
       
    }
 
-   public function setListeIdTailleDispo($listIdTaille){
+   public function setListeTailleDispo($listeTaille){
 
-      $listIdTaille = explode(",", $listIdTaille);
+      $listeTaille = explode(",", $listeTaille);
       $TailleManager = new TailleManager;
 
-      foreach ($listIdTaille as $idTaille) {
-         $idTaille = (int) $idTaille;
-         if($idTaille > 0){
-            $this->listeTailleDispo[] = $TailleManager->getTaille($idTaille);
-         }
+      foreach ($listeTaille as $taille) {
+            $this->listeTailleDispo[] = $TailleManager->getTaille($taille);
          
       }
 

@@ -2,10 +2,10 @@
 
 class TailleManager extends DataBase{
     
-    public function getTaille($id){
-        $req = "SELECT * FROM taille WHERE id = ?";
+    public function getTaille($libelle){
+        $req = "SELECT * FROM taille WHERE libelle = ?";
         $this->getBdd();
-        return $this->getModele($req, [$id], "Taille")[0]; // Si une valeur
+        return $this->getModele($req, [$libelle], "Taille")[0]; // Si une valeur
     }
 
     public function getListeTaille(){

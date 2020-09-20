@@ -11,7 +11,7 @@
     <ul>
         <?php foreach ($listeTaille as $libelle ){ 
              echo "<li> " ;
-             echo     "<input name='taille[]' id='taille_".$libelle->id()."' type='checkbox' value='".$libelle->id()."'>  <label for='taille_".$libelle->id()."'> ".$libelle->libelle()."</label>" ;
+             echo     "<input name='taille[]' id='taille_".$libelle->libelle()."' type='checkbox' value='".$libelle->libelle()."'>  <label for='taille_".$libelle->libelle()."'> ".$libelle->libelle()."</label>" ;
              echo "</li>";
             }
         ?>

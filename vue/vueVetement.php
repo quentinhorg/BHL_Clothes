@@ -27,7 +27,7 @@
         <label for="">Choississez votre taille: </label>
         <select name="taille" id="taille">
             <?php foreach ($infoVetement->listeTailleDispo() as $taille) { ?>
-                <option value="<?php echo $taille->id() ?>"> <?php echo $taille->libelle() ; ?> </option>
+                <option value="<?php echo $taille->libelle() ?>"> <?php echo $taille->libelle() ; ?> </option>
             <?php } ?>
         </select>
         <br>

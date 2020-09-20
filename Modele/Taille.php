@@ -1,7 +1,7 @@
 <?php 
 
 class Taille{
-   private  $id;
+
    private  $libelle;
    private  $type;
    
@@ -25,13 +25,6 @@ class Taille{
 
    
    //SETTER
-   public function setId($id){
-      $id = (int) $id;
-
-      if($id > 0){
-         $this->id = $id;
-      }
-   }
 
    public function setLibelle($libelle){
       if(is_string($libelle)){
@@ -49,11 +42,6 @@ class Taille{
    
 
    //GETTER
-
-   public function id(){
-      return $this->id;
-   }
-
    public function libelle(){
       return $this->libelle;
    }
