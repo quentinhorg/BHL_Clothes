@@ -15,10 +15,6 @@ class TailleManager extends DataBase{
     }
 
 
-
-
-
-
 }
 
 ?>
