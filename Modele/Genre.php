@@ -38,7 +38,7 @@ class Genre{
       }
    }
 
-   public function setcode($code){
+   public function setCode($code){
       if(is_string($code)){
          $this->code = $code;
       }
@@ -46,7 +46,6 @@ class Genre{
 
    public function setListeIdCategorie($listeIdCateg){
       
-
       if($listeIdCateg != null ){
          $listeIdCateg = explode(",", $listeIdCateg);
          $categManager = new CategorieManager ;

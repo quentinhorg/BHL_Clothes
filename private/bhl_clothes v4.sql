@@ -13,45 +13,48 @@ DROP TABLE IF EXISTS `article_panier`;
 CREATE TABLE `article_panier` (
   `numCmd` int(11) NOT NULL,
   `idVet` int(3) NOT NULL,
-  `idTaille` int(3) NOT NULL,
+  `taille` varchar(3) NOT NULL,
+  `numClr` int(11) NOT NULL,
   `qte` int(11) NOT NULL,
-  `idCouleur` int(11) NOT NULL,
-  PRIMARY KEY (`idVet`,`numCmd`,`idCouleur`,`idTaille`) USING BTREE,
+  PRIMARY KEY (`idVet`,`numCmd`,`numClr`,`taille`) USING BTREE,
   KEY `CONTIENT_commande0_FK` (`numCmd`),
-  KEY `idTaille` (`idTaille`),
+  KEY `idTaille` (`taille`),
+  KEY `numClr` (`numClr`),
   CONSTRAINT `CONTIENT_commande0_FK` FOREIGN KEY (`numCmd`) REFERENCES `commande` (`num`),
   CONSTRAINT `CONTIENT_vetement_FK` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`),
-  CONSTRAINT `article_panier_ibfk_1` FOREIGN KEY (`idTaille`) REFERENCES `taille` (`id`)
+  CONSTRAINT `article_panier_ibfk_2` FOREIGN KEY (`numClr`) REFERENCES `vet_couleur` (`num`),
+  CONSTRAINT `article_panier_ibfk_3` FOREIGN KEY (`taille`) REFERENCES `taille` (`libelle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `article_panier` (`numCmd`, `idVet`, `idTaille`, `qte`, `idCouleur`) VALUES
-(1,	1,	1,	2,	0),
-(1,	2,	2,	1,	0),
-(1,	3,	2,	1,	0)
-ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `idTaille` = VALUES(`idTaille`), `qte` = VALUES(`qte`), `idCouleur` = VALUES(`idCouleur`);
+INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`) VALUES
+(1,	1,	'XL',	6,	2),
+(1,	2,	'S',	4,	1),
+(1,	3,	'L',	5,	1)
+ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`);
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
   `id` int(11) NOT NULL,
   `nom` varchar(30) NOT NULL,
+  `typeTaille` varchar(20) NOT NULL DEFAULT 'chiffre',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nom` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `categorie` (`id`, `nom`) VALUES
-(9,	'Chemisiers & Tuniques'),
-(7,	'Gilets'),
-(3,	'Jeans'),
-(6,	'Jupes'),
-(11,	'Pantacourts'),
-(12,	'Pantalon '),
-(4,	'Pulls'),
-(1,	'Robes'),
-(10,	'Shorts & Bermudas'),
-(5,	'Shorts de bain'),
-(2,	'T-shirts & Débardeurs'),
-(8,	'Vestes & Manteaux')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`);
+INSERT INTO `categorie` (`id`, `nom`, `typeTaille`) VALUES
+(1,	'Robes',	'lettre'),
+(2,	'T-shirts & Débardeurs',	'lettre'),
+(3,	'Jeans',	'chiffre'),
+(4,	'Pulls',	'lettre'),
+(5,	'Shorts de bain',	'chiffre'),
+(6,	'Jupes',	'lettre'),
+(7,	'Gilets',	'chiffre'),
+(8,	'Vestes & Manteaux',	'chiffre'),
+(9,	'Chemisiers & Tuniques',	'lettre'),
+(10,	'Shorts & Bermudas',	'chiffre'),
+(11,	'Pantacourts',	'chiffre'),
+(12,	'Pantalon ',	'chiffre')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `typeTaille` = VALUES(`typeTaille`);
 
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
@@ -78,12 +81,12 @@ DELIMITER ;;
 
 CREATE TRIGGER `after_update_client` AFTER UPDATE ON `client` FOR EACH ROW
 BEGIN 
-INSERT INTO client_histo VALUES(OLD.id, OLD.nom, OLD.prenom, OLD.adresse, OLD.tel, NOW(), "UPDATE");
+INSERT INTO client_histo VALUES(OLD.id,NOW(), OLD.nom, OLD.prenom, OLD.adresse, OLD.tel, "UPDATE");
 END;;
 
 CREATE TRIGGER `after_delete_client` AFTER DELETE ON `client` FOR EACH ROW
 BEGIN 
-INSERT INTO client_histo VALUES(OLD.id, OLD.nom, OLD.prenom, OLD.adresse, OLD.tel, NOW(), "UPDATE");
+INSERT INTO client_histo VALUES(OLD.id,NOW(), OLD.nom, OLD.prenom, OLD.adresse, OLD.tel, "UPDATE");
 END;;
 
 DELIMITER ;
@@ -91,57 +94,57 @@ DELIMITER ;
 DROP TABLE IF EXISTS `client_histo`;
 CREATE TABLE `client_histo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_histo` datetime NOT NULL,
   `nom` varchar(50) NOT NULL,
   `prenom` varchar(50) NOT NULL,
   `adresse` varchar(100) NOT NULL,
   `tel` varchar(10) NOT NULL,
-  `date_histo` datetime NOT NULL,
   `evenement_histo` varchar(30) NOT NULL,
   PRIMARY KEY (`id`,`date_histo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
-INSERT INTO `client_histo` (`id`, `nom`, `prenom`, `adresse`, `tel`, `date_histo`, `evenement_histo`) VALUES
-(1,	'BIGOT',	'Andréazzzz',	'St jo',	'0692466990',	'2020-09-07 00:00:00',	'UPDATE'),
-(1,	'BIGOT',	'test',	'St jo',	'0692466990',	'2020-09-13 18:25:40',	'UPDATE'),
-(1,	'BIGOT',	'test',	'St Joseph',	'0692466990',	'2020-09-13 18:25:46',	'UPDATE'),
-(1,	'BIGOT',	'Andréa',	'St Joseph',	'0692466990',	'2020-09-13 18:32:19',	'UPDATE'),
-(1,	'BIGOT',	'Andréa',	'St Joseph',	'0692466990',	'2020-09-13 18:36:43',	'UPDATE'),
-(1,	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'2020-09-14 15:40:14',	'UPDATE'),
-(2,	'HOAREAU',	'Quentin',	'St pierre',	'426525',	'2020-09-13 18:31:38',	'UPDATE'),
-(2,	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'2020-09-13 18:32:37',	'UPDATE'),
-(2,	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'2020-09-13 18:37:01',	'UPDATE'),
-(2,	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	'2020-09-14 15:40:14',	'UPDATE'),
-(3,	'LEBON',	'Jérémy',	'St denis',	'8285252',	'2020-09-13 18:31:56',	'UPDATE'),
-(3,	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'2020-09-13 18:32:27',	'UPDATE'),
-(3,	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'2020-09-13 18:37:31',	'UPDATE'),
-(3,	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'2020-09-14 15:40:14',	'UPDATE'),
-(4,	'test',	'test',	'22 st jo',	'2485',	'2020-09-07 00:00:00',	'DELETE'),
-(4,	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	'2020-09-14 15:40:14',	'UPDATE'),
-(5,	'',	'',	'',	'',	'2020-09-07 00:00:00',	'DELETE'),
-(5,	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'2020-09-14 15:40:14',	'UPDATE'),
-(6,	'aa',	'aa',	'ashia',	'798',	'2020-09-07 00:00:00',	'DELETE'),
-(6,	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	'2020-09-14 15:40:14',	'UPDATE'),
-(7,	'azeaze',	'zerzer',	'10 rue ouaiso uais',	'azeaze',	'2020-09-07 00:00:00',	'DELETE')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `date_histo` = VALUES(`date_histo`), `evenement_histo` = VALUES(`evenement_histo`);
+INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel`, `evenement_histo`) VALUES
+(1,	'2020-09-07 00:00:00',	'BIGOT',	'Andréazzzz',	'St jo',	'0692466990',	'UPDATE'),
+(1,	'2020-09-13 18:25:40',	'BIGOT',	'test',	'St jo',	'0692466990',	'UPDATE'),
+(1,	'2020-09-13 18:25:46',	'BIGOT',	'test',	'St Joseph',	'0692466990',	'UPDATE'),
+(1,	'2020-09-13 18:32:19',	'BIGOT',	'Andréa',	'St Joseph',	'0692466990',	'UPDATE'),
+(1,	'2020-09-13 18:36:43',	'BIGOT',	'Andréa',	'St Joseph',	'0692466990',	'UPDATE'),
+(1,	'2020-09-14 15:40:14',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
+(2,	'2020-09-13 18:31:38',	'HOAREAU',	'Quentin',	'St pierre',	'426525',	'UPDATE'),
+(2,	'2020-09-13 18:32:37',	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'UPDATE'),
+(2,	'2020-09-13 18:37:01',	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'UPDATE'),
+(2,	'2020-09-14 15:40:14',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	'UPDATE'),
+(3,	'2020-09-13 18:31:56',	'LEBON',	'Jérémy',	'St denis',	'8285252',	'UPDATE'),
+(3,	'2020-09-13 18:32:27',	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'UPDATE'),
+(3,	'2020-09-13 18:37:31',	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'UPDATE'),
+(3,	'2020-09-14 15:40:14',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
+(4,	'2020-09-07 00:00:00',	'test',	'test',	'22 st jo',	'2485',	'DELETE'),
+(4,	'2020-09-14 15:40:14',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	'UPDATE'),
+(5,	'2020-09-07 00:00:00',	'',	'',	'',	'',	'DELETE'),
+(5,	'2020-09-14 15:40:14',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
+(6,	'2020-09-07 00:00:00',	'aa',	'aa',	'ashia',	'798',	'DELETE'),
+(6,	'2020-09-14 15:40:14',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	'UPDATE'),
+(7,	'2020-09-07 00:00:00',	'azeaze',	'zerzer',	'10 rue ouaiso uais',	'azeaze',	'DELETE')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `date_histo` = VALUES(`date_histo`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `evenement_histo` = VALUES(`evenement_histo`);
 
 DROP TABLE IF EXISTS `commande`;
 CREATE TABLE `commande` (
   `num` int(11) NOT NULL,
-  `date` datetime NOT NULL,
   `idClient` int(11) NOT NULL,
+  `date` datetime NOT NULL,
   PRIMARY KEY (`num`),
   KEY `commande_client_FK` (`idClient`),
   CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`idClient`) REFERENCES `client` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `commande` (`num`, `date`, `idClient`) VALUES
-(1,	'2019-12-02 12:30:00',	1),
-(2,	'2019-12-17 18:48:11',	2),
-(3,	'2020-12-23 08:02:08',	3),
-(4,	'2020-09-01 21:49:35',	6),
-(5,	'2020-09-17 11:00:00',	5),
-(6,	'2020-09-13 14:18:23',	4)
-ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `date` = VALUES(`date`), `idClient` = VALUES(`idClient`);
+INSERT INTO `commande` (`num`, `idClient`, `date`) VALUES
+(1,	1,	'2019-12-02 12:30:00'),
+(2,	2,	'2019-12-17 18:48:11'),
+(3,	3,	'2020-12-23 08:02:08'),
+(4,	6,	'2020-09-01 21:49:35'),
+(5,	5,	'2020-09-17 11:00:00'),
+(6,	4,	'2020-09-13 14:18:23')
+ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `date` = VALUES(`date`);
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
@@ -176,25 +179,24 @@ ON DUPLICATE KEY UPDATE `code` = VALUES(`code`), `libelle` = VALUES(`libelle`);
 
 DROP TABLE IF EXISTS `taille`;
 CREATE TABLE `taille` (
-  `id` int(3) NOT NULL,
-  `libelle` varchar(20) NOT NULL,
+  `libelle` varchar(3) NOT NULL,
   `type` varchar(15) NOT NULL DEFAULT 'chiffre',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`libelle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `taille` (`id`, `libelle`, `type`) VALUES
-(1,	'XS',	'lettre'),
-(2,	'S',	'lettre'),
-(3,	'M',	'lettre'),
-(4,	'L',	'lettre'),
-(5,	'XL',	'lettre'),
-(6,	'32',	'chiffre'),
-(7,	'33',	'chiffre'),
-(8,	'34',	'chiffre'),
-(9,	'35',	'chiffre'),
-(10,	'36',	'chiffre'),
-(11,	'42',	'chiffre')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `libelle` = VALUES(`libelle`), `type` = VALUES(`type`);
+INSERT INTO `taille` (`libelle`, `type`) VALUES
+('32',	'chiffre'),
+('33',	'chiffre'),
+('34',	'chiffre'),
+('35',	'chiffre'),
+('36',	'chiffre'),
+('42',	'chiffre'),
+('L',	'lettre'),
+('M',	'lettre'),
+('S',	'lettre'),
+('XL',	'lettre'),
+('XS',	'lettre')
+ON DUPLICATE KEY UPDATE `libelle` = VALUES(`libelle`), `type` = VALUES(`type`);
 
 DROP TABLE IF EXISTS `vetement`;
 CREATE TABLE `vetement` (
@@ -246,8 +248,8 @@ ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prix` = VAL
 DROP TABLE IF EXISTS `vet_couleur`;
 CREATE TABLE `vet_couleur` (
   `num` int(3) NOT NULL,
-  `nom` varchar(200) NOT NULL,
   `idVet` int(3) NOT NULL,
+  `nom` varchar(200) NOT NULL,
   `filterCssCode` varchar(200) DEFAULT NULL,
   `dispo` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`num`),
@@ -255,67 +257,68 @@ CREATE TABLE `vet_couleur` (
   CONSTRAINT `vet_couleur_ibfk_1` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `vet_couleur` (`num`, `nom`, `idVet`, `filterCssCode`, `dispo`) VALUES
-(1,	'Rose bonbon',	4,	'hue-rotate(95deg)',	1),
-(2,	'Bleu clair',	4,	NULL,	1),
-(3,	'Vert Forêt',	4,	'hue-rotate(969deg) brightness(0.9)',	1),
-(4,	'Rose bonbon',	2,	NULL,	1),
-(5,	'Blanc cassé',	3,	NULL,	1),
-(6,	'Rouge',	1,	NULL,	1),
-(7,	'Jaune',	6,	NULL,	1),
-(8,	'Beige',	5,	NULL,	1)
-ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `nom` = VALUES(`nom`), `idVet` = VALUES(`idVet`), `filterCssCode` = VALUES(`filterCssCode`), `dispo` = VALUES(`dispo`);
+INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALUES
+(1,	4,	'Rose bonbon',	'hue-rotate(95deg)',	1),
+(2,	4,	'Bleu clair',	NULL,	1),
+(3,	4,	'Vert Forêt',	'hue-rotate(969deg) brightness(0.9)',	1),
+(4,	2,	'Rose bonbon',	NULL,	1),
+(5,	3,	'Blanc cassé',	NULL,	1),
+(6,	1,	'Rouge',	NULL,	1),
+(7,	6,	'Jaune',	NULL,	1),
+(8,	5,	'Beige',	NULL,	1)
+ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idVet` = VALUES(`idVet`), `nom` = VALUES(`nom`), `filterCssCode` = VALUES(`filterCssCode`), `dispo` = VALUES(`dispo`);
 
 DROP TABLE IF EXISTS `vet_taille`;
 CREATE TABLE `vet_taille` (
   `idVet` int(3) NOT NULL,
-  `idTaille` int(3) NOT NULL,
-  PRIMARY KEY (`idTaille`,`idVet`),
+  `taille` varchar(3) NOT NULL,
+  PRIMARY KEY (`taille`,`idVet`),
   KEY `idVet` (`idVet`),
-  CONSTRAINT `vet_taille_ibfk_1` FOREIGN KEY (`idTaille`) REFERENCES `taille` (`id`),
-  CONSTRAINT `vet_taille_ibfk_3` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`)
+  CONSTRAINT `vet_taille_ibfk_3` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`),
+  CONSTRAINT `vet_taille_ibfk_4` FOREIGN KEY (`taille`) REFERENCES `taille` (`libelle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `vet_taille` (`idVet`, `idTaille`) VALUES
-(4,	1),
-(5,	1),
-(6,	1),
-(8,	1),
-(1,	2),
-(3,	2),
-(4,	2),
-(5,	2),
-(6,	2),
-(7,	2),
-(1,	3),
-(2,	3),
-(3,	3),
-(5,	3),
-(6,	3),
-(7,	3),
-(1,	4),
-(2,	4),
-(3,	4),
-(6,	4),
-(7,	4),
-(8,	4),
-(1,	5),
-(6,	5),
-(8,	5)
-ON DUPLICATE KEY UPDATE `idVet` = VALUES(`idVet`), `idTaille` = VALUES(`idTaille`);
+INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
+(11,	'42'),
+(1,	'L'),
+(2,	'L'),
+(3,	'L'),
+(6,	'L'),
+(7,	'L'),
+(8,	'L'),
+(1,	'M'),
+(3,	'M'),
+(4,	'M'),
+(5,	'M'),
+(6,	'M'),
+(7,	'M'),
+(4,	'S'),
+(5,	'S'),
+(6,	'S'),
+(8,	'S'),
+(1,	'XL'),
+(2,	'XL'),
+(3,	'XL'),
+(5,	'XL'),
+(6,	'XL'),
+(7,	'XL'),
+(1,	'XS'),
+(6,	'XS'),
+(8,	'XS')
+ON DUPLICATE KEY UPDATE `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`);
 
 DROP VIEW IF EXISTS `vue_categpargenre`;
 CREATE TABLE `vue_categpargenre` (`codeGenre` varchar(1), `ListeIdCategorie` mediumtext);
 
 
 DROP VIEW IF EXISTS `vue_vet_disponibilite`;
-CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeIdCouleurDispo` mediumtext, `listeIdTailleDispo` mediumtext);
+CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeIdCouleurDispo` mediumtext, `listeTailleDispo` mediumtext);
 
 
 DROP TABLE IF EXISTS `vue_categpargenre`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`idTaille` separator ',') AS `listeIdTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-09-20 17:04:37
+-- 2020-09-20 19:04:13

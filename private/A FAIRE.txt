@@ -34,7 +34,7 @@
 ❌
 
 •••••••••••••• Compte user ••••••••••••••
-❌
+❌Crypter le mdp
 ❌
 ❌
 ❌
@@ -67,12 +67,21 @@
 
 
 •••••••••••••• BASE DE DONNEES. ••••••••••••••
-❌ Ajouter un trigger pour vérifier que la couleur chosis correspond bien 
+❌ Ajouter un trigger pour vérifier que la couleur choisis correspond bien 
 à une couleur disponible et si la couleur appartient au vetement (table article_panier)
 ❌Ajouter un trigger pour vérifier que la taille chosis est bien disponible par rapport
 au vetement chosis (table article_panier)
-❌
-❌
-❌
+❌ Ajouter un trigger pour vérifier lors d'un insert dans la table vet_taille si le type de taille
+(du vetement) correspond au type de taille (de la catégorie du vetement) 
+Ex : On ne pourra pas ajouter la taille M sur un pantalon car le pantalon se mesure en chiffre (38,42,41...) et pas en lettre (M,XL, L...)
+❌Ajouter un trigger pour empêcher la suppression et/ou la modification du champ 
+typeTaille dans la table categorie si la catégorie possède des vêtement de même typeTaille 
+Ex : On ne pourra pas supprimer ni changer le champ lettre la CAT2GROEI robe si elle possède des vêtement de taille M,S,XL..
+❌Ajouter un trigger : Si aucune taille n'est dispo lors d'un ajout de couleur sur un vetement 
+-> update toutes les dispo du vetement concerné et mettre 0
+❌Ajouter un trigger : Empecher de mettre 1 dans le champ dispo de la table vet_couleur 
+si aucune taille n'est disponible pour le vetement
+❌Vérifié si la vue : vue_vet_disponibilite prend en compte le champ dispo(1 ou 0) dans couleur
+
 
 

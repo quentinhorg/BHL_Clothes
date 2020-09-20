@@ -2,10 +2,12 @@
 
 class Client{
    private  $id;
+   private  $email;
+   private  $mdp;
    private  $nom;
-   private $prenom;
-   private $adresse;
-   private $tel;
+   private  $prenom;
+   private  $adresse;
+   private  $tel;
 
 
    
@@ -35,6 +37,20 @@ class Client{
             if($id > 0){
                 $this->id = $id;
             }
+    }
+
+    public function setEmail($email){
+        if(is_string($email)){
+            $this->email = $email;
+        }
+        
+    }
+
+    public function setMdp($mdp){
+        if(is_string($mdp)){
+            $this->mdp = $mdp;
+        }
+        
     }
 
    public function setNom($nom){
@@ -74,6 +90,17 @@ class Client{
         return $this->id;
     }
 
+    
+    public function email(){
+        return $this->email;
+    }
+
+    public function mdp(){
+        return $this->mdp;
+    }
+   
+   
+
     public function getNom(){
         return $this->nom;
     }
@@ -89,7 +116,7 @@ class Client{
     public function getTel(){
         return $this->tel;
     }
-   
+
 
 
 
