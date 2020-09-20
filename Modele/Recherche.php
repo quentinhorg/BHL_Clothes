@@ -3,14 +3,14 @@
 class Recherche{
     private $intervalePrix = array();
     private $listeTaille = array();
-    private $couleurText = array();
+    private $listeCouleur = array();
     private $categorie;
     private $genre;
 
-    public function __construct($prixIntervale, $listeTaille, $couleurText, $categorie, $genre){
+    public function __construct($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre){
         $this->intervalePrix = $prixIntervale ;
         $this->listeTaille = $listeTaille ;
-        $this->couleurText = $couleurText ;
+        $this->listeCouleur = $listeCouleur ;
         $this->categorie = $categorie ;
         $this->genre = $genre;
     }
@@ -24,11 +24,8 @@ class Recherche{
     }
 
     public function getReqCouleur(){
-        if($this->couleurText != null){
-
-            $tabCouleur = explode(" ", $this->couleurText);
-
-            $req = "AND (vc.nom LIKE '%".implode("%' OR vc.nom LIKE '%", $tabCouleur )."%')";
+        if($this->listeCouleur != null){
+            $req = "AND (vc.nom LIKE \'%". implode("%' OR vc.nom LIKE '%", $this->listeCouleur )."%')";
         }else{ $req = null ;}
 
         return $req;

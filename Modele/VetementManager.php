@@ -33,7 +33,7 @@ class VetementManager extends DataBase{
             $req = $this->reqBase." WHERE vvd.listeIdCouleurDispo IS NOT NULL
             AND vvd.listeIdTailleDispo IS NOT NULL";
             $this->Pagination->getBdd();
-    
+            
             $newReq = $this->Pagination->getReqPagination($req, ["*"]);
             $resultat = $this->Pagination->getModele($newReq, ["*"], "Vetement") ;
         }
