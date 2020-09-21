@@ -8,6 +8,7 @@ class Client{
    private  $prenom;
    private  $adresse;
    private  $tel;
+   private $listeCmd; //Tableau d'objet
 
 
    
@@ -62,7 +63,7 @@ class Client{
     
     public function setPrenom($prenom){
         if(is_string($prenom)){
-            $this->prenomnom = $prenomnom;
+            $this->prenom = $prenom;
         }
     }
 
@@ -79,10 +80,15 @@ class Client{
                 $this->tel = $tel;
             }
     }
-    
 
- 
-   
+    public function setListeIdCmd($listeIdCmd){
+        $tabIdCmd = explode(",",$listeIdCmd);
+        $CommandeManageur = new CommandeManager();
+        foreach ($tabIdCmd as $id){
+            $this->listeCmd[]=$CommandeManageur->getCommande($id);
+        }
+    }
+
 
    //GETTER
 
@@ -115,6 +121,10 @@ class Client{
 
     public function getTel(){
         return $this->tel;
+    }
+
+    public function getListCmd(){
+       return $this->listeCmd;
     }
 
 
