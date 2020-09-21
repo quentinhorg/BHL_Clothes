@@ -19,7 +19,7 @@ class Recherche{
 
     public function getReqTaille(){
         if($this->listeTaille != null){
-            $req = " AND t.libelle IN(".implode(",", $this->listeTaille ).")";
+            $req = " AND t.libelle IN('".implode("','", $this->listeTaille )."')";
         }else{ $req = null ;}
 
         return $req;
@@ -29,7 +29,7 @@ class Recherche{
         if($this->listeCouleur != null){
             $req = "AND (vc.nom LIKE '%". implode("%' OR vc.nom LIKE '%", $this->listeCouleur )."%')";
         }else{ $req = null ;}
-        
+
         return $req;
     }
     public function getReqCateg(){
@@ -42,7 +42,7 @@ class Recherche{
     
     public function getReqGenre(){
         if($this->genre != null){
-            $req = "AND g.libelle LIKE  '".$this->genre."'";
+            $req = "AND g.code LIKE  '".$this->genre."'";
         }else{ $req = null ;}
 
         return $req;
@@ -71,6 +71,9 @@ class Recherche{
             " ".$this->getReqPrix().
             " ".$this->getReqCateg().
             " ".$this->getReqGenre();
+
+            
+    
         return $reqFinal;
     }
     

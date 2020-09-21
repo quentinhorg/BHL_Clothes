@@ -1,3 +1,8 @@
+.cadre{
+   display: flex;
+   margin-top: 90px;
+}
+
 .img{
    width: 520px;
    height: 600px;
@@ -5,14 +10,15 @@
    background-size: 100% 100%;
    cursor: pointer;
    background-repeat: no-repeat;
-   float: left;
-   margin-top: 90px;
-   margin-right: 200px;
-   margin-left: 200px;
+   margin: auto;
+   display: inline-block;
+
 }
 
 .infoVet{
    margin-top: 90px;
+   display: inline-block;
+
 }
 
 .infoVet input[type="button"]{
