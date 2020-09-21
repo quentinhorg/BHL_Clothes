@@ -41,9 +41,9 @@
         </tr>
         <?php
         foreach ($clientActif->getListCmd() as $commande){
-            var_dump($commande);
+           // var_dump($commande);
 
-            echo "<td>".$commande->num()."</td> <td></td> <td></td>";
+            //echo "<td>".$commande->num()."</td> <td></td> <td></td>";
         }
 
         ?>

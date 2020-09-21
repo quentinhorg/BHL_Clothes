@@ -16,7 +16,8 @@ class ControleurVetement{
 
          $this->vue = new Vue('Vetement') ;
          $this->vue->genererVue(array( 
-            "infoVetement"=> $this->infoVetement($id)
+            "infoVetement"=> $this->infoVetement($id),
+            "commentaire" => $this->listeCommentaire()
          )) ;
       }
 
@@ -30,6 +31,10 @@ class ControleurVetement{
       
       return $infoVetement;
      
+   }
+
+   private function listeCommentaire(){
+
    }
 
 
