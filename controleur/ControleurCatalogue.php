@@ -48,12 +48,14 @@ class ControleurCatalogue{
          }else{ $vuePagination = null ;}
 
 
+
          $this->vue = new Vue('Catalogue') ;
          $this->vue->genererVue(array( 
             "listeVetement"=> $donnee,
             "vuePagination" => $vuePagination,
-            "listeTaille"=>$this->listTaille(),
+            "listeTaille"=>$this->listTailleByCateg($url[2]),
             "listClrPrincipale" => $this->listClrPrincipale()
+
          )) ;
          
       }
@@ -73,14 +75,14 @@ class ControleurCatalogue{
       else{
          $listeVetement = $this->vetementManager->getListeVetement();
       }
-      
+
       return $listeVetement;
       
    }
 
-   public function listTaille(){
+   public function listTailleByCateg($idCateg){
       $TaillesCatalogue = new TailleManager();
-      return $TaillesCatalogue->getListeTaille();
+      return $TaillesCatalogue->getListeTailleByCateg($idCateg);
    }
 
    public function listClrPrincipale(){

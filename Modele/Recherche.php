@@ -19,7 +19,7 @@ class Recherche{
 
     public function getReqTaille(){
         if($this->listeTaille != null){
-            $req = " AND t.id IN(".implode(",", $this->listeTaille ).")";
+            $req = " AND t.libelle IN(".implode(",", $this->listeTaille ).")";
         }else{ $req = null ;}
 
         return $req;
@@ -29,7 +29,7 @@ class Recherche{
         if($this->listeCouleur != null){
             $req = "AND (vc.nom LIKE '%". implode("%' OR vc.nom LIKE '%", $this->listeCouleur )."%')";
         }else{ $req = null ;}
-
+        
         return $req;
     }
     public function getReqCateg(){
@@ -61,11 +61,11 @@ class Recherche{
             FROM vetement v 
             INNER JOIN vet_taille vt ON vt.idVet = v.id 
             INNER JOIN vet_couleur vc ON vc.idVet= v.id 
-            INNER JOIN genre g ON g.num = v.numGenre
+            INNER JOIN genre g ON g.code = v.codeGenre
             INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet= v.id 
-            LEFT JOIN taille t ON t.id = vt.idVet
+            LEFT JOIN taille t ON t.libelle = vt.taille
             WHERE vvd.listeIdCouleurDispo IS NOT NULL
-            AND vvd.listeIdTailleDispo IS NOT NULL".
+            AND vvd.listeTailleDispo IS NOT NULL".
             " ".$this->getReqCouleur().
             " " .$this->getReqTaille().
             " ".$this->getReqPrix().
