@@ -40,6 +40,12 @@ class ControleurCatalogue{
             $donnee =  $this->listeVetement(null, null);
          }
 
+         
+         if($url[2]){
+            
+
+         }
+
 
 
          //A optimisé
