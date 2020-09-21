@@ -4,7 +4,11 @@ class ClientManager extends DataBase{
 
 
     public function getClient($id){
-        $req = "SELECT * FROM client WHERE id = ?";
+        $req = "SELECT c.*,GROUP_CONCAT(co.num) as 'listeIdCmd'
+                FROM client c 
+                INNER JOIN commande co ON c.id = co.idClient 
+                WHERE c.id = ?
+                GROUP BY c.id";
         $this->getBdd();
         return @$this->getModele($req, [$id], "Client")[0];
     }
