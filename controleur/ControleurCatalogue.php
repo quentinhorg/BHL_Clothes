@@ -55,7 +55,6 @@ class ControleurCatalogue{
             "vuePagination" => $vuePagination,
             "listeTaille"=>$this->listTailleByCateg($url[2]),
             "listClrPrincipale" => $this->listClrPrincipale()
-
          )) ;
          
       }
