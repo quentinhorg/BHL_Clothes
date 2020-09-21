@@ -7,15 +7,23 @@
         <li> Vestes </li>
     </ul>
 
-    <h3> Taille </h3>
-    <ul>
-        <?php foreach ($listeTaille as $libelle ){ 
-             echo "<li> " ;
-             echo     "<input name='taille[]' id='taille_".$libelle->libelle()."' type='checkbox' value='".$libelle->libelle()."'>  <label for='taille_".$libelle->libelle()."'> ".$libelle->libelle()."</label>" ;
-             echo "</li>";
+    
+    
+
+        <?php 
+            if($listeTaille != null){
+                echo "<h3> Taille </h3>";
+                echo "<ul>";
+                foreach ($listeTaille as $libelle ){ 
+                    echo "<li> " ;
+                    echo     "<input name='taille[]' id='taille_".$libelle->libelle()."' type='checkbox' value='".$libelle->libelle()."'>  <label for='taille_".$libelle->libelle()."'> ".$libelle->libelle()."</label>" ;
+                    echo "</li>";
+                }
+                echo "</ul>" ;
             }
+                
         ?>
-    </ul>
+
     <h3>Couleur</h3>
 
     <ul>

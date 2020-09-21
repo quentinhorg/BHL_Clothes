@@ -9,7 +9,7 @@ class TailleManager extends DataBase{
     }
 
     public function getListeTailleByCateg($idCateg){
-        var_dump($idCateg);
+   
         $req = "SELECT t.* FROM taille t
         WHERE t.type LIKE (SELECT typeTaille c FROM categorie c WHERE c.id = ?)";
         $this->getBdd();

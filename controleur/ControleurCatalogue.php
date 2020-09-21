@@ -26,12 +26,13 @@ class ControleurCatalogue{
          }
 
 
-
+         $categActive = null;
          if(isset($_POST['recherche'])){
             $donnee = $this->recherche($libGenre, $idCateg);
          }
          else if( isset($url[1]) && isset($url[2]) ){
             $donnee =  $this->listeVetement($url[1], $url[2]);
+            $categActive = $url[2] ;
          }
          else if( isset($url[1]) && !isset($url[2]) ){
             $donnee =  $this->listeVetement($url[1], null);
@@ -40,11 +41,8 @@ class ControleurCatalogue{
             $donnee =  $this->listeVetement(null, null);
          }
 
-         
-         if($url[2]){
-            
 
-         }
+         
 
 
 
@@ -59,7 +57,7 @@ class ControleurCatalogue{
          $this->vue->genererVue(array( 
             "listeVetement"=> $donnee,
             "vuePagination" => $vuePagination,
-            "listeTaille"=>$this->listTailleByCateg($url[2]),
+            "listeTaille"=>$this->listTailleByCateg($categActive),
             "listClrPrincipale" => $this->listClrPrincipale()
          )) ;
          
