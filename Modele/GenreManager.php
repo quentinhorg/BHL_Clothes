@@ -2,10 +2,10 @@
 
 class GenreManager extends DataBase{
     
-    public function getGenre($id){
+    public function getGenre($code){
         $req = "SELECT * FROM genre WHERE num = ?";
         $this->getBdd();
-        return @$this->getModele($req, [$id], "Genre")[0];
+        return @$this->getModele($req, [$code], "Genre")[0];
     }
 
     public function getListeGenre(){

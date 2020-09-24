@@ -52,6 +52,9 @@ ul.listeCouleur li input{
 
 }
 
+#listVetement{
+   margin-left: 220px;
+}
 
 ul.listeCouleur li label{
    width: 20px;
