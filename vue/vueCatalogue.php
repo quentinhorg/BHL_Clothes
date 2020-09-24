@@ -1,10 +1,14 @@
 <div id="navCatalogue">
 <form action="" method="POST">
-    <h3> Homme </h3>
+    <h3> <?php echo $genreActive->libelle() ; ?> </h3>
     <ul>
-        <li> T-shirt </li>
-        <li> Pantalon </li>
-        <li> Vestes </li>
+        <?php 
+
+        foreach ($genreActive->listeCateg() as $categ) {
+            echo "<li> ".$categ->nom()." </li>" ;
+        }
+        ?>
+        
     </ul>
     
         <?php 

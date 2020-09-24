@@ -1,16 +1,17 @@
 <?php
 
 class GenreManager extends DataBase{
+    private $reqBase = "SELECT * FROM vue_categpargenre vcg 
+    INNER JOIN genre g ON vcg.codeGenre = g.code";
     
     public function getGenre($code){
-        $req = "SELECT * FROM genre WHERE num = ?";
+        $req = $this->reqBase." WHERE code LIKE ?";
         $this->getBdd();
         return @$this->getModele($req, [$code], "Genre")[0];
     }
 
     public function getListeGenre(){
-        $req = "SELECT * FROM vue_categpargenre vcg 
-        INNER JOIN genre g ON vcg.codeGenre = g.code";
+        $req = $this->reqBase;
         $this->getBdd();
         return $this->getModele($req, ["*"], "Genre");
     }
