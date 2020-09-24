@@ -117,7 +117,7 @@ ul.listeCouleur li label{
 
 
 #navCatalogue{
-   float: left;
+   position: absolute;
    min-width: 200px;
    min-height: 100vh;
    padding: 8px;

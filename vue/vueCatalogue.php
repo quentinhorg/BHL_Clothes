@@ -53,6 +53,8 @@ if( $vuePagination != null){
 
 
 ?>
+<div id="listVetement">
+
 <?php foreach ($listeVetement as $vetement) { ?>
     <div class="cadreVet">
         <a href="vetement/<?php echo $vetement->id() ?>"><div class="img" style="background-image: url(public/media/vetement/id<?php echo $vetement->id() ?>.jpg)" ></div></a>
@@ -82,7 +84,7 @@ if( $vuePagination != null){
     </div>
 
 <?php } ?>
-
+</div>
 <?php 
 
 if( $vuePagination != null){
