@@ -83,16 +83,6 @@ hr{
 }
 
 
-.nomSite {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   font-size: 6vw;
-   text-shadow: 2px 2px 4px #000000;
-   font-weight: bold;
- }
-
  
 #recherche{
    align-self: center;
