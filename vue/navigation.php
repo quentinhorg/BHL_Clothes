@@ -13,9 +13,14 @@
 
          <div id="utilisateur">
              <?php
-                if($clientEnLigne != null) {
-                    echo $clientEnLigne->getNom();
-                }
+           
+
+                  if($clientEnLigne != null) {
+                     echo "<a href='?deco=Ok'> Deconnexion <a>" ;
+
+                     echo $clientEnLigne->getNom();
+                  }
+            
                 ?>
 
             <?php 
