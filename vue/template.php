@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/css/bhl_clothes.css">
     <link rel="stylesheet" href="public/css/erreur.css">
+    <link rel="stylesheet" href="public/css/navigation.css">
     <script src="public/script/js/jquery-3.4.0.min.js"></script>
     <script src="public/script/js/FormAjax.js"></script>
     

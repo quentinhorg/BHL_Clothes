@@ -1,6 +1,6 @@
 body{
    margin:0;
-   font-family: 'Archivo';
+   font-family: system-ui;
 }
 
 hr{
@@ -22,47 +22,6 @@ a{
 }
 
 
-/* Navigation */
-
-#navCateg{
- text-align: center;
- padding: 10px 8px;
-}
-
-.dropdown {
-   position: relative;
-   display: inline-block;
- }
- 
- .dropdown-content {
-   display: none;
-   position: absolute;
-   background-color: #f9f9f9;
-   min-width: 160px;
-   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-   padding: 12px 16px;
-   z-index: 1;
-   text-align: left;
- }
-
- .dropdown:hover .dropdown-content {
-   display: block;
- }
-
- #navCateg a.genreNav{
-   color: black;
-   margin: 8px 20px;
- }
-
- .dropdown-content a{
-    display: block;
-    text-align: left;
-    color: black;
-    padding: 8px 2px;
- }
-
-
-
 /* AUTRES */
 
 .xdebug-var-dump{
@@ -74,6 +33,7 @@ a{
 
 #utilisateur{
    float: right;
+   margin-left: auto;
    
 }
 #utilisateur a{
@@ -82,56 +42,10 @@ a{
     display: inline-flex;
     color: black;
     margin: 0 10px;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 
 
 
 
-/* Navigation principale */
-#navPrincipale *{
-   display: inline-flex;
-}
-
-#navPrincipale input[type=search]{
-   margin-left: 50px;
-}
-
-#navPrincipale{
-   display: inline;
-   padding: 8px 5px;
-}
-
-#navPrincipale #logo{
-   font-size: 2rem;
-   color: #e76c35;
-   font-weight: bold;
-   
-}
-
-/* Header */
-
-header#header{
-   position: relative;
-   text-align: center;
-   color: white;
-   
-}
-
-#header img{
-   filter: brightness(0.8);
-}
-
-.nomSite {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   font-size: 6vw;
-   text-shadow: 2px 2px 4px #000000;
-   font-weight: bold;
- }
-
-
- 
