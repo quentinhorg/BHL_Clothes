@@ -81,8 +81,8 @@ class Commande{
          
           //Vérifie si les caractéritique de l'article à ajouté se trouve déjà dans le panier
          if( 
-            $article->id() == $nouvelArticle->id() 
-            && $article->Taille()->id() == $nouvelArticle->Taille()->id()
+            $article->id() == $nouvelArticle->id()
+            && $article->Taille()->libelle() == $nouvelArticle->Taille()->libelle()
             && $article->Couleur()->num() == $nouvelArticle->Couleur()->num()
          ){
             //Faire la somme des quantités si même caractéritique

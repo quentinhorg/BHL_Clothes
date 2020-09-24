@@ -1,16 +1,30 @@
 <div id="navCatalogue">
 <form action="" method="POST">
-    <h3> <?php echo $genreActive->libelle() ; ?> </h3>
-    <ul>
-        <?php 
-
+    <?php
+    
+    if( $genreActive != null){
+        echo "<h3>".$genreActive->libelle()."</h3>" ;
+        echo "<ul>";
         foreach ($genreActive->listeCateg() as $categ) {
             echo "<li> ".$categ->nom()." </li>" ;
         }
-        ?>
+        echo "</ul>" ;
+
+    }
+    else{
+        echo "<h3> Tous le catalogue </h3>" ;
+
+     
+        echo "<ul>";
+        foreach ($listeGenre as $genre) {
+            echo "<li> ".$genre->libelle()." </li>" ;
+        }
+        echo "</ul>" ;
         
-    </ul>
-    
+
+
+    }
+    ?>
         <?php 
             if($listeTaille != null){
                 echo "<hr>";
@@ -48,16 +62,18 @@
 </div>
 
 <section id="catalogue">
-<?php
+<div id="listVetement">
+
+
+<?php if($listeVetement != null){?>
+
+<?php 
 
 if( $vuePagination != null){
     echo $vuePagination ; 
 }
 
-
-
 ?>
-<div id="listVetement">
 
 <?php foreach ($listeVetement as $vetement) { ?>
     <div class="cadreVet">
@@ -87,13 +103,23 @@ if( $vuePagination != null){
 
     </div>
 
-<?php } ?>
+<?php } 
+
+
+    if( $vuePagination != null){
+        echo $vuePagination ; 
+    }
+
+}else{
+    echo "Aucun résultat...";
+}
+
+?>
 </div>
 <?php 
 
-if( $vuePagination != null){
-    echo $vuePagination ; 
-}
+
+
 
 ?>
 

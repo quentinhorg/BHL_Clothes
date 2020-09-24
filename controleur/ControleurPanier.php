@@ -12,7 +12,6 @@ class ControleurPanier{
          throw new Exception('Page introuvable');
       }
       else{
-
          $numCommande = null;
          if( isset($_POST["ajouterArticle"]) ){
             $this->ajouterArticle(null, $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
@@ -32,9 +31,9 @@ class ControleurPanier{
       }
    }
 
-   private function ajouterArticle($idCmd, $idVet, $idTaille, $qte, $idClr){
+   private function ajouterArticle($idCmd, $idVet, $taille, $qte, $idClr){
       $ArticleManager = new ArticleManager();
-      $ArticleManager->inserer($idCmd, $idVet, $idTaille, $qte, $idClr);
+      $ArticleManager->inserer($idCmd, $idVet, $taille, $qte, $idClr);
    }
 
 

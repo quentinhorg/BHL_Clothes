@@ -64,6 +64,7 @@ class ControleurCatalogue{
             "listeVetement"=> $donnee,
             "vuePagination" => $vuePagination,
             "listeTaille"=>$this->listTailleByCateg($idCateg),
+            "listeGenre"=>$this->listeGenre(),
             "listClrPrincipale" => $this->listClrPrincipale(),
             "genreActive" => $this->genre($codeGenre)
          )) ;
@@ -98,6 +99,18 @@ class ControleurCatalogue{
    public function listClrPrincipale(){
       $CouleurManager = new CouleurManager();
       return $CouleurManager->getPrincipaleCouleur();
+   }
+
+   public function genre($code){
+      $this->GenreManager = new GenreManager;
+      $genre = $this->GenreManager->getGenre($code);
+      return $genre;
+   }
+
+   public function listeGenre(){
+      $this->GenreManager = new GenreManager;
+      $listeGenre = $this->GenreManager->getListeGenre();
+      return $listeGenre;
    }
 
    public function recherche($genre, $categorie){
@@ -140,11 +153,7 @@ class ControleurCatalogue{
 
 
 
-   public function genre($code){
-      $this->GenreManager = new GenreManager;
-      $genre = $this->GenreManager->getGenre($code);
-      return $genre;
-   }
+  
    
 
 
