@@ -6,12 +6,10 @@
         <li> Pantalon </li>
         <li> Vestes </li>
     </ul>
-
     
-    
-
         <?php 
             if($listeTaille != null){
+                echo "<hr>";
                 echo "<h3> Taille </h3>";
                 echo "<ul>";
                 foreach ($listeTaille as $libelle ){ 
@@ -23,7 +21,7 @@
             }
                 
         ?>
-
+    <hr>
     <h3>Couleur</h3>
 
     <ul>

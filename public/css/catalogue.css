@@ -120,6 +120,12 @@ ul.listeCouleur li label{
    float: left;
    min-width: 200px;
    min-height: 100vh;
+   padding: 8px;
+}
+
+#navCatalogue input[type=checkbox]{
+   border: none;
+   background-color: #f1f1f1;
 }
 
 #navCatalogue li{
@@ -129,6 +135,10 @@ ul.listeCouleur li label{
 
 #navCatalogue ul{
    padding: 0;
+}
+
+#navCatalogue h3{
+   margin-top: unset;
 }
 
 

@@ -1,6 +1,8 @@
 
 /* Navigation */
 
+   
+
 #navCateg{
    text-align: center;
    padding: 10px 8px;
@@ -45,18 +47,32 @@
 /* Navigation principale */
 #navPrincipale{
    display: flex;
-   padding: 8px 5px;
+   padding: 12px 8px;
+   max-width: 1300px;
+   margin: auto;
 }
 #navPrincipale, #navPrincipale * {
    display: flex;
 }
 
-#navPrincipale svg{
-
+hr{
+   margin: 0;
 }
+
+#navPrincipale svg{
+   margin-right: 6px;
+}
+
 
 #navPrincipale input[type=search]{
    margin-left: 50px;
+   border: none;
+   padding: 12px 12px;
+   background-color: #f1f1f1;
+   min-width: 250px;
+   border-radius: 3px;
+  
+
 }
 
 #navPrincipale #logo{
