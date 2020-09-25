@@ -124,9 +124,8 @@ ul.listeCouleur li label{
    padding: 8px;
 }
 
-#navCatalogue input[type=checkbox]{
-   border: none;
-   background-color: #f1f1f1;
+input[type="checkbox"]:checked  {
+   color:red;
 }
 
 #navCatalogue li{

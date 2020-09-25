@@ -20,22 +20,25 @@
 
         <form action="" method="POST" id="vetementChoisi">
             <label for="">Couleur: </label>
-            <select name="couleur" id="couleur">
+            <ul name="couleur" id="couleur">
                 <?php foreach($infoVetement->listeCouleurDispo() as $couleur ) { ?>
-                    <option value="<?php echo $couleur->num(); ?>"> <?php echo $couleur->nom(); ?> </option>
+                    <li value="<?php echo $couleur->num(); ?>"> <?php echo $couleur->nom(); ?> </li>
                 <?php } ?>
-            </select>
+            </ul>
             <br>
 
             <label for="">Choississez votre taille: </label>
-            <select name="taille" id="taille">
+            <ul name="taille" id="taille"> 
                 <?php foreach ($infoVetement->listeTailleDispo() as $taille) { ?>
-                    <option value="<?php echo $taille->libelle() ?>"> <?php echo $taille->libelle() ; ?> </option>
+                    <!-- <option value="<?php //echo $taille->libelle() ?>"> <?php// echo $taille->libelle() ; ?> </option> -->
+                    <li value="<?php echo $taille->libelle() ?>"> <div class="divTaille"> <?php echo $taille->libelle() ; ?> </div> </li>
                 <?php } ?>
-            </select>
+            </ul>
+
+            
             <br>
 
-            <label for="">Quantité: </label> <input type="number" name="qte" max="10" value="1">
+            <label for="">Quantité: </label> <input type="number" name="qte" max="10" value="1" id="quantite">
             <br>
 
             

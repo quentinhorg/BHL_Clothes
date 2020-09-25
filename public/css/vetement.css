@@ -52,3 +52,26 @@
 .infoVet h3{
    color: #e76c35;
 }
+
+
+#taille li, #couleur li{
+   list-style-type: none;
+   
+}
+
+#taille li{
+   border: 1px solid black;
+   margin-right: 10px;
+   padding: 4px;
+}
+
+#vetementChoisi ul{
+   display: inline-flex;
+}
+
+
+#quantite{
+   width: 30px;
+   margin-left: 10px;
+}
+
