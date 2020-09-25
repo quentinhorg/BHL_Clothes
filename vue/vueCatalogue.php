@@ -27,12 +27,21 @@
     ?>
         <?php 
             if($listeTaille != null){
+
+               
+
                 echo "<hr>";
                 echo "<h3> Taille </h3>";
                 echo "<ul>";
                 foreach ($listeTaille as $libelle ){ 
                     echo "<li> " ;
-                    echo     "<input name='taille[]' id='taille_".$libelle->libelle()."' type='checkbox' value='".$libelle->libelle()."'>  <label for='taille_".$libelle->libelle()."'> ".$libelle->libelle()."</label>" ;
+
+                    echo "<label for='taille_".$libelle->libelle()."' class='container'>".$libelle->libelle() ;
+                    echo "<input name='taille[]' value='".$libelle->libelle()."' id='taille_".$libelle->libelle()."' type='checkbox' >" ;
+                    echo "<span class='checkmark'> </span>" ;
+                    echo "</label>" ;
+
+                   //echo     "<input name='taille[]' id='taille_".$libelle->libelle()."' type='checkbox' value='".$libelle->libelle()."'>  <label for='taille_".$libelle->libelle()."'> ".$libelle->libelle()."</label>" ;
                     echo "</li>";
                 }
                 echo "</ul>" ;
@@ -48,7 +57,12 @@
     
     foreach ($listClrPrincipale as $couleur) {
        echo "<li> " ;
-       echo     "<input name='couleur[]' id='clr_$couleur' type='checkbox' value='$couleur'>  <label for='clr_$couleur'>  $couleur </label>" ;
+       echo "<label for='clr_$couleur' class='container'>$couleur" ;
+       echo "<input name='couleur[]' value='$couleur' id='clr_$couleur' type='checkbox' >" ;
+       echo "<span class='checkmark'> </span>" ;
+       echo "</label>" ;
+
+      
        echo "</li>";
     }
     ?>

@@ -23,7 +23,7 @@
 ✅ Ajout des informations 
 ✅ Ajout du bouton ajouter au panier
 ✅ Formulaire fonctionnel 
-❌
+❌ Evénement JS (taille, couleur)
 ❌
 
 •••••••••••••• Panier ••••••••••••••

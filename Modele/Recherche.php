@@ -6,6 +6,7 @@ class Recherche{
     private $listeCouleur = array();
     private $categorie;
     private $genre;
+    private $motCle;
 
     public function __construct($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre){
         $this->intervalePrix = $prixIntervale ;
@@ -58,8 +59,16 @@ class Recherche{
 
     public function getReqMotCle(){
         if($this->intervalePrix != null){
-            $req = "AND v.prix BETWEEN ".$this->intervalePrix[0]." AND ".$this->intervalePrix[1]."";
-        }else{ $req = null;}
+            $req = "
+                AND CONCAT(' ', v.Nom,' ', v.description, ' ', c.nom, ' ', ( 
+                    SELECT GROUP_CONCAT(vc2.nom) 
+                    FROM vetement v2 
+                    INNER JOIN vet_couleur vc2 ON vc2.idVet= v2.id 
+                    WHERE v2.id = v.id )
+                ) LIKE '%".$this->motCle."%'
+                GROUP BY v.id
+            ";
+        }else{ $req = null; }
         
         return $req;
     }
@@ -93,7 +102,8 @@ class Recherche{
             " " .$this->getReqTaille().
             " ".$this->getReqPrix().
             " ".$this->getReqCateg().
-            " ".$this->getReqGenre();
+            " ".$this->getReqGenre().
+            " ".$this->getReqMotCle();
         return $reqFinal;
     }
     
