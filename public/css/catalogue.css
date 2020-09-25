@@ -15,7 +15,6 @@ section#catalogue{
 
 .cadreVet:hover{
    border: 1px black solid;
-   
 }
 
 .img{
@@ -24,7 +23,6 @@ section#catalogue{
    background-position: center;
    background-size: 100%;
    cursor: pointer;
-
 }
 
 /* Liste des couelurs */

@@ -56,11 +56,34 @@ class Recherche{
         return $req;
     }
 
+    public function getReqMotCle(){
+        if($this->intervalePrix != null){
+            $req = "AND v.prix BETWEEN ".$this->intervalePrix[0]." AND ".$this->intervalePrix[1]."";
+        }else{ $req = null;}
+        
+        return $req;
+    }
+
     public function getReqFinal(){
+        // SELECT DISTINCT(v.id), v.*
+        // FROM vetement v 
+        // INNER JOIN vet_taille vt ON vt.idVet = v.id 
+        // INNER JOIN vet_couleur vc ON vc.idVet= v.id 
+        // INNER JOIN categorie c ON c.id= v.idCateg
+        // INNER JOIN genre g ON g.code = v.codeGenre
+        // INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet= v.id 
+        // LEFT JOIN taille t ON t.libelle = vt.taille
+        // WHERE vvd.listeIdCouleurDispo IS NOT NULL
+        // AND vvd.listeTailleDispo IS NOT NULL
+        // AND CONCAT(" ", v.Nom," ", v.description, " ", c.nom, " ") LIKE "%dechire%"
+        // GROUP BY v.id
+        // OR (HAVING GROUP_CONCAT(" ",vc.nom) LIKE "%dechire%")
+
         $reqFinal = "SELECT DISTINCT(v.id), v.*
             FROM vetement v 
             INNER JOIN vet_taille vt ON vt.idVet = v.id 
             INNER JOIN vet_couleur vc ON vc.idVet= v.id 
+            INNER JOIN categorie c ON c.id= v.idCateg
             INNER JOIN genre g ON g.code = v.codeGenre
             INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet= v.id 
             LEFT JOIN taille t ON t.libelle = vt.taille
@@ -71,11 +94,9 @@ class Recherche{
             " ".$this->getReqPrix().
             " ".$this->getReqCateg().
             " ".$this->getReqGenre();
-
-            
-    
         return $reqFinal;
     }
+    
     
 
     

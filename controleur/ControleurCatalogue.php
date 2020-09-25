@@ -13,8 +13,7 @@ class ControleurCatalogue{
       }
       else{
          
-         //Systeme de recherche
-
+         
          $idCateg= null;
          if( isset( $url[2])){
             $idCateg = $url[2];
@@ -24,33 +23,18 @@ class ControleurCatalogue{
          if( isset( $url[1])){
             $codeGenre = $url[1];
          }
-         
-         
 
-
-         $categActive = null;
-
-
-
-
+         //Systeme de recherche
          if(isset($_POST['recherche'])){
-            $donnee = $this->recherche($codeGenre, $idCateg);
+            $listeVetement = $this->recherche($codeGenre, $idCateg);
          }
-         else if( isset($url[1]) && isset($url[2]) ){
-            $donnee =  $this->listeVetement($url[1], $url[2]);
+         else if(isset($_POST['chercher'])){
             
          }
-         else if( isset($url[1]) && !isset($url[2]) ){
-            $donnee =  $this->listeVetement($url[1], null);
-         }
          else{
-            $donnee =  $this->listeVetement(null, null);
+            $listeVetement =  $this->listeVetement($codeGenre,  $idCateg);
          }
-
-
-         
-
-
+       
 
          //A optimisé
          if( $this->vetementManager != null){
@@ -61,7 +45,7 @@ class ControleurCatalogue{
 
          $this->vue = new Vue('Catalogue') ;
          $this->vue->genererVue(array( 
-            "listeVetement"=> $donnee,
+            "listeVetement"=> $listeVetement,
             "vuePagination" => $vuePagination,
             "listeTaille"=>$this->listTailleByCateg($idCateg),
             "listeGenre"=>$this->listeGenre(),
@@ -134,15 +118,15 @@ class ControleurCatalogue{
       }
       
       
-   $resultat = $this->vetementManager->getRechercheVetement(
-      $prixIntervale, 
-      $listeTaille, 
-      $listeCouleur, 
-      $categorie, 
-      $genre
-   );
+      $resultat = $this->vetementManager->getRechercheVetement(
+         $prixIntervale, 
+         $listeTaille, 
+         $listeCouleur, 
+         $categorie, 
+         $genre
+      );
 
-   return $resultat ;
+      return $resultat ;
 
 
       
