@@ -46,6 +46,8 @@ class Taille{
       return $this->libelle;
    }
 
+
+   
    public function type(){
       return $this->type;
    }

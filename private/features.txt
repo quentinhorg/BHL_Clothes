@@ -1,41 +1,38 @@
 • Les icones : ✅ ❌
 
 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Navigation ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
+--------------------- Navigation ---------------------
 ❌ Possibilité de voir la page active
 ❌ Responsive
-Liste déroulante regroupant les catégories 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Accueil ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
+❌ Liste déroulante regroupant les catégories 
+--------------------- Accueil ---------------------
 ❌ Affichage des nouveautés
 
 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Catalogue ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
+--------------------- Catalogue ---------------------
 ✅ Affiche uniquement les vêtements dont il y a au moins une couleur et une taille disponible
 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Détail Vêtement ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
-✅ Ajout des informations 
+--------------------- Détail Vêtement ---------------------
 ✅ Ajout du bouton ajouter au panier
 ✅ Formulaire fonctionnel 
+--------------------- Panier ---------------------
 
 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Panier ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
+--------------------- Compte user ---------------------
 
 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Compte user ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
+--------------------- Authentication / Inscription ---------------------
+
+--------------------- Contact ---------------------
 
 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Authentication / Inscription ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
-
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Contact ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
+--------------------- Recherche. ---------------------
 
 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Recherche. ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
+--------------------- Commande. ---------------------
 
 
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ Commande. ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
-
-
-♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ BASE DE DONNEES. ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥ ♥
-✅ Vérification des disponibilités de la taille et la couleur avant l'ajout au panier 
+--------------------- BASE DE DONNEES. ---------------------
+✅ Vérification des disponibilités de la taille et la couleur avant l'ajout au panier (triggers)
 
 
