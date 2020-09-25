@@ -6,14 +6,15 @@ class Recherche{
     private $listeCouleur = array();
     private $categorie;
     private $genre;
-    private $motCle;
+    private $listeMotCle;
 
-    public function __construct($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre){
+    public function __construct($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre, $listeMotCle){
         $this->intervalePrix = $prixIntervale ;
         $this->listeTaille = $listeTaille ;
         $this->listeCouleur = $listeCouleur ;
         $this->categorie = $categorie ;
         $this->genre = $genre;
+        $this->listeMotCle = explode($listeMotCle);
 
        
     }
@@ -58,7 +59,9 @@ class Recherche{
     }
 
     public function getReqMotCle(){
-        if($this->intervalePrix != null){
+        var_dump($this->listeMotCle);
+        
+        if($this->listeMotCle != null){
             $req = "
                 AND CONCAT(' ', v.Nom,' ', v.description, ' ', c.nom, ' ', ( 
                     SELECT GROUP_CONCAT(vc2.nom) 
@@ -74,19 +77,6 @@ class Recherche{
     }
 
     public function getReqFinal(){
-        // SELECT DISTINCT(v.id), v.*
-        // FROM vetement v 
-        // INNER JOIN vet_taille vt ON vt.idVet = v.id 
-        // INNER JOIN vet_couleur vc ON vc.idVet= v.id 
-        // INNER JOIN categorie c ON c.id= v.idCateg
-        // INNER JOIN genre g ON g.code = v.codeGenre
-        // INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet= v.id 
-        // LEFT JOIN taille t ON t.libelle = vt.taille
-        // WHERE vvd.listeIdCouleurDispo IS NOT NULL
-        // AND vvd.listeTailleDispo IS NOT NULL
-        // AND CONCAT(" ", v.Nom," ", v.description, " ", c.nom, " ") LIKE "%dechire%"
-        // GROUP BY v.id
-        // OR (HAVING GROUP_CONCAT(" ",vc.nom) LIKE "%dechire%")
 
         $reqFinal = "SELECT DISTINCT(v.id), v.*
             FROM vetement v 

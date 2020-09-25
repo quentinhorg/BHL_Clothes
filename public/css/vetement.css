@@ -49,7 +49,8 @@
 
 .infoVet h3{
    color: #e76c35;
-   font-size: 30px;
+   font-size: 35px;
+   display: inline-block;
 }
 
 
@@ -86,5 +87,7 @@
    border: 1px solid #c7c1c1;
    cursor: pointer;
    position: relative;
+   float: right;
+   margin-top: 36px;
 }
 

@@ -9,6 +9,7 @@
 ❌ Responsive
 ✅ Requête qui permet de sélectionner tous les id des catégories par genre
 
+
 •••••••••••••• Accueil ••••••••••••••
 ❌ Insérer les 3 dernières nouveautés
 
@@ -24,7 +25,7 @@
 ✅ Ajout du bouton ajouter au panier
 ✅ Formulaire fonctionnel 
 ❌ Evénement JS (taille, couleur)
-❌
+❌ Notification quand on a ajouté au panier
 
 •••••••••••••• Panier ••••••••••••••
 ❌ Faire uen vérif de la taille dispo pour chaque article

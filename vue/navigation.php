@@ -6,8 +6,8 @@
          </span>
 
          <div id="recherche">
-            <form action="catalogue">
-               <input type="search" placeholder="Que cherchez vous ?" name="chercher" id="chercher">
+            <form action="catalogue&recherche=Ok">
+               <input type="search" placeholder="Que cherchez vous ?" name="motCle" id="chercher">
             </form>
          </div>
 

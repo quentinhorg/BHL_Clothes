@@ -24,13 +24,13 @@ class ControleurCatalogue{
             $codeGenre = $url[1];
          }
 
+       
+
          //Systeme de recherche
          if(isset($_POST['recherche'])){
             $listeVetement = $this->recherche($codeGenre, $idCateg);
          }
-         else if(isset($_POST['chercher'])){
-            
-         }
+       
          else{
             $listeVetement =  $this->listeVetement($codeGenre,  $idCateg);
          }
@@ -116,6 +116,11 @@ class ControleurCatalogue{
       if(!empty($_POST['couleur'])){
          $listeCouleur = $_POST['couleur'];
       }
+
+      $motCle=null;
+      if(!empty($_GET['motCle'])){
+         $motCle = $_GET['motCle'];
+      }
       
       
       $resultat = $this->vetementManager->getRechercheVetement(
@@ -123,7 +128,8 @@ class ControleurCatalogue{
          $listeTaille, 
          $listeCouleur, 
          $categorie, 
-         $genre
+         $genre,
+         $motCle
       );
 
       return $resultat ;

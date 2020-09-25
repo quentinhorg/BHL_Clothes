@@ -67,6 +67,9 @@
 </div>  
 <hr style="margin-top: 50px; margin-bottom: 50px;">
 <div class="commentaire">
+
+    <h2>Donner votre avis</h2>
+
     <form action="" method="POST">
         <input type="text" name="pseudo" placeholder="Votre pseudo">
         <input type="text" name="commentaire" placeholder="Votre commentaire">
