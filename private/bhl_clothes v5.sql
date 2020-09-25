@@ -27,10 +27,43 @@ CREATE TABLE `article_panier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`) VALUES
+(1,	1,	'L',	1,	1),
 (1,	1,	'XL',	6,	2),
 (1,	2,	'S',	4,	1),
-(1,	3,	'L',	5,	1)
+(1,	3,	'L',	5,	1),
+(1,	4,	'M',	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`);
+
+DELIMITER ;;
+
+CREATE TRIGGER `before_insert_taille` BEFORE INSERT ON `article_panier` FOR EACH ROW
+BEGIN 
+DECLARE tailleDispo int;
+SET tailleDispo= (SELECT COUNT(taille) FROM vet_taille  WHERE idVet=NEW.idVet AND taille LIKE NEW.taille );
+IF (tailleDispo = 0) THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Erreur: Ce vêtement n'est pas disponible dans cette taille.";
+end if;
+
+
+
+END;;
+
+CREATE TRIGGER `before_insert_couleur` BEFORE INSERT ON `article_panier` FOR EACH ROW
+BEGIN 
+DECLARE couleurDispo int;
+SET couleurDispo= (SELECT dispo
+                   FROM vet_couleur 
+                   WHERE idVet=NEW.idVet AND num = NEW.numClr );
+
+IF (couleurDispo = 0) THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Erreur: Ce vêtement n'est pas disponible dans cette couleur.";
+end if;
+
+
+
+END;;
+
+DELIMITER ;
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
@@ -71,7 +104,7 @@ CREATE TABLE `client` (
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`) VALUES
 (1,	'andrea@gmail.com',	'',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990'),
 (2,	'quentin@live.fr',	'12345',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553'),
-(3,	'lebon@outlook.fr',	'',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478'),
+(3,	'lebon@outlook.fr',	'lala',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478'),
 (4,	'grondin.sam@gmail.com',	'',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645'),
 (5,	'ryan.lauret974@gmail.com',	'',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347'),
 (6,	'mathilde20@gmail.com',	'',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212')
@@ -118,6 +151,7 @@ INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel
 (3,	'2020-09-13 18:32:27',	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'UPDATE'),
 (3,	'2020-09-13 18:37:31',	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'UPDATE'),
 (3,	'2020-09-14 15:40:14',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
+(3,	'2020-09-21 15:43:07',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
 (4,	'2020-09-07 00:00:00',	'test',	'test',	'22 st jo',	'2485',	'DELETE'),
 (4,	'2020-09-14 15:40:14',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	'UPDATE'),
 (5,	'2020-09-07 00:00:00',	'',	'',	'',	'',	'DELETE'),
@@ -145,6 +179,15 @@ INSERT INTO `commande` (`num`, `idClient`, `date`) VALUES
 (5,	5,	'2020-09-17 11:00:00'),
 (6,	4,	'2020-09-13 14:18:23')
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `date` = VALUES(`date`);
+
+DROP TABLE IF EXISTS `commentaire`;
+CREATE TABLE `commentaire` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pseudo` varchar(100) NOT NULL,
+  `commentaire` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
@@ -259,13 +302,13 @@ CREATE TABLE `vet_couleur` (
 
 INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALUES
 (1,	4,	'Rose bonbon',	'hue-rotate(95deg)',	1),
-(2,	4,	'Bleu clair',	NULL,	1),
+(2,	4,	'Bleu clair',	'',	0),
 (3,	4,	'Vert Forêt',	'hue-rotate(969deg) brightness(0.9)',	1),
-(4,	2,	'Rose bonbon',	NULL,	1),
-(5,	3,	'Blanc cassé',	NULL,	1),
-(6,	1,	'Rouge',	NULL,	1),
-(7,	6,	'Jaune',	NULL,	1),
-(8,	5,	'Beige',	NULL,	1)
+(4,	2,	'Rose bonbon',	'',	1),
+(5,	3,	'Blanc cassé',	'',	1),
+(6,	1,	'Rouge',	'',	1),
+(7,	6,	'Jaune',	'',	1),
+(8,	5,	'Beige',	'',	1)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idVet` = VALUES(`idVet`), `nom` = VALUES(`nom`), `filterCssCode` = VALUES(`filterCssCode`), `dispo` = VALUES(`dispo`);
 
 DROP TABLE IF EXISTS `vet_taille`;
@@ -321,4 +364,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-09-20 19:04:13
+-- 2020-09-25 07:28:18
