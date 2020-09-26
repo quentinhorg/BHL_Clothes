@@ -27,7 +27,7 @@ class ControleurCatalogue{
        
 
          //Systeme de recherche
-         if(isset($_POST['recherche'])){
+         if(isset($_POST['recherche']) || isset($_POST['motCle']) ){
             $listeVetement = $this->recherche($codeGenre, $idCateg);
          }
        
@@ -118,8 +118,8 @@ class ControleurCatalogue{
       }
 
       $motCle=null;
-      if(!empty($_GET['motCle'])){
-         $motCle = $_GET['motCle'];
+      if(!empty($_POST['motCle'])){
+         $motCle = $_POST['motCle'];
       }
       
       

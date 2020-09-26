@@ -14,7 +14,8 @@ class Recherche{
         $this->listeCouleur = $listeCouleur ;
         $this->categorie = $categorie ;
         $this->genre = $genre;
-        $this->listeMotCle = explode($listeMotCle);
+        $this->listeMotCle = explode(" ", $listeMotCle);
+      
 
        
     }
@@ -59,16 +60,22 @@ class Recherche{
     }
 
     public function getReqMotCle(){
-        var_dump($this->listeMotCle);
-        
-        if($this->listeMotCle != null){
-            $req = "
-                AND CONCAT(' ', v.Nom,' ', v.description, ' ', c.nom, ' ', ( 
+ 
+        $concatChamps = "
+            CONCAT(' ', v.Nom,' ', v.description, ' ', c.nom, ' ', 
+                ( 
                     SELECT GROUP_CONCAT(vc2.nom) 
                     FROM vetement v2 
                     INNER JOIN vet_couleur vc2 ON vc2.idVet= v2.id 
-                    WHERE v2.id = v.id )
-                ) LIKE '%".$this->motCle."%'
+                    WHERE v2.id = v.id
+                ) 
+            )" ;
+
+        $sqlMotCle = implode("%' OR $concatChamps LIKE '%", $this->listeMotCle ) ;
+ 
+        if($this->listeMotCle != null){
+            $req = "
+                AND ($concatChamps LIKE '%$sqlMotCle%')
                 GROUP BY v.id
             ";
         }else{ $req = null; }
@@ -94,6 +101,8 @@ class Recherche{
             " ".$this->getReqCateg().
             " ".$this->getReqGenre().
             " ".$this->getReqMotCle();
+
+       
         return $reqFinal;
     }
     

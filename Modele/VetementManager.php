@@ -41,11 +41,11 @@ class VetementManager extends DataBase{
         return $resultat;
     }
 
-    public function getRechercheVetement($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre){
+    public function getRechercheVetement($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre, $motCle){
        
         $resultat = null;
         if( $this->Pagination != null){
-            $Recherche = new Recherche($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre) ;
+            $Recherche = new Recherche($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre, $motCle) ;
             $reqRecherche = $Recherche->getReqFinal() ;
             $this->Pagination->getBdd();
        

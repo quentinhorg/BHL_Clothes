@@ -6,7 +6,7 @@
          </span>
 
          <div id="recherche">
-            <form action="catalogue&recherche=Ok">
+            <form action="catalogue" method="POST">
                <input type="search" placeholder="Que cherchez vous ?" name="motCle" id="chercher">
             </form>
          </div>
