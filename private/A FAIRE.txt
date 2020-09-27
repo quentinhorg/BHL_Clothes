@@ -8,7 +8,7 @@
 ✅ Ajouter les catégories (bdd)
 ❌ Responsive
 ✅ Requête qui permet de sélectionner tous les id des catégories par genre
-
+❌ Ajouter le champ de recherche dans les genres (req SQL)
 
 •••••••••••••• Accueil ••••••••••••••
 ❌ Insérer les 3 dernières nouveautés
@@ -35,8 +35,9 @@
 ❌
 
 •••••••••••••• Compte user ••••••••••••••
-❌Crypter le mdp
-❌
+❌ Crypter le mdp
+❌ Affichage de la liste des commandes
+      - 
 ❌
 ❌
 ❌

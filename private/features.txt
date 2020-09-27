@@ -1,13 +1,11 @@
 • Les icones : ✅ ❌
 
-
 --------------------- Navigation ---------------------
 ❌ Possibilité de voir la page active
 ❌ Responsive
 ❌ Liste déroulante regroupant les catégories 
 --------------------- Accueil ---------------------
 ❌ Affichage des nouveautés
-
 
 --------------------- Catalogue ---------------------
 ✅ Affiche uniquement les vêtements dont il y a au moins une couleur et une taille disponible

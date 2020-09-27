@@ -12,7 +12,7 @@
     <button class="lientab" onclick="ouvririnfo(event, 'email')" id="defaut">Email</button>
     <button class="lientab" onclick="ouvririnfo(event, 'mdp')">Mot de passe</button>
     <button class="lientab" onclick="ouvririnfo(event, 'livraison')">Livraison</button>
-    <button class="lientab" onclick="ouvririnfo(event, 'commande')">Mes Commandes</button>
+    <button class="lientab" onclick="ouvririnfo(event, 'commande')">Gérer mes commandes</button>
 </div>
 
 <div id="email" class="contenutab">
