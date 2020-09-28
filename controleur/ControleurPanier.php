@@ -21,9 +21,9 @@ class ControleurPanier{
          //$this->suppSession(); 
 
          $this->vue = new Vue('Panier') ;
-         $this->vue->setListeJsScript(["publique/script/js/HtmlArticle.js","publique/script/js/HtmlPanier.js" ]);
+         $this->vue->setListeJsScript(["public/script/js/HtmlArticle.js","public/script/js/HtmlPanier.js" ]);
          $this->vue->genererVue(array( 
-            "maCommande"=> $this->maCommande($numCommande)
+            "maCommande"=> $this->maCommande()
          )) ;
 
          
@@ -37,16 +37,11 @@ class ControleurPanier{
    }
 
 
-   private function maCommande($numCommande){
+   private function maCommande(){
       $CommandeManager = new CommandeManager();
 
       //Si le client est connecté
-      if( isset($clientConnecte) ){
-         $this->suppSession();
-         $maCommande = $CommandeManager->getCommande($numCommande);
-      }else{
-         $maCommande = $CommandeManager->getCommande(null);
-      }
+         $maCommande = $CommandeManager->getCmdActive(null);
      
       return $maCommande ;
    }

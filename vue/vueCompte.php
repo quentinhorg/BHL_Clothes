@@ -1,35 +1,50 @@
+    <a href="">Deconnexion</a>
 <?php
-
-?>
-
-<?php
-
-        echo "<h2>".$clientActif->getNom()." ".$clientActif->getPrenom()."</h2>";
-
+    echo "<h2>".$clientActif->getNom()." ".$clientActif->getPrenom()."</h2>";
 ?>
 
 <div class="tab">
-    <button class="lientab" onclick="ouvririnfo(event, 'email')" id="defaut">Email</button>
-    <button class="lientab" onclick="ouvririnfo(event, 'mdp')">Mot de passe</button>
+    <button class="lientab" onclick="ouvririnfo(event, 'email')" >Email</button>
+    <button class="lientab" onclick="ouvririnfo(event, 'mdp')"id="defaut">Mot de passe</button>
     <button class="lientab" onclick="ouvririnfo(event, 'livraison')">Livraison</button>
     <button class="lientab" onclick="ouvririnfo(event, 'commande')">Gérer mes commandes</button>
 </div>
 
 <div id="email" class="contenutab">
     <h3>Email</h3>
-    <p>Votre email est actuellement *insererPHP*</p>
-    <p>Si vous souhaitez le changer <a href="" style="color:blue;text-decoration: underline">cliquez ici</a></p>
+    <p>Votre email est actuellement <a><?php echo $clientActif->email();?></a> </p> 
+    <p>Si vous souhaitez le modifier, entrez votre nouveau mot de passe ci dessous </p>
+    <form action="" method="POST">
+        <input type="email" name="changeMail" placeholder="Entrez votre nouvelle adresse Email"><br>
+        <input type="email" name="changeMail2" placeholder="Confirmez votre nouvelle adresses Email"><br>
+        <input type="submit" value="Changer l'adresse Email " name="submitMail">
+    </form>
+    <?php if ($message==null) {
+      
+    }else{
+    echo $message;
+    } ?>
 </div>
 
 <div id="mdp" class="contenutab">
-    <h3>Mot de Passe</h3>
-    <p>Votre mot de passe est actuellement *insererPHP*</p>
-    <p>Si vous souhaitez le changer <a href="" style="color:blue;text-decoration: underline">cliquez ici</a></p>
+    <h3>Mot de passe</h3>
+    <p>Si vous souhaitez changer votre mot de passe veuillez saisir ces informations</p> 
+    <form action="" method="POST">
+        <input type="password" name="ancienMdp" placeholder="Entrez votre ancien mot de passe"><br>
+        <input type="password" name="changeMdp" placeholder="Entrez le nouveau mot de passe"><br>
+        <input type="password" name="changeMdp2" placeholder="Confirmez le nouveaut mot de passe"><br>
+        <input type="submit" value="Changer le mot de passe" name="submitMdp">
+    </form>
+    <?php if ($message==null) {
+      
+    }else{
+    echo $message;
+    } ?>
 </div>
 
 <div id="livraison" class="contenutab">
     <h3>Livraison</h3>
-    <p>Votre adresse de livraison est actuellement *insererPHP*</p>
+    <p>Votre adresse de livraison est actuellement <?php echo $clientActif->getAdresse(); ?></p>
     <p>Si vous souhaitez le changer <a href="" style="color:blue;text-decoration: underline">cliquez ici</a></p>
 </div>
 

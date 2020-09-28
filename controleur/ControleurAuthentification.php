@@ -12,6 +12,9 @@ class ControleurAuthentification{
       }
 
       else if(@strtolower($url[1]) == "inscription"){
+
+         
+         
          $message=null;
          if (isset($_POST['submit'])){
             if (!empty($_POST['nom'])) {
@@ -20,7 +23,9 @@ class ControleurAuthentification{
                      if (!empty($_POST['email'])) {
                         if (!empty($_POST["mdp"])){
                            if (!empty($_POST['tel'])) {
-                              $this->insertClient();
+                              $idClientRegister = $this->insertClient();
+                              $this->addPanierSessionToClient($idClientRegister);
+
                            }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
                         }else {  $message = "Veuillez entrer un mot de passe"; }
                      }else {  $message = "Veuillez entrer votre Email"; }
@@ -48,13 +53,21 @@ class ControleurAuthentification{
 
    //retourne les 3 derniers vetements
    private function insertClient(){
-      $ClientManagerInsert = new ClientManager();
-      $ClientManagerInsert->insertBDD();
+      $ClientManager = new ClientManager();
+      return $ClientManager->insertBDD();
+
+   }
+
+   private function addPanierSessionToClient(){
+      $CommandeManager = new CommandeManager();
+      //Tranférer l'id
+      $CommandeManager->insertCommandeSessionToClient();
+
    }
 
    private function connexionClient(){
-      $ClientManagerLogin = new ClientManager();
-      $ClientManagerLogin->connexion();
+      $ClientManager = new ClientManager();
+      $ClientManager->connexion();
    }
 
 

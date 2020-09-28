@@ -20,21 +20,30 @@
         
         <form action="" method="POST" id="vetementChoisi">
             <label for="">Couleur: </label>
-            <ul name="couleur" id="couleur">
+            <!-- <ul name="couleur" id="couleur"> -->
+            <select name="couleur">
                 <?php foreach($infoVetement->listeCouleurDispo() as $couleur ) { ?>
-                    <li value="<?php echo $couleur->num(); ?>"> <?php echo $couleur->nom(); ?> </li>
+                    <option value="<?php echo $couleur->num(); ?>"> <?php echo  $couleur->nom(); ?>  </option>
+                    <!-- <li value="<?php //echo $couleur->num(); ?>"> <?php // echo  $couleur->nom(); ?> </li> -->
                 <?php } ?>
-            </ul>
+            </select>
+            <!-- </ul> -->
             <br>
         
 
             <label for="">Choississez votre taille: </label>
-            <ul name="taille" id="taille"> 
-                <?php foreach ($infoVetement->listeTailleDispo() as $taille) { ?>
+            <!-- <ul name="taille" id="taille">  -->
+                <?php //foreach ($infoVetement->listeTailleDispo() as $taille) { ?>
                     <!-- <option value="<?php //echo $taille->libelle() ?>"> <?php// echo $taille->libelle() ; ?> </option> -->
-                    <li value="<?php echo $taille->libelle() ?>"> <div class="divTaille"> <?php echo $taille->libelle() ; ?> </div> </li>
-                <?php } ?>
-            </ul>
+                    <!-- <li value="<?php //echo $taille->libelle() ?>"> <div class="divTaille"> <?php //echo $taille->libelle() ; ?> </div> </li> -->
+                <?php //} ?>
+            <!-- </ul> -->
+
+            <select name="taille" id="taille">
+            <?php foreach ($infoVetement->listeTailleDispo() as $taille) { ?>
+                <option value="<?php echo $taille->libelle() ?>"><?php echo $taille->libelle() ; ?></option>
+            <?php } ?>
+            </select>
 
             
             <br>
@@ -70,12 +79,26 @@
 
     <h2>Donner votre avis</h2>
 
-    <form action="" method="POST">
-        <input type="text" name="pseudo" placeholder="Votre pseudo">
-        <input type="text" name="commentaire" placeholder="Votre commentaire">
+    <?php
+        foreach ($listeCommentaire as $commentaire) {
+            echo $commentaire->getCommentaire() ;
+            echo "<br>";
+            echo $commentaire->getNote() ;
+        }
+   ?>
 
-        <input type="submit" value="Envoyer">
+    <form action="" method="POST">
+        <!-- <input type="text" name="pseudo" placeholder="Votre pseudo"> -->
+        <input type="text" name="commentaire" placeholder="Votre commentaire">
+        <input type="number" name="note">
+
+        <input type="submit" value="Envoyer" name="envoyerCommentaire">
     </form>
+
+  
+    <?php echo $msg; ?>
+
+
 </div>
 
 <script>

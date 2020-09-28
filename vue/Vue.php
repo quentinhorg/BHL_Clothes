@@ -74,7 +74,6 @@ class Vue{
             "listeGenre" => $GenreManager->getListeGenre(),
             "qtePanier" => $CommandeManager->getCmdActive()->getQuantiteArticle(),
              "clientEnLigne" => $ClientManager->ClientEnLigne()
-           
          ] ;
 
          $nav = $this->genererFichier($this->nav, $donnee) ;
@@ -87,7 +86,12 @@ class Vue{
 
       //PARTIE DE LA VUE
       $contenu = $this->genererFichier($this->fichier, $donnee);
-      $nav = $this->getNav();
+      
+      
+      //$nav = $this->getNav();
+      $nav = null;
+
+
       if($this->header != null){
          $header =  $this->genererFichier($this->header, $donnee);
       }else{ $header  = null;}

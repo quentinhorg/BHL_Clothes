@@ -17,7 +17,6 @@ class ClientManager extends DataBase{
         if( isset($_SESSION["id_client_en_ligne"]) ){
             $Client = $this->getClient($_SESSION["id_client_en_ligne"]) ;
         }else{ $Client = null ;}
-       
 
         return $Client;
     }
@@ -30,6 +29,8 @@ class ClientManager extends DataBase{
 
         $this->getBdd();
         $this->execBDD($req,[$newID,$_POST['email'], $_POST['mdp'], $_POST['nom'], $_POST['prenom'], $_POST['adresse'],$_POST['tel']]);
+
+        return $newID ;
     }
 
     public function connexion(){
@@ -44,17 +45,31 @@ class ClientManager extends DataBase{
         // var_dump($resultat);
 
         if (count($resultat)==1){
-            echo " connectééé";
+            echo "Vous êtes actuellement connecté";
             $_SESSION['id_client_en_ligne'] = $resultat[0]['id'];
             // var_dump($_SESSION['id_client_en_ligne']);
         }else{
-            echo "pas co";
+            echo "Vous n'êtes actuellement pas connecté";
         }
 
     }
 
+    public function changeMail($id){
+        $this->getBdd();
+        $changeMail = "UPDATE client SET email = ? WHERE id = ? ;" ;
+        $resultat = $this->execBDD($changeMail,[$_POST['changeMail'],$id]);
+    }
 
-
+    public function changeMdp($id){
+        $this->getBdd();
+        $changeMdp = "UPDATE client SET mdp = ? WHERE id = ? ;" ;
+        $resultat = $this->execBDD($changeMdp,[$_POST['changeMdp'],$id]);
+    }
+    
+    public function deconnexion(){
+        $_SESSION=null;
+        session_destroy();
+    }
 
 
 }

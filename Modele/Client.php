@@ -105,7 +105,6 @@ class Client{
         return $this->mdp;
     }
    
-   
 
     public function getNom(){
         return $this->nom;

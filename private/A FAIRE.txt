@@ -42,9 +42,9 @@
       - Supprimer (Commande en cours uniquement)
 ❌ Livraison :
       - Formulaire pour changer (addrs)
-❌ Mot de passe: 
+✅ Mot de passe: 
       - Formulaire d'édition -> nouveau mdp + confirmation nouveau mdp + ancien mdp
-❌ Email : 
+✅ Email : 
       - Formulaire d'édition -> nouveau email + confirmation nouveau email
 
 •••••••••••••• Authentication / Inscription ••••••••••••••

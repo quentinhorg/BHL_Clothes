@@ -13,13 +13,41 @@ class ControleurVetement{
       else{
 
          $id= $url[1] ;
+         
+         $msg= null;
+         if ( isset($_POST['envoyerCommentaire']) && !empty($_POST['envoyerCommentaire'])) {
+            
+            if ( isset($_POST['commentaire']) && !empty($_POST['commentaire'])) {
+               
+               if ( isset($_POST['note']) && !empty($_POST['note'])) {
+                  $this->insertCommentaire($id);
+                  $msg="Votre commentaire a bien été posté.";
+               }
+
+               else{
+                  $msg= "Veuillez ajouter une note.";
+               }
+           }
+            else{
+               $msg= "Veuillez ajouter un commentaire.";
+            }
+         }
+
+
 
          $this->vue = new Vue('Vetement') ;
          $this->vue->genererVue(array( 
             "infoVetement"=> $this->infoVetement($id),
-            "commentaire" => $this->listeCommentaire()
+            "msg"         => $msg,
+            "listeCommentaire" => $this->listeCommentaire($id)
          )) ;
       }
+
+      // if ( isset($_GET['idVet']) && !empty($_GET['idVet'])) {
+      //    $idVet= $_GET['idVet'];
+      // }
+
+      
 
       
    }
@@ -33,8 +61,23 @@ class ControleurVetement{
      
    }
 
-   private function listeCommentaire(){
+   // afficher les commentaires selon le vêtement
+   private function listeCommentaire($id){
 
+      $CommentaireManager= new CommentaireManager();
+
+      $listeCommentaire= $CommentaireManager->getListeCommentaire($id);
+
+      return $listeCommentaire;
+
+   }
+
+   private function insertCommentaire($idVet){
+      $CommentaireManager = new CommentaireManager();
+      $ClientManager= new ClientManager();
+      $idClient= $ClientManager->clientEnLigne()->getId();
+
+      $CommentaireManager->insertCommentaire($idVet, $idClient);
    }
 
 
