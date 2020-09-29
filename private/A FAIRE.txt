@@ -90,6 +90,6 @@ Ex : On ne pourra pas supprimer ni changer le champ lettre la CAT2GROEI robe si 
 ❌Ajouter un trigger : Empecher de mettre 1 dans le champ dispo de la table vet_couleur 
 si aucune taille n'est disponible pour le vetement
 ❌Vérifier si la vue : vue_vet_disponibilite prend en compte le champ dispo(1 ou 0) dans couleur
-
+⚠️ Ajouter l'historisation pour les nouveaux champs dans client (email, mdp)
 
 
