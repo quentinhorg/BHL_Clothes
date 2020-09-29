@@ -77,21 +77,27 @@
 <hr style="margin-top: 50px; margin-bottom: 50px;">
 <div class="commentaire">
 
-    <h2>Donner votre avis</h2>
+    <h2>Avis des clients (<?php var_dump($nbCommentaire->nbCommentaire()); echo $nbCommentaire->nbCommentaire($id); ?>)</h2>
 
     <?php
+
+        
+        
         foreach ($listeCommentaire as $commentaire) {
-            echo $commentaire->getCommentaire() ;
+            $date= new DateTime($commentaire->date());
+
+            echo $commentaire->commentaire() ;
             echo "<br>";
-            echo $commentaire->getNote() ;
+            echo $commentaire->note() ;
             echo "<br>";
-            echo $commentaire->getDate() ;
+            echo "Le ".date_format($date, 'd/m/Y à H\hi') ;
             echo "<br>";
         }
    ?>
 
+    <h2>Donner votre avis</h2>
+
     <form action="" method="POST">
-        <!-- <input type="text" name="pseudo" placeholder="Votre pseudo"> -->
         <input type="text" name="commentaire" placeholder="Votre commentaire">
         <input type="number" name="note">
 

@@ -71,6 +71,12 @@ class ClientManager extends DataBase{
         session_destroy();
     }
 
+    public function changeAdresse($id){
+        $this->getBdd();
+        $changeMdp = "UPDATE client SET adresse = ? WHERE id = ? ;" ;
+        $resultat = $this->execBDD($changeMdp,[$_POST['changeAdresse'],$id]);
+    }
+
 
 }
 

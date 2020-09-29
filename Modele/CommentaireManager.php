@@ -5,7 +5,7 @@ class CommentaireManager extends DataBase{
     // afficher les commentaires selon le vêtement
     public function getListeCommentaire($id){
 
-        $req="SELECT * FROM commentaire WHERE idVet=?";
+        $req="SELECT * FROM commentaire WHERE idVet=? ORDER BY date DESC";
         $this->getBdd();
         $commentaire= $this->getModele($req, [$id], "Commentaire");
 
@@ -21,5 +21,12 @@ class CommentaireManager extends DataBase{
 
         $this->getBdd();
         $this->execBdd($req, [$newID, $idClient, $idVet, $_POST['commentaire'], $_POST['note'] ]);
+    }
+
+    public function nbCommentaire($id){
+
+        $req="SELECT COUNT(id) FROM commentaire WHERE idVet=?";
+        $this->getBdd();
+        $nbCommentaire= $this->getModele($req, [$id], "Client");
     }
 }

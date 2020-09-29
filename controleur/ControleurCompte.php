@@ -28,6 +28,17 @@ class ControleurCompte{
                     }else{ $message = "Veuillez remplir tous les champs";}
             }
 
+            if (isset($_GET['deco'])) {
+               $deco = $_GET['deco'];
+               if (strtolower($deco)== "ok") {
+                   $this->deconnexion();
+                   $test = str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" : "http" . "://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']) ) ;
+                   header("Location: $test");
+               }
+
+
+            }
+
             
             $this->vue = new Vue('Compte') ;
             $this->vue->genererVue(array(
@@ -57,10 +68,16 @@ class ControleurCompte{
         $ClientManager->changeMdp($idCli);
     }
 
+    public function changeAdresse(){
+        $ClientManager = new ClientManager();
+        $idCli = $this->client()->getId();
+        $ClientManager->changeAdresse($idCli);
+    }
+
     private function deconnexion(){
         $ClientManager = new ClientManager();
         $ClientManager->deconnexion();
-     }
+    }
 
 
 }

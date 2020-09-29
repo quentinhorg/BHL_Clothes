@@ -9,7 +9,6 @@ class Commande{
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
-
    }
 
    //HYDRATATION
@@ -42,6 +41,14 @@ class Commande{
    }
 
    public function setNum($num){
+      $num = (int) $num;
+
+      if($num > 0){
+         $this->num = $num;
+      }
+   }
+
+   public function setPanier($num){
       $num = (int) $num;
 
       if($num > 0){

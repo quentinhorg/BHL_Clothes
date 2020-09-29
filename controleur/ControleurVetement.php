@@ -6,6 +6,7 @@ class ControleurVetement{
    // CONSTRUCTEUR 
    public function __construct($url){
       
+     
 
       if( isset($url) && count($url) > 2 ){
          throw new Exception('Page introuvable');
@@ -13,8 +14,8 @@ class ControleurVetement{
       else{
 
          $id= $url[1] ;
-         
          $msg= null;
+         
          if ( isset($_POST['envoyerCommentaire']) && !empty($_POST['envoyerCommentaire'])) {
             
             if ( isset($_POST['commentaire']) && !empty($_POST['commentaire'])) {
@@ -39,17 +40,12 @@ class ControleurVetement{
          $this->vue->genererVue(array( 
             "infoVetement"=> $this->infoVetement($id),
             "msg"         => $msg,
-            "listeCommentaire" => $this->listeCommentaire($id)
+            "listeCommentaire" => $this->listeCommentaire($id),
+            "nbCommentaire"    => $this->nbCommentaire($id)
          )) ;
+         
       }
 
-      // if ( isset($_GET['idVet']) && !empty($_GET['idVet'])) {
-      //    $idVet= $_GET['idVet'];
-      // }
-
-      
-
-      
    }
 
    //retourne les 3 derniers vetements
@@ -72,6 +68,7 @@ class ControleurVetement{
 
    }
 
+   // insérer un commentaire
    private function insertCommentaire($idVet){
       $CommentaireManager = new CommentaireManager();
       $ClientManager= new ClientManager();
@@ -80,6 +77,11 @@ class ControleurVetement{
       $CommentaireManager->insertCommentaire($idVet, $idClient);
    }
 
+   private function nbCommentaire($id){
+
+      $CommentaireManager= new CommentaireManager();
+      $nbCommentaire= $CommentaireManager->nbCommentaire($id);
+   }
 
 }
 

@@ -1,4 +1,4 @@
-    <a href="">Deconnexion</a>
+    
 <?php
     echo "<h2>".$clientActif->getNom()." ".$clientActif->getPrenom()."</h2>";
 ?>
@@ -44,8 +44,19 @@
 
 <div id="livraison" class="contenutab">
     <h3>Livraison</h3>
-    <p>Votre adresse de livraison est actuellement <?php echo $clientActif->getAdresse(); ?></p>
-    <p>Si vous souhaitez le changer <a href="" style="color:blue;text-decoration: underline">cliquez ici</a></p>
+    <p>Votre email est actuellement <a><?php echo $clientActif->getAdresse();?></a> </p> 
+    <p>Si vous souhaitez le modifier, entrez votre nouveau mot de passe ci dessous </p>
+    <form action="" method="POST">
+        <input type="password" name="ancienMdp" placeholder="Entrez votre ancien mot de passe"><br>
+        <input type="password" name="changeMdp" placeholder="Entrez le nouveau mot de passe"><br>
+        <input type="password" name="changeMdp2" placeholder="Confirmez le nouveaut mot de passe"><br>
+        <input type="submit" value="Changer le mot de passe" name="submitMdp">
+    </form>
+    <?php if ($message==null) {
+      
+    }else{
+    echo $message;
+    } ?>
 </div>
 
 <div id="commande" class="contenutab">

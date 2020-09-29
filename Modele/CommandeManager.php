@@ -11,13 +11,13 @@ class CommandeManager extends DataBase{
     }
 
     public function insertCommande($idClient){
-        var_dump($_SESSION["ma_commande"]->panier()) ;
+       
         $this->getBdd(); 
         $newID = $this->getNewIdTable('commande','num');
         $reqClient = "INSERT INTO commande VALUES(?,?, NOW())" ;
         $this->getBdd();
         $this->execBdd($reqClient, [$newID, $idClient]);
-        
+
         return $newID;
     }
 
@@ -31,6 +31,7 @@ class CommandeManager extends DataBase{
             // $req = "SELECT derniere COMMANDE UTILISATEUR" ;
             // $CmdId = "ID DE LA CMD ACTIVE";
             //$cmd = $this->getCommande($CmdId);
+            $cmd = $_SESSION["ma_commande"] ;
 
          }else{ 
             $cmd = $_SESSION["ma_commande"] ;
@@ -49,7 +50,7 @@ class CommandeManager extends DataBase{
     }
 
     //Permet également d'effacer la commande (panier) de la session
-    public function renitialiseSession(){
+    public function effacerCmdSession(){
         $_SESSION["ma_commande"] = null;
     }
 

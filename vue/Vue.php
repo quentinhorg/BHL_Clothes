@@ -87,9 +87,9 @@ class Vue{
       //PARTIE DE LA VUE
       $contenu = $this->genererFichier($this->fichier, $donnee);
       
-      
-      //$nav = $this->getNav();
       $nav = null;
+      //$nav = $this->getNav();
+      
 
 
       if($this->header != null){

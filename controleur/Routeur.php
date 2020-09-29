@@ -16,7 +16,7 @@ class Routeur{
          
          session_start(); //Démarrage de la session
 
-         if( !isset($_SESSION["ma_commande"]) ){
+         if( !isset($_SESSION["ma_commande"]) && !isset($_SESSION["id_client_en_ligne"]) ){
             $CommandeManager = new CommandeManager;
             $CommandeManager->creerCommandeSession();
          }

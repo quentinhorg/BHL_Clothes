@@ -17,7 +17,7 @@
            
 
                   if($clientEnLigne != null) {
-                     echo "<a href='?deco=Ok'> Deconnexion <a>" ;
+                     echo "<a href='compte&deco=ok'> Deconnexion <a>" ;
 
                      echo $clientEnLigne->getNom();
                   }

@@ -73,27 +73,27 @@ class Commentaire{
 
    //GETTER
 
-    public function getId(){
+    public function id(){
         return $this->id;
     }
 
-    public function getIdClient(){
+    public function idClient(){
         return $this->idClient;
     }
 
-    public function getIdVet(){
+    public function idVet(){
         return $this->idVet;
     }
 
-    public function getCommentaire(){
+    public function commentaire(){
         return $this->commentaire;
     }
    
-    public function getNote(){
+    public function note(){
         return $this->note;
     }
 
-    public function getDate(){
+    public function date(){
         return $this->date;
     }
 

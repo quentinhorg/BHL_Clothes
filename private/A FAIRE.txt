@@ -36,6 +36,7 @@
 
 •••••••••••••• Compte user ••••••••••••••
 ❌ Crypter le mdp
+
 ❌ Gérer mes commandes : Affichage de la liste des commandes
       - Séparer par : commannde validé/payé et commande en cours
       - Consulter le pdf  (lien vers panier pour commande en cours)
