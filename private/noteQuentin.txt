@@ -5,4 +5,4 @@ https://docs.google.com/document/d/1UmmZH-7tIvOsV58ONVik2No-2Wc_DakHGyOzls1chsU/
 
 
 -----------
-Terminer la mini recherche par mot clé
+- initialiser le panier quand est connecter (setter classe Commande)
