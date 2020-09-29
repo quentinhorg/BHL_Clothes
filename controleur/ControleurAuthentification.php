@@ -24,7 +24,7 @@ class ControleurAuthentification{
                         if (!empty($_POST["mdp"])){
                            if (!empty($_POST['tel'])) {
                               $idClientRegister = $this->insertClient();
-                              $this->addPanierSessionToClient($idClientRegister);
+                              $this->addPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
 
                            }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
                         }else {  $message = "Veuillez entrer un mot de passe"; }
@@ -58,11 +58,12 @@ class ControleurAuthentification{
 
    }
 
-   private function addPanierSessionToClient(){
+   private function addPanierSessionToBdd($idCli, $cmdObj){
       $CommandeManager = new CommandeManager();
-      //Tranférer l'id
-      $CommandeManager->insertCommandeSessionToClient();
+      $ArticleManager = new ArticleManager();
 
+      $idCmd = $CommandeManager->insertCommande($idCli);
+      $ArticleManager->insertListeArticle($idCmd);
    }
 
    private function connexionClient(){

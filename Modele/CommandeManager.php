@@ -10,23 +10,17 @@ class CommandeManager extends DataBase{
         return $commande;
     }
 
-    public function insertCommandeSessionToClient($idClient){
-
+    public function insertCommande($idClient){
         var_dump($_SESSION["ma_commande"]->panier()) ;
-        $this->getBdd(); //Autoriser l'access a la BDD
+        $this->getBdd(); 
         $newID = $this->getNewIdTable('commande','num');
         $reqClient = "INSERT INTO commande VALUES(?,?, NOW())" ;
-        
         $this->getBdd();
         $this->execBdd($reqClient, [$newID, $idClient]);
-
-
-        // foreach ($_SESSION["ma_commande"]->panier() as $article) {
-        //     $reqArticle = "INSERT INTO article_panier VALUES(?,?,?,?)" ;    
-        // }
-       
-        //return $commande;
+        
+        return $newID;
     }
+
 
     // A COMPLETER
     public function getCmdActive(){

@@ -15,8 +15,12 @@ class Routeur{
          });
          
          session_start(); //Démarrage de la session
-         // $CommandeManager = new CommandeManager;
-         // $CommandeManager->creerCommandeSession();
+
+         if( !isset($_SESSION["ma_commande"]) ){
+            $CommandeManager = new CommandeManager;
+            $CommandeManager->creerCommandeSession();
+         }
+         
          
          //Vérifie sur on navigue sur une page
          if( isset($_GET['url']) ){

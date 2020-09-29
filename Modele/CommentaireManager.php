@@ -17,9 +17,9 @@ class CommentaireManager extends DataBase{
         $this->getBdd(); //Autoriser l'access a la BDD
         $newID = $this->getNewIdTable('commentaire','id');
 
-        $req= "INSERT INTO commentaire VALUES (?,?,?,?,?,?) ";
+        $req= "INSERT INTO commentaire VALUES (?,?,?,?,?, NOW() ) ";
 
         $this->getBdd();
-        $this->execBdd($req, [$newID, $idClient, $idVet, $_POST['commentaire'], $_POST['note'], NOW()]);
+        $this->execBdd($req, [$newID, $idClient, $idVet, $_POST['commentaire'], $_POST['note'] ]);
     }
 }

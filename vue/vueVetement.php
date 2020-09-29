@@ -84,6 +84,9 @@
             echo $commentaire->getCommentaire() ;
             echo "<br>";
             echo $commentaire->getNote() ;
+            echo "<br>";
+            echo $commentaire->getDate() ;
+            echo "<br>";
         }
    ?>
 
