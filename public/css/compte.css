@@ -61,3 +61,7 @@ div#email input[type=email]{
 div#mdp input[type=password]{
     width:200px;
 }
+
+div#livraison input[type=text]{
+    width:200px;
+}

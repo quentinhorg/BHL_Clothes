@@ -1,4 +1,5 @@
 ⚠️ Undefined index →  voir dans url 
+⚠️ Call to a member function on array → [0] si retourne 1 valeur (fetch)
 
 Récupérer qqch dans url → $_GET['idClient'] 
 
@@ -6,7 +7,7 @@ Récupérer qqch dans url → $_GET['idClient']
 
 
 $tab[]= quand retourne une liste 
-$tab= quand retourne 1 seul ment 
+$tab= quand retourne 1 seul élément 
 
 
 
@@ -37,3 +38,7 @@ $id= $_GET['idVet];
 - utiliser le 1er objet: $nomMethodeGet() as $...
 - utiliser le 2eme: 	 $...-> méthode de l'attribut
 
+
+
+
+Requête nbCommentaire, nbCouleur... -> ajouter un attribut dans la classe concernée, req imbriquée

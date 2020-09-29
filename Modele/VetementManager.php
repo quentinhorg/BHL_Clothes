@@ -1,10 +1,19 @@
 <?php
 
 class VetementManager extends DataBase{
-    private $reqBase = "SELECT *
+    private $reqBase = "SELECT *, (SELECT COUNT(id) FROM commentaire WHERE idVet=v.id) AS nbCommentaire
     FROM vetement v
     INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet = v.id" ;
     public $Pagination = null;
+
+    
+    //    public function nbCommentaire($id){
+    //     $req="SELECT COUNT(id) FROM commentaire WHERE idVet=?";
+    //     $this->getBdd();
+    //     $nbCommentaire= $this->getModele($req, [$id], "Commentaire")[0];
+
+    //     return $nbCommentaire;
+    // }
 
     public function setPagination($nbArtPage){
         if( !isset($_GET["page"]) ){ $_GET["page"] = null ; }

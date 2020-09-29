@@ -4,8 +4,8 @@
 ?>
 
 <div class="tab">
-    <button class="lientab" onclick="ouvririnfo(event, 'email')" >Email</button>
-    <button class="lientab" onclick="ouvririnfo(event, 'mdp')"id="defaut">Mot de passe</button>
+    <button class="lientab" onclick="ouvririnfo(event, 'email')"id="defaut" >Email</button>
+    <button class="lientab" onclick="ouvririnfo(event, 'mdp')">Mot de passe</button>
     <button class="lientab" onclick="ouvririnfo(event, 'livraison')">Livraison</button>
     <button class="lientab" onclick="ouvririnfo(event, 'commande')">Gérer mes commandes</button>
 </div>
@@ -13,7 +13,7 @@
 <div id="email" class="contenutab">
     <h3>Email</h3>
     <p>Votre email est actuellement <a><?php echo $clientActif->email();?></a> </p> 
-    <p>Si vous souhaitez le modifier, entrez votre nouveau mot de passe ci dessous </p>
+    <p>Si vous souhaitez le modifier, entrez votre nouvelle adresse Email puis confirmez le</p>
     <form action="" method="POST">
         <input type="email" name="changeMail" placeholder="Entrez votre nouvelle adresse Email"><br>
         <input type="email" name="changeMail2" placeholder="Confirmez votre nouvelle adresses Email"><br>
@@ -44,13 +44,12 @@
 
 <div id="livraison" class="contenutab">
     <h3>Livraison</h3>
-    <p>Votre email est actuellement <a><?php echo $clientActif->getAdresse();?></a> </p> 
-    <p>Si vous souhaitez le modifier, entrez votre nouveau mot de passe ci dessous </p>
+    <p>Votre adresse est actuellement <a><?php echo $clientActif->getAdresse();?></a> </p> 
+    <p>Si vous souhaitez la modifier, entrez votre adresse de livraison ci dessous </p>
     <form action="" method="POST">
-        <input type="password" name="ancienMdp" placeholder="Entrez votre ancien mot de passe"><br>
-        <input type="password" name="changeMdp" placeholder="Entrez le nouveau mot de passe"><br>
-        <input type="password" name="changeMdp2" placeholder="Confirmez le nouveaut mot de passe"><br>
-        <input type="submit" value="Changer le mot de passe" name="submitMdp">
+        <input type="text" name="changeAdresse" placeholder="Entrez la nouvelle adresse"><br>
+        <input type="text" name="changeAdresse2" placeholder="Confirmez la nouvelle adresse"><br>
+        <input type="submit" value="Changer l'adresse" name="submitAdresse">
     </form>
     <?php if ($message==null) {
       

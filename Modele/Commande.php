@@ -49,11 +49,9 @@ class Commande{
    }
 
    public function setPanier($num){
-      $num = (int) $num;
-
-      if($num > 0){
-         $this->num = $num;
-      }
+      $ArticleManager = new ArticleManager;
+      
+      
    }
 
 

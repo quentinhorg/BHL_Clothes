@@ -23,10 +23,5 @@ class CommentaireManager extends DataBase{
         $this->execBdd($req, [$newID, $idClient, $idVet, $_POST['commentaire'], $_POST['note'] ]);
     }
 
-    public function nbCommentaire($id){
-
-        $req="SELECT COUNT(id) FROM commentaire WHERE idVet=?";
-        $this->getBdd();
-        $nbCommentaire= $this->getModele($req, [$id], "Client");
-    }
+    
 }

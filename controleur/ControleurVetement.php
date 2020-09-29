@@ -38,10 +38,9 @@ class ControleurVetement{
 
          $this->vue = new Vue('Vetement') ;
          $this->vue->genererVue(array( 
-            "infoVetement"=> $this->infoVetement($id),
-            "msg"         => $msg,
-            "listeCommentaire" => $this->listeCommentaire($id),
-            "nbCommentaire"    => $this->nbCommentaire($id)
+            "infoVetement"     => $this->infoVetement($id),
+            "msg"              => $msg ,
+            "listeCommentaire" => $this->listeCommentaire($id)
          )) ;
          
       }
@@ -77,11 +76,7 @@ class ControleurVetement{
       $CommentaireManager->insertCommentaire($idVet, $idClient);
    }
 
-   private function nbCommentaire($id){
-
-      $CommentaireManager= new CommentaireManager();
-      $nbCommentaire= $CommentaireManager->nbCommentaire($id);
-   }
+  
 
 }
 

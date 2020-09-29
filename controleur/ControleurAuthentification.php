@@ -25,7 +25,7 @@ class ControleurAuthentification{
                            if (!empty($_POST['tel'])) {
                               $idClientRegister = $this->insertClient();
 
-                              if( isset($_SESSION["ma_commande"]->panier() != NULL) ){
+                              if( $_SESSION["ma_commande"]->panier() != NULL ){
                                  $this->addPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
                               }
                               

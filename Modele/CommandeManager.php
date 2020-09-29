@@ -23,16 +23,21 @@ class CommandeManager extends DataBase{
 
 
     // A COMPLETER
-    public function getCmdActive(){
+    public function getCmdActiveClient(){
         $ClientManager = new ClientManager() ;
  
         if( $ClientManager->ClientEnLigne() != null ){
-            // $clientId = $ClientManager->ClientEnLigne()->id();
-            // $req = "SELECT derniere COMMANDE UTILISATEUR" ;
-            // $CmdId = "ID DE LA CMD ACTIVE";
-            //$cmd = $this->getCommande($CmdId);
-            $cmd = $_SESSION["ma_commande"] ;
-
+            $clientId = $ClientManager->ClientEnLigne()->getId();
+            
+            $req = "SELECT num 
+            FROM commande
+            WHERE idClient = ?
+            ORDER BY num
+            LIMIT 1" ;
+            
+            $this->getBdd();
+            $CmdId = $this->execBdd($req, [$clientId])[0]["num"];
+            $cmd = $this->getCommande($CmdId);
          }else{ 
             $cmd = $_SESSION["ma_commande"] ;
         }

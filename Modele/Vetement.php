@@ -11,12 +11,10 @@ class Vetement{
    private   $genre; // OBJET
    private   $listeTailleDispo; // OBJET
    private   $description;
-
-   
+   private   $nbCommentaire;
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
-
    }
 
    //HYDRATATION
@@ -122,6 +120,14 @@ class Vetement{
       }
    }
 
+   public function setNbCommentaire($nbCommentaire){
+      $nbCommentaire = (int) $nbCommentaire;
+
+      if($nbCommentaire > 0){
+         $this->nbCommentaire = $nbCommentaire;
+      }
+   }
+
 
  
    
@@ -170,6 +176,10 @@ class Vetement{
 
    public function description(){
       return $this->description;
+   }
+
+   public function nbCommentaire(){
+      return $this->nbCommentaire;
    }
 
 

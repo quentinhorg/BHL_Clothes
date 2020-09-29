@@ -77,11 +77,9 @@
 <hr style="margin-top: 50px; margin-bottom: 50px;">
 <div class="commentaire">
 
-    <h2>Avis des clients (<?php var_dump($nbCommentaire->nbCommentaire()); echo $nbCommentaire->nbCommentaire($id); ?>)</h2>
+    <h2>Avis des clients (<?php echo $infoVetement->nbCommentaire() ; ?>)</h2>
 
     <?php
-
-        
         
         foreach ($listeCommentaire as $commentaire) {
             $date= new DateTime($commentaire->date());

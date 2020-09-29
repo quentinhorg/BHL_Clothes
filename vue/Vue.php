@@ -98,7 +98,6 @@ class Vue{
       
       $footer= $this->genererFichier("vue/footer.php", $donnee);
 
-      
       //Génération final
       $vue = $this->genererFichier($this->template, array(
          'titre' => $this->titre, 
