@@ -14,8 +14,6 @@
          <div id="utilisateur">
             
              <?php
-           
-
                   if($clientEnLigne != null) {
                      echo "<a href='compte&deco=ok'> Deconnexion <a>" ;
 
@@ -46,8 +44,9 @@
                      <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
                   </svg>
                      Connexion 
-               
                   </a>
+                  <br>
+                  <span> <a href="authentification/inscription"> Inscription </a> </span>
                   <?php
                }
                ?>

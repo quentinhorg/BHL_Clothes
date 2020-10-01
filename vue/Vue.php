@@ -67,12 +67,10 @@ class Vue{
          $CommandeManager = new CommandeManager() ;
          $ClientManager = new ClientManager() ;
 
-         $CommandeManager->creerCommandeSession();
-
-         
+     
          $donnee = [
             "listeGenre" => $GenreManager->getListeGenre(),
-            "qtePanier" => $CommandeManager->getCmdActive()->getQuantiteArticle(),
+            "qtePanier" => $CommandeManager->getCmdActiveClient()->getQuantiteArticle(),
              "clientEnLigne" => $ClientManager->ClientEnLigne()
          ] ;
 
@@ -87,8 +85,8 @@ class Vue{
       //PARTIE DE LA VUE
       $contenu = $this->genererFichier($this->fichier, $donnee);
       
-      $nav = null;
-      //$nav = $this->getNav();
+      //$nav = null;
+      $nav = $this->getNav();
       
 
 

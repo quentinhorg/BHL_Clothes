@@ -12,15 +12,20 @@ class ControleurPanier{
          throw new Exception('Page introuvable');
       }
       else{
-         $numCommande = null;
-         if( isset($_POST["ajouterArticle"]) ){
-            $this->ajouterArticle(null, $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
+         //$this->suppSession(); 
+         $numCmd = $this->maCommande()->num();
+   
+         
+        if( isset($_POST["ajouterArticle"]) ){
+    
+            $this->ajouterArticle($numCmd, $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
          }
          
 
-         //$this->suppSession(); 
+        
 
          $this->vue = new Vue('Panier') ;
+       
          $this->vue->setListeJsScript(["public/script/js/HtmlArticle.js","public/script/js/HtmlPanier.js" ]);
          $this->vue->genererVue(array( 
             "maCommande"=> $this->maCommande()
@@ -39,16 +44,15 @@ class ControleurPanier{
 
    private function maCommande(){
       $CommandeManager = new CommandeManager();
-
       //Si le client est connecté
-         $maCommande = $CommandeManager->getCmdActiveClient(null);
+         $maCommande = $CommandeManager->getCmdActiveClient();
      
       return $maCommande ;
    }
 
    private function suppSession(){
       $CommandeManager = new CommandeManager();
-      $CommandeManager->renitialiseSession();
+      $CommandeManager->effacerCmdSession();
    }
 
 

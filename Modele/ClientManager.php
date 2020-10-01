@@ -33,11 +33,8 @@ class ClientManager extends DataBase{
         return $newID ;
     }
 
-    public function connexion(){
+    public function connexion($mail, $mdp){
         #$this->getBdd();
-
-        $mail= $_POST['email'];
-        $mdp = $_POST['mdp'];
 
         $this->getBdd();
         $verif_user= "Select id from client WHERE email like ? AND mdp like ?";

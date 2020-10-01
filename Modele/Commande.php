@@ -13,6 +13,7 @@ class Commande{
 
    //HYDRATATION
    public function hydrate(array $donnee){
+      
       foreach($donnee as $cle => $valeur){
          $methode = 'set'.ucfirst($cle);
       
@@ -20,6 +21,10 @@ class Commande{
             $this->$methode($valeur);
          }
       }
+     
+      $this->setPanier();
+
+    
    }
 
 
@@ -48,10 +53,10 @@ class Commande{
       }
    }
 
-   public function setPanier($num){
+   public function setPanier(){
       $ArticleManager = new ArticleManager;
-      
-      
+     
+      $this->panier = $ArticleManager->getListeArticleByCmd($this->num) ;
    }
 
 
@@ -108,9 +113,11 @@ class Commande{
    public function getQuantiteArticle(){
       $totalQte = 0;
 
-      foreach ($this->panier as $article) {
-         $totalQte = $totalQte+$article->qte();
-      }
+         foreach ($this->panier as $article) {
+            $totalQte = $totalQte+$article->qte();
+         }
+     
+      
 
       return $totalQte;
    }

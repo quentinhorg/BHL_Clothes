@@ -5,7 +5,7 @@ class CommandeManager extends DataBase{
     public function getCommande($numCmdBDD){
         $req = "SELECT * FROM commande WHERE num = ?";
         $this->getBdd();
-        $commande =  $this->getModele($req, [$numCmdBDD], "Commande");
+        $commande =  @$this->getModele($req, [$numCmdBDD], "Commande")[0];
 
         return $commande;
     }
@@ -38,6 +38,7 @@ class CommandeManager extends DataBase{
             $this->getBdd();
             $CmdId = $this->execBdd($req, [$clientId])[0]["num"];
             $cmd = $this->getCommande($CmdId);
+          
          }else{ 
             $cmd = $_SESSION["ma_commande"] ;
         }
@@ -57,6 +58,7 @@ class CommandeManager extends DataBase{
     //Permet également d'effacer la commande (panier) de la session
     public function effacerCmdSession(){
         $_SESSION["ma_commande"] = null;
+        unset($_SESSION["ma_commande"]);
     }
 
 

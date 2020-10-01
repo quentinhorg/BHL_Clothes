@@ -10,11 +10,8 @@ class ControleurAuthentification{
       if( isset($url) && count($url) > 3 ){
          throw new Exception('Page introuvable');
       }
-
+      //Inscription
       else if(@strtolower($url[1]) == "inscription"){
-
-         
-         
          $message=null;
          if (isset($_POST['submit'])){
             if (!empty($_POST['nom'])) {
@@ -27,6 +24,10 @@ class ControleurAuthentification{
 
                               if( $_SESSION["ma_commande"]->panier() != NULL ){
                                  $this->addPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
+
+                                 $mail= $_POST['email'];
+                                 $mdp = $_POST['mdp'];
+                                 $this->connexionClient($mail, $mdp);
                               }
                               
                            }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
@@ -39,13 +40,17 @@ class ControleurAuthentification{
          $this->vue = new Vue('Inscription') ;
          $this->vue->genererVue(array("message"=>$message)) ;
       }
-
+      //Connexion
       else if( @strtolower($url[1])=="connexion" || !isset($url[1])|| empty($url[1])){
          $message=null;
          if (isset($_POST['submit'])){
             if (!empty($_POST['email'])){
                if (!empty($_POST['mdp'])){
-                  $this->connexionClient();
+
+                  $mail= $_POST['email'];
+                  $mdp = $_POST['mdp'];
+                  $this->connexionClient($mail, $mdp);
+                  
                }else {  $message = "Veuillez entrer un mot de passe"; }
             }else {  $message = "Veuillez entrer votre Email"; }
          }
@@ -58,23 +63,23 @@ class ControleurAuthentification{
    private function insertClient(){
       $ClientManager = new ClientManager();
       return $ClientManager->insertBDD();
-
    }
 
    private function addPanierSessionToBdd($idCli, $cmdObj){
       $CommandeManager = new CommandeManager();
       $ArticleManager = new ArticleManager();
 
+      //Remplacer par un trigger 
       $idCmd = $CommandeManager->insertCommande($idCli);
-      
+
       $ArticleManager->insertListeArticle($idCmd, $cmdObj->panier());
       $CommandeManager->effacerCmdSession();
 
    }
 
-   private function connexionClient(){
+   private function connexionClient($mail, $mdp){
       $ClientManager = new ClientManager();
-      $ClientManager->connexion();
+      $ClientManager->connexion($mail, $mdp);
    }
 
 
