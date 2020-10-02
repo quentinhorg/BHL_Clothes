@@ -14,10 +14,8 @@ class ControleurPanier{
       else{
          //$this->suppSession(); 
          $numCmd = $this->maCommande()->num();
-   
          
         if( isset($_POST["ajouterArticle"]) ){
-    
             $this->ajouterArticle($numCmd, $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
          }
          

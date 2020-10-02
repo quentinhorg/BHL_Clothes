@@ -34,8 +34,6 @@ class ControleurVetement{
             }
          }
 
-
-
          $this->vue = new Vue('Vetement') ;
          $this->vue->genererVue(array( 
             "infoVetement"     => $this->infoVetement($id),
@@ -47,7 +45,6 @@ class ControleurVetement{
 
    }
 
-   //retourne les 3 derniers vetements
    private function infoVetement($id){
       $VetementManageur = new VetementManager();
       $infoVetement= $VetementManageur->getVetement($id);

@@ -28,6 +28,7 @@ class ControleurAuthentification{
                                  $mail= $_POST['email'];
                                  $mdp = $_POST['mdp'];
                                  $this->connexionClient($mail, $mdp);
+                     
                               }
                               
                            }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
@@ -65,6 +66,12 @@ class ControleurAuthentification{
       return $ClientManager->insertBDD();
    }
 
+   
+   private function suppSessionCmd(){
+      $CommandeManager = new CommandeManager();
+      $CommandeManager->effacerCmdSession();
+   }
+
    private function addPanierSessionToBdd($idCli, $cmdObj){
       $CommandeManager = new CommandeManager();
       $ArticleManager = new ArticleManager();
@@ -73,13 +80,12 @@ class ControleurAuthentification{
       $idCmd = $CommandeManager->insertCommande($idCli);
 
       $ArticleManager->insertListeArticle($idCmd, $cmdObj->panier());
-      $CommandeManager->effacerCmdSession();
-
    }
 
    private function connexionClient($mail, $mdp){
       $ClientManager = new ClientManager();
       $ClientManager->connexion($mail, $mdp);
+      $this->suppSessionCmd();
    }
 
 

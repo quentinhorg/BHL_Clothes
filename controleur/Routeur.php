@@ -9,7 +9,6 @@ class Routeur{
       try{
     
          //Permet d'auto générer les modèles necessaires pour données appelées
-
          spl_autoload_register(function($classe){
             require_once('Modele/'.$classe.'.php');
          });

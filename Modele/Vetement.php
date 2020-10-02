@@ -13,12 +13,24 @@ class Vetement{
    private   $description;
    private   $nbCommentaire;
    
-   public function __construct(array $donnee){
-      $this->hydrate($donnee);
+
+   public function __construct(){
+      $arguments = func_get_args();
+      $numberOfArguments = func_num_args();
+
+      if ($numberOfArguments == 1) {
+         $function = "__constructHydrate";
+      }
+      else{
+         $function = "__constructArg";
+      }
+
+      call_user_func_array(array($this, $function), $arguments);
    }
 
+
    //HYDRATATION
-   public function hydrate(array $donnee){
+   public function __constructHydrate(array $donnee){
       foreach($donnee as $cle => $valeur){
          $methode = 'set'.ucfirst($cle);
       

@@ -62,6 +62,7 @@ class ArticleManager extends DataBase{
       }
 
    }
+   
 
    public function supprimer($idCmd, $idVet, $idTaille, $idClr){
 

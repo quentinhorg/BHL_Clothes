@@ -8,7 +8,6 @@ class Taille{
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
-
    }
 
    //HYDRATATION
@@ -39,7 +38,6 @@ class Taille{
    }
 
  
-   
 
    //GETTER
    public function libelle(){

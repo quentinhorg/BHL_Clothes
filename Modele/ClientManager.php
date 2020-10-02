@@ -16,18 +16,16 @@ class ClientManager extends DataBase{
     public function ClientEnLigne(){
         if( isset($_SESSION["id_client_en_ligne"]) ){
             $Client = $this->getClient($_SESSION["id_client_en_ligne"]) ;
-        }else{ $Client = null ;}
+        }else{ $Client = null ;} 
 
         return $Client;
     }
     
     public function insertBDD(){
         $this->getBdd(); //Autoriser l'access a la BDD
-        $newID = $this->getNewIdTable('client','id');
-
-        $req = "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        $this->getBdd();
+        $newID = $this->getNewIdTable('client','id'); 
+        $req = "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+        $this->getBdd(); 
         $this->execBDD($req,[$newID,$_POST['email'], $_POST['mdp'], $_POST['nom'], $_POST['prenom'], $_POST['adresse'],$_POST['tel']]);
 
         return $newID ;
@@ -64,7 +62,8 @@ class ClientManager extends DataBase{
     }
     
     public function deconnexion(){
-        $_SESSION=null;
+        $_SESSION["id_client_en_ligne"] = null;
+        unset($_SESSION["id_client_en_ligne"]);
         session_destroy();
     }
 
