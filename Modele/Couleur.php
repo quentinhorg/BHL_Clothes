@@ -85,7 +85,7 @@ class Couleur{
    }
 
    public function filterCssCode(){
-      return $this->filterCssCode;
+      return "filter: ".$this->filterCssCode;
    }
 
    public function Vetement(){

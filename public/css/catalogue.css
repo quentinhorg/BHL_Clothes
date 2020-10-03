@@ -54,12 +54,14 @@ ul.listeCouleur li input{
    margin-left: 220px;
 }
 
-ul.listeCouleur li label{
-   width: 20px;
-   height: 20px;
+ul.listeCouleur li div.color{
+   width: 25px;
+   height: 25px;
    display: block;
    margin: 3px 3px;
    cursor: pointer;
+   background-position: center;
+   
 }
 
 

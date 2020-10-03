@@ -181,6 +181,7 @@ class Vetement{
 
 
 
+
    // function getUrlImg(){
 			
    //    $chemin = "public/media/cookies/img$this->id.jpg";

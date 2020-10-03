@@ -12,6 +12,9 @@ class ControleurCatalogue{
          throw new Exception('Page introuvable');
       }
       else{
+
+         
+
          
          
          $idCateg= null;
@@ -44,6 +47,7 @@ class ControleurCatalogue{
 
 
          $this->vue = new Vue('Catalogue') ;
+         $this->vue->setListeJsScript(["public\script\js\Catalogue.js"]);
          $this->vue->genererVue(array( 
             "listeVetement"=> $listeVetement,
             "vuePagination" => $vuePagination,

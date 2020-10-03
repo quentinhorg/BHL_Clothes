@@ -90,6 +90,7 @@
             echo "<br>";
             echo "Le ".date_format($date, 'd/m/Y à H\hi') ;
             echo "<br>";
+            
         }
    ?>
 
