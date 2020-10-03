@@ -23,7 +23,7 @@ class ControleurAuthentification{
                               $idClientRegister = $this->insertClient();
 
                               if( $_SESSION["ma_commande"]->panier() != NULL ){
-                                 $this->addPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
+                                 $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
 
                                  $mail= $_POST['email'];
                                  $mdp = $_POST['mdp'];
@@ -72,14 +72,17 @@ class ControleurAuthentification{
       $CommandeManager->effacerCmdSession();
    }
 
-   private function addPanierSessionToBdd($idCli, $cmdObj){
+   private function insertPanierSessionToBdd($idCli,Commande $cmdSessionObj){
       $CommandeManager = new CommandeManager();
       $ArticleManager = new ArticleManager();
 
       //Remplacer par un trigger 
       $idCmd = $CommandeManager->insertCommande($idCli);
 
-      $ArticleManager->insertListeArticle($idCmd, $cmdObj->panier());
+      foreach ($cmdSessionObj->panier() as $Article) {
+         $ArticleManager->inserer($idCmd,  $Article->id(), $Article->taille()->libelle(), $Article->qte(), $Article->couleur()->num() );
+      }
+     
    }
 
    private function connexionClient($mail, $mdp){

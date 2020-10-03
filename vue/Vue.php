@@ -66,7 +66,7 @@ class Vue{
          $GenreManager = new GenreManager() ;
          $CommandeManager = new CommandeManager() ;
          $ClientManager = new ClientManager() ;
-
+        
      
          $donnee = [
             "listeGenre" => $GenreManager->getListeGenre(),
@@ -75,7 +75,7 @@ class Vue{
          ] ;
 
          $nav = $this->genererFichier($this->nav, $donnee) ;
-
+     
          return $nav;
       }
 
@@ -84,7 +84,7 @@ class Vue{
 
       //PARTIE DE LA VUE
       $contenu = $this->genererFichier($this->fichier, $donnee);
-      
+    
       //$nav = null;
       $nav = $this->getNav();
       

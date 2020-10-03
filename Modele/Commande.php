@@ -84,8 +84,17 @@ class Commande{
 
    //AUTRES METHODES
 
-   public function ajouterPanier($nouvelArticle){
+   public function ajouterPanier( $idVet, $taille, $qte, $idClr){
       $possedeDeja = false ;
+
+      $ArticleManager = new ArticleManager;
+
+      $nouvelArticle = $ArticleManager->tranformArticle($idVet) ;
+      $nouvelArticle->setTaille($taille);
+      $nouvelArticle->setQte($qte);
+      $nouvelArticle->setCouleur($idClr);
+
+      
 
       foreach ($this->panier as $article) {
          

@@ -14,23 +14,7 @@ class Vetement{
    private   $nbCommentaire;
    
 
-   public function __construct(){
-      $arguments = func_get_args();
-      $numberOfArguments = func_num_args();
-
-      if ($numberOfArguments == 1) {
-         $function = "__constructHydrate";
-      }
-      else{
-         $function = "__constructArg";
-      }
-
-      call_user_func_array(array($this, $function), $arguments);
-   }
-
-
-   //HYDRATATION
-   public function __constructHydrate(array $donnee){
+   public function __construct(array $donnee){
       foreach($donnee as $cle => $valeur){
          $methode = 'set'.ucfirst($cle);
       
@@ -39,6 +23,7 @@ class Vetement{
          }
       }
    }
+
 
 
    

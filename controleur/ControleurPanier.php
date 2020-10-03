@@ -13,11 +13,11 @@ class ControleurPanier{
       }
       else{
          //$this->suppSession(); 
-         $numCmd = $this->maCommande()->num();
+        
          
-        if( isset($_POST["ajouterArticle"]) ){
-            $this->ajouterArticle($numCmd, $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
-         }
+        
+            $this->ajouterArticle();
+
          
 
         
@@ -34,9 +34,24 @@ class ControleurPanier{
       }
    }
 
-   private function ajouterArticle($idCmd, $idVet, $taille, $qte, $idClr){
-      $ArticleManager = new ArticleManager();
-      $ArticleManager->inserer($idCmd, $idVet, $taille, $qte, $idClr);
+   private function ajouterArticle(){
+
+
+
+      if( isset($_POST["ajouterArticle"]) ){
+         $ArticleManager = new ArticleManager();
+         
+         if( isset($_SESSION["ma_commande"])){
+            
+           $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
+         }
+         else{
+            $numCmd = $this->maCommande()->num();
+            $ArticleManager->inserer($numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"] );
+         }
+         
+
+      }
    }
 
 

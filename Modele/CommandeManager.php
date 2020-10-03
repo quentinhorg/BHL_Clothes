@@ -25,7 +25,7 @@ class CommandeManager extends DataBase{
     // A COMPLETER
     public function getCmdActiveClient(){
         $ClientManager = new ClientManager() ;
- 
+        
         if( $ClientManager->ClientEnLigne() != null ){
             $clientId = $ClientManager->ClientEnLigne()->getId();
             
@@ -41,6 +41,7 @@ class CommandeManager extends DataBase{
           
          }else{ 
             $cmd = $_SESSION["ma_commande"] ;
+            
         }
 
         

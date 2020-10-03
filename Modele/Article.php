@@ -6,20 +6,18 @@ class Article extends Vetement{
    private  $Couleur; //Objet
 
    
-   public function __construct(array $donneeVet, $idTaille, $qte, $idCouleur){
-      parent::__construct($donneeVet);
-   
-      $this->setTaille($idTaille);
-      $this->qte = $qte;
-      $this->setCouleur($idCouleur);
-   }
+
+   public function __construct(array $donneeVetArt)
+    {
+      parent::__construct($donneeVetArt);
+    }
 
 
    //SETTER
    public function setQte($qte){
       $qte = (int) $qte;
 
-      if($qte < 10){
+      if($qte < 10 && $qte > 0 ){
          $this->qte = $qte;
       }
       else{  $this->qte = 10 ; }

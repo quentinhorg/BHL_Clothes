@@ -4,18 +4,24 @@ class ClientManager extends DataBase{
 
 
     public function getClient($id){
+      
         $req = "SELECT c.*,GROUP_CONCAT(co.num) as 'listeIdCmd'
                 FROM client c 
                 INNER JOIN commande co ON c.id = co.idClient 
                 WHERE c.id = ?
                 GROUP BY c.id";
+                
         $this->getBdd();
+       
+        
         return @$this->getModele($req, [$id], "Client")[0];
     }
 
     public function ClientEnLigne(){
+      
         if( isset($_SESSION["id_client_en_ligne"]) ){
             $Client = $this->getClient($_SESSION["id_client_en_ligne"]) ;
+          
         }else{ $Client = null ;} 
 
         return $Client;
