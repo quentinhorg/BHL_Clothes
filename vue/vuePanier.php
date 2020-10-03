@@ -1,4 +1,4 @@
-<?php //var_dump($maCommande->panier()); ?>
+
 
 <div class="panier">
   <!-- Title -->
@@ -7,6 +7,8 @@
   </div>
  
   <?php  foreach ($maCommande->panier() as $article) { ?>
+  
+
   <!-- Product #1 -->
   <div class="article" id="<?php echo "articleNb".$article->id() ?>">
 

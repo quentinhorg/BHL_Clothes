@@ -9,6 +9,7 @@ class Article extends Vetement{
 
    public function __construct(array $donneeVetArt)
     {
+ 
       parent::__construct($donneeVetArt);
     }
 

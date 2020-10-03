@@ -55,6 +55,7 @@ class ControleurPanier{
       $CommandeManager = new CommandeManager();
       //Si le client est connecté
          $maCommande = $CommandeManager->getCmdActiveClient();
+       
      
       return $maCommande ;
    }

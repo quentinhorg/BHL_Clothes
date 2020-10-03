@@ -32,6 +32,7 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`) VALU
 (7,	1,	'L',	6,	1),
 (8,	1,	'L',	6,	1),
 (1,	2,	'S',	4,	1),
+(7,	2,	'L',	4,	1),
 (1,	3,	'L',	5,	1),
 (3,	4,	'M',	1,	1),
 (7,	4,	'M',	1,	1),
@@ -370,19 +371,23 @@ CREATE TABLE `vet_couleur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALUES
-(1,	4,	'Rose bonbon',	'hue-rotate(95deg)',	1),
+(1,	4,	'Rose bonbon',	'hue-rotate(459deg)',	1),
 (2,	4,	'Bleu clair',	NULL,	1),
 (3,	4,	'Vert Forêt',	'hue-rotate(969deg) brightness(0.9)',	1),
 (4,	2,	'Rose bonbon',	NULL,	1),
 (5,	3,	'Blanc cassé',	NULL,	1),
 (6,	1,	'Rouge',	NULL,	1),
-(7,	6,	'Jaune',	NULL,	1),
+(7,	6,	'Bleu rayé blanc et noir',	NULL,	1),
 (8,	5,	'Beige',	NULL,	1),
 (9,	11,	'Noir',	NULL,	1),
 (10,	7,	'Rose bonbon',	NULL,	1),
 (11,	8,	'Marron',	NULL,	1),
 (12,	9,	'Noir et blanc',	NULL,	1),
-(13,	10,	'Noir terne',	NULL,	1)
+(13,	10,	'Noir terne',	NULL,	1),
+(14,	2,	'Orange',	'hue-rotate(45deg)',	1),
+(15,	6,	'Mauve rayé blanc et noir',	'hue-rotate(45deg)',	1),
+(16,	6,	'Rouge rayé blanc et noir',	'hue-rotate(110deg);',	1),
+(17,	7,	'Vert fluo',	'hue-rotate(120deg)',	1)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idVet` = VALUES(`idVet`), `nom` = VALUES(`nom`), `filterCssCode` = VALUES(`filterCssCode`), `dispo` = VALUES(`dispo`);
 
 DROP TABLE IF EXISTS `vet_taille`;
@@ -454,6 +459,6 @@ DROP TABLE IF EXISTS `vue_categpargenre`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-03 14:43:15
+-- 2020-10-03 18:36:26

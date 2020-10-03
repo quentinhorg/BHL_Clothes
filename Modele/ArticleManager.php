@@ -4,27 +4,12 @@ class ArticleManager extends DataBase{
 
 
    public function getListeArticleByCmd($idCmd){
-      //Vérifie si null (null = Commande provisoir -> user non connecté)
+      //Vérifie si null (null = Commande provisoir -> user non connecté
 
-      $listArticle = array() ;
-      if($idCmd != null){
-        
-         $reqArt = "SELECT * FROM article_panier WHERE numCmd = ?";
-         $this->getBdd();
-         $donneeArt = $this->execBDD($reqArt, [$idCmd]);
-
-
-         foreach ($donneeArt as $article) {
-            $reqVet = "SELECT * FROM vetement WHERE id = ?";
-            $this->getBdd();
-            $donneeVet = $this->execBDD($reqVet, [$article["idVet"]])[0];
-            
-            $listArticle[] = new Article($donneeVet, $article["taille"], $article["qte"], $article["numClr"]);
-         }
-        
-      }
+      $reqArt = "SELECT * FROM article_panier ap INNER JOIN vetement v ON v.id = ap.idVet WHERE numCmd = ?";
+      $this->getBdd();
     
-      return $listArticle;
+      return $this->getModele($reqArt, [$idCmd], "Article");
    }
 
 

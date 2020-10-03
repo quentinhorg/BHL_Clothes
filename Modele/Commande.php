@@ -130,8 +130,9 @@ class Commande{
 
    public function getQuantiteArticle(){
       $totalQte = 0;
-
+      
          foreach ($this->panier as $article) {
+          
             $totalQte = $totalQte+$article->qte();
          }
      
