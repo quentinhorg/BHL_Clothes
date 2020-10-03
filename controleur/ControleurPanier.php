@@ -36,20 +36,16 @@ class ControleurPanier{
 
    private function ajouterArticle(){
 
-
-
       if( isset($_POST["ajouterArticle"]) ){
          $ArticleManager = new ArticleManager();
          
          if( isset($_SESSION["ma_commande"])){
-            
            $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
          }
          else{
             $numCmd = $this->maCommande()->num();
             $ArticleManager->inserer($numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"] );
          }
-         
 
       }
    }

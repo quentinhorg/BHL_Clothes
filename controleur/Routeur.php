@@ -7,7 +7,7 @@ class Routeur{
 
    public function routerLaPage(){
       try{
-    
+   
          //Permet d'auto générer les modèles necessaires pour données appelées
          spl_autoload_register(function($classe){
             require_once('Modele/'.$classe.'.php');
@@ -18,7 +18,7 @@ class Routeur{
          if( !isset($_SESSION["ma_commande"]) && !isset($_SESSION["id_client_en_ligne"]) ){
             $CommandeManager = new CommandeManager;
             $CommandeManager->creerCommandeSession();
-         }
+         }    
          
          
          //Vérifie sur on navigue sur une page
@@ -37,7 +37,7 @@ class Routeur{
                $this->ctrl = new $controleurClasse($url); //Affection du la classe controleur
                
 
-
+               
             }
             else{
                throw new Exception ('Page introuvable');  

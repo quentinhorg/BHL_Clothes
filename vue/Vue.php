@@ -14,7 +14,9 @@ class Vue{
     //Construction de la vue
    public function __construct($page){
       //Initialisation par défaut
+    
       $this->fichier= 'vue/vue'.ucfirst($page).'.php';
+
       $this->template= "vue/template.php" ;
       $this->titre= $page;
       $this->listeCss= ["public/css/".strtolower($page).".css"] ;
@@ -81,10 +83,10 @@ class Vue{
 
 
      public function genererVue($donnee){
-
+     
       //PARTIE DE LA VUE
       $contenu = $this->genererFichier($this->fichier, $donnee);
-    
+     
       //$nav = null;
       $nav = $this->getNav();
       
@@ -95,7 +97,7 @@ class Vue{
       }else{ $header  = null;}
       
       $footer= $this->genererFichier("vue/footer.php", $donnee);
-
+     
       //Génération final
       $vue = $this->genererFichier($this->template, array(
          'titre' => $this->titre, 
@@ -109,6 +111,7 @@ class Vue{
 
       //Intégration de la vue
       echo $vue;
+     
        
      }
 

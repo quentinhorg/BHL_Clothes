@@ -4,10 +4,10 @@
 ?>
 
 <div class="tab">
-    <button class="lientab" onclick="ouvririnfo(event, 'email')"id="defaut" >Email</button>
-    <button class="lientab" onclick="ouvririnfo(event, 'mdp')">Mot de passe</button>
-    <button class="lientab" onclick="ouvririnfo(event, 'livraison')">Livraison</button>
-    <button class="lientab" onclick="ouvririnfo(event, 'commande')">Gérer mes commandes</button>
+    <button class="lientab email" onclick="ouvririnfo(event, 'email')"id="defaut" >Email</button>
+    <button class="lientab mdp" onclick="ouvririnfo(event, 'mdp')">Mot de passe</button>
+    <button class="lientab livraison" onclick="ouvririnfo(event, 'livraison')">Livraison</button>
+    <button class="lientab commande" onclick="ouvririnfo(event, 'commande')">Gérer mes commandes</button>
 </div>
 
 <div id="email" class="contenutab">
@@ -61,17 +61,17 @@
 <div id="commande" class="contenutab">
     <h3>Mes Commandes</h3>
     <table>
-        <tr>
-            <th>Numéro de Commande</th> <th>Détail</th> <th>Date de la commande</th>
-        </tr>
+        <thead>
+            <th>Numéro de Commande</th> <th>Date de la commande</th> <th>Détail</th> <th>Suivi de commande</th>
+        </thead>
         <?php
-        foreach ($clientActif->getListCmd() as $commande){
-           // var_dump($commande);
+            foreach ($clientActif->getListCmd() as $commande){?>
+        <tr>
+            <td> <?php echo $commande->num(); ?> </td> <td> <?php echo $commande->date(); ?> </td> <td> <a href=""> Voir ma facture </a> </td> <td> <a href="compte/suivi/<?php echo $commande->num() ?>"> Suivre ma commande </a> </td>
+        </tr>
 
-            //echo "<td>".$commande->num()."</td> <td></td> <td></td>";
-        }
+       <?php } ?>
 
-        ?>
     </table>
 </div>
 
@@ -85,12 +85,24 @@
         lientab = document.getElementsByClassName("lientab");
         for (i = 0; i < lientab.length; i++) {
             lientab[i].className = lientab[i].className.replace(" active", "");
+          
         }
         document.getElementById(parametre).style.display = "block";
-        event.currentTarget.className += " active";
+        //event.currentTarget.className += " active";
+        
+        $("button."+parametre).addClass("active");
     }
 
-    // Obtient l'élément avec l'id="defaut" and click on it
+    // Obtient l'élément avec l'id="defaut" et le selectionne
     document.getElementById("defaut").click();
+    var url = window.location.href ;
+  
+    if(url.lastIndexOf('#') != -1){
+        var id = url.substring(url.lastIndexOf('#') + 1);
+        ouvririnfo(event, id);
+    }
+    
 </script>
+
+
 

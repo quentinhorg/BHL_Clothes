@@ -36,12 +36,13 @@
 
 •••••••••••••• Compte user ••••••••••••••
 ❌ Crypter le mdp
-
+❌ Rédiriger vers l'onglet concerner suite à une erreur d'un formulaire.
+❌ Faire en sort de voir le suivis de commande qui nous appartiens et non pas les autres
 ❌ Gérer mes commandes : Affichage de la liste des commandes
       - Séparer par : commannde validé/payé et commande en cours
       - Consulter le pdf  (lien vers panier pour commande en cours)
       - Supprimer (Commande en cours uniquement)
-❌ Livraison :
+✅ Livraison :
       - Formulaire pour changer (addrs)
 ✅ Mot de passe: 
       - Formulaire d'édition -> nouveau mdp + confirmation nouveau mdp + ancien mdp

@@ -4,7 +4,9 @@ class Commande{
    private  $num;
    private  $date;
    private  $idClient;
+   private  $Etat; //Object
    private  $panier= array() ; //Tableau Objet : Article
+ 
    
    
    public function __construct(array $donnee){
@@ -16,15 +18,11 @@ class Commande{
       
       foreach($donnee as $cle => $valeur){
          $methode = 'set'.ucfirst($cle);
-      
          if(method_exists($this, $methode)){
             $this->$methode($valeur);
          }
       }
-     
       $this->setPanier();
-
-    
    }
 
 
@@ -47,7 +45,7 @@ class Commande{
 
    public function setNum($num){
       $num = (int) $num;
-
+      
       if($num > 0){
          $this->num = $num;
       }
@@ -55,8 +53,12 @@ class Commande{
 
    public function setPanier(){
       $ArticleManager = new ArticleManager;
-     
       $this->panier = $ArticleManager->getListeArticleByCmd($this->num) ;
+   }
+
+   public function setIdEtat($idEtat){
+      $EtatManager = new EtatManager;
+      $this->Etat = $EtatManager->getEtat($idEtat);
    }
 
 
@@ -70,7 +72,10 @@ class Commande{
    }
 
    public function date(){
-      return $this->date;
+      $date= new DateTime($this->date);
+      $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
+
+      return $dateFormat;
    }
 
    public function num(){
@@ -79,6 +84,10 @@ class Commande{
 
    public function panier(){
       return $this->panier;
+   }
+
+   public function Etat(){
+      return $this->Etat;
    }
 
 
@@ -116,7 +125,7 @@ class Commande{
       if($possedeDeja == false){
          $this->panier[] = $nouvelArticle;
       }
-      
+
    }
 
    public function getQuantiteArticle(){

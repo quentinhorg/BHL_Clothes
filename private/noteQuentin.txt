@@ -6,3 +6,5 @@ https://docs.google.com/document/d/1UmmZH-7tIvOsV58ONVik2No-2Wc_DakHGyOzls1chsU/
 
 -----------
 - améliorer la méthode ajout panier dans la BDD pour update la qte si deja une qte
+- corriger bug qte panier en connecté
+- corriger erreur aux mdp
