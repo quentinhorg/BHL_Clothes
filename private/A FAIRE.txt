@@ -47,6 +47,8 @@
       - Formulaire d'édition -> nouveau mdp + confirmation nouveau mdp + ancien mdp
 ✅ Email : 
       - Formulaire d'édition -> nouveau email + confirmation nouveau email
+✅ Commandes : 
+      - Suivis de livraison pour chaque commande
 
 •••••••••••••• Authentication / Inscription ••••••••••••••
 ❌ Ajouter ajax au formulaire
