@@ -35,13 +35,10 @@ ul.listeCouleur{
 
 ul.listeCouleur li{
    list-style-type: none;
-   display: flex;
-   display: inline-block;
+   display: inline-flex;
    background-color: white;
    border: 1px solid grey;
    margin: 0 4px;
-  
-
 }
 
 ul.listeCouleur li input{
@@ -57,7 +54,7 @@ ul.listeCouleur li input{
 ul.listeCouleur li div.color{
    width: 25px;
    height: 25px;
-   display: block;
+   display: inline-block;
    margin: 3px 3px;
    cursor: pointer;
    background-position: center;

@@ -6,7 +6,7 @@ class ArticleManager extends DataBase{
    public function getListeArticleByCmd($idCmd){
       //Vérifie si null (null = Commande provisoir -> user non connecté
 
-      $reqArt = "SELECT * FROM article_panier ap INNER JOIN vetement v ON v.id = ap.idVet WHERE numCmd = ?";
+      $reqArt = "SELECT * FROM article_panier ap INNER JOIN vetement v ON v.id = ap.idVet WHERE numCmd = ? ORDER BY ap.ordreArrivee DESC";
       $this->getBdd();
     
       return $this->getModele($reqArt, [$idCmd], "Article");
@@ -25,7 +25,7 @@ class ArticleManager extends DataBase{
 
    public function inserer($idCmd, $idVet, $idTaille, $qte, $idClr){
    
-         $req = "INSERT INTO article_panier VALUES(?,?,?,?,?)";
+         $req = "CALL insert_article(?, ?, ?, ?, ? )";
          $this->getBdd();
          $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr, $qte]);
   

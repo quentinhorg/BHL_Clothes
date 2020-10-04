@@ -14,10 +14,10 @@
 ❌ Insérer les 3 dernières nouveautés
 
 •••••••••••••• Catalogue ••••••••••••••
-❌ N'afficher que sous certaine conditon : possède au moins une taille dispo, une couleur dispo et 
+✅ N'afficher que sous certaine conditon : possède au moins une taille dispo, une couleur dispo et 
 ❌ Limiter l'affichage du nom du produit
-❌
-❌
+❌ Possibilité de garder les options de rehcerches
+❌ Corrigé le bug des couleurs suite a une rehcerche
 ❌
 
 •••••••••••••• Détail Vêtement ••••••••••••••

@@ -7,19 +7,20 @@
   </div>
  
   <?php  foreach ($maCommande->panier() as $article) { ?>
-  
+
 
   <!-- Product #1 -->
   <div class="article" id="<?php echo "articleNb".$article->id() ?>">
 
- 
+    
     <div class="image">
-    <img class="img" src="<?php echo "public/media/vetement/id".$article->id() ?>" alt="" />
+    <img class="img" style="<?php echo $article->Couleur()->filterCssCode() ?>" src="<?php echo "public/media/vetement/id".$article->id() ?>" alt="" />
     </div>
  
     <div class="description">
       <span><?php echo $article->nom() ?></span>
-      <span><?php echo $article->categ()->nom() ?></span>
+      <span class='categ' ><?php echo $article->categ()->nom() ?></span>
+      <span class='tailleClr' ><?php echo" <div class='color' style='background-image:url(public/media/vetement/id".$article->id().".jpg); ".$article->Couleur()->filterCssCode()."'></div>Taille: ".$article->Taille()->libelle() ?></span>
     </div>
  
     <div class="quantity">

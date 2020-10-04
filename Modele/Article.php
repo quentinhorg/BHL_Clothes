@@ -22,10 +22,9 @@ class Article extends Vetement{
          $this->qte = $qte;
       }
       else{  $this->qte = 10 ; }
-      
    }
 
-   public function setCouleur($idCouleur){
+   public function setNumClr($idCouleur){
       $CouleurManager = new CouleurManager;
       $this->Couleur = $CouleurManager->getCouleur($idCouleur);
    }
