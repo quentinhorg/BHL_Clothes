@@ -17,6 +17,7 @@ li{
 
 .contact{
     width: 420px;
+    margin: auto;
 }
 
 #contenu form input[type="text"], #contenu form input[type="email"] {

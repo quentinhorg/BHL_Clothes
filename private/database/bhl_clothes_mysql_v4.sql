@@ -87,11 +87,13 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (7,	1,	'L',	6,	1,	5),
 (8,	1,	'L',	6,	1,	1),
 (1,	2,	'S',	4,	1,	3),
-(7,	2,	'L',	4,	1,	4),
+(7,	2,	'L',	4,	3,	7),
+(7,	2,	'XL',	4,	1,	8),
 (1,	3,	'L',	5,	1,	4),
 (3,	4,	'M',	1,	1,	2),
 (7,	4,	'M',	1,	1,	3),
 (3,	5,	'M',	3,	1,	1),
+(7,	6,	'L',	7,	1,	9),
 (7,	6,	'L',	16,	1,	2),
 (7,	8,	'L',	11,	1,	1),
 (8,	9,	'M',	12,	1,	2),
@@ -530,4 +532,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-04 08:46:26
+-- 2020-10-04 17:51:43
