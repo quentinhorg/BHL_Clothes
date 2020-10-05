@@ -35,6 +35,14 @@ class Vue{
 
    }
 
+   public function setListeCss($listeFichier){
+
+      foreach ($listeFichier as $fichier) {
+            $this->listeCss[] = $fichier;
+       }
+
+}
+
    public function setHeader($fichier){
 
       $this->header = $fichier ;
@@ -87,8 +95,8 @@ class Vue{
       //PARTIE DE LA VUE
       $contenu = $this->genererFichier($this->fichier, $donnee);
      
-      //$nav = null;
-      $nav = $this->getNav();
+      $nav = null;
+      //$nav = $this->getNav();
       
 
 

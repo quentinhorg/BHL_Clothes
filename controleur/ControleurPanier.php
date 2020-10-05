@@ -8,26 +8,37 @@ class ControleurPanier{
    public function __construct($url){
       
     $id=1;
-      if( isset($url) && count($url) > 1 ){
+      if( isset($url) && count($url) > 2 ){
          throw new Exception('Page introuvable');
       }
       else{
-         //$this->suppSession(); 
-        
+      
+      
          
         
-            $this->ajouterArticle();
+         $this->ajouterArticle();
+        
+         if( isset($url[1]) && strtolower($url[1]) == "paiement"){
+           
+            $this->vue = new Vue('Paiement') ;
+            $donneeVue = array(
+               "clientInfo"=> $this->client(),
+               "maCommande"=> $this->maCommande()
+            ) ;
 
-         
+         }
+         else{
+            $this->vue = new Vue('Panier') ;
+            $this->vue->setListeJsScript(["public/script/js/HtmlArticle.js","public/script/js/HtmlPanier.js" ]);
+            $donneeVue = array(
+               "maCommande"=> $this->maCommande()
+           ) ;
+         }
 
+         $this->vue->genererVue($donneeVue) ;
         
 
-         $this->vue = new Vue('Panier') ;
-       
-         $this->vue->setListeJsScript(["public/script/js/HtmlArticle.js","public/script/js/HtmlPanier.js" ]);
-         $this->vue->genererVue(array( 
-            "maCommande"=> $this->maCommande()
-         )) ;
+         
 
          
          
@@ -59,6 +70,12 @@ class ControleurPanier{
      
       return $maCommande ;
    }
+
+   public function client(){
+      $ClientManageur = new ClientManager();
+      $clientCmd= $ClientManageur->ClientEnLigne();
+      return $clientCmd;
+  }
 
    private function suppSession(){
       $CommandeManager = new CommandeManager();

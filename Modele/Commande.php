@@ -5,11 +5,13 @@ class Commande{
    private  $date;
    private  $idClient;
    private  $Etat; //Object
+   private  $prixTTC;
    private  $panier= array() ; //Tableau Objet : Article
  
    
    
    public function __construct(array $donnee){
+      
       $this->hydrate($donnee);
    }
 
@@ -61,6 +63,16 @@ class Commande{
       $this->Etat = $EtatManager->getEtat($idEtat);
    }
 
+   public function setPrixTTC($prix){
+      
+      $prix = (float) $prix;
+
+      if($prix > 0){
+      
+         $this->prixTTC = $prix;
+      }
+   }
+
 
  
    
@@ -88,6 +100,9 @@ class Commande{
 
    public function Etat(){
       return $this->Etat;
+   }
+   public function prixTTC(){
+      return $this->prixTTC;
    }
 
 

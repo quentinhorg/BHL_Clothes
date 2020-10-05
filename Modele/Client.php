@@ -8,6 +8,7 @@ class Client{
    private  $prenom;
    private  $adresse;
    private  $tel;
+   private  $solde;
    private $listeCmd; //Tableau d'objet
 
 
@@ -80,6 +81,12 @@ class Client{
                 $this->tel = $tel;
             }
     }
+    public function setSolde($solde){
+        $solde = (float) $solde;
+            if($solde > 0){
+                $this->solde = $solde;
+            }
+    }
 
     public function setListeIdCmd($listeIdCmd){
         $tabIdCmd = explode(",",$listeIdCmd);
@@ -125,6 +132,10 @@ class Client{
     public function getListCmd(){
        return $this->listeCmd;
     }
+
+    public function solde(){
+        return $this->solde;
+     }
 
 
 

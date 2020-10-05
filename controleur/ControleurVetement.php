@@ -35,6 +35,9 @@ class ControleurVetement{
          }
 
          $this->vue = new Vue('Vetement') ;
+         $this->vue->setListeJsScript(["public/script/js/bootstrapNote.js", 
+                                       "public/script/js/jqueryNote.js"]);
+         $this->vue->setListeCss(["public/css/fontawesomeNote.css"]);
          $this->vue->genererVue(array( 
             "infoVetement"     => $this->infoVetement($id),
             "msg"              => $msg ,

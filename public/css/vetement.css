@@ -91,3 +91,17 @@
    margin-top: 36px;
 }
 
+
+/***********************/
+/********COMMENTAIRES***/
+/***********************/
+.blocCommentaire{
+   display: flex;
+   width: 500px;
+   border: none;
+   background-color: red;
+   padding: 10px;
+   border-radius: 10px;
+
+}
+

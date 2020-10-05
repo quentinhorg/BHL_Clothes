@@ -3,7 +3,7 @@
 class CommandeManager extends DataBase{
 
     public function getCommande($numCmdBDD){
-        $req = "SELECT * FROM commande WHERE num = ?";
+        $req = "SELECT *, calcCmdTTC(commande.num) AS 'prixTTC' FROM commande WHERE num = ?";
         $this->getBdd();
         $commande =  @$this->getModele($req, [$numCmdBDD], "Commande")[0];
 
@@ -60,6 +60,13 @@ class CommandeManager extends DataBase{
     public function effacerCmdSession(){
         $_SESSION["ma_commande"] = null;
         unset($_SESSION["ma_commande"]);
+    }
+
+    public function verifPaiementPanierActif($iClient){
+        $req = "SELECT ";
+        $this->getBdd();
+        $commande =  @$this->getModele($req, [$numCmdBDD], "Commande")[0];
+
     }
 
 

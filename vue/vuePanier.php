@@ -1,4 +1,4 @@
-
+<section id="panier"> 
 
 <div class="panier">
   <!-- Title -->
@@ -45,10 +45,23 @@
       <span class="like-btn"></span>
     </div>
   </div>
-  <?php  } ?>
- 
+
+  
+  <?php } ?>
+
+
 
 </div>
+
+<div id="infoCommande"> 
+    <div class="prixCmd">
+      180 €
+      
+      <a href="panier/paiement"> <button> Passer au paiement </button> </a>
+    </div>
+
+</div>
+</section>
 
 <script>
 
@@ -71,3 +84,5 @@ $('.quantity button').on('click', function() {
    HtmlPanier.setListeHtmlArticle() ;
 
 </script>
+
+

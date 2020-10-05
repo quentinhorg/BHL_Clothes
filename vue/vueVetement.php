@@ -82,41 +82,85 @@
     <?php
         
         foreach ($listeCommentaire as $commentaire) {
-            $date= new DateTime($commentaire->date());
-
-            echo $commentaire->commentaire() ;
-            echo "<br>";
-            echo $commentaire->note() ;
-            echo "<br>";
-            echo "Le ".date_format($date, 'd/m/Y à H\hi') ;
-            echo "<br>";
+            $date= new DateTime($commentaire->date()); ?>
+            <div class="blocCommentaire">
+                <div class="note"><?php echo $commentaire->note(); ?></div>
+                <div class="commentaire"> <?php echo $commentaire->commentaire(); ?></div>
+                <div class="date"><?php echo "Le ".date_format($date, 'd/m/Y à H\hi') ; ?></div>
+            </div>
+           <br>
             
-        }
-   ?>
+    <?php    } ?>
+   
+   
 
-    <h2>Donner votre avis</h2>
+    <h2>Donnez votre avis</h2>
 
     <form action="" method="POST">
-        <input type="text" name="commentaire" placeholder="Votre commentaire">
-        <input type="number" name="note">
+        <textarea type="text" name="commentaire" placeholder="Votre commentaire"></textarea>  <!-- avis -->
+        <input type="number" id="noteVet" name="note" value="0" style="visibility: hidden; display:none;">
 
-        <input type="submit" value="Envoyer" name="envoyerCommentaire">
+        <!-- note -->
+        <span  onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;" class="checked" name="note">★</span> <!-- si pb mettre class="fa fa-star checked" -->
+        <span  onclick="starmark(this)" id="2one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+        <span  onclick="starmark(this)" id="3one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+        <span  onclick="starmark(this)" id="4one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+        <span  onclick="starmark(this)" id="5one" style="font-size:40px;cursor:pointer;" name="note">★</span> <!-- si pb mettre class="fa fa-star" pour 4 dernieres lignes-->
+        <br/>
+
+       
+        <input type="submit" value="Envoyer" name="envoyerCommentaire" onclick="result()" class="btn btn-lg btn-success">
     </form>
 
   
     <?php echo $msg; ?>
-
+    
 
 </div>
+
+
 
 <script>
     FormAjax = new FormAjax();
     $("#ajouterPanier").click(function(){
         FormAjax.envoyerFormulairePOST("vetementChoisi", <?php echo "'idVet=".$infoVetement->id()."'" ?> ,"ajouterArticle" , "panier") ;
     });
-    
+
+
+
+
+    var count;
+
+    function starmark(item){
+        count=item.id[0];
+        sessionStorage.starRating = count;
+        var subid= item.id.substring(1);
+        // alert(count);
+        $("#noteVet").prop("value", count) ;
+        $("#noteVet").attr("value", count) ;
+
+
+
+        for(var i=0;i<5;i++) {
+            
+            if(i<count){
+                document.getElementById((i+1)+subid).style.color="orange";
+            }
+            else{
+                document.getElementById((i+1)+subid).style.color="black";
+            }
+        }
+    }
+
+    function result(){
+        //Rating : Count
+        //Review : Comment(id)
+        alert("Rating : "+count+"\nReview : "+document.getElementById("comment").value);
+    }
+
 
 </script>
+
 
 <?php }
     else{

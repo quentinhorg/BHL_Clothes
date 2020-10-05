@@ -6,9 +6,10 @@
     background-color: #f1f1f1;
     width: 30%;
     height: 300px;
+    border-radius: 20px 0px 0px 20px;
 }
 
-/* Style the buttons inside the tab */
+/* Style the buttons inside the tab  */
 .tab button {
     display: block;
     background-color: inherit;
@@ -23,17 +24,22 @@
     font-size: 17px;
 }
 
-/* Change background color of buttons on hover */
+.tab button #first{
+    border-radius: 20px 0px 0px 0px;
+}
+
+/* Change background color of buttons on hover  */
 .tab button:hover {
     background-color: #ddd;
 }
 
-/* Create an active/current "tab button" class */
+/* Create an active/current "tab button" class  */
 .tab button.active {
     background-color: #ccc;
 }
 
-/* Style the tab content */
+ /* Style the tab content  */
+
 .contenutab {
     float: left;
     padding: 0px 12px;
@@ -41,13 +47,9 @@
     width: 70%;
     border-left: none;
     height: 300px;
+    border-radius: 0px 20px 20px 0px;
 }
-
-table,tr,td,th{
-    border:solid 2px;
-    border-collapse: collapse;
-    padding: 5px;
-}
+ 
 
 div#email a{
 color:blue;
@@ -65,3 +67,19 @@ div#mdp input[type=password]{
 div#livraison input[type=text]{
     width:200px;
 }
+
+#commande{
+    padding: 0px 100px;
+}
+
+.contenu{
+    width:70%;
+    display: table;
+    margin:auto;
+}
+
+.email{
+    border-radius: 20px 0px 0px 0px;
+}
+
+

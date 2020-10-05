@@ -229,3 +229,12 @@ div.color{
   margin-right: auto;
   
 }
+
+div#infoCommande{
+  margin: 80px auto;
+
+}
+
+section#panier{
+  display: flex;
+}

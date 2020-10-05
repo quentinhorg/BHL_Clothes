@@ -30,9 +30,9 @@ class ClientManager extends DataBase{
     public function insertBDD(){
         $this->getBdd(); //Autoriser l'access a la BDD
         $newID = $this->getNewIdTable('client','id'); 
-        $req = "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?, ?)"; 
+        $req = "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?, ?,100)"; 
         $this->getBdd(); 
-        $this->execBDD($req,[$newID,$_POST['email'], $_POST['mdp'], $_POST['nom'], $_POST['prenom'], $_POST['adresse'],$_POST['tel']]);
+        $this->execBDD($req,[$newID,$_POST['email'], sha1($_POST['mdp']), $_POST['nom'], $_POST['prenom'], $_POST['adresse'],$_POST['tel']]);
 
         return $newID ;
     }
@@ -42,7 +42,7 @@ class ClientManager extends DataBase{
 
         $this->getBdd();
         $verif_user= "Select id from client WHERE email like ? AND mdp like ?";
-        $resultat = $this->execBDD($verif_user,[$mail,$mdp] );
+        $resultat = $this->execBDD($verif_user,[$mail,sha1($mdp)] );
         // var_dump($resultat);
 
         if (count($resultat)==1){
@@ -64,7 +64,7 @@ class ClientManager extends DataBase{
     public function changeMdp($id){
         $this->getBdd();
         $changeMdp = "UPDATE client SET mdp = ? WHERE id = ? ;" ;
-        $resultat = $this->execBDD($changeMdp,[$_POST['changeMdp'],$id]);
+        $resultat = $this->execBDD($changeMdp,[sha1($_POST['changeMdp']),$id]);
     }
     
     public function deconnexion(){
