@@ -14,7 +14,7 @@ class ControleurCompte{
                 
                 $this->vue = new Vue('Suivi') ;
                 $this->vue->genererVue(array(
-                    "clientActif"=> $this->client(),
+                    "clientActif"=> $GLOBALS["client_en_ligne"],
                     "listeEtat" => $this->listeEtat(),
                     "infoCommande" => $this->commande($url[2])
                     
@@ -32,7 +32,7 @@ class ControleurCompte{
                 }
     
                 if(isset($_POST['submitMdp'])){
-                    $mdpBdd = $this->client()->mdp();
+                    $mdpBdd = $GLOBALS["client_en_ligne"]->mdp();
                         if (!empty($_POST['changeMdp']) && !empty($_POST['changeMdp2']) && !empty($_POST['ancienMdp']) ){
                             if($_POST['changeMdp'] == $_POST['changeMdp2']){
                                 if($_POST['ancienMdp'] == $mdpBdd  ){
@@ -59,7 +59,7 @@ class ControleurCompte{
                 $this->vue = new Vue('Compte') ;
                 $this->vue->setListeJsScript(["public\script\DataTable\datatable.js"]);
                 $this->vue->genererVue(array(
-                    "clientActif"=> $this->client(),
+                    "clientActif"=> $GLOBALS["client_en_ligne"],
                     "message"=>$message
                 )) ;
             }
@@ -83,27 +83,22 @@ class ControleurCompte{
         return $commande ;
      }
 
-    public function client(){
-        $ClientManageur = new ClientManager();
-        $clientCmd= $ClientManageur->ClientEnLigne();
-        return $clientCmd;
-    }
 
     public function changeMail(){
         $ClientManager = new ClientManager();
-        $idCli = $this->client()->getId();
+        $idCli = $GLOBALS["client_en_ligne"]->getId();
         $ClientManager->changeMail($idCli);
     }
 
     public function changeMdp(){
         $ClientManager = new ClientManager();
-        $idCli = $this->client()->getId();
+        $idCli = $GLOBALS["client_en_ligne"]->getId();
         $ClientManager->changeMdp($idCli);
     }
 
     public function changeAdresse(){
         $ClientManager = new ClientManager();
-        $idCli = $this->client()->getId();
+        $idCli = $GLOBALS["client_en_ligne"]->getId();
         $ClientManager->changeAdresse($idCli);
     }
 

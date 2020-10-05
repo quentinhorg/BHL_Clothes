@@ -18,13 +18,10 @@ class ClientManager extends DataBase{
     }
 
     public function ClientEnLigne(){
-      
-        if( isset($_SESSION["id_client_en_ligne"]) ){
-            $Client = $this->getClient($_SESSION["id_client_en_ligne"]) ;
-          
-        }else{ $Client = null ;} 
-
-        return $Client;
+        if(  isset($_SESSION["client_en_ligne"]) ){
+            return $_SESSION["client_en_ligne"];
+        }else{ return null ;}
+    
     }
     
     public function insertBDD(){
@@ -39,18 +36,18 @@ class ClientManager extends DataBase{
 
     public function connexion($mail, $mdp){
         #$this->getBdd();
-
         $this->getBdd();
         $verif_user= "Select id from client WHERE email like ? AND mdp like ?";
         $resultat = $this->execBDD($verif_user,[$mail,sha1($mdp)] );
         // var_dump($resultat);
 
         if (count($resultat)==1){
-            echo "Vous êtes actuellement connecté";
-            $_SESSION['id_client_en_ligne'] = $resultat[0]['id'];
-            // var_dump($_SESSION['id_client_en_ligne']);
+            echo "Vous êtes actuellement connecté =)";
+            $_SESSION['client_en_ligne'] = $this->getClient($resultat[0]['id']) ;
+            $GLOBALS["client_en_ligne"] = $_SESSION['client_en_ligne'] ;
+          
         }else{
-            echo "Vous n'êtes actuellement pas connecté";
+            echo "Vous n'êtes actuellement pas connecté :(";
         }
 
     }
@@ -68,8 +65,8 @@ class ClientManager extends DataBase{
     }
     
     public function deconnexion(){
-        $_SESSION["id_client_en_ligne"] = null;
-        unset($_SESSION["id_client_en_ligne"]);
+        $_SESSION["client_en_ligne"] = null;
+        unset($_SESSION["client_en_ligne"]);
         session_destroy();
     }
 

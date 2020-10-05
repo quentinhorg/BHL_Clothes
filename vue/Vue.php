@@ -75,13 +75,12 @@ class Vue{
       private function getNav(){
          $GenreManager = new GenreManager() ;
          $CommandeManager = new CommandeManager() ;
-         $ClientManager = new ClientManager() ;
         
      
          $donnee = [
             "listeGenre" => $GenreManager->getListeGenre(),
             "qtePanier" => $CommandeManager->getCmdActiveClient()->getQuantiteArticle(),
-             "clientEnLigne" => $ClientManager->ClientEnLigne()
+             "clientEnLigne" => $GLOBALS["client_en_ligne"]
          ] ;
 
          $nav = $this->genererFichier($this->nav, $donnee) ;
@@ -95,8 +94,8 @@ class Vue{
       //PARTIE DE LA VUE
       $contenu = $this->genererFichier($this->fichier, $donnee);
      
-      $nav = null;
-      //$nav = $this->getNav();
+      //$nav = null;
+      $nav = $this->getNav();
       
 
 

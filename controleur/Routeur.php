@@ -7,18 +7,27 @@ class Routeur{
 
    public function routerLaPage(){
       try{
-   
          //Permet d'auto générer les modèles necessaires pour données appelées
          spl_autoload_register(function($classe){
             require_once('Modele/'.$classe.'.php');
          });
          
          session_start(); //Démarrage de la session
+         $ClientManager = new ClientManager;
+         $GLOBALS["client_en_ligne"] = $ClientManager->ClientEnLigne() ;
 
-         if( !isset($_SESSION["ma_commande"]) && !isset($_SESSION["id_client_en_ligne"]) ){
+       
+
+         //Si le panier session n'a pas encore été défni et personne n'est connecté
+         if( !isset($_SESSION["ma_commande"]) && $GLOBALS["client_en_ligne"] == null ){
             $CommandeManager = new CommandeManager;
             $CommandeManager->creerCommandeSession();
          }    
+
+       
+         
+
+      
          
          
          //Vérifie sur on navigue sur une page

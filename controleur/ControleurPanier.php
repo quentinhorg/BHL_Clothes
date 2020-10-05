@@ -17,12 +17,13 @@ class ControleurPanier{
          
         
          $this->ajouterArticle();
+         
         
          if( isset($url[1]) && strtolower($url[1]) == "paiement"){
            
             $this->vue = new Vue('Paiement') ;
             $donneeVue = array(
-               "clientInfo"=> $this->client(),
+               "clientInfo"=> $GLOBALS["client_en_ligne"],
                "maCommande"=> $this->maCommande()
             ) ;
 
@@ -71,15 +72,19 @@ class ControleurPanier{
       return $maCommande ;
    }
 
-   public function client(){
-      $ClientManageur = new ClientManager();
-      $clientCmd= $ClientManageur->ClientEnLigne();
-      return $clientCmd;
-  }
+
 
    private function suppSession(){
       $CommandeManager = new CommandeManager();
       $CommandeManager->effacerCmdSession();
+   }
+
+   private function payerCommandeActif(){
+      if( $GLOBALS["client_en_ligne"] != null){
+
+         
+
+      }
    }
 
 

@@ -71,7 +71,7 @@ class ControleurVetement{
    private function insertCommentaire($idVet){
       $CommentaireManager = new CommentaireManager();
       $ClientManager= new ClientManager();
-      $idClient= $ClientManager->clientEnLigne()->getId();
+      $idClient= $GLOBALS["client_en_ligne"]->getId();
 
       $CommentaireManager->insertCommentaire($idVet, $idClient);
    }

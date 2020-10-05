@@ -65,6 +65,27 @@ END IF;
 
 END;;
 
+CREATE PROCEDURE `payerCommande`(_idClient int, _numCmd int)
+BEGIN
+            DECLARE soldeClient float; DECLARE montantCmdTTC float; DECLARE etatCmd float;
+            SET soldeClient = ( SELECT c.solde FROM client c WHERE c.id = _idClient ) ;
+            SET montantCmdTTC = ( SELECT calcCmdTTC(cmd.num) FROM commande cmd WHERE cmd.num = _numCmd AND cmd.idClient = _idClient ) ;
+            SET etatCmd = ( SELECT cmd2.idEtat FROM commande cmd2 WHERE cmd2.num = _numCmd) ;
+
+            IF (etatCmd = 1) THEN
+              IF (soldeClient > montantCmdTTC AND montantCmdTTC IS NOT NULL AND soldeClient IS NOT NULL ) THEN 
+                UPDATE commande SET idEtat = 2 WHERE num = _numCmd ; 
+                UPDATE client SET solde = (soldeClient-montantCmdTTC) WHERE id = _idClient ; 
+              ELSE
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur: La paiement n\'a pas été effectué.';
+              END IF;
+            ELSE
+              SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur: La commande a déjà été payé.'; 
+            END IF; 
+           
+      
+    END;;
+
 DELIMITER ;
 
 DROP TABLE IF EXISTS `article_panier`;
@@ -92,6 +113,7 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (1,	1,	'l',	18,	1,	10),
 (1,	1,	'XS',	18,	9,	11),
 (7,	1,	'L',	6,	1,	5),
+(7,	1,	'L',	18,	1,	10),
 (8,	1,	'L',	6,	1,	1),
 (11,	1,	'M',	18,	5,	12),
 (1,	2,	'S',	4,	1,	3),
@@ -191,7 +213,7 @@ CREATE TABLE `client` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `solde`) VALUES
-(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	955.1),
+(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	700.1),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	45.15),
 (3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	85.6),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	45.15),
@@ -241,6 +263,8 @@ INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel
 (1,	'2020-10-05 12:55:52',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
 (1,	'2020-10-05 13:16:26',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
 (1,	'2020-10-05 16:03:00',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
+(1,	'2020-10-05 19:20:33',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
+(1,	'2020-10-05 19:20:48',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
 (2,	'2020-09-13 18:31:38',	'HOAREAU',	'Quentin',	'St pierre',	'426525',	'UPDATE'),
 (2,	'2020-09-13 18:32:37',	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'UPDATE'),
 (2,	'2020-09-13 18:37:01',	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'UPDATE'),
@@ -330,7 +354,7 @@ INSERT INTO `commande` (`num`, `idClient`, `date`, `idEtat`) VALUES
 (8,	9,	'2020-10-02 18:13:30',	1),
 (9,	10,	'2020-10-03 13:53:15',	1),
 (10,	11,	'2020-10-03 14:01:34',	1),
-(11,	1,	'2020-12-02 12:30:00',	1)
+(11,	1,	'2020-12-02 12:30:00',	2)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `date` = VALUES(`date`), `idEtat` = VALUES(`idEtat`);
 
 DROP TABLE IF EXISTS `commentaire`;
@@ -583,4 +607,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-05 16:18:16
+-- 2020-10-05 16:57:15

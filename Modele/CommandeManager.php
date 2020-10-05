@@ -24,10 +24,9 @@ class CommandeManager extends DataBase{
 
     // A COMPLETER
     public function getCmdActiveClient(){
-        $ClientManager = new ClientManager() ;
-        
-        if( $ClientManager->ClientEnLigne() != null ){
-            $clientId = $ClientManager->ClientEnLigne()->getId();
+  
+        if( $GLOBALS["client_en_ligne"] != null  ){
+            $clientId = $GLOBALS["client_en_ligne"]->getId();
             
             $req = "SELECT num 
             FROM commande
@@ -41,7 +40,6 @@ class CommandeManager extends DataBase{
           
          }else{ 
             $cmd = $_SESSION["ma_commande"] ;
-            
         }
 
         
@@ -62,11 +60,10 @@ class CommandeManager extends DataBase{
         unset($_SESSION["ma_commande"]);
     }
 
-    public function verifPaiementPanierActif($iClient){
-        $req = "SELECT ";
+    public function payerCommande($iClient, $numCmd){
+        $req = "CALL payerCommande(?, ?);";
         $this->getBdd();
-        $commande =  @$this->getModele($req, [$numCmdBDD], "Commande")[0];
-
+        $this->execBdd($req, [$iClient, $numCmd]);
     }
 
 

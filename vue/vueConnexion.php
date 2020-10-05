@@ -1,6 +1,6 @@
 <form action="" method="POST">
       
-      <p> Email :         <input type="email" name="email">       </p>
+      <p> Email :         <input type="text" name="email">       </p>
       <p> Mot de passe :  <input type="password" name="mdp">    </p>
       <p> Connexion       <input type="submit" name="submit">     </p>
   </form>
