@@ -27,16 +27,23 @@ class CommandeManager extends DataBase{
   
         if( $GLOBALS["client_en_ligne"] != null  ){
             $clientId = $GLOBALS["client_en_ligne"]->getId();
-            
-            $req = "SELECT num 
-            FROM commande
-            WHERE idClient = ?
-            ORDER BY num
-            LIMIT 1" ;
+ 
+            $req = "SELECT c.num as 'numCmd'
+            FROM commande c
+            WHERE c.idClient = ?
+            AND c.idEtat = 1
+            " ;
             
             $this->getBdd();
-            $CmdId = $this->execBdd($req, [$clientId])[0]["num"];
-            $cmd = $this->getCommande($CmdId);
+
+            $resultat =  $this->execBdd($req, [$clientId]);
+
+            if(  $resultat != null  ){
+                $CmdId = $resultat[0]["numCmd"] ;
+                $cmd = $this->getCommande( $CmdId );
+            } else{ $cmd = new Commande(array(null)) ; }
+
+           
           
          }else{ 
             $cmd = $_SESSION["ma_commande"] ;

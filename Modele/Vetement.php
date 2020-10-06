@@ -176,6 +176,9 @@ class Vetement{
    }
 
    public function nbCommentaire(){
+      if ($this->nbCommentaire == 0) {
+         echo "0";
+      }
       return $this->nbCommentaire;
    }
 

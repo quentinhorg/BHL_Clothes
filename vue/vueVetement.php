@@ -109,18 +109,35 @@
         <br/>
 
        
-        <input type="submit" value="Envoyer" name="envoyerCommentaire" onclick="result()" class="btn btn-lg btn-success">
+        <input type="submit" value="Envoyer" name="envoyerCommentaire" onclick="" class="btn btn-lg btn-success">
     </form>
 
-  
-    <?php echo $msg; ?>
+ 
     
 
 </div>
 
 
 
+
+<?php }
+    else{
+        echo "Ce produit n'existe pas";
+    } 
+?>
+
+
+
+
+
 <script>
+    var message = <?php echo json_encode($msg); ?>;
+    if(message != null){
+        alert(message); 
+    }
+    
+
+    
     FormAjax = new FormAjax();
     $("#ajouterPanier").click(function(){
         FormAjax.envoyerFormulairePOST("vetementChoisi", <?php echo "'idVet=".$infoVetement->id()."'" ?> ,"ajouterArticle" , "panier") ;
@@ -152,18 +169,13 @@
         }
     }
 
-    function result(){
-        //Rating : Count
-        //Review : Comment(id)
-        alert("Rating : "+count+"\nReview : "+document.getElementById("comment").value);
-    }
+    // function result(){
+    //     //Rating : Count
+    //     //Review : Comment(id)
+    //     alert("Rating : "+count+"\nReview : "+document.getElementById("comment").value);
+    // }
 
+     
+   
 
 </script>
-
-
-<?php }
-    else{
-        echo "Ce produit n'existe pas";
-    } 
-?>
