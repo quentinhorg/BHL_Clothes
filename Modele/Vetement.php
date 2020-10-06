@@ -119,10 +119,8 @@ class Vetement{
 
    public function setNbCommentaire($nbCommentaire){
       $nbCommentaire = (int) $nbCommentaire;
+      $this->nbCommentaire = $nbCommentaire;
 
-      if($nbCommentaire > 0){
-         $this->nbCommentaire = $nbCommentaire;
-      }
    }
 
 
@@ -175,10 +173,8 @@ class Vetement{
       return $this->description;
    }
 
+   
    public function nbCommentaire(){
-      if ($this->nbCommentaire == 0) {
-         echo "0";
-      }
       return $this->nbCommentaire;
    }
 
