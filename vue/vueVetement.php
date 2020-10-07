@@ -8,11 +8,9 @@
 
 
     <div class="infoVet">
-    
         
-
         <h1> <?php echo $infoVetement->nom() ; ?> </h1>
-        
+
         <p> <?php echo $infoVetement->description() ; ?></p>
 
         <hr>
@@ -59,7 +57,7 @@
 
             <h3> <?php echo $infoVetement->prix()."€" ; ?> </h3>
 
-                    <button type="button" value="Ajouter au panier" name="ajouterPanier" id="ajouterPanier" > 
+                    <button type="button" value="Ajouter au panier" name="ajouterPanier" id="ajouterPanier" onclick="ajoutArticle()"> 
                 
 
                     <svg style="position: absolute; left: 10px; top: 25%; " width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-bag-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -92,25 +90,33 @@
             
     <?php    } ?>
    
-   
+    <?php
+        if($client != null) { ?>
+            
+            <h2>Donnez votre avis</h2>
 
-    <h2>Donnez votre avis</h2>
+            <form action="" method="POST">
+                <textarea type="text" name="commentaire" placeholder="Votre commentaire"></textarea>  <!-- avis -->
+                <input type="number" id="noteVet" name="note" value="0" style="visibility: hidden; display:none;">
 
-    <form action="" method="POST">
-        <textarea type="text" name="commentaire" placeholder="Votre commentaire"></textarea>  <!-- avis -->
-        <input type="number" id="noteVet" name="note" value="0" style="visibility: hidden; display:none;">
+                <!-- note -->
+                <span  onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;" class="checked" name="note">★</span> <!-- si pb mettre class="fa fa-star checked" -->
+                <span  onclick="starmark(this)" id="2one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+                <span  onclick="starmark(this)" id="3one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+                <span  onclick="starmark(this)" id="4one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+                <span  onclick="starmark(this)" id="5one" style="font-size:40px;cursor:pointer;" name="note">★</span> <!-- si pb mettre class="fa fa-star" pour 4 dernieres lignes-->
+                <br/>
 
-        <!-- note -->
-        <span  onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;" class="checked" name="note">★</span> <!-- si pb mettre class="fa fa-star checked" -->
-        <span  onclick="starmark(this)" id="2one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-        <span  onclick="starmark(this)" id="3one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-        <span  onclick="starmark(this)" id="4one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-        <span  onclick="starmark(this)" id="5one" style="font-size:40px;cursor:pointer;" name="note">★</span> <!-- si pb mettre class="fa fa-star" pour 4 dernieres lignes-->
-        <br/>
+                <input type="submit" value="Envoyer" name="envoyerCommentaire" class="btn btn-lg btn-success">
+            </form>
 
-       
-        <input type="submit" value="Envoyer" name="envoyerCommentaire" onclick="" class="btn btn-lg btn-success">
-    </form>
+    <?php } 
+        else{
+            echo "<h2>Donnez votre avis</h2>";
+            echo "Veuillez vous connecter pour poster un avis.";
+    }?>
+
+    
 
  
     
@@ -132,10 +138,14 @@
 
 <script>
     var message = <?php echo json_encode($msg); ?>;
+    
     if(message != null){
         alert(message); 
     }
     
+    function ajoutArticle() {
+        alert("Votre article a bien été ajouté au panier.");
+    }
 
     
     FormAjax = new FormAjax();

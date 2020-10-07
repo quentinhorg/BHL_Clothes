@@ -18,8 +18,8 @@ class ClientManager extends DataBase{
     }
 
     public function ClientEnLigne(){
-        if(  isset($_SESSION["client_en_ligne"]) ){
-            return $_SESSION["client_en_ligne"];
+        if(  isset($_SESSION["id_client_en_ligne"]) ){
+            return  $this->getClient($_SESSION["id_client_en_ligne"]);
         }else{ return null ;}
     
     }
@@ -43,8 +43,8 @@ class ClientManager extends DataBase{
 
         if (count($resultat)==1){
             echo "Vous êtes actuellement connecté =)";
-            $_SESSION['client_en_ligne'] = $this->getClient($resultat[0]['id']) ;
-            $GLOBALS["client_en_ligne"] = $_SESSION['client_en_ligne'] ;
+            $_SESSION["id_client_en_ligne"] = $resultat[0]['id'] ;
+            $GLOBALS["client_en_ligne"] = $this->getClient($resultat[0]['id']) ;
           
         }else{
             echo "Vous n'êtes actuellement pas connecté :(";
@@ -65,8 +65,8 @@ class ClientManager extends DataBase{
     }
     
     public function deconnexion(){
-        $_SESSION["client_en_ligne"] = null;
-        unset($_SESSION["client_en_ligne"]);
+        $_SESSION["id_client_en_ligne"] = null;
+        unset($_SESSION["id_client_en_ligne"]);
         session_destroy();
     }
 

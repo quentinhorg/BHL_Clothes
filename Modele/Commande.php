@@ -102,7 +102,9 @@ class Commande{
       return $this->Etat;
    }
    public function prixTTC(){
-      return $this->prixTTC;
+
+      
+      return number_format($this->prixTTC, 2) ;
    }
 
 

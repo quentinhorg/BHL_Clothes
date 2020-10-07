@@ -41,7 +41,8 @@ class ControleurVetement{
          $this->vue->genererVue(array( 
             "infoVetement"     => $this->infoVetement($id),
             "msg"              => $msg ,
-            "listeCommentaire" => $this->listeCommentaire($id)
+            "listeCommentaire" => $this->listeCommentaire($id),
+            "client" => $GLOBALS["client_en_ligne"]
          )) ;
          
       }
