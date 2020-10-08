@@ -48,7 +48,7 @@ class ClientManager extends DataBase{
          
             $GLOBALS["client_en_ligne"] = $this->getClient($resultat[0]['id']) ;
 
-            var_dump($this->getClient($resultat[0]['id']));
+         
           
         }else{
             echo "Vous n'êtes actuellement pas connecté :(";

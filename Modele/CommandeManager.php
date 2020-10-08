@@ -84,6 +84,24 @@ class CommandeManager extends DataBase{
         $this->execBdd($req, [$idClient, $resultat[0]["numCmd"] ]);
     }
 
+    public function possedeCommandeNonPayer($idClient){
+        $possede = false;
+
+        $req = "SELECT COUNT(c.num) as 'nbCmdNonPayer'
+        FROM commande c
+        WHERE c.idClient = ?
+        AND c.idEtat = 1
+        " ;
+        $this->getBdd();
+
+        $resultat =  $this->execBdd($req, [$idClient]);
+
+        if($resultat[0]["nbCmdNonPayer"] >= 1){
+            $possede = true ;
+        }
+
+        return $possede;
+    }
 
 
 

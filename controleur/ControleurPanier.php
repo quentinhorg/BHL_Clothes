@@ -20,13 +20,23 @@ class ControleurPanier{
          
         
          if( isset($url[1]) && strtolower($url[1]) == "paiement"){
+
             $this->payerPanierActif();
-           
-            $this->vue = new Vue('Paiement') ;
-            $donneeVue = array(
-               "clientInfo"=> $GLOBALS["client_en_ligne"],
-               "maCommande"=> $this->maCommande()
-            ) ;
+
+            
+            if( $this->peutPayer() ){
+
+               $this->vue = new Vue('Paiement') ;
+               $donneeVue = array(
+                  "clientInfo"=> $GLOBALS["client_en_ligne"],
+                  "maCommande"=> $this->maCommande()
+               ) ;
+
+            }
+            else{
+               throw new Exception('Page introuavable');
+            }
+            
 
          }
          else{
@@ -60,9 +70,8 @@ class ControleurPanier{
             $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
          }
          else{
-
-            if( $GLOBALS["client_en_ligne"]->listCmd() == null ){
-               $CommandeManager = new CommandeManager;
+            $CommandeManager = new CommandeManager;
+            if(  $CommandeManager->possedeCommandeNonPayer( $GLOBALS["client_en_ligne"]->getId() ) == false ){
                $numCmd = $CommandeManager->insertCommande( $GLOBALS["client_en_ligne"]->getId() );
             }
 
@@ -92,13 +101,19 @@ class ControleurPanier{
    }
 
    private function payerPanierActif(){
-      if( $GLOBALS["client_en_ligne"] != null && isset($_POST["payerCmd"]) ){
+      if( $this->peutPayer() && isset($_POST["payerCmd"]) ){
          
          $CommandeManager = new CommandeManager;
          $CommandeManager->payerPanierActif($GLOBALS["client_en_ligne"]->getId());
          
 
       }
+   }
+
+   private function peutPayer(){
+      //Si au moins un article, si la commande n'a pas encore été payé et si on est connecté
+      return $this->maCommande()->panier() != null && $this->maCommande()->Etat()->id() == 1 && $GLOBALS["client_en_ligne"] != null;
+      
    }
 
 
