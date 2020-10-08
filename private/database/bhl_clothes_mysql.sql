@@ -37,14 +37,17 @@ DECLARE qteArticle int;
 SET qteArticle = (SELECT qte_article(_numCmd , _idVet , _taille , _numClr));
 
 SET newOrdreArr = (
-  SELECT
-CASE WHEN MAX(ap.ordreArrivee) = (
+SELECT
+CASE 
+WHEN MAX(ap.ordreArrivee) IS NULL THEN 1
+WHEN MAX(ap.ordreArrivee) = (
   SELECT ap2.ordreArrivee FROM article_panier ap2
   WHERE ap2.numCmd = _numCmd 
   AND ap2.idVet = _idVet 
   AND ap2.taille  = _taille 
   AND ap2.numClr = _numClr
-) THEN MAX(ap.ordreArrivee) ELSE MAX(ap.ordreArrivee)+1
+) THEN MAX(ap.ordreArrivee) 
+ELSE MAX(ap.ordreArrivee)+1
 END AS 'newOrdreArr'
   FROM article_panier ap
   WHERE ap.numCmd = _numCmd
@@ -108,28 +111,35 @@ CREATE TABLE `article_panier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ordreArrivee`) VALUES
-(1,	1,	'M',	6,	13,	7),
+(1,	1,	'M',	6,	2,	7),
 (1,	1,	'XL',	6,	3,	2),
-(1,	1,	'l',	18,	1,	10),
+(1,	1,	'l',	18,	5,	12),
 (1,	1,	'XS',	18,	9,	11),
 (7,	1,	'L',	6,	1,	5),
 (7,	1,	'L',	18,	1,	10),
 (8,	1,	'L',	6,	1,	1),
 (11,	1,	'M',	18,	5,	12),
 (1,	2,	'S',	4,	1,	3),
-(7,	2,	'L',	4,	3,	7),
+(7,	2,	'L',	4,	4,	11),
 (7,	2,	'XL',	4,	1,	8),
 (1,	3,	'L',	5,	1,	4),
+(7,	3,	'L',	5,	1,	12),
 (3,	4,	'M',	1,	1,	2),
 (7,	4,	'M',	1,	1,	3),
 (3,	5,	'M',	3,	2,	1),
-(7,	6,	'L',	7,	1,	9),
+(7,	5,	'M',	8,	3,	14),
+(12,	5,	'M',	8,	3,	2),
+(12,	5,	'S',	8,	1,	3),
+(7,	6,	'L',	7,	2,	15),
 (7,	6,	'L',	16,	1,	2),
+(7,	7,	'L',	10,	2,	16),
+(7,	7,	'L',	17,	1,	17),
 (7,	8,	'L',	11,	1,	1),
 (8,	9,	'M',	12,	1,	2),
 (9,	9,	'M',	12,	1,	1),
 (10,	10,	'36',	13,	1,	1),
-(7,	11,	'42',	9,	1,	6)
+(7,	11,	'42',	9,	5,	13),
+(12,	11,	'42',	9,	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -220,9 +230,9 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	84.6),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	984.2),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'efefefefefeffe',	'65454',	351),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	82),
-(9,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	12.15),
-(10,	'goldow974@gmail.comteds',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'teds',	'teds',	'teds',	'9874984896',	874.6),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	439),
+(9,	'andrea.test@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	12.15),
+(10,	'ted@gmail.comteds',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'teds',	'teds',	'teds',	'9874984896',	874.6),
 (11,	'azeaze@gmail.comaz',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeae',	'azeaze',	'azeaze',	'4684864',	300.5),
 (12,	'dylan@waou.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Bob',	'Dylan',	'6 rue du manchto electrique',	'080808',	100)
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`);
@@ -321,11 +331,18 @@ INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel
 (8,	'2020-10-01 21:04:10',	'Goldow',	'Gold',	'10 non on',	'684654658',	'UPDATE'),
 (8,	'2020-10-05 13:16:26',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
 (8,	'2020-10-05 16:03:00',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-07 22:41:19',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-07 22:49:54',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-07 22:50:37',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-07 22:52:24',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 18:04:43',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
 (9,	'2020-10-02 18:16:09',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-05 13:16:26',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-05 16:03:00',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
+(9,	'2020-10-07 21:48:35',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (10,	'2020-10-05 13:16:26',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
 (10,	'2020-10-05 16:03:00',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
+(10,	'2020-10-07 20:01:53',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
 (11,	'2020-10-05 13:16:26',	'azeae',	'azeaze',	'azeaze',	'4684864',	'UPDATE'),
 (11,	'2020-10-05 16:03:00',	'azeae',	'azeaze',	'azeaze',	'4684864',	'UPDATE'),
 (14,	'2020-10-05 16:17:35',	'admin',	'admin',	'admin',	'admin',	'UPDATE')
@@ -345,16 +362,16 @@ CREATE TABLE `commande` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `commande` (`num`, `idClient`, `date`, `idEtat`) VALUES
-(1,	1,	'2019-12-02 12:30:00',	5),
+(1,	1,	'2019-12-02 12:30:00',	1),
 (2,	2,	'2019-12-17 18:48:11',	1),
 (3,	3,	'2020-12-23 08:02:08',	1),
 (5,	5,	'2020-09-17 11:00:00',	1),
-(6,	4,	'2020-09-13 14:18:23',	1),
-(7,	8,	'2020-10-01 21:05:30',	2),
+(7,	8,	'2020-10-01 21:05:30',	1),
 (8,	9,	'2020-10-02 18:13:30',	1),
 (9,	10,	'2020-10-03 13:53:15',	1),
 (10,	11,	'2020-10-03 14:01:34',	1),
-(11,	1,	'2020-12-02 12:30:00',	2)
+(11,	1,	'2020-12-02 12:30:00',	2),
+(12,	4,	'2020-10-08 19:03:32',	1)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `date` = VALUES(`date`), `idEtat` = VALUES(`idEtat`);
 
 DROP TABLE IF EXISTS `commentaire`;
@@ -370,7 +387,7 @@ CREATE TABLE `commentaire` (
   KEY `idVet` (`idVet`),
   CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`idClient`) REFERENCES `client` (`id`),
   CONSTRAINT `commentaire_ibfk_2` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 INSERT INTO `commentaire` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VALUES
 (1,	1,	1,	'Commentaire vêtement 1.',	5,	'2020-09-12 12:50:52'),
@@ -385,7 +402,9 @@ INSERT INTO `commentaire` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `da
 (15,	3,	11,	'salutation',	4,	'2020-10-03 16:46:19'),
 (16,	1,	1,	'hhh',	2,	'2020-10-05 15:34:58'),
 (17,	1,	1,	'note test',	2,	'2020-10-05 15:48:31'),
-(18,	1,	1,	'mdrr',	5,	'2020-10-05 15:49:50')
+(18,	1,	1,	'mdrr',	5,	'2020-10-05 15:49:50'),
+(19,	8,	1,	'woooooaaaww',	4,	'2020-10-05 21:48:01'),
+(20,	8,	2,	'salut',	4,	'2020-10-07 22:00:42')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `idClient` = VALUES(`idClient`), `idVet` = VALUES(`idVet`), `commentaire` = VALUES(`commentaire`), `note` = VALUES(`note`), `date` = VALUES(`date`);
 
 DROP TABLE IF EXISTS `contact`;
@@ -607,4 +626,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-05 16:57:15
+-- 2020-10-08 15:08:28

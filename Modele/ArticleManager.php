@@ -24,8 +24,8 @@ class ArticleManager extends DataBase{
 
 
    public function inserer($idCmd, $idVet, $idTaille, $qte, $idClr){
-   
-         $req = "CALL insert_article(?, ?, ?, ?, ? )";
+         
+         $req = "CALL insert_article(?, ?, ?, ?, ?)";
          $this->getBdd();
          $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr, $qte]);
   

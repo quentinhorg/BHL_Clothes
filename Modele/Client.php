@@ -9,7 +9,7 @@ class Client{
    private  $adresse;
    private  $tel;
    private  $solde;
-   private $listeCmd; //Tableau d'objet
+   private $listeCmd = array(); //Tableau d'objet
 
 
    
@@ -89,11 +89,15 @@ class Client{
     }
 
     public function setListeIdCmd($listeIdCmd){
-        $tabIdCmd = explode(",",$listeIdCmd);
-        $CommandeManageur = new CommandeManager();
-        foreach ($tabIdCmd as $id){
-            $this->listeCmd[]=$CommandeManageur->getCommande($id);
+        if($listeIdCmd != null){
+            $tabIdCmd = explode(",",$listeIdCmd);
+       
+            $CommandeManageur = new CommandeManager();
+            foreach ($tabIdCmd as $id){
+                $this->listeCmd[]=$CommandeManageur->getCommande($id);
+            }
         }
+        
     }
 
 
@@ -129,7 +133,7 @@ class Client{
         return $this->tel;
     }
 
-    public function getListCmd(){
+    public function listCmd(){
        return $this->listeCmd;
     }
 

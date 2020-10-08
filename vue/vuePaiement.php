@@ -8,7 +8,7 @@
 <div class="row">
   <div class="col-75">
     <div class="container">
-      <form action="/action_page.php">
+      <form action="" method='POST'>
       
         <div class="row">
           <div class="col-50">
@@ -46,14 +46,15 @@
 
             <p>
               <?php 
-              
+                  echo "<p style=' font-weight:bold'> Votre solde actuel :  ".$clientInfo->solde()."€" ;
               if($clientInfo->solde() >= $maCommande->prixTTC() ){
                 $mtnApresAchat = $clientInfo->solde()- $maCommande->prixTTC() ;
+            
                 echo "<p style='color:green; font-weight:bold'> Estimation de votre après l'achat : ".$mtnApresAchat."€" ;
                 $disabled = null;
               }
               else{
-                echo "<p style='color:red; font-weight:bold'> Vous n'avez pas les fonds nécessaires pour l'achat. </p> " ;
+                echo "<p style='color:red; font-weight:bold'> Vous n'avez pas les fonds nécessaires pour l'achat . </p> " ;
                 $disabled = "disabled";
               }
               
@@ -65,7 +66,7 @@
           
         </div>
         
-        <input <?php echo $disabled ?> type="submit" value="Payer ma commande" class="btn">
+        <input <?php echo $disabled ?> type="submit" name="payerCmd" value="Payer ma commande" class="btn">
       </form>
     </div>
   </div>

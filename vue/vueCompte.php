@@ -61,7 +61,7 @@
                 <th>Numéro de Commande</th> <th>Date de la commande</th> <th>Détail</th> <th>Suivi de commande</th>
             </thead>
             <?php
-                foreach ($clientActif->getListCmd() as $commande){?>
+                foreach ($clientActif->listCmd() as $commande){?>
             <tr>
                 <td> <?php echo $commande->num(); ?> </td> <td> <?php echo $commande->date(); ?> </td> <td> <a href=""> Voir ma facture </a> </td> <td> <a href="compte/suivi/<?php echo $commande->num() ?>"> Suivre ma commande </a> </td>
             </tr>

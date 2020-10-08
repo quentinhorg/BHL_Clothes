@@ -14,7 +14,7 @@ class CommandeManager extends DataBase{
        
         $this->getBdd(); 
         $newID = $this->getNewIdTable('commande','num');
-        $reqClient = "INSERT INTO commande VALUES(?,?, NOW())" ;
+        $reqClient = "INSERT INTO commande(num,idClient,date) VALUES(?,?, NOW())" ;
         $this->getBdd();
         $this->execBdd($reqClient, [$newID, $idClient]);
 
@@ -24,7 +24,7 @@ class CommandeManager extends DataBase{
 
     // A COMPLETER
     public function getCmdActiveClient(){
-  
+    
         if( $GLOBALS["client_en_ligne"] != null  ){
             $clientId = $GLOBALS["client_en_ligne"]->getId();
  
@@ -46,6 +46,7 @@ class CommandeManager extends DataBase{
            
           
          }else{ 
+           
             $cmd = $_SESSION["ma_commande"] ;
         }
 
@@ -67,10 +68,20 @@ class CommandeManager extends DataBase{
         unset($_SESSION["ma_commande"]);
     }
 
-    public function payerCommande($iClient, $numCmd){
+    public function payerPanierActif($idClient){
+        
+        $req = "SELECT c.num as 'numCmd'
+        FROM commande c
+        WHERE c.idClient = ?
+        AND c.idEtat = 1
+        " ;
+        $this->getBdd();
+
+        $resultat =  $this->execBdd($req, [$idClient]);
+
         $req = "CALL payerCommande(?, ?);";
         $this->getBdd();
-        $this->execBdd($req, [$iClient, $numCmd]);
+        $this->execBdd($req, [$idClient, $resultat[0]["numCmd"] ]);
     }
 
 

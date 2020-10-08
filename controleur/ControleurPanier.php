@@ -20,6 +20,7 @@ class ControleurPanier{
          
         
          if( isset($url[1]) && strtolower($url[1]) == "paiement"){
+            $this->payerPanierActif();
            
             $this->vue = new Vue('Paiement') ;
             $donneeVue = array(
@@ -48,14 +49,25 @@ class ControleurPanier{
 
    private function ajouterArticle(){
 
+   //  var_dump($GLOBALS["client_en_ligne"]);
+
+
+
       if( isset($_POST["ajouterArticle"]) ){
          $ArticleManager = new ArticleManager();
          
          if( isset($_SESSION["ma_commande"])){
-           $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
+            $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
          }
          else{
+
+            if( $GLOBALS["client_en_ligne"]->listCmd() == null ){
+               $CommandeManager = new CommandeManager;
+               $numCmd = $CommandeManager->insertCommande( $GLOBALS["client_en_ligne"]->getId() );
+            }
+
             $numCmd = $this->maCommande()->num();
+           
             $ArticleManager->inserer($numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"] );
          }
 
@@ -79,9 +91,11 @@ class ControleurPanier{
       $CommandeManager->effacerCmdSession();
    }
 
-   private function payerCommandeActif(){
-      if( $GLOBALS["client_en_ligne"] != null){
-
+   private function payerPanierActif(){
+      if( $GLOBALS["client_en_ligne"] != null && isset($_POST["payerCmd"]) ){
+         
+         $CommandeManager = new CommandeManager;
+         $CommandeManager->payerPanierActif($GLOBALS["client_en_ligne"]->getId());
          
 
       }

@@ -24,12 +24,13 @@ class ControleurAuthentification{
 
                               if( $_SESSION["ma_commande"]->panier() != NULL ){
                                  $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
-
-                                 $mail= $_POST['email'];
-                                 $mdp = $_POST['mdp'];
-                                 $this->connexionClient($mail, $mdp);
-                     
+                              
                               }
+
+                              $mail= $_POST['email'];
+                              $mdp = $_POST['mdp'];
+                              $this->connexionClient($mail, $mdp);
+                  
                               
                            }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
                         }else {  $message = "Veuillez entrer un mot de passe"; }

@@ -1,3 +1,5 @@
+
+
 <section id="panier"> 
 
 <div class="panier">

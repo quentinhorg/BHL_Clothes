@@ -7,7 +7,7 @@ class ClientManager extends DataBase{
       
         $req = "SELECT c.*,GROUP_CONCAT(co.num) as 'listeIdCmd'
                 FROM client c 
-                INNER JOIN commande co ON c.id = co.idClient 
+                LEFT JOIN commande co ON c.id = co.idClient 
                 WHERE c.id = ?
                 GROUP BY c.id";
                 
@@ -40,11 +40,15 @@ class ClientManager extends DataBase{
         $verif_user= "Select id from client WHERE email like ? AND mdp like ?";
         $resultat = $this->execBDD($verif_user,[$mail,sha1($mdp)] );
         // var_dump($resultat);
-
+      
         if (count($resultat)==1){
+         
             echo "Vous êtes actuellement connecté =)";
             $_SESSION["id_client_en_ligne"] = $resultat[0]['id'] ;
+         
             $GLOBALS["client_en_ligne"] = $this->getClient($resultat[0]['id']) ;
+
+            var_dump($this->getClient($resultat[0]['id']));
           
         }else{
             echo "Vous n'êtes actuellement pas connecté :(";
