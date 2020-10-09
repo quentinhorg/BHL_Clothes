@@ -43,8 +43,9 @@
  
     <div class="total-price"> <?php echo $article->prix() ?> </div>
     <div class="buttons">
-      <span class="delete-btn"></span>
-      <span class="like-btn"></span>
+      <?php $valueSupp = "idVet=".$article->id()."&taille=".$article->Taille()->libelle()."&numClr=".$article->Couleur()->num() ?>
+     <button value='<?php echo $valueSupp ?>' type='button' class='deleteArticle'>Supprimer</button>
+     
     </div>
   </div>
 
@@ -84,6 +85,21 @@ $('.quantity button').on('click', function() {
 
    HtmlPanier = new HtmlPanier("listeAricle");
    HtmlPanier.setListeHtmlArticle() ;
+
+
+
+
+
+   FormAjax = new FormAjax;
+
+   $('button.deleteArticle').on('click', function() {
+   var postVal = $(this).val();
+   var submitName = "deleteArticle";
+   $(this).parent().parent().addClass("article_hide");
+
+    FormAjax.envoyerPOST(submitName, postVal, "panier");
+  });
+  
 
 </script>
 

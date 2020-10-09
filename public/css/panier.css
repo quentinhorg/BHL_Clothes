@@ -238,3 +238,12 @@ div#infoCommande{
 section#panier{
   display: flex;
 }
+
+.article_hide{
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  padding: 0;
+  -webkit-transition: opacity 600ms, visibility 600ms, height 800ms, padding 800ms;
+  transition: opacity 600ms, visibility 600ms, height 800ms, padding 800ms;
+  }

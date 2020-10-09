@@ -26,6 +26,7 @@ class CommandeManager extends DataBase{
     public function getCmdActiveClient(){
     
         if( $GLOBALS["client_en_ligne"] != null  ){
+     
             $clientId = $GLOBALS["client_en_ligne"]->getId();
  
             $req = "SELECT c.num as 'numCmd'
@@ -42,8 +43,6 @@ class CommandeManager extends DataBase{
                 $CmdId = $resultat[0]["numCmd"] ;
                 $cmd = $this->getCommande( $CmdId );
             } else{ $cmd = new Commande(array(null)) ; }
-
-           
           
          }else{ 
            
@@ -58,7 +57,7 @@ class CommandeManager extends DataBase{
     
     public function creerCommandeSession(){
         if( !isset($_SESSION["ma_commande"]) ){
-            $_SESSION["ma_commande"] = new Commande([null]);
+            $_SESSION["ma_commande"] = new CommandeSession;
         }
     }
 

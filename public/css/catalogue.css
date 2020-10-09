@@ -210,3 +210,6 @@ input[type="checkbox"]:checked  {
    transform: rotate(45deg);
  }
 
+#currentPage{
+   text-align: left;
+}

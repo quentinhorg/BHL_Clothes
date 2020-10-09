@@ -6,7 +6,7 @@ class CategorieManager extends DataBase{
         
         $req = "SELECT * FROM categorie WHERE id = ?";
         $this->getBdd();
-        return $this->getModele($req, [$id], "Categorie")[0];
+        return @$this->getModele($req, [$id], "Categorie")[0];
 
     }
 

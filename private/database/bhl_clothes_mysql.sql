@@ -111,35 +111,11 @@ CREATE TABLE `article_panier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ordreArrivee`) VALUES
-(1,	1,	'M',	6,	2,	7),
 (1,	1,	'XL',	6,	3,	2),
-(1,	1,	'l',	18,	5,	12),
-(1,	1,	'XS',	18,	9,	11),
-(7,	1,	'L',	6,	1,	5),
-(7,	1,	'L',	18,	1,	10),
-(8,	1,	'L',	6,	1,	1),
-(11,	1,	'M',	18,	5,	12),
 (1,	2,	'S',	4,	1,	3),
-(7,	2,	'L',	4,	4,	11),
-(7,	2,	'XL',	4,	1,	8),
-(1,	3,	'L',	5,	1,	4),
-(7,	3,	'L',	5,	1,	12),
 (3,	4,	'M',	1,	1,	2),
-(7,	4,	'M',	1,	1,	3),
 (3,	5,	'M',	3,	2,	1),
-(7,	5,	'M',	8,	3,	14),
-(12,	5,	'M',	8,	3,	2),
-(12,	5,	'S',	8,	1,	3),
-(7,	6,	'L',	7,	2,	15),
-(7,	6,	'L',	16,	1,	2),
-(7,	7,	'L',	10,	2,	16),
-(7,	7,	'L',	17,	1,	17),
-(7,	8,	'L',	11,	1,	1),
-(8,	9,	'M',	12,	1,	2),
-(9,	9,	'M',	12,	1,	1),
-(10,	10,	'36',	13,	1,	1),
-(7,	11,	'42',	9,	5,	13),
-(12,	11,	'42',	9,	1,	1)
+(7,	8,	'L',	11,	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -220,7 +196,7 @@ CREATE TABLE `client` (
   `tel` varchar(10) NOT NULL,
   `solde` float NOT NULL DEFAULT 100,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `solde`) VALUES
 (1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	700.1),
@@ -230,11 +206,7 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	84.6),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	984.2),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'efefefefefeffe',	'65454',	351),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	439),
-(9,	'andrea.test@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	12.15),
-(10,	'ted@gmail.comteds',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'teds',	'teds',	'teds',	'9874984896',	874.6),
-(11,	'azeaze@gmail.comaz',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeae',	'azeaze',	'azeaze',	'4684864',	300.5),
-(12,	'dylan@waou.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Bob',	'Dylan',	'6 rue du manchto electrique',	'080808',	100)
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	230.7)
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`);
 
 DELIMITER ;;
@@ -261,59 +233,9 @@ CREATE TABLE `client_histo` (
   `tel` varchar(10) NOT NULL,
   `evenement_histo` varchar(30) NOT NULL,
   PRIMARY KEY (`id`,`date_histo`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel`, `evenement_histo`) VALUES
-(1,	'2020-09-07 00:00:00',	'BIGOT',	'Andréazzzz',	'St jo',	'0692466990',	'UPDATE'),
-(1,	'2020-09-13 18:25:40',	'BIGOT',	'test',	'St jo',	'0692466990',	'UPDATE'),
-(1,	'2020-09-13 18:25:46',	'BIGOT',	'test',	'St Joseph',	'0692466990',	'UPDATE'),
-(1,	'2020-09-13 18:32:19',	'BIGOT',	'Andréa',	'St Joseph',	'0692466990',	'UPDATE'),
-(1,	'2020-09-13 18:36:43',	'BIGOT',	'Andréa',	'St Joseph',	'0692466990',	'UPDATE'),
-(1,	'2020-09-14 15:40:14',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
-(1,	'2020-10-05 12:55:52',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
-(1,	'2020-10-05 13:16:26',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
-(1,	'2020-10-05 16:03:00',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
-(1,	'2020-10-05 19:20:33',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
-(1,	'2020-10-05 19:20:48',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
-(2,	'2020-09-13 18:31:38',	'HOAREAU',	'Quentin',	'St pierre',	'426525',	'UPDATE'),
-(2,	'2020-09-13 18:32:37',	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'UPDATE'),
-(2,	'2020-09-13 18:37:01',	'HOAREAU',	'Quentin',	'St pierre',	'0694458553',	'UPDATE'),
-(2,	'2020-09-14 15:40:14',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	'UPDATE'),
-(2,	'2020-09-28 13:30:00',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	'UPDATE'),
-(2,	'2020-10-05 13:16:26',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	'UPDATE'),
-(2,	'2020-10-05 16:03:00',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	'UPDATE'),
-(3,	'2020-09-13 18:31:56',	'LEBON',	'Jérémy',	'St denis',	'8285252',	'UPDATE'),
-(3,	'2020-09-13 18:32:27',	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-13 18:37:31',	'LEBON',	'Jérémy',	'St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-14 15:40:14',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-21 15:43:07',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-28 14:43:57',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-28 14:44:24',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-28 14:57:42',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-28 15:26:32',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-28 15:37:15',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-28 15:38:49',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-29 21:58:17',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-29 22:04:03',	'LEBON',	'Jérémy',	'26 rue des corbeilles d\'or St denis',	'0693122478',	'UPDATE'),
-(3,	'2020-09-29 22:10:32',	'LEBON',	'Jérémy',	'3 rue coco',	'0693122478',	'UPDATE'),
-(3,	'2020-09-29 22:10:53',	'LEBON',	'Jérémy',	'lala',	'0693122478',	'UPDATE'),
-(3,	'2020-10-01 19:07:41',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 13:16:26',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 13:50:24',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 13:50:25',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 15:20:08',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 15:20:42',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 15:23:35',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 15:59:22',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 16:00:52',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 16:01:12',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 16:01:18',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(3,	'2020-10-05 16:03:00',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	'UPDATE'),
-(4,	'2020-09-07 00:00:00',	'test',	'test',	'22 st jo',	'2485',	'DELETE'),
-(4,	'2020-09-14 15:40:14',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	'UPDATE'),
-(4,	'2020-10-05 12:56:01',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	'UPDATE'),
-(4,	'2020-10-05 13:16:26',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	'UPDATE'),
-(4,	'2020-10-05 16:03:00',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	'UPDATE'),
 (5,	'2020-09-07 00:00:00',	'',	'',	'',	'',	'DELETE'),
 (5,	'2020-09-14 15:40:14',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
 (5,	'2020-10-05 12:56:08',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
@@ -336,16 +258,31 @@ INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel
 (8,	'2020-10-07 22:50:37',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
 (8,	'2020-10-07 22:52:24',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
 (8,	'2020-10-08 18:04:43',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 20:12:55',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 20:17:10',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 20:40:31',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 20:41:03',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 20:43:01',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 20:46:13',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 20:49:43',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-08 21:00:05',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
 (9,	'2020-10-02 18:16:09',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-05 13:16:26',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-05 16:03:00',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-07 21:48:35',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
+(9,	'2020-10-09 19:52:50',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (10,	'2020-10-05 13:16:26',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
 (10,	'2020-10-05 16:03:00',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
 (10,	'2020-10-07 20:01:53',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
+(10,	'2020-10-09 19:52:15',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
 (11,	'2020-10-05 13:16:26',	'azeae',	'azeaze',	'azeaze',	'4684864',	'UPDATE'),
 (11,	'2020-10-05 16:03:00',	'azeae',	'azeaze',	'azeaze',	'4684864',	'UPDATE'),
-(14,	'2020-10-05 16:17:35',	'admin',	'admin',	'admin',	'admin',	'UPDATE')
+(11,	'2020-10-09 19:52:15',	'azeae',	'azeaze',	'azeaze',	'4684864',	'UPDATE'),
+(12,	'2020-10-09 19:52:15',	'Bob',	'Dylan',	'6 rue du manchto electrique',	'080808',	'UPDATE'),
+(13,	'2020-10-09 19:52:15',	'voltige',	'larissa',	'ouioui',	'468468486',	'UPDATE'),
+(14,	'2020-10-05 16:17:35',	'admin',	'admin',	'admin',	'admin',	'UPDATE'),
+(14,	'2020-10-09 19:52:15',	'Hoareau',	'azeaez',	'10 rue ouaiso uais',	'54894',	'UPDATE'),
+(15,	'2020-10-09 19:52:15',	'Hoareau',	'Quentin',	'zerzer',	'azeazeae',	'UPDATE')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `date_histo` = VALUES(`date_histo`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `evenement_histo` = VALUES(`evenement_histo`);
 
 DROP TABLE IF EXISTS `commande`;
@@ -366,12 +303,7 @@ INSERT INTO `commande` (`num`, `idClient`, `date`, `idEtat`) VALUES
 (2,	2,	'2019-12-17 18:48:11',	1),
 (3,	3,	'2020-12-23 08:02:08',	1),
 (5,	5,	'2020-09-17 11:00:00',	1),
-(7,	8,	'2020-10-01 21:05:30',	1),
-(8,	9,	'2020-10-02 18:13:30',	1),
-(9,	10,	'2020-10-03 13:53:15',	1),
-(10,	11,	'2020-10-03 14:01:34',	1),
-(11,	1,	'2020-12-02 12:30:00',	2),
-(12,	4,	'2020-10-08 19:03:32',	1)
+(7,	8,	'2020-10-01 21:05:30',	2)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `date` = VALUES(`date`), `idEtat` = VALUES(`idEtat`);
 
 DROP TABLE IF EXISTS `commentaire`;
@@ -387,7 +319,7 @@ CREATE TABLE `commentaire` (
   KEY `idVet` (`idVet`),
   CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`idClient`) REFERENCES `client` (`id`),
   CONSTRAINT `commentaire_ibfk_2` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 INSERT INTO `commentaire` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VALUES
 (1,	1,	1,	'Commentaire vêtement 1.',	5,	'2020-09-12 12:50:52'),
@@ -404,7 +336,8 @@ INSERT INTO `commentaire` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `da
 (17,	1,	1,	'note test',	2,	'2020-10-05 15:48:31'),
 (18,	1,	1,	'mdrr',	5,	'2020-10-05 15:49:50'),
 (19,	8,	1,	'woooooaaaww',	4,	'2020-10-05 21:48:01'),
-(20,	8,	2,	'salut',	4,	'2020-10-07 22:00:42')
+(20,	8,	2,	'salut',	4,	'2020-10-07 22:00:42'),
+(21,	1,	7,	'Tshirt de bonne qualité qui taille un peu large. Parfait pour faire un style oversize ! ',	5,	'2020-10-09 17:30:14')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `idClient` = VALUES(`idClient`), `idVet` = VALUES(`idVet`), `commentaire` = VALUES(`commentaire`), `note` = VALUES(`note`), `date` = VALUES(`date`);
 
 DROP TABLE IF EXISTS `contact`;
@@ -626,4 +559,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-08 15:08:28
+-- 2020-10-09 15:54:02

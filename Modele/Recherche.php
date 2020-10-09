@@ -20,7 +20,7 @@ class Recherche{
        
     }
 
-    public function getReqTaille(){
+    public function reqTaille(){
         if($this->listeTaille != null){
             $req = " AND t.libelle IN('".implode("','", $this->listeTaille )."')";
         }else{ $req = null ;}
@@ -28,14 +28,14 @@ class Recherche{
         return $req;
     }
 
-    public function getReqCouleur(){
+    public function reqCouleur(){
         if($this->listeCouleur != null){
             $req = "AND (vc.nom LIKE '%". implode("%' OR vc.nom LIKE '%", $this->listeCouleur )."%')";
         }else{ $req = null ;}
 
         return $req;
     }
-    public function getReqCateg(){
+    public function reqCateg(){
         if($this->categorie != null){
             $req = "AND v.idCateg = ".$this->categorie;
         }else{ $req = null ;}
@@ -43,7 +43,7 @@ class Recherche{
         return $req;
     }
     
-    public function getReqGenre(){
+    public function reqGenre(){
         if($this->genre != null){
             $req = "AND g.code LIKE  '".$this->genre."'";
         }else{ $req = null ;}
@@ -51,7 +51,7 @@ class Recherche{
         return $req;
     }
 
-    public function getReqPrix(){
+    public function reqPrix(){
         if($this->intervalePrix != null){
             $req = "AND v.prix BETWEEN ".$this->intervalePrix[0]." AND ".$this->intervalePrix[1]."";
         }else{ $req = null;}
@@ -59,10 +59,10 @@ class Recherche{
         return $req;
     }
 
-    public function getReqMotCle(){
+    public function reqMotCle(){
  
         $concatChamps = "
-            CONCAT(' ', v.Nom,' ', v.description, ' ', c.nom, ' ', 
+            CONCAT(' ', v.Nom,' ', v.description, ' ', c.nom, ' ', g.libelle, ' ',
                 ( 
                     SELECT GROUP_CONCAT(vc2.nom) 
                     FROM vetement v2 
@@ -95,12 +95,12 @@ class Recherche{
             LEFT JOIN taille t ON t.libelle = vt.taille
             WHERE vvd.listeIdCouleurDispo IS NOT NULL
             AND vvd.listeTailleDispo IS NOT NULL".
-            " ".$this->getReqCouleur().
-            " " .$this->getReqTaille().
-            " ".$this->getReqPrix().
-            " ".$this->getReqCateg().
-            " ".$this->getReqGenre().
-            " ".$this->getReqMotCle();
+            " ".$this->reqCouleur().
+            " " .$this->reqTaille().
+            " ".$this->reqPrix().
+            " ".$this->reqCateg().
+            " ".$this->reqGenre().
+            " ".$this->reqMotCle();
 
        
         return $reqFinal;

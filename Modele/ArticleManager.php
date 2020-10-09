@@ -29,28 +29,15 @@ class ArticleManager extends DataBase{
          $this->getBdd();
          $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr, $qte]);
   
-
    }
 
    
    
 
    public function supprimer($idCmd, $idVet, $idTaille, $idClr){
-
-      if( !isset($_SESSION["ma_commande"]) ){
-         //  $req = "DELETE FROM";
-         //  $this->getBdd();
-         //  $this->execBDD($req, [$numCmdBDD]);
-      }
-      else{
-         // $reqVet = "SELECT * FROM vetement WHERE id = ?";
-         // $this->getBdd();
-         
-         // $donneeVet = $this->execBDD($reqVet, [$idVet])[0];
-
-         // $nouvelArticle = new Article($donneeVet, $idTaille, $qte, $idClr);
-         // $_SESSION["ma_commande"]->ajouterPanier($nouvelArticle) ;
-      }
+         $req = "DELETE FROM article_panier WHERE numCmd = ? AND idVet = ? AND taille = ? AND numClr = ?";
+         $this->getBdd();
+         $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr]);
 
    }
 

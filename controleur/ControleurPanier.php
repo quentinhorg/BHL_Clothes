@@ -13,10 +13,12 @@ class ControleurPanier{
       }
       else{
       
-      
+ 
          
         
+
          $this->ajouterArticle();
+         $this->supprimerArticle();
          
         
          if( isset($url[1]) && strtolower($url[1]) == "paiement"){
@@ -62,14 +64,17 @@ class ControleurPanier{
    //  var_dump($GLOBALS["client_en_ligne"]);
 
 
+      //$this->maCommande()->ajouterPanier(1,"M", 2, 6);
 
       if( isset($_POST["ajouterArticle"]) ){
          $ArticleManager = new ArticleManager();
          
-         if( isset($_SESSION["ma_commande"])){
+         if( $GLOBALS["client_en_ligne"] == null ){
+            
             $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
          }
          else{
+            
             $CommandeManager = new CommandeManager;
             if(  $CommandeManager->possedeCommandeNonPayer( $GLOBALS["client_en_ligne"]->getId() ) == false ){
                $numCmd = $CommandeManager->insertCommande( $GLOBALS["client_en_ligne"]->getId() );
@@ -81,6 +86,23 @@ class ControleurPanier{
          }
 
       }
+   }
+
+   private function supprimerArticle(){
+
+      if(isset($_POST["deleteArticle"])){
+         if( $GLOBALS["client_en_ligne"] != null ){
+            $ArticleManager = new ArticleManager();
+            $numCmd = $this->maCommande()->num() ;
+            
+            $ArticleManager->supprimer($numCmd, $_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
+         }
+         else{
+            $this->maCommande()->supprimerArticle($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
+         }
+      }
+      
+      
    }
 
 

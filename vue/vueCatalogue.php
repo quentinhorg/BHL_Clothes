@@ -1,4 +1,5 @@
 <div id="navCatalogue">
+
 <form action="" method="POST">
     <?php
     
@@ -69,15 +70,17 @@
 
     </ul>
 
-     <input type="submit" name="recherche">           
+     <input type="submit" value="Trier" name="recherche">           
     </form>
 <!-- test -->
 
 </div>
 
 <section id="catalogue">
-<div id="listVetement">
 
+<div id="listVetement">
+<h3 id="currentPage"> <?php if($genreActive != null){ echo "<a href='catalogue/".$genreActive->code()."'>".$genreActive->libelle()."</a>" ;} else{ echo "Tous le catalogue" ;} if($categActive != null) {echo " > ".$categActive->nom(); } ?> </h3>
+<hr>
 
 <?php if($listeVetement != null){?>
 

@@ -14,7 +14,7 @@ class ControleurCatalogue{
       else{
 
          
-
+     
          
          
          $idCateg= null;
@@ -54,7 +54,9 @@ class ControleurCatalogue{
             "listeTaille"=>$this->listTailleByCateg($idCateg),
             "listeGenre"=>$this->listeGenre(),
             "listClrPrincipale" => $this->listClrPrincipale(),
-            "genreActive" => $this->genre($codeGenre)
+            "genreActive" => $this->genre($codeGenre),
+            "categActive" => $this->categ($idCateg),
+            
          )) ;
          
       }
@@ -93,6 +95,12 @@ class ControleurCatalogue{
       $this->GenreManager = new GenreManager;
       $genre = $this->GenreManager->getGenre($code);
       return $genre;
+   }
+
+   public function categ($idCateg){
+      $this->CategorieManager = new CategorieManager;
+      $categ = $this->CategorieManager->getCateg($idCateg);
+      return $categ;
    }
 
    public function listeGenre(){

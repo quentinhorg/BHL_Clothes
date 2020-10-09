@@ -6,7 +6,7 @@ class Commande{
    private  $idClient;
    private  $Etat; //Object
    private  $prixTTC;
-   private  $panier= array() ; //Tableau Objet : Article
+   protected  $panier= array() ; //Tableau Objet : Article
  
    
    
@@ -110,40 +110,69 @@ class Commande{
 
    //AUTRES METHODES
 
-   public function ajouterPanier( $idVet, $taille, $qte, $idClr){
-      $possedeDeja = false ;
+   // public function ajouterPanier( $idVet, $taille, $qte, $idClr){
+   //    $possedeDeja = false ;
+    
+   //    $ArticleManager = new ArticleManager;
 
-      $ArticleManager = new ArticleManager;
+   //    $nouvelArticle = $ArticleManager->tranformArticle($idVet) ;
+   //    $nouvelArticle->setTaille($taille);
+   //    $nouvelArticle->setQte($qte);
+   //    $nouvelArticle->setNumClr($idClr);
 
-      $nouvelArticle = $ArticleManager->tranformArticle($idVet) ;
-      $nouvelArticle->setTaille($taille);
-      $nouvelArticle->setQte($qte);
-      $nouvelArticle->setCouleur($idClr);
-
-      
-
-      foreach ($this->panier as $article) {
+   //    foreach ($this->panier as $article) {
          
-          //Vérifie si les caractéritique de l'article à ajouté se trouve déjà dans le panier
-         if( 
-            $article->id() == $nouvelArticle->id()
-            && $article->Taille()->libelle() == $nouvelArticle->Taille()->libelle()
-            && $article->Couleur()->num() == $nouvelArticle->Couleur()->num()
-         ){
-            //Faire la somme des quantités si même caractéritique
-            $totalQte = $article->qte() + $nouvelArticle->qte() ;
-            $article->setQte($totalQte);
-            $possedeDeja = true; 
-            break;
-         }
+   //        //Vérifie si les caractéritique de l'article à ajouté se trouve déjà dans le panier
+   //       if( 
+   //          $article->id() == $nouvelArticle->id()
+   //          && $article->Taille()->libelle() == $nouvelArticle->Taille()->libelle()
+   //          && $article->Couleur()->num() == $nouvelArticle->Couleur()->num()
+   //       ){
+   //          //Faire la somme des quantités si même caractéritique
+   //          $totalQte = $article->qte() + $nouvelArticle->qte() ;
+   //          $article->setQte($totalQte);
+   //          $possedeDeja = true; 
+   //          break;
+   //       }
 
-      }
+   //    }
 
-      if($possedeDeja == false){
-         $this->panier[] = $nouvelArticle;
-      }
+   //    if($possedeDeja == false){
+   //       $this->panier[] = $nouvelArticle;
+   //    }
 
-   }
+   // }
+
+   
+   // public function indiceArticlePanier( $idVet, $taille, $numClr){
+   //    $indicePanier = null;
+
+   //    foreach ($this->panier as $indice => $article) {
+         
+   //      if( 
+   //         $article->id() == $idVet
+   //         && $article->Taille()->libelle() ==  $taille
+   //         && $article->Couleur()->num() == $numClr
+   //      ){
+     
+   //         $indicePanier = $indice; 
+   //         break;
+   //      }
+
+   //   }
+     
+   //   return $indicePanier;
+   // }
+
+
+
+   // public function supprimerArticle( $idVet, $taille, $numClr){
+
+   //    $indice = $this->indiceArticlePanier( $idVet, $taille, $numClr);
+   //    unset($this->panier[$indice]) ;
+
+   // }
+
 
    public function getQuantiteArticle(){
       $totalQte = 0;
