@@ -12,6 +12,7 @@ class ControleurAuthentification{
       }
       //Inscription
       else if(@strtolower($url[1]) == "inscription"){
+        
          $message=null;
          if (isset($_POST['submit'])){
             if (!empty($_POST['nom'])) {
@@ -24,12 +25,14 @@ class ControleurAuthentification{
 
                               if( $_SESSION["ma_commande"]->panier() != NULL ){
                                  $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
-                              
                               }
 
                               $mail= $_POST['email'];
                               $mdp = $_POST['mdp'];
-                              $this->connexionClient($mail, $mdp);
+
+                              $this->tryConnexion($mail, $mdp) ;
+                            
+                             
                   
                               
                            }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
@@ -51,7 +54,7 @@ class ControleurAuthentification{
 
                   $mail= $_POST['email'];
                   $mdp = $_POST['mdp'];
-                  $this->connexionClient($mail, $mdp);
+                  $this->tryConnexion($mail, $mdp);
                   
                }else {  $message = "Veuillez entrer un mot de passe"; }
             }else {  $message = "Veuillez entrer votre Email"; }
@@ -86,10 +89,20 @@ class ControleurAuthentification{
      
    }
 
-   private function connexionClient($mail, $mdp){
+   private function tryConnexion($mail, $mdp){
       $ClientManager = new ClientManager();
-      $ClientManager->connexion($mail, $mdp);
-      $this->suppSessionCmd();
+      $idClient = $ClientManager->getId($mail, $mdp) ;
+    
+      if( $idClient >= 1 ){
+         echo "Connexion réussie.";
+         $_SESSION["id_client_en_ligne"] = $idClient ;
+         $GLOBALS["client_en_ligne"] = $ClientManager->getClient($idClient) ;
+         $this->suppSessionCmd();
+      }
+      else{
+         echo "Connexion échouée.";
+      }
+   
    }
 
 

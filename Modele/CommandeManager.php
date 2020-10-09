@@ -44,8 +44,7 @@ class CommandeManager extends DataBase{
                 $cmd = $this->getCommande( $CmdId );
             } else{ $cmd = new Commande(array(null)) ; }
           
-         }else{ 
-           
+        }else{ 
             $cmd = $_SESSION["ma_commande"] ;
         }
 

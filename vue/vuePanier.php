@@ -1,6 +1,7 @@
 
 
 <section id="panier"> 
+<?php if( $maCommande->panier() != null){ ?>
 
 <div class="panier">
   <!-- Title -->
@@ -64,6 +65,9 @@
     </div>
 
 </div>
+
+  <?php } else{ echo "<p class='panierVide'> Votre panier semble être vide. <br> <a href='catalogue'> Continuer vos achats</a> </p>" ;}?>
+
 </section>
 
 <script>

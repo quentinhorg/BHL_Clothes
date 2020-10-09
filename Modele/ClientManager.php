@@ -34,26 +34,12 @@ class ClientManager extends DataBase{
         return $newID ;
     }
 
-    public function connexion($mail, $mdp){
-        #$this->getBdd();
+    public function getId($mail, $mdp){
+  
         $this->getBdd();
-        $verif_user= "Select id from client WHERE email like ? AND mdp like ?";
-        $resultat = $this->execBDD($verif_user,[$mail,sha1($mdp)] );
-        // var_dump($resultat);
+        $verif_user= "SELECT id FROM client WHERE email LIKE ? AND mdp LIKE ?";
+        return @$this->execBDD($verif_user,[$mail,sha1($mdp)])[0]["id"];
       
-        if (count($resultat)==1){
-         
-            echo "Vous êtes actuellement connecté =)";
-            $_SESSION["id_client_en_ligne"] = $resultat[0]['id'] ;
-         
-            $GLOBALS["client_en_ligne"] = $this->getClient($resultat[0]['id']) ;
-
-         
-          
-        }else{
-            echo "Vous n'êtes actuellement pas connecté :(";
-        }
-
     }
 
     public function changeMail($id){

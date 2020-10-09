@@ -115,6 +115,7 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (1,	2,	'S',	4,	1,	3),
 (3,	4,	'M',	1,	1,	2),
 (3,	5,	'M',	3,	2,	1),
+(8,	6,	'L',	7,	1,	2),
 (7,	8,	'L',	11,	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
@@ -195,7 +196,8 @@ CREATE TABLE `client` (
   `adresse` varchar(100) NOT NULL,
   `tel` varchar(10) NOT NULL,
   `solde` float NOT NULL DEFAULT 100,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `solde`) VALUES
@@ -303,7 +305,8 @@ INSERT INTO `commande` (`num`, `idClient`, `date`, `idEtat`) VALUES
 (2,	2,	'2019-12-17 18:48:11',	1),
 (3,	3,	'2020-12-23 08:02:08',	1),
 (5,	5,	'2020-09-17 11:00:00',	1),
-(7,	8,	'2020-10-01 21:05:30',	2)
+(7,	8,	'2020-10-01 21:05:30',	2),
+(8,	8,	'2020-10-09 19:58:46',	1)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `date` = VALUES(`date`), `idEtat` = VALUES(`idEtat`);
 
 DROP TABLE IF EXISTS `commentaire`;
@@ -559,4 +562,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-09 15:54:02
+-- 2020-10-09 16:57:08

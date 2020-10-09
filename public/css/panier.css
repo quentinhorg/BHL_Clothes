@@ -59,7 +59,7 @@ div#listeAricle div.infoArticle{
  .buttons {
    position: relative;
    padding-top: 30px;
-   margin-right: 60px;
+
  }
  .delete-btn,
  .like-btn {
@@ -246,4 +246,21 @@ section#panier{
   padding: 0;
   -webkit-transition: opacity 600ms, visibility 600ms, height 800ms, padding 800ms;
   transition: opacity 600ms, visibility 600ms, height 800ms, padding 800ms;
+  }
+
+  .article_hide img{
+    height: 0;
+  }
+
+  .panierVide{
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+    font-size: 2.2rem;
+  }
+
+  .panierVide a{
+    color: #e76c35;
+    font-size: 1.5rem;
+    font-weight: bold;
   }
