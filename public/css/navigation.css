@@ -6,6 +6,8 @@
 #navCateg{
    text-align: center;
    padding: 10px 8px;
+   position: relative;
+    z-index: 5;
   }
   
   .dropdown {

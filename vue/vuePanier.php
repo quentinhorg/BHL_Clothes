@@ -7,6 +7,7 @@
   <!-- Title -->
   <div class="title">
     Mon panier
+    <a href="panier/paiement"> <button> Passer au paiement </button> </a>
   </div>
  
   <?php  foreach ($maCommande->panier() as $article) { ?>
@@ -57,14 +58,13 @@
 
 </div>
 
-<div id="infoCommande"> 
+<!-- <div id="infoCommande"> 
     <div class="prixCmd">
-      180 €
-      
+    
       <a href="panier/paiement"> <button> Passer au paiement </button> </a>
     </div>
 
-</div>
+</div> -->
 
   <?php } else{ echo "<p class='panierVide'> Votre panier semble être vide. <br> <a href='catalogue'> Continuer vos achats</a> </p>" ;}?>
 

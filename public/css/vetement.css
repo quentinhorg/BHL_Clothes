@@ -8,15 +8,13 @@
 }
 
 .img{
-   width: 520px;
-   height: 600px;
-   background-position: center;
-   background-size: 100% 100%;
-   cursor: pointer;
-   background-repeat: no-repeat;
    margin: auto;
-   display: inline-block;
+   display: inline-block; 
 
+}
+
+.img img{
+   width: 500px;
 }
 
 .infoVet{
