@@ -18,14 +18,20 @@
         
         <form action="" method="POST" id="vetementChoisi">
             <label for="">Couleur: </label>
-            <!-- <ul name="numClr" id="couleur"> -->
-            <select name="numClr">
-                <?php foreach($infoVetement->listeCouleurDispo() as $couleur ) { ?>
-                    <option value="<?php echo $couleur->num(); ?>"> <?php echo  $couleur->nom(); ?>  </option>
-                    <!-- <li value="<?php //echo $couleur->num(); ?>"> <?php // echo  $couleur->nom(); ?> </li> -->
+            <ul class='listeCouleur' id="couleur">
+            <!-- <select name="numClr"> -->
+                <?php foreach($infoVetement->listeCouleurDispo() as $indice => $couleur ) { 
+                    $idColor = "numClr".$couleur->num();
+                    ?>
+                    <li>  
+                        <label style="background-image:url(public/media/vetement/id<?php echo $infoVetement->id() ?>.jpg); <?php echo $couleur->filterCssCode()  ?>" for="<?php  echo $idColor ?>"> </label> 
+                        <input <?php if($indice == 0){ echo "checked" ;} ?> name="numClr" style="display:none" id='<?php echo $idColor ?>' value="<?php echo $couleur->num(); ?>" type="radio" > 
+                        
+                    
+                    </li>
                 <?php } ?>
             </select>
-            <!-- </ul> -->
+            </ul>
             <br>
         
 
@@ -146,19 +152,23 @@
     function ajoutArticle() {
         alert("Votre article a bien été ajouté au panier.");
     }
-
     
-    FormAjax = new FormAjax();
-    $("#ajouterPanier").click(function(){
-        FormAjax.envoyerFormulairePOST("vetementChoisi", <?php echo "'idVet=".$infoVetement->id()."'" ?> ,"ajouterArticle" , "panier") ;
-        $("#qtePanierNav").load("accueil #qtePanierNav >");
 
+    $("#ajouterPanier").click(function(){
+
+    var form = $("#vetementChoisi");
+    var serializedData = form.serialize();
+    $.ajax({
+        url : "panier",
+        data : "ajouterArticle=Ok&"+serializedData+"&idVet=<?php echo $infoVetement->id() ?>",
+        type : 'POST',
+        dataType : 'json',
+        success : function(result) {
+            $("#qtePanierNav span .nbQte").text(result['totalQtePanier']) ; 
+        }
     });
 
-    
-
-
-
+    }) ;
 
 
     var count;
@@ -183,6 +193,10 @@
             }
         }
     }
+
+
+    Vetement = new Vetement;
+    Vetement.changeColor();
 
     // function result(){
     //     //Rating : Count

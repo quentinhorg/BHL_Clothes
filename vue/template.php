@@ -10,10 +10,7 @@
     <link rel="stylesheet" href="public/css/erreur.css">
     <link rel="stylesheet" href="public/css/navigation.css">
     <link rel="stylesheet" href="public/script/DataTable/datatable.css"> <!-- Provisoir -->
-    
-
     <script src="public/script/js/jquery-3.4.0.min.js"></script>
-    <script src="public/script/js/FormAjax.js"></script>
     
 
     <!-- liens notes -->

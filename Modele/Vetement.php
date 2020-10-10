@@ -3,7 +3,7 @@
 class Vetement{
    private   $id;
    private   $nom;
-   private   $prix;
+   public   $prix;
    private   $codeRgbOriginal;
    private   $motifPosition;
    private   $categ; // OBJET

@@ -1,4 +1,4 @@
-
+<?php //var_dump($maCommande->panier() ); ?>
 
 <section id="panier"> 
 <?php if( $maCommande->panier() != null){ ?>
@@ -18,7 +18,7 @@
 
 
   <!-- Product #1 -->
-  <div class="article" id="<?php echo "articleNb".$article->id() ?>">
+  <div class="article" id="<?php echo "idVet".$article->id()."_taille".$article->Taille()->libelle()."_numClr".$article->Couleur()->num() ?>">
 
     
     <div class="image">
@@ -47,7 +47,7 @@
       </button>
     </div>
  
-    <div class="total-price"> <?php echo $article->prix() ?> </div>
+    <div class="total-price"> <span>  <?php echo $article->prixTotalArt()."€" ?> </span> </div>
     <div class="buttons">
       <?php  ?>
      <button value='<?php echo $valueArticle ?>' type='button' class='deleteArticle'>Supprimer</button>
@@ -86,16 +86,36 @@ $('.quantity button').on('click', function() {
       parent.find("input").val(valQte-1);
       var submitName = "diminuerQte";
    }
-   else if(nameClassBut == "plus-btn" && valQte < 10){
+   
+   else if(nameClassBut == "plus-btn" ){
+
+    if(valQte < 10){
       parent.find("input").val(valQte+1);
       var submitName = "ajouterArticle";
-      
+    }
+    else{
+     alert("Vous êtes limité à 10 articles de même couleur, taille et de type.");
+    }
+     
    }
 
    var postVal = $(this).val()+"&qte=1";
-   
-   FormAjax.envoyerPOST(submitName, postVal, "panier");
-   $("#qtePanierNav").load("accueil #qtePanierNav >");
+
+   $.ajax({
+		url : "panier",
+		data : submitName+"=Ok"+"&"+postVal,
+    type : 'POST',
+    dataType : 'json',
+		success : function (result) {
+      $("#qtePanierNav span .nbQte").text(result['totalQtePanier']) ; 
+      parent.parent().find(".total-price").text(result['newPrixArt']+"€");
+    }
+	});
+
+
+
+ 
+ 
    
 });
 
@@ -104,17 +124,24 @@ $('.quantity button').on('click', function() {
 
 
 
-
-
-   FormAjax = new FormAjax;
-
    $('button.deleteArticle').on('click', function() {
+    var ligneArticle =  $(this).parent().parent();
    var postVal = $(this).val();
    var submitName = "deleteArticle";
-   $(this).parent().parent().addClass("article_hide");
 
-    FormAjax.envoyerPOST(submitName, postVal, "panier");
-    $("#qtePanierNav").load("accueil #qtePanierNav >");
+  $.ajax({
+		url : "panier",
+		data : submitName+"=Ok"+"&"+postVal,
+    type : 'POST',
+    dataType : 'json',
+		success : function (result) {
+      $("#qtePanierNav span .nbQte").text(result['totalQtePanier']) ; 
+      ligneArticle.addClass("article_hide");
+    }
+  });
+  
+
+   
   });
   
 

@@ -1,7 +1,9 @@
 <?php 
+header("Cache-Control: no-cache, must-revalidate");
 require_once('vue/Vue.php');
 
 class Routeur{
+   
    private $ctrl;
    private $vue;
 

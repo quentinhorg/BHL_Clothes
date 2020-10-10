@@ -1,14 +1,16 @@
 <?php 
 
 class Article extends Vetement{
-   private  $Taille ; //Objet
-   private  $qte;
-   private  $Couleur; //Objet
+   protected  $Taille ; //Objet
+   protected  $qte;
+   protected  $Couleur; //Objet
+   protected  $prixTotalArt;
+
 
    
 
    public function __construct(array $donneeVetArt)
-    {
+   {
  
       parent::__construct($donneeVetArt);
     }
@@ -22,6 +24,7 @@ class Article extends Vetement{
          $this->qte = $qte;
       }
       else{  $this->qte = 10 ; }
+
    }
 
    public function setNumClr($idCouleur){
@@ -33,6 +36,16 @@ class Article extends Vetement{
       $TailleManager = new TailleManager;
       $this->Taille = $TailleManager->getTaille($idTaille);
    }
+
+   public function setPrixTotalArt($prix){
+      $prix = (float) $prix;
+      
+      if($prix > 0 ){
+         $this->prixTotalArt = $prix;
+      }
+    
+   }
+
 
 
 
@@ -49,6 +62,18 @@ class Article extends Vetement{
    public function Taille(){
       return $this->Taille;
    }
+
+   public function prixTotalArt(){
+      return number_format($this->prixTotalArt,2);
+   }
+
+
+
+
+
+
+ 
+
 
 
 

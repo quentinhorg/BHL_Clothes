@@ -1,5 +1,6 @@
 class Catalogue {
 
+
    //Change la couleur des vêtements
    changeColor(){
       $(".listeCouleur li div.color").click(function(){

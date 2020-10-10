@@ -12,15 +12,23 @@ class ControleurPanier{
          throw new Exception('Page introuvable');
       }
       else{
-      
- 
-         
-        
 
-         $this->ajouterArticle();
-         $this->supprimerArticle();
-         
         
+      
+         //Action du panier
+         if( isset($_POST["ajouterArticle"]) ){
+            $this->ajouterArticle();
+         }
+         else if(isset($_POST["deleteArticle"])){
+            $this->supprimerArticle();
+         }
+         else  if(isset($_POST["diminuerQte"])) {
+            $this->diminuerArticle();
+     
+         }
+   
+
+        //Page Paiement
          if( isset($url[1]) && strtolower($url[1]) == "paiement"){
 
             $this->payerPanierActif();
@@ -33,7 +41,9 @@ class ControleurPanier{
                   "clientInfo"=> $GLOBALS["client_en_ligne"],
                   "maCommande"=> $this->maCommande()
                ) ;
-
+            }
+            else if ($GLOBALS["client_en_ligne"] == null && COUNT($this->maCommande()->panier()) >= 1 ) {
+               header("Location: ".ACCUEIL."/authentification/inscription");
             }
             else{
                throw new Exception('Page introuavable');
@@ -61,17 +71,12 @@ class ControleurPanier{
 
    private function ajouterArticle(){
 
-   //  var_dump($GLOBALS["client_en_ligne"]);
-
-
-      //$this->maCommande()->ajouterPanier(1,"M", 2, 6);
-
-      if( isset($_POST["ajouterArticle"]) ){
          $ArticleManager = new ArticleManager();
          
          if( $GLOBALS["client_en_ligne"] == null ){
-            
-            $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"]);
+         
+               $ArticleSession = new ArticleSession($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"]);
+               $this->maCommande()->ajouterPanier($ArticleSession);
          }
          else{
             
@@ -79,18 +84,29 @@ class ControleurPanier{
             if(  $CommandeManager->possedeCommandeNonPayer( $GLOBALS["client_en_ligne"]->getId() ) == false ){
                $numCmd = $CommandeManager->insertCommande( $GLOBALS["client_en_ligne"]->getId() );
             }
-
             $numCmd = $this->maCommande()->num();
-           
-            $ArticleManager->inserer($numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"] );
+            $ArticleManager->inserer( $numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"] );
+            
          }
 
-      }
+      //Json encode
+      $indiceNouvelArt = $this->maCommande()->indiceArticlePanier($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
+      $nouvelArticle = $this->maCommande()->panier()[$indiceNouvelArt];
+
+      $jsonData = array(
+         'totalQtePanier' => $this->maCommande()->getQuantiteArticle(),
+         "newPrixArt" => $nouvelArticle->prixTotalArt()
+      );
+      echo json_encode($jsonData);
+      exit();   
+
    }
+
+
 
    private function supprimerArticle(){
 
-      if(isset($_POST["deleteArticle"])){
+    
          if( $GLOBALS["client_en_ligne"] != null ){
             $ArticleManager = new ArticleManager();
             $numCmd = $this->maCommande()->num() ;
@@ -100,8 +116,18 @@ class ControleurPanier{
          else{
             $this->maCommande()->supprimerArticle($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
          }
-      }
-      else if(isset($_POST["diminuerQte"])) {
+
+         $jsonData = array(
+            'totalQtePanier' => $this->maCommande()->getQuantiteArticle()
+         );
+         echo json_encode($jsonData);
+         exit();   
+ 
+      
+   }
+
+   private function diminuerArticle(){
+     
          if( $GLOBALS["client_en_ligne"] != null ){
             $ArticleManager = new ArticleManager();
             $numCmd = $this->maCommande()->num() ;
@@ -111,8 +137,18 @@ class ControleurPanier{
          else{
            $this->maCommande()->diminuerArticle($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
          }
-      }
-      
+
+      //Json encode
+      $indiceArticleModifier = $this->maCommande()->indiceArticlePanier($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
+      $ArticleModifier = $this->maCommande()->panier()[$indiceArticleModifier];
+
+      $jsonData = array(
+         'totalQtePanier' => $this->maCommande()->getQuantiteArticle(),
+         "newPrixArt" => $ArticleModifier->prixTotalArt()
+      );
+      echo json_encode($jsonData);
+      exit();   
+
       
    }
 
@@ -124,7 +160,6 @@ class ControleurPanier{
       //Si le client est connecté
          $maCommande = $CommandeManager->getCmdActiveClient();
        
-     
       return $maCommande ;
    }
 
@@ -147,9 +182,15 @@ class ControleurPanier{
 
    private function peutPayer(){
       //Si au moins un article, si la commande n'a pas encore été payé et si on est connecté
-      return $this->maCommande()->panier() != null && $this->maCommande()->Etat()->id() == 1 && $GLOBALS["client_en_ligne"] != null;
+      return 
+      $this->maCommande()->panier() != null 
+      && $this->maCommande()->Etat() != null 
+      && $this->maCommande()->Etat()->id() == 1 
+      && $GLOBALS["client_en_ligne"] != null;
       
    }
+
+
 
 
 }

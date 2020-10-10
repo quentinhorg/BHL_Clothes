@@ -6,19 +6,18 @@ class ArticleManager extends DataBase{
    public function getListeArticleByCmd($idCmd){
       //Vérifie si null (null = Commande provisoir -> user non connecté
 
-      $reqArt = "SELECT * FROM article_panier ap INNER JOIN vetement v ON v.id = ap.idVet WHERE numCmd = ? ORDER BY ap.ordreArrivee DESC";
+      $reqArt = "SELECT *, ROUND(ap.qte*v.prix,2) AS 'prixTotalArt' FROM article_panier ap INNER JOIN vetement v ON v.id = ap.idVet WHERE numCmd = ? ORDER BY ap.ordreArrivee DESC";
       $this->getBdd();
     
       return $this->getModele($reqArt, [$idCmd], "Article");
    }
 
 
-   public function tranformArticle($idVet){
+   public function getDataVetAssoc($idVet){
          $reqVet = "SELECT * FROM vetement WHERE id = ?";
          $this->getBdd();
-         $article =$this->getModele($reqVet, [$idVet], "Article")[0];
-
-         return $article ;
+         $dataAricle = $this->execBDD($reqVet, [$idVet]);
+         return $dataAricle ;
    }
 
 
