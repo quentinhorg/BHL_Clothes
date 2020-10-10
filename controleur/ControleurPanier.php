@@ -71,7 +71,7 @@ class ControleurPanier{
          
          if( $GLOBALS["client_en_ligne"] == null ){
             
-            $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"]);
+            $this->maCommande()->ajouterPanier($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"]);
          }
          else{
             
@@ -82,7 +82,7 @@ class ControleurPanier{
 
             $numCmd = $this->maCommande()->num();
            
-            $ArticleManager->inserer($numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["couleur"] );
+            $ArticleManager->inserer($numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"] );
          }
 
       }
@@ -101,9 +101,22 @@ class ControleurPanier{
             $this->maCommande()->supprimerArticle($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
          }
       }
+      else if(isset($_POST["diminuerQte"])) {
+         if( $GLOBALS["client_en_ligne"] != null ){
+            $ArticleManager = new ArticleManager();
+            $numCmd = $this->maCommande()->num() ;
+            
+            $ArticleManager->diminuerQte($numCmd, $_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
+         }
+         else{
+           $this->maCommande()->diminuerArticle($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
+         }
+      }
       
       
    }
+
+ 
 
 
    private function maCommande(){

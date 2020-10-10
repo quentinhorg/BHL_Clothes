@@ -70,6 +70,14 @@ class CommandeSession extends Commande{
 
    }
 
+   public function diminuerArticle( $idVet, $taille, $numClr){
+
+      $indice = $this->indiceArticlePanier( $idVet, $taille, $numClr);
+      $qteActuelle = $this->panier[$indice]->qte();
+      $this->panier[$indice]->setQte($qteActuelle-1) ;
+
+   }
+
 
 
 

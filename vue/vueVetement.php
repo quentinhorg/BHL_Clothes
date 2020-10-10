@@ -18,8 +18,8 @@
         
         <form action="" method="POST" id="vetementChoisi">
             <label for="">Couleur: </label>
-            <!-- <ul name="couleur" id="couleur"> -->
-            <select name="couleur">
+            <!-- <ul name="numClr" id="couleur"> -->
+            <select name="numClr">
                 <?php foreach($infoVetement->listeCouleurDispo() as $couleur ) { ?>
                     <option value="<?php echo $couleur->num(); ?>"> <?php echo  $couleur->nom(); ?>  </option>
                     <!-- <li value="<?php //echo $couleur->num(); ?>"> <?php // echo  $couleur->nom(); ?> </li> -->
@@ -151,7 +151,12 @@
     FormAjax = new FormAjax();
     $("#ajouterPanier").click(function(){
         FormAjax.envoyerFormulairePOST("vetementChoisi", <?php echo "'idVet=".$infoVetement->id()."'" ?> ,"ajouterArticle" , "panier") ;
+        $("#qtePanierNav").load("accueil #qtePanierNav >");
+
     });
+
+    
+
 
 
 

@@ -31,6 +31,14 @@ class ArticleManager extends DataBase{
   
    }
 
+      public function diminuerQte($idCmd, $idVet, $idTaille, $idClr){
+
+            $req = "CALL insert_article(?, ?, ?, ?, -1)";
+            $this->getBdd();
+            $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr]);
+
+      }
+
    
    
 
