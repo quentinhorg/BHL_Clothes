@@ -79,49 +79,91 @@
     </div>
 </div>  
 <hr style="margin-top: 50px; margin-bottom: 50px;">
+
+
+
 <div class="commentaire">
 
-    <h2>Avis des clients (<?php echo $infoVetement->nbCommentaire() ; ?>)</h2>
 
+    <?php
+            if($client != null) { ?>
+                
+                <h2>Donnez votre avis</h2>
+
+                <div class="donnerAvis">
+
+                    <form action="" method="POST">
+                        <textarea type="text" name="commentaire" placeholder="Votre commentaire"></textarea>  <!-- avis -->
+                        <input type="number" id="noteVet" name="note" value="0" style="visibility: hidden; display:none;">
+
+                        <!-- note -->
+                        <div class="donnerNote">
+                            Note:
+                            <span  onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;" class="checked" name="note">★</span> <!-- si pb mettre class="fa fa-star checked" -->
+                            <span  onclick="starmark(this)" id="2one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+                            <span  onclick="starmark(this)" id="3one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+                            <span  onclick="starmark(this)" id="4one" style="font-size:40px;cursor:pointer;" name="note">★</span>
+                            <span  onclick="starmark(this)" id="5one" style="font-size:40px;cursor:pointer;" name="note">★</span> <!-- si pb mettre class="fa fa-star" pour 4 dernieres lignes-->
+                        </div>
+                        <br/>
+
+                        <input type="submit" value="Envoyer" name="envoyerCommentaire" class="btn btn-lg btn-success">
+                    </form>
+                </div>
+
+        <?php } 
+            else{
+                echo "<h2>Donnez votre avis</h2>";
+                echo "Veuillez vous <a href='authentification/connexion' style='text-decoration: underline;'>connecter</a> pour poster un avis.";
+        }?>
+
+
+    <h2>Avis des clients (<?php echo $infoVetement->nbCommentaire() ; ?>)</h2>
+    
+    <ul class="listeCommentaire">
     <?php
         
         foreach ($listeCommentaire as $commentaire) {
             $date= new DateTime($commentaire->date()); ?>
-            <div class="blocCommentaire">
-                <div class="note"><?php echo $commentaire->note(); ?></div>
-                <div class="commentaire"> <?php echo $commentaire->commentaire(); ?></div>
-                <div class="date"><?php echo "Le ".date_format($date, 'd/m/Y à H\hi') ; ?></div>
-            </div>
+            <li class="blocCommentaire">
+                
+                <div class="contenuBloc">
+                    <div class="info">
+                            <p><?php echo $commentaire->Client()->getNom()." ".$commentaire->Client()->getPrenom(); ?></p>
+                            <div class="note">
+                    
+                                <?php 
+                                
+                                    $couleur="orange";
+                                    for ($i=1; $i <=5 ; $i++) { 
+                                        echo "<span style='font-size:22px;color: $couleur;'>★</span>";
+
+                                        if($i == $commentaire->note()){
+                                            $couleur= "black";
+                                        }
+                                    }
+                                    
+                                
+                                
+                                ?>
+                        
+                        
+                            </div>
+ 
+                        <span class="date"><?php echo "Le ".date_format($date, 'd/m/Y à H\hi') ; ?></span> 
+                    </div>
+            
+                    
+                    <p class="contenuComm"><?php echo $commentaire->commentaire(); ?></p> 
+                </div>
+                
+            </li>
            <br>
             
     <?php    } ?>
+    </ul>
    
-    <?php
-        if($client != null) { ?>
-            
-            <h2>Donnez votre avis</h2>
-
-            <form action="" method="POST">
-                <textarea type="text" name="commentaire" placeholder="Votre commentaire"></textarea>  <!-- avis -->
-                <input type="number" id="noteVet" name="note" value="0" style="visibility: hidden; display:none;">
-
-                <!-- note -->
-                <span  onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;" class="checked" name="note">★</span> <!-- si pb mettre class="fa fa-star checked" -->
-                <span  onclick="starmark(this)" id="2one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-                <span  onclick="starmark(this)" id="3one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-                <span  onclick="starmark(this)" id="4one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-                <span  onclick="starmark(this)" id="5one" style="font-size:40px;cursor:pointer;" name="note">★</span> <!-- si pb mettre class="fa fa-star" pour 4 dernieres lignes-->
-                <br/>
-
-                <input type="submit" value="Envoyer" name="envoyerCommentaire" class="btn btn-lg btn-success">
-            </form>
-
-    <?php } 
-        else{
-            echo "<h2>Donnez votre avis</h2>";
-            echo "Veuillez vous connecter pour poster un avis.";
-    }?>
-
+    
     
 
  

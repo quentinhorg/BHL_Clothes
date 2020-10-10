@@ -52,7 +52,7 @@ class ControleurCompte{
     
                 if (isset($_GET['deco'])) {
                        $this->deconnexion();
-                       header("Location: ".ACCUEIL);
+                       header("Location: ".URL_SITE);
                 }
     
                 

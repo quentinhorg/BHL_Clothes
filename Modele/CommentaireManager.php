@@ -23,5 +23,6 @@ class CommentaireManager extends DataBase{
         $this->execBdd($req, [$newID, $idClient, $idVet, $_POST['commentaire'], $_POST['note'] ]);
     }
 
+   
     
 }

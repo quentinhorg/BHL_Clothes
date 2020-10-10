@@ -43,7 +43,7 @@ class ControleurPanier{
                ) ;
             }
             else if ($GLOBALS["client_en_ligne"] == null && COUNT($this->maCommande()->panier()) >= 1 ) {
-               header("Location: ".ACCUEIL."/authentification/inscription");
+               header("Location: ".URL_SITE."/authentification/inscription");
             }
             else{
                throw new Exception('Page introuavable');

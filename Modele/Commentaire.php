@@ -2,7 +2,7 @@
 
 class Commentaire{
    private  $id;
-   private  $idClient;
+   private  $Client; //Object
    private  $idVet;
    private  $commentaire;
    private  $note;
@@ -39,10 +39,8 @@ class Commentaire{
     }
 
     public function setIdClient($idClient){
-        $idClient = (int) $idClient;
-            if($idClient > 0){
-                $this->idClient = $idClient;
-            }
+        $ClientManager = new ClientManager;
+        $this->Client = $ClientManager->getClient($idClient);
     }
 
     public function setIdVet($idVet){
@@ -77,8 +75,8 @@ class Commentaire{
         return $this->id;
     }
 
-    public function idClient(){
-        return $this->idClient;
+    public function Client(){
+        return $this->Client;
     }
 
     public function idVet(){

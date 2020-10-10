@@ -89,44 +89,6 @@
    margin-top: 36px;
 }
 
-
-/***********************/
-/********COMMENTAIRES***/
-/***********************/
-.blocCommentaire{
-   display: flex;
-   width: 500px;
-   border: none;
-   background-color: red;
-   padding: 10px;
-   border-radius: 10px;
-
-}
-
-.commentaire{
-   border-style:dotted;
-	border-width:thin;
-	border-color:#1A7BA7;
-	padding:20px;
-}
-
-.commentaire textarea{
-   border: none;
-   background-color: #80808038;
-   padding: 10px;
-   border-radius: 5px;
-}
-
-.commentaire input[type="submit"]{
-   padding: 7px;
-   background-color: coral;
-   border: none;
-   border-radius: 5px;
-   color: white;
-
-}
-
-
 ul.listeCouleur li label{
    width: 25px;
    height: 25px;
@@ -142,4 +104,85 @@ ul.listeCouleur li{
    background-color: white;
    border: 1px solid grey;
    margin: 0 4px;
+} 
+
+
+/***********************/
+/********COMMENTAIRES***/
+/***********************/
+
+.commentaire textarea{
+   border: none;
+   background-color: #80808017;
+   padding: 10px;
+   border-radius: 5px;
+   height: 100px;
+   width: 300px;
+}
+
+.commentaire input[type="submit"]{
+   padding: 7px;
+   background-color: coral;
+   border: none;
+   border-radius: 5px;
+   color: white;
+   cursor: pointer;
+}
+
+
+.blocCommentaire{
+   margin: 30px 0 0 0;
+   position: relative;
+   display: block;
+}
+
+.contenuBloc{
+   padding: 0 0 10px 90px;
+   background-color: #80808017;
+   border-radius: 20px;
+}
+
+.date{
+   color: #888;
+    font-weight: 500;
+    margin: 0;
+    float: none;
+    display: block;
+    text-align: left;
+    font-size: 13px;
+}
+
+.info{
+   width: 100%;
+   padding-bottom: 8px;
+   font-weight: 600;
+   color: #333;
+   font-size: 17px;
+   padding-top: 10px;
+}
+
+.info p{
+   margin-bottom: 10px;
+   color: coral;
+   margin-top: 0px;
+   display: inline-block;
+}
+
+.info .note{
+   display: inline-block;
+   margin-left: 10px;
+}
+
+.contenuComm{
+   margin: 3px 0 0 0;
+   line-height: 26px;
+   padding: 5px 0;
+}
+
+.listeCommentaire{
+   padding: 0px 30px;
+}
+
+.commentaire .donnerAvis{
+   padding: 0 0 10px 30px;
 }
