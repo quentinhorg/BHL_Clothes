@@ -15,7 +15,9 @@ class ControleurAccueil{
 
          $this->vue = new Vue('Accueil') ;
          $this->vue->setHeader("vue/header.php") ;
-         $this->vue->genererVue(array("nouvVetement"=> $this->nouveauteVetement())) ;
+         $this->vue->genererVue(array("nouvVetement"=> $this->nouveauteVetement(),
+                                      "listeGenre" => $this->listeGenre()
+                                      )) ;
       }
    }
 
@@ -25,10 +27,18 @@ class ControleurAccueil{
     
       $listeNouv= $VetementManageur->getNouveaute();
 
-      return $listeNouv;
-
-      
+      return $listeNouv;  
    }
+
+   public function listeGenre(){
+      $GenreManager= new GenreManager();
+
+      $listeGenre= $GenreManager->getListeGenre();
+
+      return $listeGenre;
+   }
+
+
 
 
 }

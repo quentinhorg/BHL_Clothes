@@ -11,83 +11,13 @@ USE `bhl_clothes`;
 
 DELIMITER ;;
 
-CREATE FUNCTION `calcCmdTTC`(_numCmd int) RETURNS float
-BEGIN
-          
-        RETURN (SELECT ROUND(sum(ap.qte*v.prix),2) AS 'prixTTC' FROM article_panier ap 
-INNER JOIN vetement v ON v.id = ap.idVet
-WHERE ap.numCmd = _numCmd );
-    END;;
+;;
 
-CREATE FUNCTION `qte_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11)) RETURNS int(11)
-BEGIN
-  RETURN (SELECT qte
-  FROM article_panier ap
-  WHERE ap.numCmd = _numCmd 
-  AND ap.idVet = _idVet 
-  AND ap.taille  = _taille 
-  AND ap.numClr = _numClr);
-END;;
+;;
 
-CREATE PROCEDURE `insert_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11), _qte int)
-BEGIN
-DECLARE newOrdreArr tinyint;
-DECLARE qteArticle int;
+;;
 
-SET qteArticle = (SELECT qte_article(_numCmd , _idVet , _taille , _numClr));
-
-SET newOrdreArr = (
-SELECT
-CASE 
-WHEN MAX(ap.ordreArrivee) IS NULL THEN 1
-WHEN MAX(ap.ordreArrivee) = (
-  SELECT ap2.ordreArrivee FROM article_panier ap2
-  WHERE ap2.numCmd = _numCmd 
-  AND ap2.idVet = _idVet 
-  AND ap2.taille  = _taille 
-  AND ap2.numClr = _numClr
-) THEN MAX(ap.ordreArrivee) 
-ELSE MAX(ap.ordreArrivee)+1
-END AS 'newOrdreArr'
-  FROM article_panier ap
-  WHERE ap.numCmd = _numCmd
-  ORDER BY ap.ordreArrivee DESC
- 
-);
-
-
-IF( qteArticle >= 1) THEN 
-  UPDATE article_panier SET qte = qteArticle + _qte, ordreArrivee = newOrdreArr
-  WHERE numCmd = _numCmd 
-  AND idVet = _idVet 
-  AND taille  = _taille 
-  AND numClr = _numClr ;
-ELSE
-INSERT INTO article_panier VALUES(_numCmd , _idVet , _taille , _numClr, _qte, newOrdreArr) ;
-END IF;
-
-END;;
-
-CREATE PROCEDURE `payerCommande`(_idClient int, _numCmd int)
-BEGIN
-            DECLARE soldeClient float; DECLARE montantCmdTTC float; DECLARE etatCmd float;
-            SET soldeClient = ( SELECT c.solde FROM client c WHERE c.id = _idClient ) ;
-            SET montantCmdTTC = ( SELECT calcCmdTTC(cmd.num) FROM commande cmd WHERE cmd.num = _numCmd AND cmd.idClient = _idClient ) ;
-            SET etatCmd = ( SELECT cmd2.idEtat FROM commande cmd2 WHERE cmd2.num = _numCmd) ;
-
-            IF (etatCmd = 1) THEN
-              IF (soldeClient > montantCmdTTC AND montantCmdTTC IS NOT NULL AND soldeClient IS NOT NULL ) THEN 
-                UPDATE commande SET idEtat = 2, datePaye = NOW() WHERE num = _numCmd ; 
-                UPDATE client SET solde = (soldeClient-montantCmdTTC) WHERE id = _idClient ; 
-              ELSE
-                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur: La paiement n\'a pas été effectué.';
-              END IF;
-            ELSE
-              SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur: La commande a déjà été payé.'; 
-            END IF; 
-           
-      
-    END;;
+;;
 
 DELIMITER ;
 
@@ -119,7 +49,8 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (8,	6,	'L',	7,	4,	25),
 (8,	6,	'L',	16,	1,	28),
 (7,	8,	'L',	11,	1,	1),
-(8,	8,	'S',	11,	3,	29)
+(8,	8,	'S',	11,	3,	29),
+(9,	8,	'S',	11,	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -237,7 +168,7 @@ CREATE TABLE `client` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `solde`) VALUES
-(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	613.6),
+(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	780),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	45.15),
 (3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	85.6),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	45.15),
@@ -251,12 +182,14 @@ DELIMITER ;;
 
 CREATE TRIGGER `after_update_client` AFTER UPDATE ON `client` FOR EACH ROW
 BEGIN 
-INSERT INTO client_histo VALUES(OLD.id,NOW(), OLD.nom, OLD.prenom, OLD.adresse, OLD.tel, "UPDATE");
+INSERT INTO client_histo VALUES(OLD.id, OLD.email,OLD.mdp,  
+OLD.nom, OLD.prenom, OLD.adresse, OLD.tel, OLD.solde, NOW(),  "UPDATE");
 END;;
 
 CREATE TRIGGER `after_delete_client` AFTER DELETE ON `client` FOR EACH ROW
 BEGIN 
-INSERT INTO client_histo VALUES(OLD.id,NOW(), OLD.nom, OLD.prenom, OLD.adresse, OLD.tel, "UPDATE");
+INSERT INTO client_histo VALUES(OLD.id, OLD.email,OLD.mdp,  
+OLD.nom, OLD.prenom, OLD.adresse, OLD.tel, OLD.solde, NOW(),  "DELETE");
 END;;
 
 DELIMITER ;
@@ -264,72 +197,22 @@ DELIMITER ;
 DROP TABLE IF EXISTS `client_histo`;
 CREATE TABLE `client_histo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date_histo` datetime NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `mdp` varchar(150) NOT NULL,
   `nom` varchar(50) NOT NULL,
   `prenom` varchar(50) NOT NULL,
   `adresse` varchar(100) NOT NULL,
   `tel` varchar(10) NOT NULL,
+  `solde` float NOT NULL,
+  `date_histo` datetime NOT NULL,
   `evenement_histo` varchar(30) NOT NULL,
   PRIMARY KEY (`id`,`date_histo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
-INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel`, `evenement_histo`) VALUES
-(1,	'2020-10-09 21:36:49',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
-(5,	'2020-09-07 00:00:00',	'',	'',	'',	'',	'DELETE'),
-(5,	'2020-09-14 15:40:14',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
-(5,	'2020-10-05 12:56:08',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
-(5,	'2020-10-05 13:16:26',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
-(5,	'2020-10-05 16:03:00',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
-(6,	'2020-09-07 00:00:00',	'aa',	'aa',	'ashia',	'798',	'DELETE'),
-(6,	'2020-09-14 15:40:14',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	'UPDATE'),
-(6,	'2020-10-05 12:56:23',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	'UPDATE'),
-(6,	'2020-10-05 12:56:37',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	'UPDATE'),
-(6,	'2020-10-05 13:16:26',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	'UPDATE'),
-(6,	'2020-10-05 16:03:00',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	'UPDATE'),
-(7,	'2020-09-07 00:00:00',	'azeaze',	'zerzer',	'10 rue ouaiso uais',	'azeaze',	'DELETE'),
-(7,	'2020-10-05 13:16:26',	'azeaze',	'zerzer',	'efefefefefeffe',	'65454',	'UPDATE'),
-(7,	'2020-10-05 16:03:00',	'azeaze',	'zerzer',	'efefefefefeffe',	'65454',	'UPDATE'),
-(8,	'2020-10-01 21:04:10',	'Goldow',	'Gold',	'10 non on',	'684654658',	'UPDATE'),
-(8,	'2020-10-05 13:16:26',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-05 16:03:00',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-07 22:41:19',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-07 22:49:54',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-07 22:50:37',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-07 22:52:24',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 18:04:43',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 20:12:55',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 20:17:10',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 20:40:31',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 20:41:03',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 20:43:01',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 20:46:13',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 20:49:43',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-08 21:00:05',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-11 00:04:59',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-11 00:05:20',	'Gamer',	'Goldow',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
-(8,	'2020-10-11 00:05:27',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'797687',	'UPDATE'),
-(8,	'2020-10-11 00:05:30',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'06284687',	'UPDATE'),
-(8,	'2020-10-11 14:18:06',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	'UPDATE'),
-(8,	'2020-10-11 14:20:57',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	'UPDATE'),
-(8,	'2020-10-11 14:21:20',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	'UPDATE'),
-(9,	'2020-10-02 18:16:09',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
-(9,	'2020-10-05 13:16:26',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
-(9,	'2020-10-05 16:03:00',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
-(9,	'2020-10-07 21:48:35',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
-(9,	'2020-10-09 19:52:50',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
-(10,	'2020-10-05 13:16:26',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
-(10,	'2020-10-05 16:03:00',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
-(10,	'2020-10-07 20:01:53',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
-(10,	'2020-10-09 19:52:15',	'teds',	'teds',	'teds',	'9874984896',	'UPDATE'),
-(11,	'2020-10-05 13:16:26',	'azeae',	'azeaze',	'azeaze',	'4684864',	'UPDATE'),
-(11,	'2020-10-05 16:03:00',	'azeae',	'azeaze',	'azeaze',	'4684864',	'UPDATE'),
-(11,	'2020-10-09 19:52:15',	'azeae',	'azeaze',	'azeaze',	'4684864',	'UPDATE'),
-(12,	'2020-10-09 19:52:15',	'Bob',	'Dylan',	'6 rue du manchto electrique',	'080808',	'UPDATE'),
-(13,	'2020-10-09 19:52:15',	'voltige',	'larissa',	'ouioui',	'468468486',	'UPDATE'),
-(14,	'2020-10-05 16:17:35',	'admin',	'admin',	'admin',	'admin',	'UPDATE'),
-(14,	'2020-10-09 19:52:15',	'Hoareau',	'azeaez',	'10 rue ouaiso uais',	'54894',	'UPDATE'),
-(15,	'2020-10-09 19:52:15',	'Hoareau',	'Quentin',	'zerzer',	'azeazeae',	'UPDATE')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `date_histo` = VALUES(`date_histo`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `evenement_histo` = VALUES(`evenement_histo`);
+INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `solde`, `date_histo`, `evenement_histo`) VALUES
+(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	613.6,	'2020-10-11 21:19:45',	'UPDATE'),
+(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	800,	'2020-10-11 21:32:13',	'UPDATE')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`), `date_histo` = VALUES(`date_histo`), `evenement_histo` = VALUES(`evenement_histo`);
 
 DROP TABLE IF EXISTS `commande`;
 CREATE TABLE `commande` (
@@ -350,7 +233,8 @@ INSERT INTO `commande` (`num`, `idClient`, `datePaye`, `idEtat`) VALUES
 (3,	3,	NULL,	1),
 (5,	5,	NULL,	1),
 (7,	8,	'2020-10-01 21:05:30',	2),
-(8,	8,	'2020-10-11 14:21:20',	2)
+(8,	8,	'2020-10-11 14:21:20',	2),
+(9,	1,	'2020-10-11 21:32:13',	2)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `datePaye` = VALUES(`datePaye`), `idEtat` = VALUES(`idEtat`);
 
 DROP TABLE IF EXISTS `contact`;
@@ -567,9 +451,9 @@ CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeIdCouleurDispo` med
 
 
 DROP TABLE IF EXISTS `vue_categpargenre`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-11 11:11:43
+-- 2020-10-11 18:57:03
