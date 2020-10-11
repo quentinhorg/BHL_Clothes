@@ -14,7 +14,7 @@ class CommandeManager extends DataBase{
        
         $this->getBdd(); 
         $newID = $this->getNewIdTable('commande','num');
-        $reqClient = "INSERT INTO commande(num,idClient,date) VALUES(?,?, NOW())" ;
+        $reqClient = "INSERT INTO commande(num,idClient) VALUES(?,?)" ;
         $this->getBdd();
         $this->execBdd($reqClient, [$newID, $idClient]);
 

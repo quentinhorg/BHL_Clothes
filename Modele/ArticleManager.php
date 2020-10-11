@@ -24,9 +24,9 @@ class ArticleManager extends DataBase{
 
    public function inserer($idCmd, $idVet, $idTaille, $qte, $idClr){
          
-         $req = "CALL insert_article(?, ?, ?, ?, ?)";
-         $this->getBdd();
-         $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr, $qte]);
+      $req = "CALL insert_article(?, ?, ?, ?, ?)";
+      $this->getBdd();
+      $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr, $qte]);
   
    }
 
@@ -38,13 +38,13 @@ class ArticleManager extends DataBase{
 
       }
 
-   
-   
+
+
 
    public function supprimer($idCmd, $idVet, $idTaille, $idClr){
-         $req = "DELETE FROM article_panier WHERE numCmd = ? AND idVet = ? AND taille = ? AND numClr = ?";
-         $this->getBdd();
-         $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr]);
+        $req = "DELETE FROM article_panier WHERE numCmd = ? AND idVet = ? AND taille = ? AND numClr = ?";
+        $this->getBdd();
+        $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr]);
 
    }
 

@@ -77,7 +77,7 @@ BEGIN
 
             IF (etatCmd = 1) THEN
               IF (soldeClient > montantCmdTTC AND montantCmdTTC IS NOT NULL AND soldeClient IS NOT NULL ) THEN 
-                UPDATE commande SET idEtat = 2 WHERE num = _numCmd ; 
+                UPDATE commande SET idEtat = 2, datePaye = NOW() WHERE num = _numCmd ; 
                 UPDATE client SET solde = (soldeClient-montantCmdTTC) WHERE id = _idClient ; 
               ELSE
                 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur: La paiement n\'a pas été effectué.';
@@ -119,7 +119,7 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (8,	6,	'L',	7,	4,	25),
 (8,	6,	'L',	16,	1,	28),
 (7,	8,	'L',	11,	1,	1),
-(8,	8,	'S',	11,	8,	26)
+(8,	8,	'S',	11,	3,	29)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -161,6 +161,15 @@ end if;
 
 
 
+END;;
+
+CREATE TRIGGER `article_panier_ad` AFTER DELETE ON `article_panier` FOR EACH ROW
+BEGIN 
+DECLARE nbArticle int;
+SET nbArticle= ( SELECT COUNT(*) AS 'nbArticle' FROM article_panier ap WHERE ap.numCmd = OLD.numCmd);
+IF (nbArticle= 0 OR nbArticle IS NULL ) THEN
+   DELETE FROM commande WHERE num = OLD.numCmd ;
+end if;
 END;;
 
 DELIMITER ;
@@ -235,7 +244,7 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	84.6),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	984.2),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'efefefefefeffe',	'65454',	351),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	230.7)
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	656)
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`);
 
 DELIMITER ;;
@@ -300,6 +309,9 @@ INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel
 (8,	'2020-10-11 00:05:20',	'Gamer',	'Goldow',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
 (8,	'2020-10-11 00:05:27',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'797687',	'UPDATE'),
 (8,	'2020-10-11 00:05:30',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'06284687',	'UPDATE'),
+(8,	'2020-10-11 14:18:06',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	'UPDATE'),
+(8,	'2020-10-11 14:20:57',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	'UPDATE'),
+(8,	'2020-10-11 14:21:20',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	'UPDATE'),
 (9,	'2020-10-02 18:16:09',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-05 13:16:26',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-05 16:03:00',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
@@ -323,7 +335,7 @@ DROP TABLE IF EXISTS `commande`;
 CREATE TABLE `commande` (
   `num` int(11) NOT NULL,
   `idClient` int(11) NOT NULL,
-  `date` datetime NOT NULL,
+  `datePaye` datetime DEFAULT NULL,
   `idEtat` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`num`),
   KEY `commande_client_FK` (`idClient`),
@@ -332,14 +344,14 @@ CREATE TABLE `commande` (
   CONSTRAINT `commande_ibfk_3` FOREIGN KEY (`idEtat`) REFERENCES `etat` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `commande` (`num`, `idClient`, `date`, `idEtat`) VALUES
+INSERT INTO `commande` (`num`, `idClient`, `datePaye`, `idEtat`) VALUES
 (1,	1,	'2019-12-02 12:30:00',	3),
-(2,	2,	'2019-12-17 18:48:11',	1),
-(3,	3,	'2020-12-23 08:02:08',	1),
-(5,	5,	'2020-09-17 11:00:00',	1),
+(2,	2,	NULL,	1),
+(3,	3,	NULL,	1),
+(5,	5,	NULL,	1),
 (7,	8,	'2020-10-01 21:05:30',	2),
-(8,	8,	'2020-10-09 19:58:46',	1)
-ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `date` = VALUES(`date`), `idEtat` = VALUES(`idEtat`);
+(8,	8,	'2020-10-11 14:21:20',	2)
+ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `datePaye` = VALUES(`datePaye`), `idEtat` = VALUES(`idEtat`);
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
@@ -560,4 +572,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-11 04:16:54
+-- 2020-10-11 11:11:43

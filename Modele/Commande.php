@@ -86,8 +86,13 @@ class Commande{
    }
 
    public function date(){
-      $date= new DateTime($this->date);
-      $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
+      $dateFormat = null ;
+
+      if( $this->date != null){
+         $date= new DateTime($this->date);
+         $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
+      }
+
 
       return $dateFormat;
    }
