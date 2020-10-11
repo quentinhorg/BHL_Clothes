@@ -16,13 +16,13 @@ class ControleurVetement{
          $id= $url[1] ;
          $msg= null;
          
-         if ( isset($_POST['envoyerCommentaire']) && !empty($_POST['envoyerCommentaire'])) {
+         if ( isset($_POST['envoyerAvis']) && !empty($_POST['envoyerAvis'])) {
             
-            if ( isset($_POST['commentaire']) && !empty($_POST['commentaire'])) {
+            if ( isset($_POST['avis']) && !empty($_POST['avis'])) {
                
                if ( isset($_POST['note']) && !empty($_POST['note'])) {
-                  $this->insertCommentaire($id);
-                  $msg="Votre commentaire a bien été posté.";
+                  $this->insertAvis($id);
+                  $msg="Votre avis a bien été posté.";
                }
 
                else{
@@ -30,7 +30,7 @@ class ControleurVetement{
                }
            }
             else{
-               $msg= "Veuillez ajouter un commentaire.";
+               $msg= "Veuillez ajouter un avis.";
             }
          }
 
@@ -42,7 +42,7 @@ class ControleurVetement{
          $this->vue->genererVue(array( 
             "infoVetement"     => $this->infoVetement($id),
             "msg"              => $msg ,
-            "listeCommentaire" => $this->listeCommentaire($id),
+            "listeAvis" => $this->listeAvis($id),
             "client" => $GLOBALS["client_en_ligne"]
          )) ;
          
@@ -58,24 +58,24 @@ class ControleurVetement{
      
    }
 
-   // afficher les commentaires selon le vêtement
-   private function listeCommentaire($id){
+   // afficher les aviss selon le vêtement
+   private function listeAvis($id){
 
-      $CommentaireManager= new CommentaireManager();
+      $AvisManager= new AvisManager();
 
-      $listeCommentaire= $CommentaireManager->getListeCommentaire($id);
+      $listeAvis= $AvisManager->getListeAvis($id);
 
-      return $listeCommentaire;
+      return $listeAvis;
 
    }
 
-   // insérer un commentaire
-   private function insertCommentaire($idVet){
-      $CommentaireManager = new CommentaireManager();
+   // insérer un avis
+   private function insertAvis($idVet){
+      $AvisManager = new AvisManager();
       $ClientManager= new ClientManager();
       $idClient= $GLOBALS["client_en_ligne"]->getId();
 
-      $CommentaireManager->insertCommentaire($idVet, $idClient);
+      $AvisManager->insertAvis($idVet, $idClient);
    }
 
 

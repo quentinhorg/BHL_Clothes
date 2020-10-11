@@ -41,4 +41,4 @@ $id= $_GET['idVet];
 
 
 
-Requête nbCommentaire, nbCouleur... -> ajouter un attribut dans la classe concernée, req imbriquée
+Requête nbAvis, nbCouleur... -> ajouter un attribut dans la classe concernée, req imbriquée

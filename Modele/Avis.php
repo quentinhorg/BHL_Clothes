@@ -1,6 +1,6 @@
 <?php 
 
-class Commentaire{
+class Avis{
    private  $id;
    private  $Client; //Object
    private  $idVet;

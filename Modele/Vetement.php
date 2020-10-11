@@ -3,7 +3,7 @@
 class Vetement{
    private   $id;
    private   $nom;
-   public   $prix;
+   public    $prix;
    private   $codeRgbOriginal;
    private   $motifPosition;
    private   $categ; // OBJET
@@ -11,7 +11,7 @@ class Vetement{
    private   $genre; // OBJET
    private   $listeTailleDispo; // OBJET
    private   $description;
-   private   $nbCommentaire;
+   private   $nbAvis;
    
 
    public function __construct(array $donnee){
@@ -117,9 +117,9 @@ class Vetement{
       }
    }
 
-   public function setNbCommentaire($nbCommentaire){
-      $nbCommentaire = (int) $nbCommentaire;
-      $this->nbCommentaire = $nbCommentaire;
+   public function setNbAvis($nbAvis){
+      $nbAvis = (int) $nbAvis;
+      $this->nbAvis = $nbAvis;
 
    }
 
@@ -174,8 +174,8 @@ class Vetement{
    }
 
    
-   public function nbCommentaire(){
-      return $this->nbCommentaire;
+   public function nbAvis(){
+      return $this->nbAvis;
    }
 
    

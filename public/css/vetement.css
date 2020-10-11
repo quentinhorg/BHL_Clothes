@@ -111,7 +111,7 @@ ul.listeCouleur li{
 /********COMMENTAIRES***/
 /***********************/
 
-.commentaire textarea{
+.avis textarea{
    border: none;
    background-color: #80808017;
    padding: 10px;
@@ -120,7 +120,7 @@ ul.listeCouleur li{
    width: 300px;
 }
 
-.commentaire input[type="submit"]{
+.avis input[type="submit"]{
    padding: 7px;
    background-color: coral;
    border: none;
@@ -130,7 +130,7 @@ ul.listeCouleur li{
 }
 
 
-.blocCommentaire{
+.blocAvis{
    margin: 30px 0 0 0;
    position: relative;
    display: block;
@@ -179,10 +179,10 @@ ul.listeCouleur li{
    padding: 5px 0;
 }
 
-.listeCommentaire{
+.listeAvis{
    padding: 0px 30px;
 }
 
-.commentaire .donnerAvis{
+.avis .donnerAvis{
    padding: 0 0 10px 30px;
 }

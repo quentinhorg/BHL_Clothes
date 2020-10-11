@@ -82,7 +82,7 @@
 
 
 
-<div class="commentaire">
+<div class="avis">
 
 
     <?php
@@ -93,7 +93,7 @@
                 <div class="donnerAvis">
 
                     <form action="" method="POST">
-                        <textarea type="text" name="commentaire" placeholder="Votre commentaire"></textarea>  <!-- avis -->
+                        <textarea type="text" name="avis" placeholder="Votre avis"></textarea>  <!-- avis -->
                         <input type="number" id="noteVet" name="note" value="0" style="visibility: hidden; display:none;">
 
                         <!-- note -->
@@ -107,7 +107,7 @@
                         </div>
                         <br/>
 
-                        <input type="submit" value="Envoyer" name="envoyerCommentaire" class="btn btn-lg btn-success">
+                        <input type="submit" value="Envoyer" name="envoyerAvis" class="btn btn-lg btn-success">
                     </form>
                 </div>
 
@@ -118,18 +118,18 @@
         }?>
 
 
-    <h2>Avis des clients (<?php echo $infoVetement->nbCommentaire() ; ?>)</h2>
+    <h2>Avis des clients (<?php echo $infoVetement->nbAvis() ; ?>)</h2>
     
-    <ul class="listeCommentaire">
+    <ul class="listeAvis">
     <?php
         
-        foreach ($listeCommentaire as $commentaire) {
-            $date= new DateTime($commentaire->date()); ?>
-            <li class="blocCommentaire">
+        foreach ($listeAvis as $avis) {
+            $date= new DateTime($avis->date()); ?>
+            <li class="blocAvis">
                 
                 <div class="contenuBloc">
                     <div class="info">
-                            <p><?php echo $commentaire->Client()->getNom()." ".$commentaire->Client()->getPrenom(); ?></p>
+                            <p><?php echo $avis->Client()->getNom()." ".$avis->Client()->getPrenom(); ?></p>
                             <div class="note">
                     
                                 <?php 
@@ -138,7 +138,7 @@
                                     for ($i=1; $i <=5 ; $i++) { 
                                         echo "<span style='font-size:22px;color: $couleur;'>★</span>";
 
-                                        if($i == $commentaire->note()){
+                                        if($i == $avis->note()){
                                             $couleur= "black";
                                         }
                                     }
@@ -154,7 +154,7 @@
                     </div>
             
                     
-                    <p class="contenuComm"><?php echo $commentaire->commentaire(); ?></p> 
+                    <p class="contenuComm"><?php echo $avis->commentaire(); ?></p> 
                 </div>
                 
             </li>

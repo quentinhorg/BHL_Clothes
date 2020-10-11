@@ -113,10 +113,13 @@ CREATE TABLE `article_panier` (
 INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ordreArrivee`) VALUES
 (1,	1,	'XL',	6,	3,	2),
 (1,	2,	'S',	4,	1,	3),
+(8,	3,	'M',	5,	1,	27),
 (3,	4,	'M',	1,	1,	2),
 (3,	5,	'M',	3,	2,	1),
-(8,	6,	'L',	7,	1,	2),
-(7,	8,	'L',	11,	1,	1)
+(8,	6,	'L',	7,	4,	25),
+(8,	6,	'L',	16,	1,	28),
+(7,	8,	'L',	11,	1,	1),
+(8,	8,	'S',	11,	8,	26)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -162,6 +165,30 @@ END;;
 
 DELIMITER ;
 
+DROP TABLE IF EXISTS `avis`;
+CREATE TABLE `avis` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idClient` int(11) NOT NULL,
+  `idVet` int(11) NOT NULL,
+  `commentaire` text NOT NULL,
+  `note` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idClient` (`idClient`),
+  KEY `idVet` (`idVet`),
+  CONSTRAINT `avis_ibfk_1` FOREIGN KEY (`idClient`) REFERENCES `client` (`id`),
+  CONSTRAINT `avis_ibfk_2` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+INSERT INTO `avis` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VALUES
+(1,	8,	1,	'woooooaaaww',	4,	'2020-10-05 21:48:01'),
+(2,	1,	7,	'Tshirt de bonne qualité qui taille un peu large. Parfait pour faire un style oversize ! ',	5,	'2020-10-09 17:30:14'),
+(3,	5,	6,	'Short de bonne qualité, conforme à la photo',	4,	'2020-10-01 21:55:01'),
+(4,	1,	1,	'Je trouve que la robe est un peu transparente à la lumière mais ce problème est vite réglé avec un petit short en dessous',	4,	'2020-10-06 21:57:09'),
+(5,	6,	1,	'Elle correspond à mes attentes et la livraison était plutôt rapide! \r\nBon produit',	5,	'2020-10-10 21:58:28'),
+(6,	8,	11,	'Je suis déçu, la texture blanchit facilement. ',	1,	'2020-10-11 00:03:20')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `idClient` = VALUES(`idClient`), `idVet` = VALUES(`idVet`), `commentaire` = VALUES(`commentaire`), `note` = VALUES(`note`), `date` = VALUES(`date`);
+
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
   `id` int(11) NOT NULL,
@@ -201,14 +228,14 @@ CREATE TABLE `client` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `adresse`, `tel`, `solde`) VALUES
-(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	700.1),
+(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	613.6),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'17 chemin des hirondelles St pierre',	'0694458553',	45.15),
 (3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'6 rue du pingouin salé',	'0693122478',	85.6),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'88 rue des lilas Saint-Joseph ',	'0693238645',	45.15),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	84.6),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'10 rue des marsouins Saint Joseph ',	'0692753212',	984.2),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'efefefefefeffe',	'65454',	351),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	230.7)
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'0628468787',	230.7)
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `adresse` = VALUES(`adresse`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`);
 
 DELIMITER ;;
@@ -238,6 +265,7 @@ CREATE TABLE `client_histo` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel`, `evenement_histo`) VALUES
+(1,	'2020-10-09 21:36:49',	'BIGOT',	'Andréa',	'22 rue des frangipaniers St Joseph',	'0692466990',	'UPDATE'),
 (5,	'2020-09-07 00:00:00',	'',	'',	'',	'',	'DELETE'),
 (5,	'2020-09-14 15:40:14',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
 (5,	'2020-10-05 12:56:08',	'LAURET',	'Ryan',	'50 chemin Général de Gaulle Saint Pierre',	'0692851347',	'UPDATE'),
@@ -268,6 +296,10 @@ INSERT INTO `client_histo` (`id`, `date_histo`, `nom`, `prenom`, `adresse`, `tel
 (8,	'2020-10-08 20:46:13',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
 (8,	'2020-10-08 20:49:43',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
 (8,	'2020-10-08 21:00:05',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-11 00:04:59',	'Goldow',	'Gold',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-11 00:05:20',	'Gamer',	'Goldow',	'10 rue ouaiso uais',	'797687',	'UPDATE'),
+(8,	'2020-10-11 00:05:27',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'797687',	'UPDATE'),
+(8,	'2020-10-11 00:05:30',	'Gamer',	'Goldow',	'10 rue de la shovel saint-louis',	'06284687',	'UPDATE'),
 (9,	'2020-10-02 18:16:09',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-05 13:16:26',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
 (9,	'2020-10-05 16:03:00',	'BIGOT',	'Andréa',	'22 rue des frangipaniers',	'0692466990',	'UPDATE'),
@@ -301,47 +333,13 @@ CREATE TABLE `commande` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `commande` (`num`, `idClient`, `date`, `idEtat`) VALUES
-(1,	1,	'2019-12-02 12:30:00',	1),
+(1,	1,	'2019-12-02 12:30:00',	3),
 (2,	2,	'2019-12-17 18:48:11',	1),
 (3,	3,	'2020-12-23 08:02:08',	1),
 (5,	5,	'2020-09-17 11:00:00',	1),
 (7,	8,	'2020-10-01 21:05:30',	2),
 (8,	8,	'2020-10-09 19:58:46',	1)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `date` = VALUES(`date`), `idEtat` = VALUES(`idEtat`);
-
-DROP TABLE IF EXISTS `commentaire`;
-CREATE TABLE `commentaire` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `idClient` int(11) NOT NULL,
-  `idVet` int(11) NOT NULL,
-  `commentaire` text NOT NULL,
-  `note` int(11) NOT NULL,
-  `date` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idClient` (`idClient`),
-  KEY `idVet` (`idVet`),
-  CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`idClient`) REFERENCES `client` (`id`),
-  CONSTRAINT `commentaire_ibfk_2` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
-
-INSERT INTO `commentaire` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VALUES
-(1,	1,	1,	'Commentaire vêtement 1.',	5,	'2020-09-12 12:50:52'),
-(2,	1,	1,	'aaa',	2,	'2020-09-17 08:50:52'),
-(3,	1,	1,	'aapppa',	2,	'2020-09-02 13:50:00'),
-(4,	2,	3,	'zzzzz',	1,	'2020-09-20 14:14:14'),
-(5,	2,	3,	'test',	5,	'2020-09-05 06:30:52'),
-(7,	2,	3,	'aaaacxvbb',	3,	'2020-09-27 22:14:17'),
-(8,	2,	3,	'azedfvcxsd',	5,	'2020-09-22 09:10:11'),
-(13,	4,	5,	'test',	5,	'2020-09-28 00:00:00'),
-(14,	3,	3,	'date',	2,	'2020-09-29 20:14:39'),
-(15,	3,	11,	'salutation',	4,	'2020-10-03 16:46:19'),
-(16,	1,	1,	'hhh',	2,	'2020-10-05 15:34:58'),
-(17,	1,	1,	'note test',	2,	'2020-10-05 15:48:31'),
-(18,	1,	1,	'mdrr',	5,	'2020-10-05 15:49:50'),
-(19,	8,	1,	'woooooaaaww',	4,	'2020-10-05 21:48:01'),
-(20,	8,	2,	'salut',	4,	'2020-10-07 22:00:42'),
-(21,	1,	7,	'Tshirt de bonne qualité qui taille un peu large. Parfait pour faire un style oversize ! ',	5,	'2020-10-09 17:30:14')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `idClient` = VALUES(`idClient`), `idVet` = VALUES(`idVet`), `commentaire` = VALUES(`commentaire`), `note` = VALUES(`note`), `date` = VALUES(`date`);
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
@@ -562,4 +560,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-09 16:57:08
+-- 2020-10-11 04:16:54
