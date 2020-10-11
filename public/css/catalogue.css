@@ -212,3 +212,15 @@ input[type="checkbox"]:checked  {
 #currentPage{
    text-align: left;
 }
+
+input[name=trier]{
+   color: #FFFFFF;
+    background-color: #d48b31;
+    padding: 8px 32px;
+ 
+    width: 100%;
+    border: unset;
+    margin: auto;
+    margin-top: 50px;
+    display: block;
+}

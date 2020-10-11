@@ -30,7 +30,7 @@ class ControleurCatalogue{
        
 
          //Systeme de recherche
-         if(isset($_POST['recherche']) || isset($_POST['motCle']) ){
+         if(isset($_POST['trier']) || isset($_POST['motCle']) ){
             $listeVetement = $this->recherche($codeGenre, $idCateg);
          }
        

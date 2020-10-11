@@ -1,9 +1,15 @@
 <?php
 
 class VetementManager extends DataBase{
-    private $reqBase = "SELECT *, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis
+    private $reqBase = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis
     FROM vetement v
-    INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet = v.id" ;
+    INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet = v.id
+    INNER JOIN vet_taille vt ON vt.idVet = v.id 
+    INNER JOIN vet_couleur vc ON vc.idVet= v.id 
+    INNER JOIN categorie c ON c.id= v.idCateg
+    INNER JOIN genre g ON g.code = v.codeGenre
+    LEFT JOIN taille t ON t.libelle = vt.taille" ;
+
     public $Pagination = null;
 
     
@@ -48,9 +54,12 @@ class VetementManager extends DataBase{
         $resultat = null;
         if( $this->Pagination != null){
             $Recherche = new Recherche($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre, $motCle) ;
-            $reqRecherche = $Recherche->getReqFinal() ;
+            $reqRecherche = $this->reqBase." WHERE vvd.listeIdCouleurDispo IS NOT NULL
+            AND vvd.listeTailleDispo IS NOT NULL ".$Recherche->getReqFinal() ;
+
+         
             $this->Pagination->getBdd();
-       
+
             $newReq = $this->Pagination->getReqPagination($reqRecherche, ["*"]);
             $resultat = $this->Pagination->getModele($newReq, ["*"], "Vetement") ;
         }

@@ -85,16 +85,7 @@ class Recherche{
 
     public function getReqFinal(){
 
-        $reqFinal = "SELECT DISTINCT(v.id), v.*
-            FROM vetement v 
-            INNER JOIN vet_taille vt ON vt.idVet = v.id 
-            INNER JOIN vet_couleur vc ON vc.idVet= v.id 
-            INNER JOIN categorie c ON c.id= v.idCateg
-            INNER JOIN genre g ON g.code = v.codeGenre
-            INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet= v.id 
-            LEFT JOIN taille t ON t.libelle = vt.taille
-            WHERE vvd.listeIdCouleurDispo IS NOT NULL
-            AND vvd.listeTailleDispo IS NOT NULL".
+        $reqFinal =
             " ".$this->reqCouleur().
             " " .$this->reqTaille().
             " ".$this->reqPrix().

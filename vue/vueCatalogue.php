@@ -70,7 +70,7 @@
 
     </ul>
 
-     <input type="submit" value="Trier" name="recherche">           
+     <input type="submit" value="Trier le catalogue" name="trier">           
     </form>
 <!-- test -->
 
@@ -98,21 +98,22 @@ if( $vuePagination != null){
         <p>
             <span class="titre"> <?php echo $vetement->nom() ?> </span>
             <span class="prix"> <?php echo $vetement->prix()."€" ?> </span>
+
+            
+            <span class="taille"> <?php echo "Taille disponible: " ; foreach ($vetement->listeTailleDispo() as $ind => $taille) {
+              if ($ind >= 1) echo ", " ;   echo $taille->libelle() ;
+            } ?> </span>
         </p>
         <ul class="listeCouleur">
             <?php 
                 //Affichage des listes de couleurs disponible
-                if($vetement->listeCouleurDispo() != null){
-                    foreach ($vetement->listeCouleurDispo() as $couleur) {
-                        $idInput = "vet".$vetement->id()."_couleur".$couleur->num();
-                        echo "<li > <div class='color' style='background-image:url(public/media/vetement/id".$vetement->id().".jpg); ".$couleur->filterCssCode()."'></div> <input name='"."vet".$vetement->id()."' id='$idInput' type='radio'> <label for='$idInput' style='filter: ".$couleur->filterCssCode()."; background-color:".$vetement->codeRgbOriginal()."' title='".$couleur->nom()."'>  </label> </li>";
-                    }
+        
+                foreach ($vetement->listeCouleurDispo() as $couleur) {
+                    $idInput = "vet".$vetement->id()."_couleur".$couleur->num();
+                    echo "<li > <div class='color' style='background-image:url(public/media/vetement/id".$vetement->id().".jpg); ".$couleur->filterCssCode()."'></div> <input name='"."vet".$vetement->id()."' id='$idInput' type='radio'> <label for='$idInput' style='filter: ".$couleur->filterCssCode()."; background-color:".$vetement->codeRgbOriginal()."' title='".$couleur->nom()."'>  </label> </li>";
                 }
-                else{
-                    
-                    echo "<li > <span title=''> 0C </span> </li>";
-                    
-                }
+               
+               
             ?>
             
 
