@@ -1,5 +1,5 @@
 # BHL_Clothes
-E-commerce website, shool project.
+E-commerce website, school project.
 
 
 # Installation / Utilisation 
