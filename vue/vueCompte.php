@@ -1,4 +1,4 @@
-<div class="contenu">    
+ 
     <?php
         echo "<h2>".$clientActif->getNom()." ".$clientActif->getPrenom()."</h2>";
     ?>
@@ -70,7 +70,7 @@
 
         </table>
     </div>
-</div>
+
 <script>
     
    

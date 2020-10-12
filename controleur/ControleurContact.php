@@ -16,7 +16,7 @@ class ControleurContact{
          $this->vue = new Vue('Contact') ;
          $this->vue->setHeader("vue/header.php") ;
          $this->vue->genererVue(array( 
- 
+
          )) ;
          
       }

@@ -11,13 +11,83 @@ USE `bhl_clothes`;
 
 DELIMITER ;;
 
-;;
+CREATE FUNCTION `calcCmdTTC`(_numCmd int) RETURNS float
+BEGIN
+          
+        RETURN (SELECT ROUND(sum(ap.qte*v.prix),2) AS 'prixTTC' FROM article_panier ap 
+INNER JOIN vetement v ON v.id = ap.idVet
+WHERE ap.numCmd = _numCmd );
+    END;;
 
-;;
+CREATE FUNCTION `qte_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11)) RETURNS int(11)
+BEGIN
+  RETURN (SELECT qte
+  FROM article_panier ap
+  WHERE ap.numCmd = _numCmd 
+  AND ap.idVet = _idVet 
+  AND ap.taille  = _taille 
+  AND ap.numClr = _numClr);
+END;;
 
-;;
+CREATE PROCEDURE `insert_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11), _qte int)
+BEGIN
+DECLARE newOrdreArr tinyint;
+DECLARE qteArticle int;
 
-;;
+SET qteArticle = (SELECT qte_article(_numCmd , _idVet , _taille , _numClr));
+
+SET newOrdreArr = (
+SELECT
+CASE 
+WHEN MAX(ap.ordreArrivee) IS NULL THEN 1
+WHEN MAX(ap.ordreArrivee) = (
+  SELECT ap2.ordreArrivee FROM article_panier ap2
+  WHERE ap2.numCmd = _numCmd 
+  AND ap2.idVet = _idVet 
+  AND ap2.taille  = _taille 
+  AND ap2.numClr = _numClr
+) THEN MAX(ap.ordreArrivee) 
+ELSE MAX(ap.ordreArrivee)+1
+END AS 'newOrdreArr'
+  FROM article_panier ap
+  WHERE ap.numCmd = _numCmd
+  ORDER BY ap.ordreArrivee DESC
+ 
+);
+
+
+IF( qteArticle >= 1) THEN 
+  UPDATE article_panier SET qte = qteArticle + _qte, ordreArrivee = newOrdreArr
+  WHERE numCmd = _numCmd 
+  AND idVet = _idVet 
+  AND taille  = _taille 
+  AND numClr = _numClr ;
+ELSE
+INSERT INTO article_panier VALUES(_numCmd , _idVet , _taille , _numClr, _qte, newOrdreArr) ;
+END IF;
+
+END;;
+
+CREATE PROCEDURE `payerCommande`(_idClient int, _numCmd int)
+BEGIN
+            DECLARE soldeClient float; DECLARE montantCmdTTC float; DECLARE etatCmd float;
+            SET soldeClient = ( SELECT c.solde FROM client c WHERE c.id = _idClient ) ;
+            SET montantCmdTTC = ( SELECT calcCmdTTC(cmd.num) FROM commande cmd WHERE cmd.num = _numCmd AND cmd.idClient = _idClient ) ;
+            SET etatCmd = ( SELECT cmd2.idEtat FROM commande cmd2 WHERE cmd2.num = _numCmd) ;
+
+            IF (etatCmd = 1) THEN
+              IF (soldeClient > montantCmdTTC AND montantCmdTTC IS NOT NULL AND soldeClient IS NOT NULL ) THEN 
+                UPDATE commande SET idEtat = 2, datePaye = NOW() WHERE num = _numCmd ; 
+                UPDATE client SET solde = (soldeClient-montantCmdTTC) WHERE id = _idClient ; 
+              ELSE
+                SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur: La paiement n\'a pas été effectué.';
+              END IF;
+            ELSE
+              SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur: La commande a déjà été payé.'; 
+            END IF; 
+           
+      
+    END;;
 
 DELIMITER ;
 
@@ -45,12 +115,14 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (1,	2,	'S',	4,	1,	3),
 (8,	3,	'M',	5,	1,	27),
 (3,	4,	'M',	1,	1,	2),
+(10,	4,	'M',	1,	1,	5),
 (3,	5,	'M',	3,	2,	1),
 (8,	6,	'L',	7,	4,	25),
 (8,	6,	'L',	16,	1,	28),
 (7,	8,	'L',	11,	1,	1),
 (8,	8,	'S',	11,	3,	29),
-(9,	8,	'S',	11,	1,	1)
+(9,	8,	'S',	11,	1,	1),
+(10,	8,	'L',	11,	1,	6)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -234,7 +306,8 @@ INSERT INTO `commande` (`num`, `idClient`, `datePaye`, `idEtat`) VALUES
 (5,	5,	NULL,	1),
 (7,	8,	'2020-10-01 21:05:30',	2),
 (8,	8,	'2020-10-11 14:21:20',	2),
-(9,	1,	'2020-10-11 21:32:13',	2)
+(9,	1,	'2020-10-11 21:32:13',	2),
+(10,	8,	NULL,	1)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `datePaye` = VALUES(`datePaye`), `idEtat` = VALUES(`idEtat`);
 
 DROP TABLE IF EXISTS `contact`;
@@ -451,9 +524,9 @@ CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeIdCouleurDispo` med
 
 
 DROP TABLE IF EXISTS `vue_categpargenre`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-11 18:57:03
+-- 2020-10-12 21:03:17

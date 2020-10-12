@@ -49,6 +49,7 @@ div#listeAricle div.infoArticle{
    padding: 20px 30px;
    height: 160px;
    display: flex;
+   box-sizing: content-box;
  }
   
  .article:nth-child(3) {

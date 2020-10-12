@@ -2,19 +2,32 @@
 <html lang="fr">
 <head>
     <base href="/btssio/BTS2/BHL_Clothes/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!-- Bootstrap Intégration  -->
+    <link rel="stylesheet" href="public\bootstrap-4.3.1\bootstrap.min.css">
+    <script src="public/script/js/jquery-3.4.0.min.js"></script>
+    <script src="public\bootstrap-4.3.1\bootstrap.min.js"></script>
+    <!--  -->
+
+
+
     <link href='public/font/Archivo.css' rel='stylesheet'>
     <meta charset="UTF-8">
     <title> <?php echo $titre  ?> </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
     <link rel="stylesheet" href="public/css/bhl_clothes.css">
     <link rel="stylesheet" href="public/css/erreur.css">
     <link rel="stylesheet" href="public/css/navigation.css">
     <link rel="stylesheet" href="public/script/DataTable/datatable.css"> <!-- Provisoir -->
-    <script src="public/script/js/jquery-3.4.0.min.js"></script>
+  
+   
+
     
 
     <!-- liens notes -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <script src=""></script>
     

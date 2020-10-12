@@ -38,3 +38,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+/* responsive */
+@media all and (max-width: 1600px){
+    .genre img{
+        margin-bottom:20px;
+        width:300px;
+    }
+}
+

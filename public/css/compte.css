@@ -1,5 +1,12 @@
 * {box-sizing: border-box}
 /* Style the tab */
+
+#contenu{
+    width: 70%;
+    margin: auto;
+}
+
+
 .tab {
     float: left;
     border: 1px solid #ccc;
@@ -42,12 +49,13 @@
 
 .contenutab {
     float: left;
-    padding: 0px 12px;
+    padding: 0px 10px;
     border: 1px solid #ccc;
     width: 70%;
     border-left: none;
     height: 500px;
     border-radius: 0px 20px 20px 0px;
+    overflow: auto;
 }
  
 
@@ -81,5 +89,4 @@ div#livraison input[type=text]{
 .email{
     border-radius: 20px 0px 0px 0px;
 }
-
 

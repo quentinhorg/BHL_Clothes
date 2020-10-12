@@ -1,7 +1,19 @@
+@import "navigation_responsive.css";
 
-/* Navigation */
+/* BOOTSTRAP CORRECTION */
+.mt-lg-0{
+   margin-left: auto;
+   margin-right: unset!important;
+}
+.navbar-light .navbar-nav .nav-link{
+   color:black;
+}
 
-   
+.mr-sm-2{
+
+
+margin: 6px 0 0 10px;
+}
 
 #navCateg{
    text-align: center;
@@ -77,16 +89,10 @@ hr{
 
 }
 
-#navPrincipale #logo{
+#logo{
    font-size: 2rem;
    color: #e76c35;
    font-weight: bold;
    
 }
 
-
- 
-#recherche{
-   align-self: center;
-}
- 

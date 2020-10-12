@@ -116,12 +116,12 @@ ul.listeCouleur li{
    background-color: #80808017;
    padding: 10px;
    border-radius: 5px;
-   height: 100px;
-   width: 300px;
+   height: 165px;
+   width: 430px;
 }
 
 .avis input[type="submit"]{
-   padding: 7px;
+   padding: 3px 7px 3px 7px;
    background-color: coral;
    border: none;
    border-radius: 5px;
@@ -185,4 +185,22 @@ ul.listeCouleur li{
 
 .avis .donnerAvis{
    padding: 0 0 10px 30px;
+}
+
+
+/* responsive */
+@media all and (max-width: 700px){
+   .cadre{
+      display: block;
+      margin-top: 30px;
+   }
+
+   .avis .donnerAvis{
+      padding: 0 0 10px 30px;
+      text-align:center;
+   }
+
+   .avis h2{
+      text-align:center;
+   }
 }
