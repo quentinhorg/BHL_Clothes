@@ -93,7 +93,6 @@ class Commande{
          $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
       }
 
-
       return $dateFormat;
    }
 

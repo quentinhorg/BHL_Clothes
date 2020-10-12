@@ -15,7 +15,8 @@
             
              <?php
                   if($clientEnLigne != null) {
-                     echo "<a href='compte&deco=ok'> Deconnexion <a>" ;
+                     echo "<a href='compte&deco=ok'>  <img src='public/media/bhl_clothes/deconnexion.png' alt='Deconnexion' title='Déconnexion' style='width: 23px; margin-right: 3px;
+                     margin-top: 3px;'>Déconnexion <a>" ;
 
                      echo $clientEnLigne->getNom();
                   }
