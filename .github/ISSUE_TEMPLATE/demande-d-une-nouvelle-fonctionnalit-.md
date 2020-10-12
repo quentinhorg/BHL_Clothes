@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Attente de cette fonctionnalité **
-Décrire l'attente de cette fonctionnalité
+Décrivez ce que vous souhaitez voir de nouveau sur le projet.
 
 **Contexte supplémentaire**
 Ajoutez tout autre contexte ou capture d'écran sur la demande de fonctionnalité ici.

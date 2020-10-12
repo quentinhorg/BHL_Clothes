@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Attente de cette amélioration**
-Décrire l'attente de cette amélioration
+Décrivez ce que vous souhaitez voir de nouveau dans une fonctionnalité. 
 
 **Contexte supplémentaire**
 Ajoutez tout autre contexte ou capture d'écran sur la demande d'amélioration ici.
