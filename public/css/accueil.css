@@ -41,10 +41,9 @@
 
 
 /* responsive */
-@media all and (max-width: 1600px){
+@media all and (max-width: 800px){
     .genre img{
         margin-bottom:20px;
-        width:300px;
+        width:200px;
     }
 }
-

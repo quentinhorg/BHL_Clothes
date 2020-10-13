@@ -1,3 +1,15 @@
+.btn-primary{
+  background-color: #e76c35;
+  border-color: #e76c35;
+}
+
+.btn-primary:hover {
+  background-color: #e97f50;
+  border-color: #e97f50;
+}
+
+
+
 body{
    margin:0;
    font-family: system-ui;
@@ -8,10 +20,6 @@ hr{
 }
 
 
-a{
-   text-decoration: none;
-   color: unset;
-}
 
 /* Contenu de toutes pages */
 

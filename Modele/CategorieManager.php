@@ -23,3 +23,4 @@ class CategorieManager extends DataBase{
 }
 
 ?>
+

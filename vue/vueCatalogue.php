@@ -1,5 +1,12 @@
 <div id="navCatalogue">
 
+<hr>
+<div class="d-flex" id="wrapper">
+    
+<div class="bg-light border-right" id="navCatalogue">
+
+      <div class="list-group list-group-flush">
+       
 <form action="" method="POST">
     <?php
     
@@ -75,11 +82,18 @@
 <!-- test -->
 
 </div>
+     
+     </div>
+
 
 <section id="catalogue">
 
 <div id="listVetement">
-<h3 id="currentPage"> <?php if($genreActive != null){ echo "<a href='catalogue/".$genreActive->code()."'>".$genreActive->libelle()."</a>" ;} else{ echo "Tous le catalogue" ;} if($categActive != null) {echo " > ".$categActive->nom(); } ?> </h3>
+<p style='text-align:left;'> <button class="btn btn-primary" id="menu-toggle">&#9776; Menu</button> </p>
+
+<p id="currentPage"> <?php if($genreActive != null){ echo "<a href='catalogue/".$genreActive->code()."'>".$genreActive->libelle()."</a>" ;} else{ echo "Tous le catalogue" ;} if($categActive != null) {echo " > ".$categActive->nom(); } ?> </p>
+
+
 <hr>
 
 <?php if($listeVetement != null){?>
@@ -94,15 +108,16 @@ if( $vuePagination != null){
 
 <?php foreach ($listeVetement as $vetement) { ?>
     <div class="cadreVet">
-        <a href="vetement/<?php echo $vetement->id() ?>"><div class="img" style="background-image: url(public/media/vetement/id<?php echo $vetement->id() ?>.jpg)" ></div></a>
+    <a href="vetement/<?php echo $vetement->id() ?>"><img class="imgArticle" src="public/media/vetement/id<?php echo $vetement->id() ?>.jpg" alt="">  </a>
         <p>
-            <span class="titre"> <?php echo $vetement->nom() ?> </span>
+        <p class="titre"> <?php echo $vetement->nom() ?>   <span class="taille">(<?php foreach ($vetement->listeTailleDispo() as $ind => $taille) {
+              if ($ind >= 1) echo ", " ;   echo $taille->libelle() ;
+            } ?>) </span> </p> 
+
             <span class="prix"> <?php echo $vetement->prix()."€" ?> </span>
 
             
-            <span class="taille"> <?php echo "Taille disponible: " ; foreach ($vetement->listeTailleDispo() as $ind => $taille) {
-              if ($ind >= 1) echo ", " ;   echo $taille->libelle() ;
-            } ?> </span>
+     
         </p>
         <ul class="listeCouleur">
             <?php 
@@ -143,11 +158,18 @@ if( $vuePagination != null){
 
 
 </section>
+</div>
 
 
 <script>
  Catalogue = new Catalogue();
  Catalogue.changeColor();
+
+ 
+ $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
 
 
 </script>

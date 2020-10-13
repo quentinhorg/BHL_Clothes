@@ -1,12 +1,12 @@
 /* Cadre des vêtements */
 section#catalogue{
    text-align: center;
+   width: 100%;
 }
 
 .cadreVet{
    background-color: #f9f9f9;
-   min-width: 300px;
-   min-height: 500px;
+   max-width: 300px;
    margin: 10px 20px;
    display: inline-block;
    text-align: left;
@@ -17,11 +17,8 @@ section#catalogue{
    border: 1px black solid;
 }
 
-.img{
+.imgArticle{
    width: 100%;
-   height: 400px;
-   background-position: center;
-   background-size: 100%;
    cursor: pointer;
 }
 
@@ -44,10 +41,6 @@ ul.listeCouleur li{
 ul.listeCouleur li input{
    display: none;
    
-}
-
-#listVetement{
-   margin-left: 220px;
 }
 
 ul.listeCouleur li div.color{
@@ -112,14 +105,8 @@ ul.listeCouleur li div.color{
  
 /* Navigation */
 
-
-
-
-#navCatalogue{
-   position: absolute;
-   min-width: 200px;
-   min-height: 100vh;
-   padding: 8px;
+.taille{
+   color: black;
 }
 
 input[type="checkbox"]:checked  {
@@ -211,6 +198,9 @@ input[type="checkbox"]:checked  {
 
 #currentPage{
    text-align: left;
+   font-size: 1rem;
+   font-weight: normal;
+   color: #9e9e9e;
 }
 
 input[name=trier]{
@@ -223,4 +213,86 @@ input[name=trier]{
     margin: auto;
     margin-top: 50px;
     display: block;
+}
+
+
+
+
+
+
+
+
+
+/* --------- */
+
+
+#wrapper {
+   overflow-x: hidden;
+}
+
+#navCatalogue {
+ min-height: 100vh;
+ margin-left: -15rem;
+ -webkit-transition: margin .25s ease-out;
+ -moz-transition: margin .25s ease-out;
+ -o-transition: margin .25s ease-out;
+ transition: margin .25s ease-out;
+}
+
+#navCatalogue .sidebar-heading {
+ padding: 0.875rem 1.25rem;
+ font-size: 1.2rem;
+}
+
+#navCatalogue .list-group {
+ width: 15rem;
+}
+
+#page-content-wrapper {
+ min-width: 100vw;
+}
+
+#wrapper.toggled #navCatalogue {
+ margin-left: 0;
+}
+
+
+@media 
+only screen and (min-width: 768px){
+
+ #navCatalogue {
+   margin-left: 0;
+ }
+
+ #page-content-wrapper {
+   min-width: 0;
+   width: 100%;
+ }
+
+ #wrapper.toggled #navCatalogue {
+   margin-left: -15rem;
+ }
+
+}
+
+
+.btn-primary{
+   background-color: #f8f9fa!important;
+    margin: 0;
+    margin-left: -1px;
+    border: 0;
+    border-right: 1px solid #dee2e6!important;
+    border-bottom: 1px solid #dee2e6!important;
+    padding-left: 2px;
+    color: black;
+    
+}
+
+@media 
+only screen and (max-width: 950px){
+   .cadreVet{
+      max-width: 260px;
+      width: 50%;
+
+   }
 }
