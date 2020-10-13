@@ -41,9 +41,69 @@
 
 
 /* responsive */
-@media all and (max-width: 800px){
+@media all and (max-width: 600px){
     .genre img{
         margin-bottom:20px;
-        width:200px;
+        width:365px;
+    }
+
+    .genre{
+        text-align: center;
+    }
+}
+
+ @media all and (max-width: 800px){
+    .genre img{
+        margin-bottom:20px;
+        width:238px;
+    }
+    .genre{
+        text-align: center;
+    }
+}
+@media all and (max-width: 900px){
+    .genre img{
+        margin-bottom:20px;
+        width:238px;
+    }
+    .genre{
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 1000px){
+    .genre img{
+        margin-bottom:20px;
+        width:238px;
+    }
+    .genre{
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 1100px){
+    .genre img{
+        margin-bottom:20px;
+        width:330px;
+    }
+    .genre{
+        text-align: center;
+    }
+} 
+
+@media all and (max-width: 1200px){
+    .genre img{
+        margin-bottom:20px;
+        width:340px;
+    }
+    .genre{
+        text-align: center;
+    }
+}
+
+@media all and (max-width: 1300px){
+    .genre img{
+        margin-bottom:20px;
+        width:365px;
     }
 }

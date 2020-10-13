@@ -17,28 +17,29 @@ class ControleurAuthentification{
          if (isset($_POST['submit'])){
             if (!empty($_POST['nom'])) {
                if (!empty($_POST['prenom'])) {
-                  if (!empty($_POST['adresse'])) {
-                     if (!empty($_POST['email'])) {
-                        if (!empty($_POST["mdp"])){
-                           if (!empty($_POST['tel'])) {
-                              $idClientRegister = $this->insertClient();
+                  if (!empty($_POST['cp'])) {
+                     if (!empty($_POST["rue"])){
+                        if (!empty($_POST['email'])) {
+                           if (!empty($_POST["mdp"])){
+                              if (!empty($_POST['tel'])) {
 
-                              if( $_SESSION["ma_commande"]->panier() != NULL ){
-                                 $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
-                              }
+                                 $idClientRegister = $this->insertClient();
 
-                              $mail= $_POST['email'];
-                              $mdp = $_POST['mdp'];
+                                 if( $_SESSION["ma_commande"]->panier() != NULL ){
+                                    $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
+                                 }
 
-                              $this->tryConnexion($mail, $mdp) ;
+                                 $mail= $_POST['email'];
+                                 $mdp = $_POST['mdp'];
+
+                                 $this->tryConnexion($mail, $mdp) ;
                             
-                             
-                  
-                              
-                           }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
-                        }else {  $message = "Veuillez entrer un mot de passe"; }
-                     }else {  $message = "Veuillez entrer votre Email"; }
-                  }else {  $message = "Veuillez entrer votre adresse"; }
+                           
+                              }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
+                           }else {  $message = "Veuillez entrer un mot de passe"; }
+                        }else {  $message = "Veuillez entrer votre Email"; }
+                     }else{ $message = "Veuillez entrer votre rue";} 
+                  }else {  $message = "Veuillez entrer votre code postal"; }
                }else {  $message = "Veuillez entrer un Prénom"; }
             }else {  $message = "Veuillez entrer un nom";   }
          }
@@ -107,34 +108,9 @@ class ControleurAuthentification{
    }
 
    private function getListCpReunion(){
-      $ListCpVilleReunion = array(
-         "97400" => 	"Saint-Denis",
-         "97410" => 	"Saint-Pierre",
-         "97412" => 	"Bras-Panon",
-         "97413" => 	"Cilaos",
-         "97414" => 	"Entre-Deux",
-         "97419" => 	"La Possession",
-         "97420" => 	"Le port",
-         "97425" => 	"Les Avirons",
-         "97426" => 	"Trois-Bassins",
-         "97427" => 	"L'Etang-salé",
-         "97429" => 	"Petit-Ile",
-         "97430" => 	"Tampon",
-         "97431" => 	"La Plaine des Palmistes",
-         "97433" => 	"Salazie",
-         "97436" => 	"Saint-Leu",
-         "97438" => 	"Sainte-Marie",
-         "97439" => 	"Sainte-Rose",
-         "97440" => 	"Saint-André",
-         "97441" => 	"Sainte-Suzanne",
-         "97442" => 	"Saint-Philippe",
-         "97450" => 	"Saint-Louis",
-         "97460" => 	"Saint-Paul",
-         "97470" => 	"Saint-Benoit",
-         "97480" => 	"Saint-Joseph"
-      );
-   
-    return $ListCpVilleReunion ;
+     
+     $CodePostalManager = new CodePostalManager;
+      return $CodePostalManager->getListCP();
    }
 
 }

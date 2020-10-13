@@ -1,4 +1,4 @@
-#contenu form input, #contenu form textarea, #contenu form select{
+/* #contenu form input, #contenu form textarea, #contenu form select{
     margin-bottom: 20px;
 }
 
@@ -18,6 +18,16 @@ li{
 .contact{
     width: 420px;
     margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.formContact h1{
+    margin-bottom: 15px;
+}
+
+.formContact textarea{
+    width: 250px;
 }
 
 #contenu form input[type="text"], #contenu form input[type="email"] {
@@ -39,6 +49,7 @@ li{
 
 #contenu form select{
     color: gray;
+    width: 252px;
 }
 
 
@@ -46,4 +57,38 @@ li{
     padding: 5px;
     border: 1px solid #8080808a;
     border-radius: 3px;
+}
+
+*/
+
+
+
+
+.form-control{
+    width: auto;
+    margin: auto;
+}
+
+#exampleFormControlTextarea1{
+    width: 270px;
+    margin: auto;
+}
+
+.form-group{
+    text-align: center;
+}
+
+hr{
+    width: 500px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.infoContact{
+    text-align: center;
+}
+
+.infoContact ul{
+    list-style: none;
 }

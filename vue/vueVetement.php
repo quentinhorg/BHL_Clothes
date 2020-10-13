@@ -194,7 +194,6 @@
     function ajoutArticle() {
         alert("Votre article a bien été ajouté au panier.");
     }
-    
 
     $("#ajouterPanier").click(function(){
 

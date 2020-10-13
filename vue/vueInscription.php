@@ -40,7 +40,7 @@
 
         
         <div class="form-group col-md-6">
-        <label for="inputRue">Rue</label>
+        <label for="inputRue">Rue</label> 
             <input type="text" autofill="off" name="rue" id="inputRue" class="form-control" placeholder="Rue" required autofocus>
     
         </div>
@@ -51,7 +51,7 @@
       <label for="inputEmail">Adresse email</label>
         <input type="email" autofill="off" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
        
-      </div>
+      </div> 
 
 
       <div class="form-group">
@@ -81,6 +81,8 @@
 
 
 <?php
+
+
     if ($message==null) {
         
     }else{

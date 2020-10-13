@@ -6,7 +6,8 @@ class Client{
    private  $mdp;
    private  $nom;
    private  $prenom;
-   private  $adresse;
+   private  $rue;
+   private $codePostal;
    private  $tel;
    private  $solde;
    private $listeCmd = array(); //Tableau d'objet
@@ -68,9 +69,15 @@ class Client{
         }
     }
 
-    public function setAdresse($adresse){
-        if(is_string($adresse)){
-            $this->adresse = $adresse;
+    public function setRue($rue){
+        if(is_string($rue)){
+            $this->rue = $rue;
+        }
+    }
+
+    public function setCodePostal($codePostal){
+        if(is_string($codePostal)){
+            $this->codePostal = $codePostal;
         }
     }
 
@@ -125,8 +132,11 @@ class Client{
         return $this->prenom;
     }
 
-    public function getAdresse(){
-        return $this->adresse;
+    public function rue(){
+        return $this->rue;
+    }
+    public function codePostal(){
+        return $this->codePostal;
     }
 
     public function getTel(){

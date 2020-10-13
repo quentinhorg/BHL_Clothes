@@ -1,4 +1,4 @@
-<div id="navCatalogue">
+
 
 <hr>
 <div class="d-flex" id="wrapper">
@@ -87,9 +87,9 @@
 
 
 <section id="catalogue">
-
-<div id="listVetement">
 <p style='text-align:left;'> <button class="btn btn-primary" id="menu-toggle">&#9776; Menu</button> </p>
+<div id="listVetement">
+
 
 <p id="currentPage"> <?php if($genreActive != null){ echo "<a href='catalogue/".$genreActive->code()."'>".$genreActive->libelle()."</a>" ;} else{ echo "Tous le catalogue" ;} if($categActive != null) {echo " > ".$categActive->nom(); } ?> </p>
 
@@ -149,6 +149,7 @@ if( $vuePagination != null){
 
 ?>
 </div>
+
 <?php 
 
 

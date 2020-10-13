@@ -27,11 +27,11 @@ class ClientManager extends DataBase{
     public function insertBDD(){
         $this->getBdd(); //Autoriser l'access a la BDD
         $newID = $this->getNewIdTable('client','id'); 
-        $req = "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?, ?,100)"; 
+        $req = "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?, ?, ?,100)"; 
         $this->getBdd(); 
-        $this->execBDD($req,[$newID,$_POST['email'], sha1($_POST['mdp']), $_POST['nom'], $_POST['prenom'], $_POST['adresse'],$_POST['tel']]);
+        $this->execBDD($req,[$newID,$_POST['email'], sha1($_POST['mdp']), $_POST['nom'], $_POST['prenom'], $_POST['cp'] ,$_POST['rue'],$_POST['tel']]);
 
-        return $newID ;
+        return $newID ; 
     }
 
     public function getId($mail, $mdp){
@@ -62,8 +62,8 @@ class ClientManager extends DataBase{
 
     public function changeAdresse($id){
         $this->getBdd();
-        $changeAdresse = "UPDATE client SET adresse = ? WHERE id = ? ;" ;
-        $resultat = $this->execBDD($changeAdresse,[$_POST['changeAdresse'],$id]);
+        $changeAdresse = "UPDATE client SET rue = ?, codePostal = ? WHERE id = ? ;" ;
+        $resultat = $this->execBDD($changeAdresse,[$_POST['changeRue'], $_POST['changeCP'],$id]);
     }
 
 

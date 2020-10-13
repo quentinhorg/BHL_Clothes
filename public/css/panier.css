@@ -1,3 +1,25 @@
+@media (min-width: 576px){
+  .col-sm {
+      max-width: 100%!important;
+}
+}
+
+.list-group-item, .list-group{
+  height: 100%;
+}
+
+
+
+
+
+ul .list-group-item{
+  border: none;
+  padding: 0;
+
+
+}
+
+
 #contenu{
    background-color: #efefef;;
 }
@@ -24,14 +46,11 @@ div#listeAricle div.infoArticle{
 /* -------------- */
 
 .panier {
-   width: 750px;
-   margin: 80px auto;
+
    background: #FFFFFF;
    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
    border-radius: 6px;
-  
-   display: flex;
-   flex-direction: column;
+
  }
 
  .title {
@@ -50,6 +69,7 @@ div#listeAricle div.infoArticle{
    height: 160px;
    display: flex;
    box-sizing: content-box;
+   position: relative;
  }
   
  .article:nth-child(3) {
@@ -109,6 +129,11 @@ div#listeAricle div.infoArticle{
    width: 115px;
    position: relative;
  }
+ .deleteArticle{
+   position: absolute;
+   right: 0;
+   top: 0 ;
+ }
   
  .description span {
    display: block;
@@ -126,7 +151,7 @@ div#listeAricle div.infoArticle{
    color: #86939E;
  }
 
- .description span.tailleClr {
+ .description span.taille {
   font-weight: 300;
   margin-top: 8px;
   color: #86939E;
@@ -140,8 +165,9 @@ div#listeAricle div.infoArticle{
 }
 
  .quantity {
-   padding-top: 20px;
    margin-right: 60px;
+   display: flex;
+   align-items: center;
  }
  .quantity input {
    -webkit-appearance: none;
@@ -182,32 +208,44 @@ div#listeAricle div.infoArticle{
  .total-price {
    width: 83px;
    padding-top: 27px;
-   text-align: center;
    font-size: 16px;
    color: #43484D;
    font-weight: 300;
  }
 
  @media (max-width: 800px) {
+   .col-lg-9{
+    max-width: 500px;
+    margin: auto;
+   }
+
    .panier {
      width: 100%;
      height: auto;
      overflow: hidden;
+    
    }
+
+   .panier span.taille{
+    position: relative;
+    text-align: center;
+    display: block;
+   }
+
    .article {
      height: auto;
      flex-wrap: wrap;
      justify-content: center;
+     position: relative;
    }
-   .image img {
-     width: 50%;
-   }
+
    .image,
    .quantity,
    .description {
      width: 100%;
      text-align: center;
-     margin: 6px 0;
+     margin: 0;
+     display: block;
      
    }
 
@@ -265,3 +303,11 @@ section#panier{
     font-size: 1.5rem;
     font-weight: bold;
   }
+
+
+  .list-group-item{
+    display: flex;
+    }
+     .colonne{
+    margin: 5px
+    }

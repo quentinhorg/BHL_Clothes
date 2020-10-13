@@ -4,10 +4,10 @@
 
 <?php if($infoCommande->Etat()->id() != 1) {?>
     <span> Fait le <?php echo $infoCommande->date() ?> </span>
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-10 hh-grayBox pt45 pb20">
-            <div class="row justify-content-between">
+<div>
+    <div >
+        <div class="hh-grayBox">
+            <div class="justify-content-between">
 
             <?php 
                $classCompleted = "completed";

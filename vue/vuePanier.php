@@ -1,13 +1,21 @@
-<?php //var_dump($maCommande->panier() ); ?>
+<?php //var_dump($maCommande); ?>
 
 <section id="panier"> 
 <?php if( $maCommande->panier() != null){ ?>
 
+
+
+
+
+
+  <div class="container">
+  <div class="row" >
+
+  <div class=" col-lg-9">
 <div class="panier">
   <!-- Title -->
   <div class="title">
     Mon panier
-    <a href="panier/paiement"> <button> Passer au paiement </button> </a>
   </div>
  
   <?php  foreach ($maCommande->panier() as $article) {
@@ -28,7 +36,7 @@
     <div class="description">
       <span><?php echo $article->nom() ?></span>
       <span class='categ' ><?php echo $article->categ()->nom() ?></span>
-      <span class='tailleClr' ><?php echo" <div class='color' style='background-image:url(public/media/vetement/id".$article->id().".jpg); ".$article->Couleur()->filterCssCode()."'></div>Taille: ".$article->Taille()->libelle() ?></span>
+      <span class='taille' >Taille: <?php echo $article->Taille()->libelle() ?></span>
     </div>
  
     <div class="quantity">
@@ -48,11 +56,9 @@
     </div>
  
     <div class="total-price"> <span>  <?php echo $article->prixTotalArt()."€" ?> </span> </div>
-    <div class="buttons">
-      <?php  ?>
+   
      <button value='<?php echo $valueArticle ?>' type='button' class='deleteArticle'>Supprimer</button>
-     
-    </div>
+
   </div>
 
   
@@ -61,6 +67,24 @@
 
 
 </div>
+</div>
+
+<div class="col-lg-3">
+    <div class="list-group">
+    <div href="#" class="list-group-item">
+    	<div class='colonne'>
+
+        <label for="" id="prixCmdTTC"> Prix TTC : <?php echo "<span>".$maCommande->prixTTC()."€</span>" ; ?>  </label>
+        <a href="panier/paiement"> <button>  Passer au paiement </button> </a>
+      
+          </div>
+    </div>
+
+  </div>
+    </div>
+
+  </div>
+  </div>
 
 <!-- <div id="infoCommande"> 
     <div class="prixCmd">
@@ -108,6 +132,7 @@ $('.quantity button').on('click', function() {
     dataType : 'json',
 		success : function (result) {
       $("#qtePanierNav span .nbQte").text(result['totalQtePanier']) ; 
+      $("#prixCmdTTC span").text(result["prixCmdTTC"]+"€") ;
       parent.parent().find(".total-price").text(result['newPrixArt']+"€");
     }
 	});
@@ -125,7 +150,7 @@ $('.quantity button').on('click', function() {
 
 
    $('button.deleteArticle').on('click', function() {
-    var ligneArticle =  $(this).parent().parent();
+    var ligneArticle =  $(this).parent();
    var postVal = $(this).val();
    var submitName = "deleteArticle";
 
@@ -136,6 +161,7 @@ $('.quantity button').on('click', function() {
     dataType : 'json',
 		success : function (result) {
       $("#qtePanierNav span .nbQte").text(result['totalQtePanier']) ; 
+      $("#prixCmdTTC span").text(result["prixCmdTTC"]+"€") ;
       ligneArticle.addClass("article_hide");
     }
   });

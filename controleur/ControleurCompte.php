@@ -43,32 +43,48 @@ class ControleurCompte{
                 }
     
                 if(isset($_POST['submitAdresse'])){
-                    if (!empty($_POST['changeAdresse']) && !empty($_POST['changeAdresse2'])){
-                            if($_POST['changeAdresse'] == $_POST['changeAdresse2']){
+                    if (!empty($_POST['changeRue']) && !empty($_POST['changeRue2'])){
+                            if($_POST['changeRue'] == $_POST['changeRue2']){
                                 $this->changeAdresse();
                             }else{ $message = "Les adresses ne sont pas identiques";}
                     }else{ $message = "Il manque au moins une information";}
                 }
+
+                //Actualisation des  nouvelles données du client
+                $GLOBALS["client_en_ligne"] = $this->getNewInfoClientActif() ;
     
                 if (isset($_GET['deco'])) {
                        $this->deconnexion();
                        header("Location: ".URL_SITE);
                 }
-    
                 
                 $this->vue = new Vue('Compte') ;
                 $this->vue->setListeJsScript(["public\script\DataTable\datatable.js"]);
                 $this->vue->setListeCss(["public/css/compte_dataTables.css", "public/css/compte_responsive"]);
                 $this->vue->genererVue(array(
                     "clientActif"=> $GLOBALS["client_en_ligne"],
-                    "message"=>$message
+                    "message"=>$message,
+                    "listeCP"=>$this->getListCP()
                 )) ;
             }
            
 
         }
     }
+
         
+    private function getNewInfoClientActif(){
+        $ClientManager = new ClientManager();
+        return  $ClientManager->getClient( $GLOBALS["client_en_ligne"]->getId() );
+    }
+
+    
+    private function getListCP(){
+        $CodePostalManager = new CodePostalManager();
+        $listCP = $CodePostalManager->getListCP();
+
+        return $listCP;
+    }
         
     private function listeEtat(){
         $EtatManager = new EtatManager();

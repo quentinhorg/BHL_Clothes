@@ -34,11 +34,23 @@
 
     <div id="livraison" class="contenutab">
         <h3>Livraison</h3>
-        <p>Votre adresse est actuellement <a><?php echo $clientActif->getAdresse();?></a> </p> 
+        <p>Votre adresse est actuellement <a><?php echo $clientActif->rue()." ".$clientActif->codePostal();?></a> </p> 
         <p>Si vous souhaitez la modifier, entrez votre adresse de livraison ci dessous </p>
         <form action="compte#livraison" method="POST">
-            <input type="text" name="changeAdresse" placeholder="Entrez la nouvelle adresse" ><br>
-            <input type="text" name="changeAdresse2" placeholder="Confirmez la nouvelle adresse" ><br>
+            <input  class="form-control" type="text" name="changeRue" placeholder="Entrez la nouvelle rue" ><br>
+            <input  class="form-control" type="text" name="changeRue2" placeholder="Confirmez la nouvelle rue" ><br> <br>
+
+            <select class="form-control" name="changeCP" id="CodePostal">
+                    <?php
+
+                    foreach ($listeCP as $cp => $ville) {
+                        echo "<option value='$cp'> $cp - $ville </option>";
+                    }
+                    
+                    ?>
+            
+                </select>
+
             <input type="submit" value="Changer l'adresse" name="submitAdresse">
         </form>
     </div>
@@ -73,7 +85,9 @@
 
 <script>
     
-   
+    //Sélection du code postal sur le select
+     $('#CodePostal').val('<?php echo $clientActif->codePostal() ; ?>'); 
+     
 
     function ouvririnfo(event, parametre) {
         var i, tabcontent, lientab;
@@ -109,7 +123,7 @@
 
         }   else{
                 echo "alert(\"".$message."\");";
-            } 
+        } 
     ?>
 
 </script>

@@ -90,3 +90,8 @@ div#livraison input[type=text]{
     border-radius: 20px 0px 0px 0px;
 }
 
+
+.form-control{
+    width: auto;
+}
+
