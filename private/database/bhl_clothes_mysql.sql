@@ -112,15 +112,40 @@ CREATE TABLE `article_panier` (
 
 INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ordreArrivee`) VALUES
 (1,	1,	'XL',	6,	3,	2),
+(12,	1,	'L',	18,	6,	6),
 (1,	2,	'S',	4,	1,	3),
+(3,	2,	'XL',	4,	1,	10),
+(3,	3,	'L',	5,	1,	20),
 (8,	3,	'M',	5,	1,	27),
 (3,	4,	'M',	1,	1,	2),
-(3,	5,	'M',	3,	2,	1),
+(3,	4,	'M',	2,	1,	9),
+(12,	4,	'M',	2,	1,	4),
+(14,	4,	'M',	1,	1,	1),
+(11,	5,	'XL',	8,	9,	5),
+(3,	6,	'L',	15,	1,	19),
+(3,	6,	'L',	16,	1,	14),
+(3,	6,	'M',	16,	1,	15),
+(3,	6,	'XL',	16,	2,	16),
+(3,	6,	'XS',	16,	1,	17),
 (8,	6,	'L',	7,	4,	25),
 (8,	6,	'L',	16,	1,	28),
+(3,	7,	'L',	10,	2,	21),
+(3,	7,	'M',	10,	1,	22),
+(3,	7,	'XL',	10,	1,	23),
+(3,	7,	'L',	17,	1,	25),
+(3,	7,	'M',	17,	1,	26),
+(3,	7,	'XL',	17,	2,	27),
+(13,	7,	'M',	17,	1,	3),
 (7,	8,	'L',	11,	1,	1),
 (8,	8,	'S',	11,	3,	29),
-(9,	8,	'S',	11,	1,	1)
+(9,	8,	'S',	11,	1,	1),
+(10,	9,	'M',	12,	1,	2),
+(3,	10,	'36',	13,	4,	13),
+(13,	10,	'36',	13,	1,	2),
+(3,	11,	'42',	9,	1,	4),
+(10,	11,	'42',	9,	1,	3),
+(12,	11,	'42',	9,	1,	5),
+(13,	11,	'42',	9,	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -196,7 +221,9 @@ INSERT INTO `avis` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VA
 (3,	5,	6,	'Short de bonne qualité, conforme à la photo',	4,	'2020-10-01 21:55:01'),
 (4,	1,	1,	'Je trouve que la robe est un peu transparente à la lumière mais ce problème est vite réglé avec un petit short en dessous',	4,	'2020-10-06 21:57:09'),
 (5,	6,	1,	'Elle correspond à mes attentes et la livraison était plutôt rapide! \r\nBon produit',	5,	'2020-10-10 21:58:28'),
-(6,	8,	11,	'Je suis déçu, la texture blanchit facilement. ',	1,	'2020-10-11 00:03:20')
+(6,	8,	11,	'Je suis déçu, la texture blanchit facilement. ',	1,	'2020-10-11 00:03:20'),
+(7,	11,	10,	'Ce pantalon est sympa mais un peu grand pour un 36',	3,	'2020-10-13 20:40:17'),
+(8,	4,	4,	'Matière souple et confortable. Bon pull',	4,	'2020-10-13 20:51:44')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `idClient` = VALUES(`idClient`), `idVet` = VALUES(`idVet`), `commentaire` = VALUES(`commentaire`), `note` = VALUES(`note`), `date` = VALUES(`date`);
 
 DROP TABLE IF EXISTS `categorie`;
@@ -239,14 +266,17 @@ CREATE TABLE `client` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`, `tel`, `solde`) VALUES
-(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97410',	'4 rue papangue',	'0692466990',	780),
+(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	780),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97400',	'7 impasse jesus',	'0694458553',	45.15),
-(3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	85.6),
+(3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97469',	'6 impasse du cocon',	'0692851347',	84.6),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97469',	'9 chemin des zoizeau',	'0692753212',	984.2),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97466',	'3 rue de lameme',	'65454',	351),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97442',	'8 chemin coquelicots',	'0628468787',	656)
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	656),
+(9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'test',	'6969',	100),
+(10,	'roro13@gmail.com',	'3eddfbf3c48b779222cd8eebb3e137614d5ffee2',	'Robin',	'Jean',	'97413',	'36 rue des merisier ',	'roro',	100),
+(11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97419',	'34 rue des fleurs',	'0693455667',	100)
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`);
 
 DELIMITER ;;
@@ -287,13 +317,42 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'',	'',	'0692466990',	780,	'2020-10-13 16:33:36',	'UPDATE'),
 (1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'974',	'',	'0692466990',	780,	'2020-10-13 16:33:43',	'UPDATE'),
 (1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'',	'0692466990',	780,	'2020-10-13 16:34:07',	'UPDATE'),
+(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97410',	'4 rue papangue',	'0692466990',	780,	'2020-10-13 18:08:01',	'UPDATE'),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'',	'',	'0694458553',	45.15,	'2020-10-13 16:34:07',	'UPDATE'),
 (3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'',	'',	'0693122478',	85.6,	'2020-10-13 16:34:07',	'UPDATE'),
+(3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	85.6,	'2020-10-14 22:11:41',	'UPDATE'),
+(3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	1200,	'2020-10-14 22:11:52',	'UPDATE'),
+(3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	10200,	'2020-10-14 22:14:01',	'UPDATE'),
+(3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9954.4,	'2020-10-14 22:16:39',	'UPDATE'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'',	'',	'0693238645',	45.15,	'2020-10-13 16:34:07',	'UPDATE'),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'',	'',	'0692851347',	84.6,	'2020-10-13 16:34:07',	'UPDATE'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'',	'',	'0692753212',	984.2,	'2020-10-13 16:34:07',	'UPDATE'),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'',	'',	'65454',	351,	'2020-10-13 16:34:07',	'UPDATE'),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'',	'',	'0628468787',	656,	'2020-10-13 16:34:07',	'UPDATE')
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'',	'',	'0628468787',	656,	'2020-10-13 16:34:07',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97442',	'8 chemin coquelicots',	'0628468787',	656,	'2020-10-13 18:00:16',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97442',	'rue test',	'0628468787',	656,	'2020-10-13 18:07:17',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97420',	'rue test',	'0628468787',	656,	'2020-10-13 18:07:20',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97420',	'rue test',	'0628468787',	656,	'2020-10-13 18:07:34',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97420',	'rue test',	'0628468787',	656,	'2020-10-13 18:07:43',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97420',	'rue test',	'0628468787',	656,	'2020-10-13 18:07:44',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97420',	'rue test',	'0628468787',	656,	'2020-10-13 18:08:11',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97420',	'rue test',	'0628468787',	656,	'2020-10-13 18:09:05',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	656,	'2020-10-13 18:09:08',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	656,	'2020-10-13 18:15:22',	'UPDATE'),
+(8,	'goldow9744@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	656,	'2020-10-13 18:17:55',	'UPDATE'),
+(8,	'goldow9744@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	656,	'2020-10-14 17:13:43',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'test rue',	'6969',	100,	'2020-10-13 17:25:03',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'2020-10-13 17:25:12',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'2020-10-13 17:57:50',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'ruelolo',	'6969',	100,	'2020-10-13 17:59:50',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'lala',	'6969',	100,	'2020-10-13 18:07:11',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97419',	'lolo',	'6969',	100,	'2020-10-13 18:07:24',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97430',	'lolo',	'6969',	100,	'2020-10-13 18:07:42',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97441',	'lolo',	'6969',	100,	'2020-10-13 18:08:16',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97400',	'lele',	'6969',	100,	'2020-10-13 18:09:05',	'UPDATE'),
+(9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'aaa',	'6969',	100,	'2020-10-13 18:09:51',	'UPDATE'),
+(9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'aaa',	'6969',	100,	'2020-10-13 18:14:59',	'UPDATE'),
+(9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'test',	'6969',	100,	'2020-10-13 18:15:20',	'UPDATE')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`), `date_histo` = VALUES(`date_histo`), `evenement_histo` = VALUES(`evenement_histo`);
 
 DROP TABLE IF EXISTS `commande`;
@@ -302,6 +361,7 @@ CREATE TABLE `commande` (
   `idClient` int(11) NOT NULL,
   `datePaye` datetime DEFAULT NULL,
   `idEtat` tinyint(4) NOT NULL DEFAULT 1,
+  `typePaiement` varchar(100) DEFAULT 'NULL',
   PRIMARY KEY (`num`),
   KEY `commande_client_FK` (`idClient`),
   KEY `idEtat` (`idEtat`),
@@ -309,15 +369,20 @@ CREATE TABLE `commande` (
   CONSTRAINT `commande_ibfk_3` FOREIGN KEY (`idEtat`) REFERENCES `etat` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `commande` (`num`, `idClient`, `datePaye`, `idEtat`) VALUES
-(1,	1,	'2019-12-02 12:30:00',	3),
-(2,	2,	NULL,	1),
-(3,	3,	NULL,	1),
-(5,	5,	NULL,	1),
-(7,	8,	'2020-10-01 21:05:30',	2),
-(8,	8,	'2020-10-11 14:21:20',	2),
-(9,	1,	'2020-10-11 21:32:13',	2)
-ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `datePaye` = VALUES(`datePaye`), `idEtat` = VALUES(`idEtat`);
+INSERT INTO `commande` (`num`, `idClient`, `datePaye`, `idEtat`, `typePaiement`) VALUES
+(1,	1,	'2019-12-02 12:30:00',	3,	'Solde'),
+(2,	2,	NULL,	1,	NULL),
+(3,	3,	'2020-10-14 22:16:39',	1,	'Solde'),
+(5,	5,	NULL,	1,	NULL),
+(7,	8,	'2020-10-01 21:05:30',	2,	'Solde'),
+(8,	8,	'2020-10-11 14:21:20',	2,	'Solde'),
+(9,	1,	'2020-10-11 21:32:13',	2,	'Solde'),
+(10,	1,	NULL,	1,	NULL),
+(11,	8,	NULL,	1,	NULL),
+(12,	10,	NULL,	1,	NULL),
+(13,	11,	NULL,	1,	NULL),
+(14,	4,	NULL,	1,	NULL)
+ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `datePaye` = VALUES(`datePaye`), `idEtat` = VALUES(`idEtat`), `typePaiement` = VALUES(`typePaiement`);
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
@@ -328,12 +393,15 @@ CREATE TABLE `contact` (
   `sujet` varchar(40) NOT NULL,
   `message` text NOT NULL,
   PRIMARY KEY (`idContact`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 INSERT INTO `contact` (`idContact`, `nom`, `email`, `numero`, `sujet`, `message`) VALUES
 (1,	'Andréa',	'andrea@bigot974',	692466990,	'compte',	'J\'ai oublié mon mot de passe'),
 (2,	'Andréa',	'andrea@bigot974',	692458565,	'subject',	'Problème'),
-(3,	'Jérémy',	'andrea@bigot974',	69232231,	'subject',	'Problème avec ma commande')
+(3,	'Jérémy',	'andrea@bigot974',	69232231,	'subject',	'Problème avec ma commande'),
+(4,	'test',	'test@gmail.com',	2,	'compteVole',	'TEEEEEEEST'),
+(5,	'test',	'test@gmail.com',	2,	'compteVole',	'TEEEEEEEST'),
+(6,	'TEST',	'andrea@bigot974',	555,	'compteVole',	'AZDFGHYGTFD')
 ON DUPLICATE KEY UPDATE `idContact` = VALUES(`idContact`), `nom` = VALUES(`nom`), `email` = VALUES(`email`), `numero` = VALUES(`numero`), `sujet` = VALUES(`sujet`), `message` = VALUES(`message`);
 
 DROP TABLE IF EXISTS `etat`;
@@ -538,4 +606,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-13 12:36:35
+-- 2020-10-14 20:27:07
