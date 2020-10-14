@@ -1,82 +1,24 @@
-/* #contenu form input, #contenu form textarea, #contenu form select{
-    margin-bottom: 20px;
-}
 
-
-.formContact, .infoContact{
-    text-align: center;
-}
-
-ul{
-    list-style:none;
-}
-
-li{
-    margin-bottom: 5px;
-}
-
-.contact{
-    width: 420px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-.formContact h1{
-    margin-bottom: 15px;
-}
-
-.formContact textarea{
-    width: 250px;
-}
-
-#contenu form input[type="text"], #contenu form input[type="email"] {
-    outline: 0;
-    border-width: 0 0 1px;
-    border-color: #d1d1d6;
-    padding-bottom: 5px;
-}
-
-#contenu form input[type="text"]:focus, #contenu form input[type="email:focus"] {
-    border-color: #e76c35;
-}
-
-#contenu form select, #contenu form textarea{
-    border: none;
-    border-bottom: 1px solid  #d1d1d6;
-    padding-bottom: 5px;
-}
-
-#contenu form select{
-    color: gray;
-    width: 252px;
-}
-
-
-#contenu form input[type="submit"]{
-    padding: 5px;
-    border: 1px solid #8080808a;
-    border-radius: 3px;
-}
-
-*/
 
 
 
 
 .form-control{
-    width: auto;
-    margin: auto;
+    /* width: auto;
+    margin: auto; */
 }
 
 #exampleFormControlTextarea1{
-    width: 270px;
-    margin: auto;
+    /* width: 270px;
+    margin: auto; */
+    width: 475px;
 }
 
 .form-group{
-    text-align: center;
-}
+    /* text-align: center;*/
+    width: 200px;
+    display: inline-block;
+} 
 
 hr{
     width: 500px;
@@ -91,4 +33,27 @@ hr{
 
 .infoContact ul{
     list-style: none;
+}
+
+.contact{
+    width: 500px;
+    margin: auto;
+    padding: 10px;
+    background-color: #8080801f;
+    border-radius: 20px;
+}
+
+p{
+    text-align: center;
+}
+
+@media all and (max-width:600px){
+    .contact{
+        width:466px;
+        margin-left: 13px;
+    }
+
+    #exampleFormControlTextarea1 {
+        width: 446px;
+    }
 }

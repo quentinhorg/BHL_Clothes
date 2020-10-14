@@ -13,6 +13,7 @@ class Couleur{
 
 
    public function __construct(array $donnee){
+     
       $this->hydrate($donnee);
    }
 
@@ -40,9 +41,11 @@ class Couleur{
    }
 
    public function setNom($nom){
+     
       if(is_string($nom)){
          $this->nom = $nom;
       }
+
    }
 
    public function setFilterCssCode($filterCssCode){

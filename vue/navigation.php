@@ -22,7 +22,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="compte"> 
                
-                    <?php echo $clientEnLigne->getNom(); ?> 
+                    <?php echo $clientEnLigne->getPrenom(); ?> 
                 </a>
             </li> 
                   

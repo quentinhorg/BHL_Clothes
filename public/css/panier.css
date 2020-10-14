@@ -1,4 +1,4 @@
-@media (min-width: 576px){
+/* @media (min-width: 576px){
   .col-sm {
       max-width: 100%!important;
 }
@@ -44,7 +44,7 @@ div#listeAricle div.infoArticle{
 }
 
 /* -------------- */
-
+/*
 .panier {
 
    background: #FFFFFF;
@@ -149,9 +149,9 @@ div#listeAricle div.infoArticle{
    font-weight: 300;
    margin-top: 8px;
    color: #86939E;
- }
+ } */
 
- .description span.taille {
+ /* .description span.taille {
   font-weight: 300;
   margin-top: 8px;
   color: #86939E;
@@ -311,3 +311,111 @@ section#panier{
      .colonne{
     margin: 5px
     }
+
+
+
+ */
+
+
+
+    body{margin-top:20px;}
+.cart-item-thumb {
+    display: block;
+    width: 10rem
+}
+
+.cart-item-thumb>img {
+    display: block;
+    width: 100%
+}
+
+.product-card-title>a {
+    color: #222;
+}
+
+.font-weight-semibold {
+    font-weight: 600 !important;
+}
+
+.product-card-title {
+    display: block;
+    margin-bottom: .75rem;
+    padding-bottom: .875rem;
+    border-bottom: 1px dashed #e2e2e2;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.text-muted {
+    color: #888 !important;
+}
+
+.bg-secondary {
+    background-color: #f7f7f7 !important;
+}
+
+.accordion .accordion-heading {
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.font-weight-semibold {
+    font-weight: 600 !important;
+}
+
+
+
+.quantity {
+  margin-right: 60px;
+  display: flex;
+  align-items: center;
+}
+.quantity input {
+  -webkit-appearance: none;
+  border: none;
+  text-align: center;
+  width: 40px;
+  font-size: 16px;
+  color: #43484D;
+  font-weight: 300;
+}
+
+.quantity button[class*=btn] {
+  width: 30px;
+  height: 30px;
+  background-color: unset;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.quantity button[class*=btn] svg{
+  color:#6f6f6f;
+}
+
+
+.minus-btn img {
+  margin-bottom: 3px;
+}
+.plus-btn img {
+  margin-top: 2px;
+}
+ 
+.quantity button:focus,
+input:focus {
+  outline:0;
+}
+
+.article_hide{
+  opacity: 0!important; 
+  visibility: hidden!important; 
+  height: 0!important; 
+  padding: 0!important; 
+  -webkit-transition: opacity 600ms, visibility 600ms, height 800ms, padding 800ms;
+  transition: opacity 600ms, visibility 600ms, height 800ms, padding 800ms;
+  }
+
+  .article_hide img{
+    height: 0!important; 
+  }
+
