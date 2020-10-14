@@ -2,19 +2,21 @@
 
 class Commande{
    private  $num;
-   private  $date;
+   private  $datePaye;
    private  $idClient;
    private  $Etat; //Object
    private  $prixTTC;
+   private  $typePaiement;
    protected  $panier= array() ; //Tableau Objet : Article
+   private  $totalArticle;
  
    
    
    public function __construct(array $donnee){
-      
       $this->hydrate($donnee);
    }
 
+   
    //HYDRATATION
    public function hydrate(array $donnee){
       
@@ -41,11 +43,17 @@ class Commande{
    }
 
 
-   public function setDate($date){
+   public function setDatePaye($date){
       
          $this->date = $date;
       
    }
+
+   public function setTypePaiement($typeP){
+      
+      $this->typePaiement = $typeP;
+   
+}
 
    public function setNum($num){
       $num = (int) $num;
@@ -75,6 +83,10 @@ class Commande{
       }
    }
 
+   public function setTotalArticle($totalArticle){
+      $this->totalArticle = $totalArticle;
+   }
+
 
  
    
@@ -85,7 +97,7 @@ class Commande{
       return $this->idClient;
    }
 
-   public function date(){
+   public function datePaye(){
       $dateFormat = null ;
 
       if( $this->date != null){
@@ -107,8 +119,17 @@ class Commande{
    public function Etat(){
       return $this->Etat;
    }
+
+   public function typePaiement(){
+      return $this->typePaiement;
+   }
+
    public function prixTTC(){
       return number_format($this->prixTTC, 2) ;
+   }
+
+   public function totalArticle(){
+      return $this->totalArticle;
    }
 
 

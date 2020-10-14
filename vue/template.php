@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <base href="/btssio/BTS2/BHL_Clothes/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -14,7 +15,7 @@
 
 
     <link href='public/font/Archivo.css' rel='stylesheet'>
-    <meta charset="UTF-8">
+   
     <title> <?php echo $titre  ?> </title>
   
     <link rel="stylesheet" href="public/css/bhl_clothes.css">
@@ -34,7 +35,6 @@
 
     <?php 
         //Insertion de tous les liens css
-     
         foreach ($listeCss as $fichierCss) {
             echo "<link rel='stylesheet' href='$fichierCss'>" ;
         }
@@ -44,10 +44,6 @@
             echo "<script src='$fichierJs'></script>" ;
         }
 
-
-
-
-       
         
     ?>
  

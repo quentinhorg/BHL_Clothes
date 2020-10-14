@@ -17,8 +17,6 @@ class Client{
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
- 
-
    }
 
    //HYDRATATION

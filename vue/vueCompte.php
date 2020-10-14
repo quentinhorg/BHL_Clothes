@@ -75,7 +75,7 @@
             <?php
                 foreach ($clientActif->listCmd() as $commande){?>
             <tr>
-                <td> <?php echo $commande->num(); ?> </td> <td> <?php echo $commande->date(); ?> </td> <td> <a href=""> Voir ma facture </a> </td> <td> <a href="compte/suivi/<?php echo $commande->num() ?>"> Suivre ma commande </a> </td>
+                <td> <?php echo $commande->num(); ?> </td> <td> <?php echo $commande->datePaye(); ?> </td> <td> <a href=""> Voir ma facture </a> </td> <td> <a href="compte/suivi/<?php echo $commande->num() ?>"> Suivre ma commande </a> </td>
             </tr>
 
         <?php } ?>

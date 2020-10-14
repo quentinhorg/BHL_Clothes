@@ -2,8 +2,12 @@
 
 class CommandeManager extends DataBase{
 
+    public $reqBase = "SELECT *, calcCmdTTC(commande.num) AS 'prixTTC', COUNT(article_panier.numCmd) as 'totalArticle' 
+    FROM commande 
+    LEFT JOIN article_panier ON article_panier.numCmd=commande.num" ;
+
     public function getCommande($numCmdBDD){
-        $req = "SELECT *, calcCmdTTC(commande.num) AS 'prixTTC' FROM commande WHERE num = ?";
+        $req = $this->reqBase." WHERE num = ? GROUP BY commande.num";
         $this->getBdd();
         $commande =  @$this->getModele($req, [$numCmdBDD], "Commande")[0];
 

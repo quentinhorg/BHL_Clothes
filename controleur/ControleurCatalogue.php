@@ -13,10 +13,6 @@ class ControleurCatalogue{
       }
       else{
 
-         
-     
-         
-         
          $idCateg= null;
          if( isset( $url[2])){
             $idCateg = $url[2];
