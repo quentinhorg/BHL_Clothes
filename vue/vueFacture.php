@@ -6,9 +6,10 @@ require('public/FPDF-master/fpdf.php');
 // adresse de l'entreprise qui émet la facture
 $adresse = "BHL Clothes - Entreprise\n97480 Saint-Joseph\n\nbhl_clothes@gmail.com\n(+33) 3 89 68 27 54";
 // adresse du client
-$adresseClient = "Nom : ".$client->getNom()."\nPrénom : ".$client->getPrenom()."\nTéléphone : ".$client->getTel()."\nAdresse : ".$client->rue()." ".$client->codePostal().' ('.$listeCp[$client->codePostal()].")";
+$adresseClient = "Nom : ".$client->getNom()."\nPrénom : ".$client->getPrenom()."\nTéléphone : ".$client->getTel()."\nAdresse : ".$client->rue()." ".$client->CodePostal()->cp().' ('.$client->CodePostal()->libelle().")";
 // initialise l'objet facturePDF
 $pdf = new facturePDF($adresse, $adresseClient, "BHL Clothes - Entreprise - 97480 Saint-Joseph - bhl_clothes@gmail.com - (+33) 3 89 68 27 54\nLes produits livrés demeurent la propriété exclusive de notre entreprise jusqu'au paiement complet de la présente facture.\nRCS : 245-532-578- RE / TVA Intracomunautaire : FR 02 4578 1455 5578 3254 / SIRET 887 547 259 974 125");
+$pdf->SetTitle('Commande N-'.$facture->Commande()->num().' - '.$client->getNom().' '.$client->getPrenom() );
 // défini le logo
 $pdf->setLogo('public/media/bhl_clothes/logo.png');
 // entete des produits
@@ -29,19 +30,21 @@ $pdf->elementAdd('', 'traitBas', 'footer');
 
 
 // numéro de facture, date, texte avant le numéro de page
-$pdf->initFacture("Commande n° ".$commande->num(), "97480 - Saint-Joseph, Fait le ".$commande->datePaye(), "Page ");
+$pdf->initFacture("Commande n° ".$facture->Commande()->num(), "97480 - Saint-Joseph, Fait le ".$facture->datePaiement(), "Page ");
 // produit
 
 //Liste des articles
-foreach ($commande->panier() as $article) {
+foreach ($facture->Commande()->panier() as $article) {
    $pdf->productAdd(array( $article->nom(), $article->Taille()->libelle(), $article->Couleur()->nom(), $article->qte(), $article->prixTotalArt()));
 }
 
+
 // ligne des totaux
-$pdf->totalAdd(array('Type de paiement', $commande->typePaiement()));
-$pdf->totalAdd(array('Total article', $commande->totalArticle()));
-$pdf->totalAdd(array('Livraison', "0".' EUR'));
-$pdf->totalAdd(array('Total TTC', $commande->prixTTC()." EUR") );
+$pdf->totalAdd(array('Type de paiement', $facture->typePaiement()));
+$pdf->totalAdd(array('Total article', $facture->Commande()->totalArticle()));
+$pdf->totalAdd(array('Total HT', $facture->Commande()->prixHT()." EUR") );
+$pdf->totalAdd(array('Livraison', $GLOBALS["client_en_ligne"]->CodePostal()->prixLiv().' EUR'));
+$pdf->totalAdd(array('Total TTC', $facture->Commande()->prixTTC()." EUR") );
 
 
 

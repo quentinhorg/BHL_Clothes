@@ -8,7 +8,7 @@ nos conseillers sont là pour vous répondre.</p>
             <label for="exampleInputEmail1">Nom</label>
             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nom" size="30" maxlength="15" name="nom">
         </div>
-        <div class="form-group" style="margin-left: 70px;">
+        <div class="form-group mail">
             <label for="exampleInputEmail1">Mail</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="exemple@gmail.com" size="30" maxlength="15" name="email">
         </div>
@@ -17,7 +17,7 @@ nos conseillers sont là pour vous répondre.</p>
             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Numéro" size="30" maxlength="10" name="tel">
         </div>
         
-        <div class="form-group" style="margin-left: 70px;">
+        <div class="form-group objet">
             <label for="exampleInputPassword1">Objet</label>
             <select class="form-control" name="sujet">
                 <option value="sujet">Sujet</option>

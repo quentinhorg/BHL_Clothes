@@ -4,7 +4,7 @@
 
 <!-- <div class="photoVet" style="background-image: url(public/vetement/id2.jpg)"></div> -->
 <div class="cadre">
-    <div class="img"> <img src="public/media/vetement/id<?php echo $infoVetement->id() ?>.jpg" alt="Image du vêtement"> </div>
+    <div class="img"> <img src="public/media/vetement/id<?php echo $infoVetement->id() ?>.jpg" alt="Image du vêtement" class="img-responsive"> </div>
 
 
     <div class="infoVet">

@@ -7,10 +7,10 @@ class Client{
    private  $nom;
    private  $prenom;
    private  $rue;
-   private $codePostal;
    private  $tel;
    private  $solde;
-   private $listeCmd = array(); //Tableau d'objet
+   private  $listeCmd = array(); //Tableau d'objet
+   private  $CodePostal; // Objet
 
 
    
@@ -73,9 +73,11 @@ class Client{
         }
     }
 
-    public function setCodePostal($codePostal){
-        if(is_string($codePostal)){
-            $this->codePostal = $codePostal;
+    public function setCodePostal($CodePostal){
+        if(is_string($CodePostal)){
+            $CodePostalManager = new CodePostalManager;
+           
+            $this->CodePostal =  $CodePostalManager->getCp($CodePostal);
         }
     }
 
@@ -133,8 +135,8 @@ class Client{
     public function rue(){
         return $this->rue;
     }
-    public function codePostal(){
-        return $this->codePostal;
+    public function CodePostal(){
+        return $this->CodePostal;
     }
 
     public function getTel(){

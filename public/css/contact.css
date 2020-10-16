@@ -33,6 +33,7 @@ hr{
 
 .infoContact ul{
     list-style: none;
+    padding-left: 0px;
 }
 
 .contact{
@@ -47,13 +48,46 @@ p{
     text-align: center;
 }
 
+.mail, .objet{
+    margin-left: 75px;
+}
+
 @media all and (max-width:600px){
     .contact{
         width:466px;
-        margin-left: 13px;
+        margin:auto;
     }
 
     #exampleFormControlTextarea1 {
         width: 446px;
+    }
+
+    .mail, .objet{
+        margin-left: 25px;
+    }
+}
+
+@media all and (max-width:400px){
+    .contact{
+        width:350px;
+        margin:auto;
+        text-align: center;
+    }
+
+    #exampleFormControlTextarea1 {
+        width: 200px;;
+        
+    }
+
+   .form-group{
+        width: 200px;
+   }
+
+   .mail, .objet{
+        margin-left: 0px;
+    }
+
+    hr{
+        width: 390px;
     }
 }

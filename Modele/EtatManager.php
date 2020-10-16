@@ -15,6 +15,19 @@ class EtatManager extends DataBase{
         return $this->getModele($req, ["*"], "Etat");
     }
 
+    public function getListClassIconEtat(){
+    
+        $listeIcone= array(
+            "1" => "pe-7s-clock",
+            "2" =>"pe-7s-config",
+            "3" => "pe-7s-box2",
+            "4" => "pe-7s-car",
+            "5" => "pe-7s-home"
+        );
+
+        return $listeIcone;
+    }
+
 
 }
 

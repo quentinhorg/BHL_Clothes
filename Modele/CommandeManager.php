@@ -2,8 +2,10 @@
 
 class CommandeManager extends DataBase{
 
-    public $reqBase = "SELECT *, calcCmdTTC(commande.num) AS 'prixTTC', COUNT(article_panier.numCmd) as 'totalArticle' 
+    public $reqBase = "SELECT *, calcCmdTTC(commande.num) AS 'prixTTC' , calcCmdHT(commande.num) AS 'prixHT', COUNT(article_panier.numCmd) as 'totalArticle' 
     FROM commande 
+    INNER JOIN client ON client.id=commande.idClient
+    INNER JOIN code_postal ON code_postal.cp=client.codePostal
     LEFT JOIN article_panier ON article_panier.numCmd=commande.num" ;
 
     public function getCommande($numCmdBDD){
@@ -81,7 +83,7 @@ class CommandeManager extends DataBase{
 
         $resultat =  $this->execBdd($req, [$idClient]);
 
-        $req = "CALL payerCommande(?, ?);";
+        $req = "CALL payerCommandeViaSolde(?, ?);";
         $this->getBdd();
         $this->execBdd($req, [$idClient, $resultat[0]["numCmd"] ]);
     }

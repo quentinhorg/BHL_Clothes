@@ -12,17 +12,24 @@ class ControleurFacture{
          throw new Exception('Page introuvable');
       }
       else{
-         //$url[0] -> facture ; $url[1] -> numFacture
+       
 
 
          
-         if(isset($url[1])){
+         if(
+            isset($url[1]) && $GLOBALS["client_en_ligne"] != null 
+            && $this->facture($url[1])->Commande()->Etat()->id() != 1 
+            && $GLOBALS["client_en_ligne"]->getId() == $this->facture($url[1])->Commande()->idClient()
+         ){
+       
             $client = $GLOBALS["client_en_ligne"] ;
-            $commande = $this->getCommande($url[1]) ;
+            $facture = $this->facture($url[1]) ;
             $listeCp = $this->listeCp();
+
             include "vue/vueFacture.php";
-         
-         }else{
+
+         }
+         else{
             throw new Exception('Page introuvable');
          }
          
@@ -30,21 +37,20 @@ class ControleurFacture{
 
    }
 
-
+ 
    
    
-   public function getCommande($num){
-
-      $CommandeManager = new CommandeManager();
-      $commande = $CommandeManager->getCommande($num);
-      return $commande ;
+   public function facture($idCmd){
+      $FactureManager = new FactureManager();
+      $facture = $FactureManager->getFacture($idCmd);
+      return $facture ;
    }
 
 
    //$CodePostalManager->getListCp();
    public function listeCp(){
       $CodePostalManager = new CodePostalManager();
-      $listeCodePostal = $CodePostalManager->getListCP();
+      $listeCodePostal = $CodePostalManager->getListCp();
 
       return $listeCodePostal;
    }

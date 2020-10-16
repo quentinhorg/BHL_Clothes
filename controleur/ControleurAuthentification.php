@@ -110,7 +110,7 @@ class ControleurAuthentification{
    private function getListCpReunion(){
      
      $CodePostalManager = new CodePostalManager;
-      return $CodePostalManager->getListCP();
+      return $CodePostalManager->getListCp();
    }
 
 }

@@ -1,5 +1,6 @@
  
     <?php
+        //var_dump($clientActif);
         echo "<h2>".$clientActif->getNom()." ".$clientActif->getPrenom()."</h2>";
     ?>
 
@@ -34,7 +35,7 @@
 
     <div id="livraison" class="contenutab">
         <h3>Livraison</h3>
-        <p>Votre adresse est actuellement <a><?php echo $clientActif->rue()." ".$clientActif->codePostal();?></a> </p> 
+        <p>Votre adresse est actuellement <a><?php echo $clientActif->rue()." ".$clientActif->CodePostal()->cp();?></a> </p> 
         <p>Si vous souhaitez la modifier, entrez votre adresse de livraison ci dessous </p>
         <form action="compte#livraison" method="POST">
             <input  class="form-control" type="text" name="changeRue" placeholder="Entrez la nouvelle rue" ><br>
@@ -43,8 +44,8 @@
             <select class="form-control" name="changeCP" id="CodePostal">
                     <?php
 
-                    foreach ($listeCP as $cp => $ville) {
-                        echo "<option value='$cp'> $cp - $ville </option>";
+                    foreach ($listeCP as $codePostal) {
+                        echo "<option value='".$codePostal->cp()."'> ".$codePostal->cp()." - ".$codePostal->libelle()." </option>";
                     }
                     
                     ?>
@@ -75,7 +76,7 @@
             <?php
                 foreach ($clientActif->listCmd() as $commande){?>
             <tr>
-                <td> <?php echo $commande->num(); ?> </td> <td> <?php echo $commande->datePaye(); ?> </td> <td> <a href=""> Voir ma facture </a> </td> <td> <a href="compte/suivi/<?php echo $commande->num() ?>"> Suivre ma commande </a> </td>
+                <td> <?php echo $commande->num(); ?> </td> <td> <?php echo $commande->dateCreation(); ?> </td> <td> <a href="facture/<?php echo $commande->num() ?>"> Voir ma facture </a> </td> <td> <a href="compte/suivi/<?php echo $commande->num() ?>"> Suivre ma commande </a> </td>
             </tr>
 
         <?php } ?>
@@ -86,7 +87,7 @@
 <script>
     
     //Sélection du code postal sur le select
-     $('#CodePostal').val('<?php echo $clientActif->codePostal() ; ?>'); 
+     $('#CodePostal').val('<?php echo $clientActif->codePostal()->cp() ; ?>'); 
      
 
     function ouvririnfo(event, parametre) {

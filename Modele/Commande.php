@@ -2,13 +2,14 @@
 
 class Commande{
    private  $num;
-   private  $datePaye;
+   private  $dateCreation;
    private  $idClient;
    private  $Etat; //Object
    private  $prixTTC;
    private  $typePaiement;
    protected  $panier= array() ; //Tableau Objet : Article
    private  $totalArticle;
+   private  $prixHT;
  
    
    
@@ -43,9 +44,9 @@ class Commande{
    }
 
 
-   public function setDatePaye($date){
-      
-         $this->date = $date;
+   public function setDateCreation($date){
+
+         $this->dateCreation = $date;
       
    }
 
@@ -87,6 +88,14 @@ class Commande{
       $this->totalArticle = $totalArticle;
    }
 
+   public function setPrixHT($prixHT){
+      $this->prixHT = $prixHT;
+   }
+
+
+
+   
+
 
  
    
@@ -97,11 +106,11 @@ class Commande{
       return $this->idClient;
    }
 
-   public function datePaye(){
+   public function dateCreation(){
       $dateFormat = null ;
 
-      if( $this->date != null){
-         $date= new DateTime($this->date);
+      if( $this->dateCreation != null){
+         $date= new DateTime($this->dateCreation);
          $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
       }
 
@@ -131,6 +140,12 @@ class Commande{
    public function totalArticle(){
       return $this->totalArticle;
    }
+
+   public function prixHT(){
+      return $this->prixHT;
+   }
+
+   
 
 
    //AUTRES METHODES

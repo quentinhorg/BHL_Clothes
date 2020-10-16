@@ -8,6 +8,7 @@ class ControleurCompte{
             throw new Exception('Page introuvable');
         }
         else{
+            
 
          
             if( isset($url[1]) && $url[1] == "suivi"){
@@ -16,7 +17,8 @@ class ControleurCompte{
                 $this->vue->genererVue(array(
                     "clientActif"=> $GLOBALS["client_en_ligne"],
                     "listeEtat" => $this->listeEtat(),
-                    "infoCommande" => $this->commande($url[2])
+                    "infoCommande" => $this->commande($url[2]),
+                    "iconeSuivi" => $this->iconeSuivi()
                     
                 )) ;
             }
@@ -64,7 +66,7 @@ class ControleurCompte{
                 $this->vue->genererVue(array(
                     "clientActif"=> $GLOBALS["client_en_ligne"],
                     "message"=>$message,
-                    "listeCP"=>$this->getListCP()
+                    "listeCP"=>$this->getListCp()
                 )) ;
             }
            
@@ -78,10 +80,16 @@ class ControleurCompte{
         return  $ClientManager->getClient( $GLOBALS["client_en_ligne"]->getId() );
     }
 
+    private function iconeSuivi(){
+        $EtatManager = new EtatManager();
+        $listeIcone = $EtatManager->getListClassIconEtat();
+        return $listeIcone;
+    }
+
     
-    private function getListCP(){
+    private function getListCp(){
         $CodePostalManager = new CodePostalManager();
-        $listCP = $CodePostalManager->getListCP();
+        $listCP = $CodePostalManager->getListCp();
 
         return $listCP;
     }
