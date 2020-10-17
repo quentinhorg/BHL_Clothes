@@ -33,6 +33,13 @@ WHERE cmd.num = _numCmd
 
 END;;
 
+CREATE FUNCTION `prixTotalArt`(`_idArt` int, `_qte` int) RETURNS float
+BEGIN
+  RETURN (SELECT ROUND(_qte*v.prix,2) AS 'prixTotalArt' 
+FROM vetement v
+WHERE v.id = _idArt);
+END;;
+
 CREATE FUNCTION `qte_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11)) RETURNS int(11)
 BEGIN
   RETURN (SELECT qte
@@ -308,15 +315,14 @@ CREATE TABLE `client` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`, `tel`, `solde`) VALUES
-(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	780),
-(2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97400',	'7 impasse jesus',	'0694458553',	45.15),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	2905),
+(2,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97400',	'7 impasse jesus',	'0694458553',	45.15),
 (3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97469',	'6 impasse du cocon',	'0692851347',	84.6),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97469',	'9 chemin des zoizeau',	'0692753212',	984.2),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97466',	'3 rue de lameme',	'65454',	351),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	172.6),
-(9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'test',	'6969',	100),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	3870.3),
 (10,	'roro13@gmail.com',	'3eddfbf3c48b779222cd8eebb3e137614d5ffee2',	'Robin',	'Jean',	'97413',	'36 rue des merisier ',	'roro',	100),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97419',	'34 rue des fleurs',	'0693455667',	100)
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`);
@@ -360,7 +366,15 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'974',	'',	'0692466990',	780,	'2020-10-13 16:33:43',	'UPDATE'),
 (1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'',	'0692466990',	780,	'2020-10-13 16:34:07',	'UPDATE'),
 (1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97410',	'4 rue papangue',	'0692466990',	780,	'2020-10-13 18:08:01',	'UPDATE'),
+(1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	780,	'2020-10-17 14:46:02',	'UPDATE'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	780,	'2020-10-17 14:55:05',	'UPDATE'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	700.1,	'2020-10-17 14:56:19',	'UPDATE'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	644.6,	'2020-10-17 14:57:01',	'UPDATE'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	602.6,	'2020-10-17 14:57:24',	'UPDATE'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	3000,	'2020-10-17 14:57:45',	'UPDATE'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97420',	'4 rue papangue',	'0692466990',	2955,	'2020-10-17 15:00:20',	'UPDATE'),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'',	'',	'0694458553',	45.15,	'2020-10-13 16:34:07',	'UPDATE'),
+(2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97400',	'7 impasse jesus',	'0694458553',	45.15,	'2020-10-17 14:45:52',	'UPDATE'),
 (3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'',	'',	'0693122478',	85.6,	'2020-10-13 16:34:07',	'UPDATE'),
 (3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	85.6,	'2020-10-14 22:11:41',	'UPDATE'),
 (3,	'jeremy@mail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	1200,	'2020-10-14 22:11:52',	'UPDATE'),
@@ -386,6 +400,21 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	656,	'2020-10-16 23:05:10',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	530,	'2020-10-16 23:37:04',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	418,	'2020-10-17 07:51:41',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	172.6,	'2020-10-17 09:30:03',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	50.1,	'2020-10-17 13:57:39',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	5000,	'2020-10-17 14:03:21',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4711.9,	'2020-10-17 14:10:41',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4609.9,	'2020-10-17 14:24:09',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4507.9,	'2020-10-17 14:25:52',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4443,	'2020-10-17 14:32:00',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4399.2,	'2020-10-17 14:32:46',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4355.4,	'2020-10-17 14:33:05',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4310.4,	'2020-10-17 14:34:03',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4254.9,	'2020-10-17 14:35:39',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4211.1,	'2020-10-17 14:38:06',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4167.3,	'2020-10-17 14:40:16',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4123.5,	'2020-10-17 14:42:58',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	4000.3,	'2020-10-17 15:03:51',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'test rue',	'6969',	100,	'2020-10-13 17:25:03',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'2020-10-13 17:25:12',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'2020-10-13 17:57:50',	'UPDATE'),
@@ -397,7 +426,10 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97400',	'lele',	'6969',	100,	'2020-10-13 18:09:05',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'aaa',	'6969',	100,	'2020-10-13 18:09:51',	'UPDATE'),
 (9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'aaa',	'6969',	100,	'2020-10-13 18:14:59',	'UPDATE'),
-(9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'test',	'6969',	100,	'2020-10-13 18:15:20',	'UPDATE')
+(9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'test',	'6969',	100,	'2020-10-13 18:15:20',	'UPDATE'),
+(9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'test',	'6969',	100,	'2020-10-17 16:18:56',	'DELETE'),
+(12,	'zzzzz@gmail.com',	'a2b7caddbc353bd7d7ace2067b8c4e34db2097a3',	'zerzerazeaze',	'zerzr',	'97400',	'zerzerzer',	'984684',	100,	'2020-10-17 16:18:51',	'DELETE'),
+(13,	'eeeee@gmail.com',	'b2c4ee5de82866db38f79c6d4a91a626486b70e9',	'gggg',	'gggg',	'97419',	'gggg',	'4577357',	100,	'2020-10-17 16:18:51',	'DELETE')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`), `date_histo` = VALUES(`date_histo`), `evenement_histo` = VALUES(`evenement_histo`);
 
 DROP TABLE IF EXISTS `code_postal`;
@@ -456,7 +488,7 @@ INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
 (7,	8,	'2020-10-01 21:05:30',	2),
 (8,	8,	'2020-10-11 14:21:20',	2),
 (9,	1,	'2020-10-11 21:32:13',	2),
-(10,	1,	'2019-12-02 12:30:00',	1),
+(10,	1,	'2020-10-17 14:55:05',	2),
 (12,	10,	'2019-12-02 12:30:00',	1),
 (13,	11,	'2019-12-02 12:30:00',	1),
 (14,	4,	'2019-12-02 12:30:00',	1),
@@ -538,12 +570,11 @@ CREATE TABLE `facture` (
   KEY `cpLiv` (`cpLiv`),
   CONSTRAINT `facture_ibfk_1` FOREIGN KEY (`numCmd`) REFERENCES `commande` (`num`),
   CONSTRAINT `facture_ibfk_2` FOREIGN KEY (`cpLiv`) REFERENCES `code_postal` (`cp`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `typePaiement`, `datePaiement`) VALUES
-(15,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-16 23:05:10'),
-(16,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-16 23:37:04'),
-(17,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-17 07:51:41')
+(10,	'BIGOT',	'Andréa',	'4 rue papangue',	'97420',	'Solde',	'2020-10-17 14:55:05'),
+(15,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-16 23:05:10')
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `nomProp` = VALUES(`nomProp`), `prenomProp` = VALUES(`prenomProp`), `rueLiv` = VALUES(`rueLiv`), `cpLiv` = VALUES(`cpLiv`), `typePaiement` = VALUES(`typePaiement`), `datePaiement` = VALUES(`datePaiement`);
 
 DROP TABLE IF EXISTS `genre`;
@@ -586,8 +617,7 @@ CREATE TABLE `vetement` (
   `id` int(11) NOT NULL,
   `nom` varchar(60) NOT NULL,
   `prix` float NOT NULL,
-  `codeRgbOriginal` varchar(10) NOT NULL,
-  `motifPosition` varchar(150) NOT NULL,
+  `motifPosition` varchar(150) DEFAULT '',
   `codeGenre` varchar(1) NOT NULL,
   `description` text NOT NULL,
   `idCateg` int(11) NOT NULL,
@@ -598,35 +628,35 @@ CREATE TABLE `vetement` (
   CONSTRAINT `vetement_ibfk_3` FOREIGN KEY (`codeGenre`) REFERENCES `genre` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `vetement` (`id`, `nom`, `prix`, `codeRgbOriginal`, `motifPosition`, `codeGenre`, `description`, `idCateg`) VALUES
-(1,	'Robe D\'Eté Superposée Fleurie Imprimée',	25.5,	'#fff',	'test',	'F',	'Petite robe imprimée en coton avec des bretelles fines. Matières: rayonne.',	1),
-(2,	'Short de Survêtement à Cordon',	10,	'#f3b2c2',	'',	'F',	'Short',	5),
-(3,	'T-shirt Manche longue unicolore',	15,	'#fff',	'',	'F',	'Tshirt manche longue en coton.',	2),
-(4,	'Pull Court Simple Surdimensionné',	37,	'#8ba3ad',	'testr',	'F',	'Pull court manches longues. Matières: coton, polyester',	4),
-(5,	'Pull Court Rayé à Col Rond',	38.2,	'#fff',	'',	'F',	'Pull rayé manches longues au col rond. Matières: polyester, coton',	4),
-(6,	'Short Décontracté En Couleur Jointive à Taille Elastique',	13.8,	'#fff',	'',	'H',	'Matières: Polyamide',	5),
-(7,	'T-shirt Motif De Lettre Dessin Animé',	15,	'',	'',	'H',	'T-shirt pour homme en coton, col rond.',	2),
-(8,	'Pull Tordu à Epaule Dénudée',	20,	'',	'',	'F',	'Pull qui décore avec un design torsadé à l\'avant. Matières: coton, polyacrylique.',	4),
-(9,	'Veste Déchirée En Couleur Unie En Denim',	34.9,	'',	'',	'M',	'Veste déchirée avec un col rabattu à manches longues. Matières: coton, polyester.',	8),
-(10,	'Pantalon Slim Taille Haute Déchiré',	12,	'',	'',	'F',	'222',	12),
-(11,	'Bermuda chino uni',	15,	'',	'',	'H',	'222',	10),
-(12,	'T-shirt Graphique Grue Barboteuse Chinoise Fleurie Imprimé',	17.99,	'',	'',	'H',	'T-shirt manches courtes imprimé en coton.',	2),
-(13,	'T-shirt Court Sanglé à Col V',	10,	'',	'',	'F',	'T-shirt Court Sanglé à Col V.\r\nMatières: Polyuréthane,Rayonne',	2),
-(14,	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée',	11,	'',	'',	'F',	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée. \r\nMatières: Coton,Polyester',	2),
-(15,	'Haut Court Côtelé Sans Dos à Bretelle ',	12,	'',	'',	'F',	'Haut Court Côtelé Sans Dos à Bretelle qui met en valeur la taille marquée. \r\nMatières: Polyuréthane,Rayonne',	2),
-(16,	' Haut Court Côtelé à Bretelle Trodu',	15,	'',	'',	'F',	'Haut Court Côtelé à Bretelle Trodu.\r\nHaut qui flatte la silhouette avec des fines bretelles mettant en avant le décolleté et le dos. \r\nMatières: Polyuréthane,Rayonne',	2),
-(17,	'T-Shirt à Imprimé Rayures En Blocs De Couleurs',	10,	'',	'',	'H',	'Un t-shirt avec un motif à rayures panachées, un col rond, des manches courtes et une coupe classique.\r\nMatières: Polyester',	2),
-(18,	'T-shirt Rose Brodée à Manches Courtes',	13.5,	'',	'',	'H',	'T-shirt basique surmonté d\'un col rond et manches courtes.\r\nMatières: Coton,Polyester,Spandex',	2),
-(19,	'Veste Déchirée Avec Poche à Rabat En Denim',	37.6,	'',	'',	'H',	'Veste déchirée manches longues.\r\nMatières: Coton,Polyester,Spandex',	8),
-(20,	'Pantalon de Survêtement Lettre Applique à Cordon en Laine',	23.5,	'',	'',	'H',	'Pantalon de Survêtement avec élastique à la taille en coton.',	12),
-(21,	'Pantalon Panneau En Blocs De Couleurs à Taille Elastique',	19.99,	'',	'',	'H',	'Pantalon à Taille Elastique en polyesther. ',	12),
-(22,	'T-shirt Rayé Chiffre Brodé à Manches Longues',	14.9,	'',	'',	'H',	'T-shirt Rayé Chiffre Brodé à Manches Longues\r\nMatières: Coton,Polyacrylique,Polyester',	4),
-(23,	'Robe à Bretelle Fleurie Plissée à Volants',	20,	'',	'',	'F',	'Robe à Bretelle Fleurie Plissée à Volants.\r\nLes plis sont réunis avec la taille élastique et le dos smocké aide à façonner les courbes.\r\nMatières: Polyester',	1),
-(24,	'Mini Robe à Carreaux Ligne A',	11.2,	'',	'',	'F',	'Détendu en forme, féminin dans le style, cette robe cami dispose d\'une impression tout au long de ceindre, fines bretelles et une coupe mini longueur séduisante, dans une silhouette évasée. portez-le avec des talons pour un style charmant.\r\nMatières: Polyester',	1),
-(25,	'Jupe Ligne A Teintée à Cordon',	13,	'',	'',	'F',	'Jupe colorée en polyester. ',	6),
-(26,	'Mini Jupe Ligne A Nouée',	14,	'',	'',	'F',	'Jupe courte avec une fermeture zippée. \r\nMatières: Polyester,Polyuréthane',	6),
-(27,	'Short Déchiré Zippé Design En Denim',	19.65,	'',	'',	'H',	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	10)
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prix` = VALUES(`prix`), `codeRgbOriginal` = VALUES(`codeRgbOriginal`), `motifPosition` = VALUES(`motifPosition`), `codeGenre` = VALUES(`codeGenre`), `description` = VALUES(`description`), `idCateg` = VALUES(`idCateg`);
+INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `description`, `idCateg`) VALUES
+(1,	'Robe D\'Eté Superposée Fleurie Imprimée',	25.5,	NULL,	'F',	'Petite robe imprimée en coton avec des bretelles fines. Matières: rayonne.',	1),
+(2,	'Short de Survêtement à Cordon',	10,	NULL,	'F',	'Short',	5),
+(3,	'T-shirt Manche longue unicolore',	15,	NULL,	'F',	'Tshirt manche longue en coton.',	2),
+(4,	'Pull Court Simple Surdimensionné',	37,	NULL,	'F',	'Pull court manches longues. Matières: coton, polyester',	4),
+(5,	'Pull Court Rayé à Col Rond',	38.2,	NULL,	'F',	'Pull rayé manches longues au col rond. Matières: polyester, coton',	4),
+(6,	'Short Décontracté En Couleur Jointive à Taille Elastique',	13.8,	NULL,	'H',	'Matières: Polyamide',	5),
+(7,	'T-shirt Motif De Lettre Dessin Animé',	15,	NULL,	'H',	'T-shirt pour homme en coton, col rond.',	2),
+(8,	'Pull Tordu à Epaule Dénudée',	20,	NULL,	'F',	'Pull qui décore avec un design torsadé à l\'avant. Matières: coton, polyacrylique.',	4),
+(9,	'Veste Déchirée En Couleur Unie En Denim',	34.9,	NULL,	'M',	'Veste déchirée avec un col rabattu à manches longues. Matières: coton, polyester.',	8),
+(10,	'Pantalon Slim Taille Haute Déchiré',	12,	NULL,	'F',	'222',	12),
+(11,	'Bermuda chino uni',	15,	NULL,	'H',	'222',	10),
+(12,	'T-shirt Graphique Grue Barboteuse Chinoise Fleurie Imprimé',	17.99,	NULL,	'H',	'T-shirt manches courtes imprimé en coton.',	2),
+(13,	'T-shirt Court Sanglé à Col V',	10,	NULL,	'F',	'T-shirt Court Sanglé à Col V.\r\nMatières: Polyuréthane,Rayonne',	2),
+(14,	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée',	11,	NULL,	'F',	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée. \r\nMatières: Coton,Polyester',	2),
+(15,	'Haut Court Côtelé Sans Dos à Bretelle ',	12,	NULL,	'F',	'Haut Court Côtelé Sans Dos à Bretelle qui met en valeur la taille marquée. \r\nMatières: Polyuréthane,Rayonne',	2),
+(16,	' Haut Court Côtelé à Bretelle Trodu',	15,	NULL,	'F',	'Haut Court Côtelé à Bretelle Trodu.\r\nHaut qui flatte la silhouette avec des fines bretelles mettant en avant le décolleté et le dos. \r\nMatières: Polyuréthane,Rayonne',	2),
+(17,	'T-Shirt à Imprimé Rayures En Blocs De Couleurs',	10,	NULL,	'H',	'Un t-shirt avec un motif à rayures panachées, un col rond, des manches courtes et une coupe classique.\r\nMatières: Polyester',	2),
+(18,	'T-shirt Rose Brodée à Manches Courtes',	13.5,	NULL,	'H',	'T-shirt basique surmonté d\'un col rond et manches courtes.\r\nMatières: Coton,Polyester,Spandex',	2),
+(19,	'Veste Déchirée Avec Poche à Rabat En Denim',	37.6,	NULL,	'H',	'Veste déchirée manches longues.\r\nMatières: Coton,Polyester,Spandex',	8),
+(20,	'Pantalon de Survêtement Lettre Applique à Cordon en Laine',	23.5,	NULL,	'H',	'Pantalon de Survêtement avec élastique à la taille en coton.',	12),
+(21,	'Pantalon Panneau En Blocs De Couleurs à Taille Elastique',	19.99,	NULL,	'H',	'Pantalon à Taille Elastique en polyesther. ',	12),
+(22,	'T-shirt Rayé Chiffre Brodé à Manches Longues',	14.9,	NULL,	'H',	'T-shirt Rayé Chiffre Brodé à Manches Longues\r\nMatières: Coton,Polyacrylique,Polyester',	4),
+(23,	'Robe à Bretelle Fleurie Plissée à Volants',	20,	NULL,	'F',	'Robe à Bretelle Fleurie Plissée à Volants.\r\nLes plis sont réunis avec la taille élastique et le dos smocké aide à façonner les courbes.\r\nMatières: Polyester',	1),
+(24,	'Mini Robe à Carreaux Ligne A',	11.2,	NULL,	'F',	'Détendu en forme, féminin dans le style, cette robe cami dispose d\'une impression tout au long de ceindre, fines bretelles et une coupe mini longueur séduisante, dans une silhouette évasée. portez-le avec des talons pour un style charmant.\r\nMatières: Polyester',	1),
+(25,	'Jupe Ligne A Teintée à Cordon',	13,	NULL,	'F',	'Jupe colorée en polyester. ',	6),
+(26,	'Mini Jupe Ligne A Nouée',	14,	NULL,	'F',	'Jupe courte avec une fermeture zippée. \r\nMatières: Polyester,Polyuréthane',	6),
+(27,	'Short Déchiré Zippé Design En Denim',	19.65,	NULL,	'H',	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	10)
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prix` = VALUES(`prix`), `motifPosition` = VALUES(`motifPosition`), `codeGenre` = VALUES(`codeGenre`), `description` = VALUES(`description`), `idCateg` = VALUES(`idCateg`);
 
 DROP TABLE IF EXISTS `vet_couleur`;
 CREATE TABLE `vet_couleur` (
@@ -732,4 +762,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-17 04:06:10
+-- 2020-10-17 12:19:35
