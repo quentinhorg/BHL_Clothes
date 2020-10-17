@@ -9,7 +9,8 @@ class Commande{
    private  $typePaiement;
    protected  $panier= array() ; //Tableau Objet : Article
    private  $totalArticle;
-   private  $prixHT;
+   protected  $prixHT;
+   
  
    
    
@@ -142,7 +143,7 @@ class Commande{
    }
 
    public function prixHT(){
-      return $this->prixHT;
+      return number_format($this->prixHT, 2) ;
    }
 
    

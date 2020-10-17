@@ -8,7 +8,7 @@
 <div class="row">
   <div class="col-75">
     <div class="container">
-      <form action="" method='POST'>
+      <form action="" method='POST' id="formPayerCmd">
       
         <div class="row">
           <div class="col-50">
@@ -48,8 +48,7 @@
               <?php 
                   echo "<p style=' font-weight:bold'> Votre solde actuel :  ".$clientInfo->solde()."€" ;
               if($clientInfo->solde() >= $maCommande->prixTTC() ){
-                $mtnApresAchat = $clientInfo->solde()- $maCommande->prixTTC() ;
-            
+                $mtnApresAchat = $clientInfo->solde() - $maCommande->prixTTC() ;
                 echo "<p style='color:green; font-weight:bold'> Estimation de votre après l'achat : ".$mtnApresAchat."€" ;
                 $disabled = null;
               }
@@ -66,7 +65,7 @@
           
         </div>
         
-        <input <?php echo $disabled ?> type="submit" name="payerCmd" value="Payer ma commande" class="btn">
+        <input <?php echo $disabled ?> type="submit" name="payerCmd" value="Payer ma commande" id="payerCmd" class="btn">
       </form>
     </div>
   </div>
@@ -77,9 +76,12 @@
       <?php foreach ($maCommande->panier() as $article) { ?>
         <div class="articleLigne"> <div class='nomArti' ><?php echo "x".$article->qte()." " ?><a href="#"><?php echo $article->nom() ?></a></div>  <span class="price"><?php echo $article->prixTotalArt()."€" ?> </span> </div>
       <?php } ?>
+      <span> Prix de livraison : <?php echo $clientInfo->CodePostal()->prixLiv()."€"  ;?> </span>
+
      
       <hr>
-      <p>Total <span class="price" style="color:black"><b> <?php echo $maCommande->prixTTC()."€" ?></b></span></p>
+     
+      <p>Prix TTC <span class="price" style="color:black"><b> <?php echo $maCommande->prixTTC()."€" ?></b></span></p>
     </div>
   </div>
 </div>
@@ -89,6 +91,16 @@
 </section>
 
 <script>
+
+//panier/facture
+
+
+
+
+
+
+
+
 
 </script>
 

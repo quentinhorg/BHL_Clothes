@@ -1,14 +1,18 @@
 <?php 
 
 class CommandeSession extends Commande{
+
+   private $CommandeManager;
   
    public function __construct(){
- 
+      $this->CommandeManager = new CommandeManager;
    }
 
-
-
-
+   public function reloadPrixHT(){
+     
+      $prixPanierHT = $this->CommandeManager->getPrixTotalPanierHT($this->panier());
+      parent::setPrixHT($prixPanierHT);
+   }
 
    public function ajouterPanier( ArticleSession $ArticleSession ){
 
@@ -18,11 +22,13 @@ class CommandeSession extends Commande{
       if($indiceArticle !== null ){
          $totalQte = $this->panier[$indiceArticle]->qte() + $ArticleSession->qte() ;
          $this->panier[$indiceArticle]->setQte($totalQte);
+         
       }
       else{
          $this->panier[] = $ArticleSession;
       }
 
+      $this->reloadPrixHT();
      
 
    }
@@ -36,6 +42,7 @@ class CommandeSession extends Commande{
 
       $indice = $this->indiceArticlePanier( $idVet, $taille, $numClr);
       unset($this->panier[$indice]) ;
+      $this->reloadPrixHT();
 
    }
 
@@ -43,6 +50,7 @@ class CommandeSession extends Commande{
       $indice = $this->indiceArticlePanier( $idVet, $taille, $numClr);
       $qteActuelle = $this->panier[$indice]->qte();
       $this->panier[$indice]->setQte($qteActuelle-1) ;
+      $this->reloadPrixHT();
 
    }
 

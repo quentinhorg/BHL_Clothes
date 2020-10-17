@@ -15,7 +15,13 @@ class ControleurPanier{
 
         
       
-         //Action du panier
+         // //Action du panier
+         // $ArticleManager = new ArticleManager();
+         // $ArticleSession = new ArticleSession(1, "S", 3, 1);
+         // $this->maCommande()->ajouterPanier($ArticleSession);
+
+      
+        
          if( isset($_POST["ajouterArticle"]) ){
             $this->ajouterArticle();
          }
@@ -71,10 +77,10 @@ class ControleurPanier{
 
    private function ajouterArticle(){
 
-         $ArticleManager = new ArticleManager();
-         
+        
+      $ArticleManager = new ArticleManager();
          if( $GLOBALS["client_en_ligne"] == null ){
-         
+
                $ArticleSession = new ArticleSession($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"]);
                $this->maCommande()->ajouterPanier($ArticleSession);
          }
@@ -96,6 +102,7 @@ class ControleurPanier{
       $jsonData = array(
          'totalQtePanier' => $this->maCommande()->getQuantiteArticle(),
          "newPrixArt" => $nouvelArticle->prixTotalArt(),
+         "prixCmdHT" => $this->maCommande()->prixHT(),
          "prixCmdTTC" => $this->maCommande()->prixTTC()
       );
       echo json_encode($jsonData);
@@ -120,7 +127,7 @@ class ControleurPanier{
 
          $jsonData = array(
             'totalQtePanier' => $this->maCommande()->getQuantiteArticle(),
-            "prixCmdTTC" => $this->maCommande()->prixTTC()
+            "prixCmdHT" => $this->maCommande()->prixHT()
          );
          echo json_encode($jsonData);
          exit();   
@@ -148,6 +155,7 @@ class ControleurPanier{
       $jsonData = array(
          'totalQtePanier' => $this->maCommande()->getQuantiteArticle(),
          "newPrixArt" => $ArticleModifier->prixTotalArt(),
+         "prixCmdHT" => $this->maCommande()->prixHT(),
          "prixCmdTTC" => $this->maCommande()->prixTTC()
       );
       
@@ -162,8 +170,7 @@ class ControleurPanier{
 
    private function maCommande(){
       $CommandeManager = new CommandeManager();
-      //Si le client est connecté
-         $maCommande = $CommandeManager->getCmdActiveClient();
+      $maCommande = $CommandeManager->getCmdActiveClient();
        
       return $maCommande ;
    }
@@ -177,10 +184,12 @@ class ControleurPanier{
 
    private function payerPanierActif(){
       if( $this->peutPayer() && isset($_POST["payerCmd"]) ){
-         
+        
          $CommandeManager = new CommandeManager;
+         $numCmdPaye = $this->maCommande()->num();
          $CommandeManager->payerPanierActif($GLOBALS["client_en_ligne"]->getId());
-         
+
+         header("Location: ".URL_SITE."facture/".$numCmdPaye."&envoyerFactureMail=Ok");
 
       }
    }

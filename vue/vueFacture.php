@@ -95,10 +95,5 @@ $pdf->template['total']['margin'] = array(1, 0, 1, 130);
 // element personnalisé
 
 
-// #4 Finalisation
-// construit le PDF
-$pdf->buildPDF();
-// télécharge le fichier
-$pdf->Output();
 
 ?>

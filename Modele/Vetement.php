@@ -4,7 +4,6 @@ class Vetement{
    private   $id;
    private   $nom;
    public    $prix;
-   private   $codeRgbOriginal;
    private   $motifPosition;
    private   $categ; // OBJET
    public    $listeCouleurDispo; // OBJET
@@ -42,11 +41,6 @@ class Vetement{
       }
    }
 
-   public function setCodeRgbOriginal($codeRgbOriginal){
-      if(is_string($codeRgbOriginal)){
-         $this->codeRgbOriginal = $codeRgbOriginal;
-      }
-   }
 
    public function setPrix($prix){
       if(is_string($prix)){
@@ -157,10 +151,6 @@ class Vetement{
       return $this->genre;
    }
    
-   public function codeRgbOriginal(){
-      return $this->codeRgbOriginal;
-   }
-
    public function motifPosition(){
       return $this->motifPosition;
    }

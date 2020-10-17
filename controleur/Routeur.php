@@ -17,7 +17,7 @@ class Routeur{
          session_start(); //Démarrage de la session
          $ClientManager = new ClientManager;
          $GLOBALS["client_en_ligne"] = $ClientManager->ClientEnLigne() ;
-
+         
        
 
          //Si le panier session n'a pas encore été défni et personne n'est connecté
@@ -52,6 +52,7 @@ class Routeur{
             }
             else{
                throw new Exception ('Page introuvable');  
+           
             }
          }
          
@@ -65,7 +66,7 @@ class Routeur{
       }
       //GESTION DES ERREURS
       catch(Exception $e){
-      
+         // echo $e;
          $erreurMsg = $e->getMessage();
          $this->vue = new Vue('Erreur');
          $this->vue->setHeader("vue/header.php") ;

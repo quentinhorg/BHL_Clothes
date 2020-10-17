@@ -65,7 +65,7 @@ class CodePostal{
     }
 
     public function prixLiv(){
-        return $this->prixLiv;
+        return number_format($this->prixLiv, 2) ;
     }
    
 

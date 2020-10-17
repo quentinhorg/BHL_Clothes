@@ -125,7 +125,7 @@ if( $vuePagination != null){
         
                 foreach ($vetement->listeCouleurDispo() as $couleur) {
                     $idInput = "vet".$vetement->id()."_couleur".$couleur->num();
-                    echo "<li > <div class='color' style='background-image:url(public/media/vetement/id".$vetement->id().".jpg); ".$couleur->filterCssCode()."'></div> <input name='"."vet".$vetement->id()."' id='$idInput' type='radio'> <label for='$idInput' style='filter: ".$couleur->filterCssCode()."; background-color:".$vetement->codeRgbOriginal()."' title='".$couleur->nom()."'>  </label> </li>";
+                    echo "<li > <div class='color' style='background-image:url(public/media/vetement/id".$vetement->id().".jpg); ".$couleur->filterCssCode()."'></div> <input name='"."vet".$vetement->id()."' id='$idInput' type='radio'> <label for='$idInput' style='filter: ".$couleur->filterCssCode().";' title='".$couleur->nom()."'>  </label> </li>";
                 }
                
                

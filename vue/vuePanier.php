@@ -1,6 +1,5 @@
 <?php //var_dump($maCommande); ?>
 
-
 <section id="panier"> 
 
 
@@ -20,7 +19,7 @@
                 <div class="media d-block d-sm-flex text-center text-sm-left">
                     <a class="cart-item-thumb mx-auto mr-sm-4" href="#"> <img class="img" style="<?php echo $article->Couleur()->filterCssCode() ?>" src="<?php echo "public/media/vetement/id".$article->id() ?>" alt="Product"></a>
                     <div class="media-body pt-3">
-                        <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a href="#">Calvin Klein Jeans Keds</a></h3>
+                        <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a href="#"> <?php echo $article->nom() ?></a></h3>
                         <div class="font-size-sm"><span class="text-muted mr-2">Taille:</span><?php echo $article->Taille()->libelle() ?></div>
                         <div class="font-size-sm"><span class="text-muted mr-2">Couleur:</span> <?php echo $article->Couleur()->nom()  ?></div>
                         <div class="font-size-lg text-primary pt-2 total-price-article"><span><?php echo $article->prixTotalArt() ?></span>€ </div>
@@ -70,7 +69,7 @@
         <!-- Sidebar-->
         <div class="col-xl-3 col-md-4 pt-3 pt-md-0">
             <h2 class="h6 px-4 py-3 bg-secondary text-center">Total</h2>
-            <div id="prixCmdTTC" class="h3 font-weight-semibold text-center py-3"><span><?php echo $maCommande->prixTTC() ?></span>€</div>
+            <div id="prixCmdHT" class="h3 font-weight-semibold text-center py-3">Prix HT: <span><?php echo $maCommande->prixHT() ?></span>€</div>
          
             <a class="btn btn-primary btn-block" href="panier/paiement">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card mr-2">
@@ -123,7 +122,7 @@ $('.quantity button').on('click', function() {
     dataType : 'json',
 		success : function (result) {
       $("#qtePanierNav span .nbQte").text(result['totalQtePanier']) ; 
-      $("#prixCmdTTC span").text(result["prixCmdTTC"]) ;
+      $("#prixCmdHT span").text(result["prixCmdHT"]) ;
      
       parent.parent().parent().parent().find(".total-price-article span").text(result['newPrixArt']);
     }
@@ -153,7 +152,7 @@ $('.quantity button').on('click', function() {
     dataType : 'json',
 		success : function (result) {
       $("#qtePanierNav span .nbQte").text(result['totalQtePanier']) ; 
-      $("#prixCmdTTC span").text(result["prixCmdTTC"]) ;
+      $("#prixCmdHT span").text(result["prixCmdHT"]) ;
       ligneArticle.addClass("article_hide");
     }
   });

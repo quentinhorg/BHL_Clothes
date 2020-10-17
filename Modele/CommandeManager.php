@@ -72,6 +72,22 @@ class CommandeManager extends DataBase{
         unset($_SESSION["ma_commande"]);
     }
 
+    public function getPrixTotalPanierHT($panier){
+
+        $prixTotal = (float) 0;
+        foreach ($panier as $article) {
+            $req = "SELECT prixTotalArt(?, ?) AS 'prixTotalArt';" ;
+            $this->getBdd();
+            
+            $prixTotal += floatval( $this->execBdd($req, [$article->id(), $article->qte()])[0]["prixTotalArt"]);
+            
+        }
+       
+        return $prixTotal ;
+    
+        
+    }
+
     public function payerPanierActif($idClient){
         
         $req = "SELECT c.num as 'numCmd'
