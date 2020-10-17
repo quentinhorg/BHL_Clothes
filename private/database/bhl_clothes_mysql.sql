@@ -93,7 +93,7 @@ BEGIN
 
             IF (etatCmd = 1) THEN
               IF (soldeClient > montantCmdTTC AND montantCmdTTC IS NOT NULL AND soldeClient IS NOT NULL ) THEN 
-                UPDATE commande SET idEtat = 2 WHERE num = _numCmd ; 
+               
 
                 #Récupération des infos Clients
                  SELECT c.nom, c.prenom, c.rue, c.codePostal
@@ -101,9 +101,9 @@ BEGIN
                  FROM client c
                  where c.id = _idClient;
 
-
-                INSERT INTO facture VALUES(_numCmd, nomCli, prenomCli, rueCli, cpCli, "Solde", NOW());
                 UPDATE client SET solde = (soldeClient-montantCmdTTC) WHERE id = _idClient ; 
+                INSERT INTO facture VALUES(_numCmd, nomCli, prenomCli, rueCli, cpCli, "Solde", NOW());
+                UPDATE commande SET idEtat = 2 WHERE num = _numCmd ; 
               ELSE
                 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Erreur: La paiement n\'a pas été effectué.';
               END IF;
@@ -315,7 +315,7 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97469',	'6 impasse du cocon',	'0692851347',	84.6),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97469',	'9 chemin des zoizeau',	'0692753212',	984.2),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97466',	'3 rue de lameme',	'65454',	351),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	418),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	172.6),
 (9,	'test@test2',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97410',	'test',	'6969',	100),
 (10,	'roro13@gmail.com',	'3eddfbf3c48b779222cd8eebb3e137614d5ffee2',	'Robin',	'Jean',	'97413',	'36 rue des merisier ',	'roro',	100),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97419',	'34 rue des fleurs',	'0693455667',	100)
@@ -385,6 +385,7 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (8,	'goldow9744@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	656,	'2020-10-14 17:13:43',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	656,	'2020-10-16 23:05:10',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	530,	'2020-10-16 23:37:04',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	418,	'2020-10-17 07:51:41',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'test rue',	'6969',	100,	'2020-10-13 17:25:03',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'2020-10-13 17:25:12',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'2020-10-13 17:57:50',	'UPDATE'),
@@ -459,10 +460,34 @@ INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
 (12,	10,	'2019-12-02 12:30:00',	1),
 (13,	11,	'2019-12-02 12:30:00',	1),
 (14,	4,	'2019-12-02 12:30:00',	1),
-(15,	8,	'2020-10-16 23:05:10',	2),
+(15,	8,	'2020-10-17 07:42:38',	3),
 (16,	8,	'2020-10-16 23:37:04',	2),
-(17,	8,	'0000-00-00 00:00:00',	1)
+(17,	8,	'2020-10-17 07:51:41',	2)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `dateCreation` = VALUES(`dateCreation`), `idEtat` = VALUES(`idEtat`);
+
+DELIMITER ;;
+
+CREATE TRIGGER `commande_before_update` BEFORE UPDATE ON `commande` FOR EACH ROW
+BEGIN 
+
+DECLARE nbFactureActif int;
+
+SET nbFactureActif = (SELECT COUNT(f.numCmd) FROM facture f WHERE f.numCmd = OLD.num);
+
+
+IF (OLD.idEtat = 1 AND nbFactureActif = 0 AND NEW.idEtat = 2) THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Erreur: Cette commande ne peut être considéré comme payé (Validé), car aucune facture ne lui correspond.";
+end if;
+
+IF (OLD.idEtat >= 2 AND nbFactureActif >= 1 AND NEW.idEtat = 1) THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Erreur: Cette commande ne peut être modifié à 'Non Payé', car elle à déjà été payé et correspond à une facture";
+end if;
+
+
+
+END;;
+
+DELIMITER ;
 
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
@@ -493,7 +518,7 @@ CREATE TABLE `etat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `etat` (`id`, `libelle`, `description`) VALUES
-(1,	'Pas confirmé',	'Votre commande n\'a pas encore été validée.'),
+(1,	'Pas confirmé',	'Votre commande n\'a pas encore été validée, ni payé.'),
 (2,	'En instruction ',	'Votre commande est en cours d\'instruction par nos experts.'),
 (3,	'Préparation en cours',	'Votre commande est en préparation.'),
 (4,	'Livraison en cours',	'Votre commande est actuellement en chemin.'),
@@ -513,11 +538,12 @@ CREATE TABLE `facture` (
   KEY `cpLiv` (`cpLiv`),
   CONSTRAINT `facture_ibfk_1` FOREIGN KEY (`numCmd`) REFERENCES `commande` (`num`),
   CONSTRAINT `facture_ibfk_2` FOREIGN KEY (`cpLiv`) REFERENCES `code_postal` (`cp`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `typePaiement`, `datePaiement`) VALUES
 (15,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-16 23:05:10'),
-(16,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-16 23:37:04')
+(16,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-16 23:37:04'),
+(17,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-17 07:51:41')
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `nomProp` = VALUES(`nomProp`), `prenomProp` = VALUES(`prenomProp`), `rueLiv` = VALUES(`rueLiv`), `cpLiv` = VALUES(`cpLiv`), `typePaiement` = VALUES(`typePaiement`), `datePaiement` = VALUES(`datePaiement`);
 
 DROP TABLE IF EXISTS `genre`;
@@ -706,4 +732,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-16 19:46:03
+-- 2020-10-17 04:06:10
