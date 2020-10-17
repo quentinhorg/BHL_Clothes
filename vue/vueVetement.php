@@ -97,13 +97,13 @@
                         <input type="number" id="noteVet" name="note" value="0" style="visibility: hidden; display:none;">
 
                         <!-- note -->
-                        <div class="donnerNote">
+                        <div class="donnerNote" style="display:flex">
                             Note:
-                            <span  onclick="starmark(this)" id="1one" style="font-size:40px;cursor:pointer;" class="checked" name="note">★</span> <!-- si pb mettre class="fa fa-star checked" -->
-                            <span  onclick="starmark(this)" id="2one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-                            <span  onclick="starmark(this)" id="3one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-                            <span  onclick="starmark(this)" id="4one" style="font-size:40px;cursor:pointer;" name="note">★</span>
-                            <span  onclick="starmark(this)" id="5one" style="font-size:40px;cursor:pointer;" name="note">★</span> <!-- si pb mettre class="fa fa-star" pour 4 dernieres lignes-->
+                            <span style="font-size:40px;cursor:pointer;color:black" class="checked" name="note">★</span> <!-- si pb mettre class="fa fa-star checked" -->
+                            <span style="font-size:40px;cursor:pointer;color:black" name="note">★</span>
+                            <span style="font-size:40px;cursor:pointer;color:black" name="note">★</span>
+                            <span style="font-size:40px;cursor:pointer;color:black" name="note">★</span>
+                            <span style="font-size:40px;cursor:pointer;color:black" name="note">★</span> <!-- si pb mettre class="fa fa-star" pour 4 dernieres lignes-->
                         </div>
                         <br/>
 
@@ -185,6 +185,61 @@
 
 
 <script>
+
+    //Hover étoiles
+        var spanClick = null;
+
+        //Clique
+        $( ".donnerNote span" ).click(function(){
+            spanClick = $(this);
+            var note = $(this).index()+1;
+
+            $("#noteVet").attr("value",note);
+            $("#noteVet").prop("value",note);
+
+        //Survolage interieur
+        }).hover(
+            function(){
+                var spanHover = $(this);
+
+                spanHover.parent().find("span").each(
+                    function(){
+                        if( $(this).index() <= spanHover.index() ){
+
+                            $(this).css("color","orange");
+                            
+                        }
+                        else{
+                            $(this).css("color","black");
+                        }
+                    }
+                )
+            }, 
+            //Survolage exterieur
+            function() {
+                $(".donnerNote span").each(function(event){
+                    
+                    
+                    if(  spanClick == null || ( spanClick != null && $(this).index() > spanClick.index() ) ){
+                         $(this).css("color",'black');
+                    }
+                    else{
+                        $(this).css("color",'orange');
+                    }
+                   
+                   
+                }  );
+            }
+          
+        );
+
+        
+
+
+
+
+
+
     var message = <?php echo json_encode($msg); ?>;
     
     if(message != null){
@@ -214,26 +269,7 @@
 
     var count;
 
-    function starmark(item){
-        count=item.id[0];
-        sessionStorage.starRating = count;
-        var subid= item.id.substring(1);
-        // alert(count);
-        $("#noteVet").prop("value", count) ;
-        $("#noteVet").attr("value", count) ;
 
-
-
-        for(var i=0;i<5;i++) {
-            
-            if(i<count){
-                document.getElementById((i+1)+subid).style.color="orange";
-            }
-            else{
-                document.getElementById((i+1)+subid).style.color="black";
-            }
-        }
-    }
 
 
     Vetement = new Vetement;

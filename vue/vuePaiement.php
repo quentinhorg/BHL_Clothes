@@ -30,7 +30,7 @@
             <input type="text" id="fcp" value="974" disabled>
 
             <label for="city"><i class="fa fa-institution"></i> Ville </label>
-            <input type="text" id="city"  value="New York" disabled>
+            <input type="text" id="city"  value="<?php echo $clientInfo->CodePostal()->libelle() ?>" disabled>
 
        
 

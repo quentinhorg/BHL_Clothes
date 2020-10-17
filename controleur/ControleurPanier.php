@@ -8,7 +8,7 @@ class ControleurPanier{
    public function __construct($url){
       
     $id=1;
-      if( isset($url) && count($url) > 2 ){
+      if( isset($url) && count($url) > 1 ){
          throw new Exception('Page introuvable');
       }
       else{
@@ -34,36 +34,12 @@ class ControleurPanier{
          }
    
 
-        //Page Paiement
-         if( isset($url[1]) && strtolower($url[1]) == "paiement"){
-
-            $this->payerPanierActif();
-
-            
-            if( $this->peutPayer() ){
-
-               $this->vue = new Vue('Paiement') ;
-               $donneeVue = array(
-                  "clientInfo"=> $GLOBALS["client_en_ligne"],
-                  "maCommande"=> $this->maCommande()
-               ) ;
-            }
-            else if ($GLOBALS["client_en_ligne"] == null && COUNT($this->maCommande()->panier()) >= 1 ) {
-               header("Location: ".URL_SITE."/authentification/inscription");
-            }
-            else{
-               throw new Exception('Page introuavable');
-            }
-            
-
-         }
-         else{
-            $this->vue = new Vue('Panier') ;
-            $this->vue->setListeJsScript(["public/script/js/HtmlArticle.js","public/script/js/HtmlPanier.js" ]);
-            $donneeVue = array(
-               "maCommande"=> $this->maCommande()
-           ) ;
-         }
+         $this->vue = new Vue('Panier') ;
+         $this->vue->setListeJsScript(["public/script/js/HtmlArticle.js","public/script/js/HtmlPanier.js" ]);
+         $donneeVue = array(
+            "maCommande"=> $this->maCommande()
+         ) ;
+      
 
          $this->vue->genererVue($donneeVue) ;
         
@@ -182,27 +158,7 @@ class ControleurPanier{
       $CommandeManager->effacerCmdSession();
    }
 
-   private function payerPanierActif(){
-      if( $this->peutPayer() && isset($_POST["payerCmd"]) ){
-        
-         $CommandeManager = new CommandeManager;
-         $numCmdPaye = $this->maCommande()->num();
-         $CommandeManager->payerPanierActif($GLOBALS["client_en_ligne"]->getId());
 
-         header("Location: ".URL_SITE."facture/".$numCmdPaye."&envoyerFactureMail=Ok");
-
-      }
-   }
-
-   private function peutPayer(){
-      //Si au moins un article, si la commande n'a pas encore été payé et si on est connecté
-      return 
-      $this->maCommande()->panier() != null 
-      && $this->maCommande()->Etat() != null 
-      && $this->maCommande()->Etat()->id() == 1 
-      && $GLOBALS["client_en_ligne"] != null;
-      
-   }
 
 
 

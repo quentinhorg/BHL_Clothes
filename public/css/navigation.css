@@ -96,3 +96,13 @@ hr{
    
 }
 
+
+#navCateg a.active{
+   color: #e86c35;
+   font-weight: bold;
+   border-bottom: 2px solid;
+}
+
+.dropdown-content a{
+   border: none!important;
+}

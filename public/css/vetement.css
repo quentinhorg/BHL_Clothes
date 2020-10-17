@@ -209,7 +209,8 @@ ul.listeCouleur li{
 
 @media all and (max-width:400px){
    .img img {
-      width: 30px;
+      width: 285px;
+      padding-left: 42px;
   }
  
 }

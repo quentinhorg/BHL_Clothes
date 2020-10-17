@@ -2,7 +2,7 @@
 <p style="margin-bottom: 40px;">Pour tout renseignement commercial sur l’un de nos modèles ou pour tout autre demande,
 nos conseillers sont là pour vous répondre.</p>
 
-<div class="contact">
+<div class="contact col">
     <form method="POST">
         <div class="form-group">
             <label for="exampleInputEmail1">Nom</label>

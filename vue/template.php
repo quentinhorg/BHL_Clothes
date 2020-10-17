@@ -66,4 +66,6 @@
     <?php echo $footer  //Insertion du footer ?>
   
 </body>
+
+        
 </html>

@@ -83,6 +83,29 @@
 </div>
 
 
+<script>
+
+
+//str.lastIndexOf("planet");
+var dossierActive = window.location.pathname;
+var nomDossierDeIndex = "BHL_Clothes"; // Nom du dossier où se trouve l'index (Dossier qui regroupe tous le projet)
+var indexTronquer = dossierActive.indexOf(nomDossierDeIndex)+nomDossierDeIndex.length+1 ;  //Trouver l'index à tronquer de la page active
+var hrefActive = dossierActive.substring(indexTronquer); // Deonne le chemain relative du dossier actif
+
+lien = $("#navCateg").find("a[href='"+hrefActive+"']")
+
+
+lien.addClass("active"); // Ajout d'un style au href possède le chemain actif ( ou page active)
+
+// BONUS -> Si le lien actif est présent dans un menu déroulant alors on ajoute le style au parent aussi (Le genre)
+if(lien.parent().parent().attr("class") == "dropdown" ){
+    lien.parent().parent().find("a.genreNav").addClass("active");
+}
+
+    
+
+</script>
+
 
 
 
