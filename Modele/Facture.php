@@ -84,6 +84,7 @@ class Facture{
    }
 
    public function datePaiement(){
+      
       return $this->datePaiement;
    }
 

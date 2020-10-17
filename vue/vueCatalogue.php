@@ -14,7 +14,7 @@
         echo "<h3>".$genreActive->libelle()."</h3>" ;
         echo "<ul>";
         foreach ($genreActive->listeCateg() as $categ) {
-            echo "<li> ".$categ->nom()." </li>" ;
+            echo "<li> <a href='catalogue/".$genreActive->code()."/".$categ->id()."'>".$categ->nom()."</a> </li>" ;
         }
         echo "</ul>" ;
 
@@ -25,7 +25,7 @@
      
         echo "<ul>";
         foreach ($listeGenre as $genre) {
-            echo "<li> ".$genre->libelle()." </li>" ;
+            echo "<li> <a href='catalogue/".$genre->code()."'>".$genre->libelle()." </a> </li>" ;
         }
         echo "</ul>" ;
         

@@ -261,7 +261,7 @@ input[name=trier]{
 only screen and (min-width: 768px){
 
  #navCatalogue {
-   margin-left: 0;
+   margin-left: 15px;
  }
 
  #page-content-wrapper {

@@ -1,0 +1,76 @@
+/* ============================================= FOOTER =============================================== */
+
+.footer_area {
+    padding: 60px 0; 
+  }
+  
+  .footer_area:before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+
+  z-index: -1; 
+  }
+  
+    @media (max-width: 1024px) {
+  .footer_area {
+    padding: 60px 0; 
+  }
+   
+  }
+  
+  .footer_area .footer_logo {
+  text-align: center; 
+  }
+  
+  .footer_area .footer_logo h4 {
+    font-size: 20px;
+    color: #000000;
+    margin-top: 35px;
+    text-transform: uppercase; 
+  }
+  
+  .footer_area .footer_social {
+  text-align: center;
+  margin: 25px 0px 30px; 
+  }
+  
+  .footer_area .footer_social a {
+    padding: 0 20px; 
+  }
+  
+  .footer_area .footer_social a i {
+  color: #788489;
+  font-size: 22px;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s; 
+  }
+  
+  @media (max-width: 576px) {
+  .footer_area .footer_social a i {
+  font-size: 25px; 
+  }
+   
+  }
+  
+  .footer_area .footer_social a i:hover {
+    color: #e78200; 
+  }
+  
+  .footer_area .footer_bottom {
+  text-align: center; 
+  }
+  
+  .footer_area .footer_bottom p {
+    margin-bottom: 0; 
+  }
+  
+  .footer_area .footer_bottom a {
+    color: #e78200; 
+  }
+  

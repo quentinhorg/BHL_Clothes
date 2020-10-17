@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <base href="/btssio/BTS2/BHL_Clothes/">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     
     <!-- Bootstrap Intégration  -->
     <link rel="stylesheet" href="public\bootstrap-4.3.1\bootstrap.min.css">
-    <script src="public/script/js/jquery-3.4.0.min.js"></script>
     <script src="public\bootstrap-4.3.1\bootstrap.min.js"></script>
-    <!--  -->
 
+    <link rel="icon" type="image/png" href="public\media\bhl_clothes\logo_icon.png" />
+    
 
+    <script src="public/script/js/jquery-3.4.0.min.js"></script>     <!-- JQuery 3.4.0 -->
+    <link href='public/font/Archivo.css' rel='stylesheet'>    <!-- Font style -->
+    <title> <?php echo $titre  ?> </title>  <!-- Titre de l'onglet -->
+    <link rel="stylesheet" href="public/fontawesome/font-awesome.min.css"> <!-- Css pour les icones avec la librerie Fontawesome -->
 
-    <link href='public/font/Archivo.css' rel='stylesheet'>
-   
-    <title> <?php echo $titre  ?> </title>
-  
-    <link rel="stylesheet" href="public/css/bhl_clothes.css">
-    <link rel="stylesheet" href="public/css/erreur.css">
-    <link rel="stylesheet" href="public/css/navigation.css">
-    <link rel="stylesheet" href="public/script/DataTable/datatable.css"> <!-- Provisoir -->
+    <!-- Liste du css besoin qui reviens sur toutes les pages -->
+    <link rel="stylesheet" href="public/css/bhl_clothes.css"> <!-- Css Principal du site -->
+    <link rel="stylesheet" href="public/css/erreur.css">   <!-- Css de la page d'erreur -->
+    <link rel="stylesheet" href="public/css/navigation.css"> <!-- Css de la Navigation -->
+    <link rel="stylesheet" href="public/css/footer.css"> <!-- Css du Footer -->
+    <link rel="stylesheet" href="public/script/DataTable/datatable.css"> <!-- Css pour la librerie DataTable -->
   
    
 
     
 
     <!-- liens notes -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
     
     <script src=""></script>
     
@@ -59,9 +61,9 @@
     <?php echo $header  //Insertion de la bar de navigation ?>
     <div id="contenu">
         <?php echo $contenu  //Insertion des contenue de la page active ?>
-    <div>
+    </div>
 
-    
+    <?php echo $footer  //Insertion du footer ?>
   
 </body>
 </html>

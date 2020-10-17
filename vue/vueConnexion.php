@@ -15,14 +15,9 @@
         <label for="inputPassword">Password</label>
       </div>
 
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
       <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">Se connecter</button>
    
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-201</p>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2020-2021</p>
     </form>
 
 

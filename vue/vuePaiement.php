@@ -24,7 +24,7 @@
             <input type="text" id="femail" value="<?php echo $clientInfo->email() ;?>" disabled>
 
             <label for="adr"><i class="fa fa-address-card-o"></i> Addresse</label>
-            <input type="text" id="adr"  value="<?php// echo $clientInfo->getAdresse() ;?>" disabled>
+            <input type="text" id="adr"  value="<?php echo $clientInfo->rue()." à ".$clientInfo->CodePostal()->libelle().", ".$clientInfo->CodePostal()->cp() ;?>" disabled>
 
             <label for="fcp"><i class="fa fa-address-card-o"></i> Code Postal </label>
             <input type="text" id="fcp" value="974" disabled>

@@ -29,8 +29,8 @@
                 <select class="form-control" name="cp" id="">
                     <?php
                     
-                    foreach ($listCp as $cp => $ville) {
-                        echo "<option value='$cp'> $cp - $ville </option>";
+                    foreach ($listCp as $CodePostal) {
+                        echo "<option value='".$CodePostal->cp()."'> ".$CodePostal->cp()." - ".$CodePostal->libelle()." </option>";
                     }
                     
                     ?>
@@ -45,30 +45,37 @@
     
         </div>
     </div>
-    
 
-      <div class="form-group">
+    <div class="form-group">
+      <label for="inputTel">Téléphone</label>
+        <input type="text" autofill="off" name="tel" id="inputTel" class="form-control" placeholder="Téléphone" required autofocus>
+       
+      </div>
+      <br>
+      <h5> Informations de connexion :</h5>
+      <div class="form-row">
+      
+
+      <div class="form-group col-md-6">
       <label for="inputEmail">Adresse email</label>
         <input type="email" autofill="off" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
        
       </div> 
 
 
-      <div class="form-group">
+      <div class="form-group col-md-6">
       <label for="inputMdp">Mot de passe</label>
         <input type="password" autofill="off" name="mdp" id="inputMdp" class="form-control" placeholder="Mot de passe" required autofocus>
        
+      </div>
+
       </div>
 
  
 
 
    
-      <div class="form-group">
-      <label for="inputTel">Téléphone</label>
-        <input type="text" autofill="off" name="tel" id="inputTel" class="form-control" placeholder="Téléphone" required autofocus>
-       
-      </div>
+     
 
 
 
