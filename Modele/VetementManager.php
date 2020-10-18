@@ -8,7 +8,7 @@ class VetementManager extends DataBase{
     INNER JOIN vet_couleur vc ON vc.idVet= v.id 
     INNER JOIN categorie c ON c.id= v.idCateg
     INNER JOIN genre g ON g.code = v.codeGenre
-    LEFT JOIN taille t ON t.libelle = vt.taille" ;
+    INNER JOIN taille t ON t.libelle = vt.taille" ;
 
     public $Pagination = null;
 
@@ -18,6 +18,15 @@ class VetementManager extends DataBase{
         if( !isset($_GET["page"]) ){ $_GET["page"] = null ; }
         $this->Pagination = new Pagination($_GET["page"], $nbArtPage) ;
     }
+
+    
+   public function tabAssocVet($idVet){
+        $reqVet = $this->reqBase." WHERE v.id = ?";
+        $this->getBdd();
+        $dataAricle = $this->execBDD($reqVet, [$idVet]);
+        return $dataAricle ;
+    }
+
 
     //Obtient les 3 dernières nouveautés
     public function getNouveaute(){
@@ -91,6 +100,31 @@ class VetementManager extends DataBase{
         ORDER BY v.id DESC";
         $this->getBdd();
         return $this->getModele($req, [$codeGenre], "Vetement");
+    }
+
+    public function verifDisponibiliteTailleCouleur($idVet, $numClr, $taille){
+        $dispo = false;
+  
+        $req = "SELECT COUNT(*) AS 'nbRow'
+        FROM vetement v
+        INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet = v.id
+        INNER JOIN vet_taille vt ON vt.idVet = v.id 
+        INNER JOIN vet_couleur vc ON vc.idVet= v.id 
+        INNER JOIN categorie c ON c.id= v.idCateg
+        INNER JOIN genre g ON g.code = v.codeGenre
+        INNER JOIN taille t ON t.libelle = vt.taille
+        WHERE vt.taille = ?
+        AND vc.num = ?
+        AND v.id = ? ";
+        $this->getBdd();
+        $nbRow = intval($this->execBDD($req, [$taille, $numClr, $idVet])[0]["nbRow"]) ;
+  
+        if($nbRow >= 1){
+           $dispo = true;
+        }
+  
+        return $dispo;
+        
     }
 
 }
