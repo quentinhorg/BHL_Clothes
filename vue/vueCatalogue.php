@@ -7,10 +7,14 @@
 
       <div class="list-group list-group-flush">
        
-<form action="" method="POST">
+<form action="" method="GET" id="formFiltrage">
+
+
+
     <?php
     
     if( $genreActive != null){
+
         echo "<h3>".$genreActive->libelle()."</h3>" ;
         echo "<ul>";
         foreach ($genreActive->listeCateg() as $categ) {
@@ -41,16 +45,26 @@
                 echo "<hr>";
                 echo "<h3> Taille </h3>";
                 echo "<ul>";
-                foreach ($listeTaille as $libelle ){ 
+
+                $checked = "";
+                foreach ($listeTaille as $Taille ){ 
+                 
+                    //garder les champs
+                    if(isset($_GET["taille"]) && in_array($Taille->libelle(), $_GET["taille"])){
+                        $checked = "checked";
+                    }
+
                     echo "<li> " ;
 
-                    echo "<label for='taille_".$libelle->libelle()."' class='container'>".$libelle->libelle() ;
-                    echo "<input name='taille[]' value='".$libelle->libelle()."' id='taille_".$libelle->libelle()."' type='checkbox' >" ;
+                    echo "<label for='taille_".$Taille->libelle()."' class='container'>".$Taille->libelle() ;
+                    echo "<input $checked name='taille[]' value='".$Taille->libelle()."' id='taille_".$Taille->libelle()."' type='checkbox' >" ;
                     echo "<span class='checkmark'> </span>" ;
                     echo "</label>" ;
 
-                   //echo     "<input name='taille[]' id='taille_".$libelle->libelle()."' type='checkbox' value='".$libelle->libelle()."'>  <label for='taille_".$libelle->libelle()."'> ".$libelle->libelle()."</label>" ;
+                   //echo     "<input name='taille[]' id='taille_".$Taille->libelle()."' type='checkbox' value='".$Taille->libelle()."'>  <label for='taille_".$Taille->libelle()."'> ".$Taille->libelle()."</label>" ;
                     echo "</li>";
+                    
+                    $checked = null;
                 }
                 echo "</ul>" ;
             }
@@ -62,22 +76,40 @@
     <ul>
 
     <?php 
-    
+    $checked = null;
     foreach ($listClrPrincipale as $couleur) {
+        
+        //garder les champs
+        if(isset($_GET["couleur"]) && in_array($couleur, $_GET["couleur"])){
+            $checked = "checked";
+        }
+
+
        echo "<li> " ;
        echo "<label for='clr_$couleur' class='container'>$couleur" ;
-       echo "<input name='couleur[]' value='$couleur' id='clr_$couleur' type='checkbox' >" ;
+       echo "<input $checked name='couleur[]' value='$couleur' id='clr_$couleur' type='checkbox' >" ;
        echo "<span class='checkmark'> </span>" ;
        echo "</label>" ;
 
       
        echo "</li>";
+       $checked = null;
     }
     ?>
 
     </ul>
 
-     <input type="submit" value="Trier le catalogue" name="trier">           
+    <hr>
+    <h3>Budget Max</h3>
+    <?php 
+    $budget = null;
+    if(isset($_GET["budget"])){
+        $budget = $_GET["budget"];
+    }
+    ?>
+    <input type="number" name="budget" value="<?php echo $budget ?>">
+
+     <input type="submit" id="filtrer" value="Trier le catalogue" name='trier'>           
     </form>
 <!-- test -->
 
@@ -165,12 +197,30 @@ if( $vuePagination != null){
 <script>
  Catalogue = new Catalogue();
  Catalogue.changeColor();
-
+ 
  
  $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+
+
+// $("#filtrer").click(function(){
+
+//     var form = $("#formFiltrage");
+//     var serializedData = form.serialize();
+//     $.ajax({
+//         url : "catalogue",
+//         data : "trier=Ok&"+serializedData,
+//         type : 'POST',
+//         success : function(result) {
+//             $("#listVetement").html($(result).find("#listVetement"));
+//         }
+
+//     });
+    
+
+// }) ;
 
 
 </script>

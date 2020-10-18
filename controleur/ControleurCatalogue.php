@@ -13,6 +13,7 @@ class ControleurCatalogue{
       }
       else{
 
+
          $idCateg= null;
          if( isset( $url[2])){
             $idCateg = $url[2];
@@ -26,7 +27,7 @@ class ControleurCatalogue{
        
 
          //Systeme de recherche
-         if(isset($_POST['trier']) || isset($_POST['motCle']) ){
+         if(isset($_GET['trier']) || isset($_POST['motCle']) ){
             $listeVetement = $this->recherche($codeGenre, $idCateg);
          }
        
@@ -35,10 +36,15 @@ class ControleurCatalogue{
          }
        
 
-         //A optimisé
-         if( $this->vetementManager != null){
-            $vuePagination = $this->vetementManager->Pagination->getVuePagination("catalogue&page=") ;
-         }else{ $vuePagination = null ;}
+      
+            //Récupèration des arguments de l'url actif
+            $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 
+            "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .  
+            $_SERVER['REQUEST_URI']; 
+            $argUrl = parse_url($link, PHP_URL_QUERY);
+
+            $vuePagination = $this->vetementManager->Pagination->getVuePagination("catalogue?".$argUrl) ;
+      
 
 
 
@@ -51,7 +57,8 @@ class ControleurCatalogue{
             "listeGenre"=>$this->listeGenre(),
             "listClrPrincipale" => $this->listClrPrincipale(),
             "genreActive" => $this->genre($codeGenre),
-            "categActive" => $this->categ($idCateg),
+            "categActive" => $this->categ($idCateg)
+          
             
          )) ;
          
@@ -111,23 +118,23 @@ class ControleurCatalogue{
       $this->vetementManager->setPagination(10);
 
       $prixIntervale = null;
-      if (!empty($_POST['prix']) ){
-         $prixIntervale = [0, $_POST['prix']];
+      if (!empty($_GET['budget']) ){
+         $prixIntervale = [0, $_GET['budget']];
       }
 
       $listeTaille = null;
-      if (!empty($_POST['taille'])){
-         $listeTaille = $_POST['taille'];
+      if (!empty($_GET['taille'])){
+         $listeTaille = $_GET['taille'];
       }
       
       $listeCouleur=null;
-      if(!empty($_POST['couleur'])){
-         $listeCouleur = $_POST['couleur'];
+      if(!empty($_GET['couleur'])){
+         $listeCouleur = $_GET['couleur'];
       }
 
       $motCle=null;
-      if(!empty($_POST['motCle'])){
-         $motCle = $_POST['motCle'];
+      if(!empty($_GET['motCle'])){
+         $motCle = $_GET['motCle'];
       }
       
       
@@ -142,11 +149,6 @@ class ControleurCatalogue{
 
       return $resultat ;
 
-
-      
-      
-
-      //return $RechercheManager->getRecherche();
    }
 
 
