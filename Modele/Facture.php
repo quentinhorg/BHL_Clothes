@@ -60,6 +60,11 @@ class Facture{
       $this->CodePostal = $CodePostalManager->getCp($cpLiv);
    }
 
+   public function setDatePaiement($date){
+
+         $this->datePaiement = $date;
+  
+   } 
 
 
  
@@ -84,8 +89,16 @@ class Facture{
    }
 
    public function datePaiement(){
+
+      $dateFormat = null ;
+
+      if( $this->datePaiement != null){
+         $date= new DateTime($this->datePaiement);
+         $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
+      }
+
+      return $dateFormat;
       
-      return $this->datePaiement;
    }
 
    public function rueLiv(){
