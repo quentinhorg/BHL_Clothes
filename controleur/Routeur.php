@@ -69,6 +69,7 @@ class Routeur{
          // echo $e;
          $erreurMsg = $e->getMessage();
          $this->vue = new Vue('Erreur');
+         $this->vue->setListeCss(["public/css/erreur.css"]) ;
          $this->vue->setHeader("vue/header.php") ;
          $this->vue->genererVue(array('erreurMsg' => $erreurMsg));
       }
