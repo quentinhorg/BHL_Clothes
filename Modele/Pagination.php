@@ -50,6 +50,15 @@
 
 
    public function getVuePagination($href){
+
+         //Procédure pour éviter dupliquer la variable "page=" dans l'url
+         if(strpos($href,"page")){
+            $href =  substr($href, 0, strpos($href,"page")-1); // retourne "de"
+         }
+         $href.="&page=";
+
+      
+         
          $totalPage = $this->totalPage ; //Calcule du nombre de page totale
          
          $listePage = "<div class='pagination'>";
@@ -71,9 +80,9 @@
          return $listePage ;    
    }
 
-   public function setPropriete($propriete, $valeur){
 
-   }
+
+  
 
 }
 ?>

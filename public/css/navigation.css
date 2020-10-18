@@ -103,6 +103,10 @@ hr{
    border-bottom: 2px solid;
 }
 
+#navCateg a.active:hover{
+   text-decoration: none;
+}
+
 .dropdown-content a{
    border: none!important;
 }

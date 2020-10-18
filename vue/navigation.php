@@ -92,7 +92,7 @@ var nomDossierDeIndex = "BHL_Clothes"; // Nom du dossier où se trouve l'index (
 var indexTronquer = dossierActive.indexOf(nomDossierDeIndex)+nomDossierDeIndex.length+1 ;  //Trouver l'index à tronquer de la page active
 var hrefActive = dossierActive.substring(indexTronquer); // Deonne le chemain relative du dossier actif
 
-lien = $("#navCateg").find("a[href='"+hrefActive+"']")
+lien = $("#navCateg").find("a[href='"+hrefActive.toLowerCase()+"']")
 
 
 lien.addClass("active"); // Ajout d'un style au href possède le chemain actif ( ou page active)

@@ -14,6 +14,7 @@ class Vetement{
    
 
    public function __construct(array $donnee){
+      //var_dump($donnee);
       foreach($donnee as $cle => $valeur){
          $methode = 'set'.ucfirst($cle);
       
@@ -168,22 +169,10 @@ class Vetement{
       return $this->nbAvis;
    }
 
+
+
    
 
-
-
-
-   // function getUrlImg(){
-			
-   //    $chemin = "public/media/cookies/img$this->id.jpg";
-   
-    
-   //    if ( !file_exists( $chemin) ) {
-   //       $chemin= "public/media/cookies/img/default.jpg";
-   //    }
-
-   //    return $chemin;
-   // }
 
 
 }

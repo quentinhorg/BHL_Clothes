@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     
-    <!-- Bootstrap Intégration  -->
+  
     <link rel="stylesheet" href="public\bootstrap-4.3.1\bootstrap.min.css">
-    <script src="public\bootstrap-4.3.1\bootstrap.min.js"></script>
-
     <link rel="icon" type="image/png" href="public\media\bhl_clothes\logo_icon.png" />
     
 
@@ -20,12 +18,13 @@
 
     <!-- Liste du css besoin qui reviens sur toutes les pages -->
     <link rel="stylesheet" href="public/css/bhl_clothes.css"> <!-- Css Principal du site -->
-    <link rel="stylesheet" href="public/css/erreur.css">   <!-- Css de la page d'erreur -->
     <link rel="stylesheet" href="public/css/navigation.css"> <!-- Css de la Navigation -->
     <link rel="stylesheet" href="public/css/footer.css"> <!-- Css du Footer -->
     <link rel="stylesheet" href="public/script/DataTable/datatable.css"> <!-- Css pour la librerie DataTable -->
   
-   
+     <!-- Bootstrap Intégration  -->
+    
+    <script src="public\bootstrap-4.3.1\bootstrap.min.js"></script>
 
     
 
