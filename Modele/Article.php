@@ -68,6 +68,17 @@ class Article extends Vetement{
    }
 
 
+   //AUTRES MÉTHODE
+
+   public function dispo(){
+      $VetementManager = new VetementManager;
+
+      //Retourne VRAI si l'article est disponible dans la BDD ou FAUX si n'est pas disponible par rapport  à la taille et la couleur choisies des attributs de la classe
+      return  $VetementManager->verifDisponibiliteTailleCouleur($this->id(), $this->Couleur->num(), $this->Taille->libelle() );
+      
+   }
+
+
 
 
 

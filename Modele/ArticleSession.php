@@ -1,12 +1,12 @@
 <?php 
 
 class ArticleSession extends Article{
-
+   private VetementManager $VetementManager ;
 
    public function __construct($idVet, $taille, $qte, $numClr)
    {
-      $ArticleManager = new ArticleManager; 
-      $dataVet = $ArticleManager->getDataVetAssoc($idVet)[0];
+      $this->VetementManager = new VetementManager; 
+      $dataVet = $this->VetementManager->tabAssocVet($idVet)[0];
       parent::__construct($dataVet);
 
       $this->setTaille($taille);
@@ -19,6 +19,10 @@ class ArticleSession extends Article{
       parent::setQte($qte);
       $this->setPrixTotalArt($this->qte * $this->prix);
    }
+
+   
+
+
 
 
 
