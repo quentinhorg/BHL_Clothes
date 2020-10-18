@@ -1,19 +1,18 @@
-<?php //var_dump($maCommande); ?>
+<?php //var_dump($cmdActif->panier()); ?>
 
 <section id="panier"> 
 
 
-<?php if( $maCommande->panier() != null){ ?>
+<?php if( $cmdActif->panier() != null){ ?>
 
 
   <div class="container pb-5 mt-n2 mt-md-n3">
     <div class="row">
         <div class="col-xl-9 col-md-8">
-            <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Mes articles</span><a class="font-size-sm" href="catalogue"> < Continuer mes achats </a></h2>
+            <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Mes articles</span> <form method="POST" id="formViderPanier" action=""> <button onclick=" return confirm('Etes vous sûre de vouloir supprimez tous vos articles ?')"  type="submit" name="viderPanier" value="Vider mon panier"> Vider mon panier </button> </form>  </a></h2>
             <!-- Item-->
+            <?php foreach ($cmdActif->panier() as $article) { ?>
 
-
-            <?php  foreach ($maCommande->panier() as $article) { ?>
             <?php  $valueArticle = "idVet=".$article->id()."&taille=".$article->Taille()->libelle()."&numClr=".$article->Couleur()->num() ?>
             <div class="d-sm-flex justify-content-between my-4 pb-4 border-bottom">
                 <div class="media d-block d-sm-flex text-center text-sm-left">
@@ -42,23 +41,37 @@
                         <div class="form-group mb-2">
 
                       <div class="quantity">
+                        <?php 
+                        $disabled="";
+                        $pasDispo="";
+                       
+                        
+                        if($article->dispo() == false) {
+                          
+                            $disabled= "disabled";
+                            $pasDispo= "Cet article n'est plus disponible.";
+                        }
 
 
-                      <button value='<?php echo $valueArticle ?>' class="minus-btn" type="button" name="button">
-                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
-                        </svg>
-                      </button>
+                        ?>
 
-                      <input type="text" name="qte" value="<?php echo $article->qte() ?>" max="20">
-                      <button value='<?php echo $valueArticle ?>' class="plus-btn" type="button" name="button">
-                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                        </svg>
-                      </button>
+                        <button value='<?php echo $valueArticle ?>' class="minus-btn" type="button" name="button" <?php echo $disabled ?>>
+                          <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-dash-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+                          </svg>
+                        </button>
+
+                        <input type="text" name="qte" <?php echo $disabled ?> value="<?php echo $article->qte() ?>" max="20">
+                        <button value='<?php echo $valueArticle ?>' class="plus-btn" type="button" name="button" <?php echo $disabled ?>>
+                          <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                          </svg>
+                        </button>
                       </div>
+                      <div>
+                      <?php echo $pasDispo; ?>
 
-
+                      </div>
                     </div>
                 </div>
             </div>
@@ -69,7 +82,7 @@
         <!-- Sidebar-->
         <div class="col-xl-3 col-md-4 pt-3 pt-md-0">
             <h2 class="h6 px-4 py-3 bg-secondary text-center">Total</h2>
-            <div id="prixCmdHT" class="h3 font-weight-semibold text-center py-3">Prix HT: <span><?php echo $maCommande->prixHT() ?></span>€</div>
+            <div id="prixCmdHT" class="h3 font-weight-semibold text-center py-3">Prix HT: <span><?php echo $cmdActif->prixHT() ?></span>€</div>
          
             <a class="btn btn-primary btn-block" href="paiement/panier">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-credit-card mr-2">
@@ -84,7 +97,7 @@
     
     
  
-  <?php } else{ echo "<p class='panierVide'> Votre panier semble être vide. <br> <a href='catalogue'> Continuer vos achats</a> </p>" ;}?>
+  <?php } else{ echo "<p class='panierVide'> Votre panier semble être vide. <br> <a href='catalogue'> Continuer vos achats </a> </p>" ;}?>
 
 </section>
 
