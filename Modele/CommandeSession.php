@@ -3,6 +3,11 @@
 class CommandeSession extends Commande{
 
    private $CommandeManager;
+
+
+   public function viderPanier(){
+      $this->panier = array();
+   }
   
    public function __construct(){
       $this->CommandeManager = new CommandeManager;
@@ -22,7 +27,6 @@ class CommandeSession extends Commande{
       if($indiceArticle !== null ){
          $totalQte = $this->panier[$indiceArticle]->qte() + $ArticleSession->qte() ;
          $this->panier[$indiceArticle]->setQte($totalQte);
-         
       }
       else{
          $this->panier[] = $ArticleSession;

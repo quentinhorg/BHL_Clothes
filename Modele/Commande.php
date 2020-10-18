@@ -52,10 +52,8 @@ class Commande{
    }
 
    public function setTypePaiement($typeP){
-      
       $this->typePaiement = $typeP;
-   
-}
+   }
 
    public function setNum($num){
       $num = (int) $num;
@@ -185,7 +183,6 @@ class Commande{
          }
       }
     
-     
      return $indicePanier;
    }
 

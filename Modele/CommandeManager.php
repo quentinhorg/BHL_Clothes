@@ -123,6 +123,15 @@ class CommandeManager extends DataBase{
         return $possede;
     }
 
+    public function viderPanier($numCmd){
+        //Supprime également la commande car trigger
+
+        $req = "DELETE FROM article_panier WHERE numCmd = ?" ;
+        $this->getBdd();
+
+        $this->execBdd($req, [$numCmd]);
+    }
+
 
 
 }
