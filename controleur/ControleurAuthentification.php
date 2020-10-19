@@ -6,8 +6,10 @@ class ControleurAuthentification{
 
    // CONSTRUCTEUR 
    public function __construct($url){
+
+     
       
-      if( isset($url) && count($url) > 3 ){
+      if( isset($url) && count($url) > 2 ){
          throw new Exception('Page introuvable');
       }
       //Inscription
@@ -23,17 +25,11 @@ class ControleurAuthentification{
                            if (!empty($_POST["mdp"])){
                               if (!empty($_POST['tel'])) {
 
-                                 $idClientRegister = $this->insertClient();
+                                 $idClientRegister = $this->inscrireClient();
 
                                  if( $_SESSION["ma_commande"]->panier() != NULL ){
                                     $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
                                  }
-
-                                 $mail= $_POST['email'];
-                                 $mdp = $_POST['mdp'];
-
-                                 $this->tryConnexion($mail, $mdp) ;
-                            
                            
                               }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
                            }else {  $message = "Veuillez entrer un mot de passe"; }
@@ -60,15 +56,47 @@ class ControleurAuthentification{
                }else {  $message = "Veuillez entrer un mot de passe"; }
             }else {  $message = "Veuillez entrer votre Email"; }
          }
+
          $this->vue = new Vue('Connexion') ;
          $this->vue->genererVue(array("message"=>$message)) ;
+      }
+
+      else if(@strtolower($url[1]) == "activation"){
+ 
+         $message = $this->tryActiveCompte($_GET["email"], $_GET["cle"]);
+         
+         $this->vue = new Vue('Activation') ;
+         $this->vue->genererVue(array(
+            "message" => $message
+         )) ;
+
+      }
+      else{
+         throw new Exception('Page introuvable');
       }
    }
 
    //retourne les 3 derniers vetements
-   private function insertClient(){
+   private function inscrireClient(){
       $ClientManager = new ClientManager();
-      return $ClientManager->insertBDD();
+      $cleActivation = sha1(rand(1,9000));
+
+      $ClientManager->insertBDD(
+         $_POST['email'], 
+         $_POST['mdp'], 
+         $_POST['nom'], 
+         $_POST['prenom'], 
+         $_POST['cp'] ,
+         $_POST['rue'],
+         $_POST['tel'], 
+         $cleActivation
+      );
+
+      $this->envoyerMailVerifCompte($_POST['email'], $cleActivation);
+
+      return $ClientManager->getId($_POST['email'], $_POST['mdp']);
+
+
    }
 
    
@@ -107,11 +135,91 @@ class ControleurAuthentification{
    
    }
 
+   public function tryActiveCompte($mail, $cle){
+      
+      try{
+
+         $ClientManager = new ClientManager;
+         $ClientManager->tryActiveCompte($mail, $cle) ;
+
+         $message = "Votre compte à bien été activé";
+
+      } catch (Exception $e) {
+         
+         if($e->getMessage() == "L'email n'existe pas"){
+            $message = $mail." n'existe pas, veuilliez nous <a href='#'> contactez </a> si le problème persiste";
+         }
+         else if ($e->getMessage() == "La clé d'activation est incorrecte") {
+            $message = "La clé d'activation est incorrecte.";
+         }
+         else if ($e->getMessage() == "Le compte est déjà activé") {
+            $message = "Ce compte est déjà activé.";
+         }
+         else{
+            $message = "Erreur, votre compte n'a pas pu être activé." ;
+        }
+
+      
+      }
+      return $message;
+
+   }
+
    private function getListCpReunion(){
      
      $CodePostalManager = new CodePostalManager;
       return $CodePostalManager->getListCp();
    }
+
+   private function envoyerMailVerifCompte($email, $cleActivation){
+      
+
+      $baseDirectory = "btssio/BTS2/BHL_Clothes" ;
+      $urlActivation = "http://".$_SERVER["SERVER_ADDR"]."/".$baseDirectory."/authentification/activation?email=".$email."&cle=".$cleActivation;
+     
+
+      // email stuff (change data below)
+      $to = $email; 
+      $from = "email.test.qh@gmail.com" ; 
+      $subject = "Activation de votre compte BHL Clothes"; 
+      $message = "<h3> Bienvenue ! </h3> 
+      <br> Votre compte a bien été créé, il ne vous reste plus qu'à l'activer en cliquant sur le lien ci-dessous.
+      <br> <a href='".$urlActivation."'> $urlActivation <a> ";
+
+      // a random hash will be necessary to send mixed content
+      $separator = md5(time());
+
+      // carriage return type (we use a PHP end of line constant)
+      $eol = PHP_EOL;
+    
+
+      // main header
+      $headers  = "From: ".$from.$eol;
+      $headers .= "MIME-Version: 1.0".$eol; 
+      $headers .= "Content-Type: multipart/mixed; boundary=\"".$separator."\"";
+
+      // no more headers after this, we start the body! //
+
+      $body = "--".$separator.$eol;
+      $body .= "Content-Transfer-Encoding: 7bit".$eol.$eol;
+    
+
+      // message
+      $body .= "--".$separator.$eol;
+      $body .= "Content-Type: text/html; charset=\"iso-8859-1\"".$eol;
+      $body .= "Content-Transfer-Encoding: 8bit".$eol.$eol;
+      $body .= $message.$eol;
+
+
+
+      // send message
+      mail($to, $subject, $body, $headers);
+
+
+
+      
+    
+    }
 
 }
 

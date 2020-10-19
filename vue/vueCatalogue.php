@@ -107,7 +107,7 @@
         $budget = $_GET["budget"];
     }
     ?>
-    <input type="number" name="budget" value="<?php echo $budget ?>">
+    <input placeholder="Aucun" type="number" name="budget" value="<?php echo $budget ?>">€
 
      <input type="submit" id="filtrer" value="Trier le catalogue" name='trier'>           
     </form>

@@ -51,7 +51,7 @@ class Routeur{
                
             }
             else{
-               throw new Exception ('Page introuvable');  
+               throw new Exception ('Page introuvable',404);  
            
             }
          }
@@ -66,13 +66,34 @@ class Routeur{
       }
       //GESTION DES ERREURS
       catch(Exception $e){
-         // echo $e;
-         $erreurMsg = $e->getMessage();
-         $this->vue = new Vue('Erreur');
-         $this->vue->setListeCss(["public/css/erreur.css"]) ;
-         $this->vue->setHeader("vue/header.php") ;
-         $this->vue->genererVue(array('erreurMsg' => $erreurMsg));
+
+
+         
+         switch ( $e->getCode() ) {
+            case 45000:
+               echo "<b> SQL STATE Exception : </b> <br>" ;
+               echo $e->xdebug_message;
+           
+               break;
+
+               $erreurMsg = $e->getMessage();
+               $this->vue = new Vue('Erreur');
+               $this->vue->setListeCss(["public/css/erreur.css"]) ;
+               $this->vue->setHeader("vue/header.php") ;
+               $this->vue->genererVue(array('erreurMsg' => $erreurMsg));
+            
+            default:
+              
+               break;
+         }
+      
+
+         
+           
+
+         
       }
+
       
    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+
 class ClientManager extends DataBase{
 
 
@@ -24,14 +25,12 @@ class ClientManager extends DataBase{
     
     }
     
-    public function insertBDD(){
+    public function insertBDD($email, $mdp, $nom, $prenom, $cp,$rue, $tel, $cleActivation){
         $this->getBdd(); //Autoriser l'access a la BDD
-        $newID = $this->getNewIdTable('client','id'); 
-        $req = "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?, ?, ?,100)"; 
-        $this->getBdd(); 
-        $this->execBDD($req,[$newID,$_POST['email'], sha1($_POST['mdp']), $_POST['nom'], $_POST['prenom'], $_POST['cp'] ,$_POST['rue'],$_POST['tel']]);
+        $req = "INSERT INTO client (email, mdp, nom, prenom ,codePostal, rue, tel, cleActivation) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
 
-        return $newID ; 
+        $this->execBDD($req,[$email, sha1($mdp), $nom, $prenom, $cp,$rue, $tel, $cleActivation]);
+
     }
 
     public function getId($mail, $mdp){
@@ -40,6 +39,14 @@ class ClientManager extends DataBase{
         $verif_user= "SELECT id FROM client WHERE email LIKE ? AND mdp LIKE ?";
         return @$this->execBDD($verif_user,[$mail,sha1($mdp)])[0]["id"];
       
+    }
+
+    public function tryActiveCompte($mail, $cle){
+
+        $this->getBdd();
+        $req = "CALL activeCompte(?, ?)";
+        $this->execBDD($req,[$mail,$cle]) ;
+        
     }
 
     public function changeMail($id){

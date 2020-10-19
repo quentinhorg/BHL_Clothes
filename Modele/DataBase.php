@@ -1,5 +1,10 @@
 <?php 
 
+
+
+
+
+
 include "Pagination.php" ;
 
 
@@ -31,8 +36,6 @@ abstract class DataBase{
       
 
       if($req != null || empty($req) ){
-      
-        
 
          while($donnee = $req->fetch(PDO::FETCH_ASSOC)){
      
@@ -57,15 +60,21 @@ abstract class DataBase{
 
 
 
+
+
    protected function execBDD($req, $tabValeur){
       $resultat = null;
       
 
       $req = self::$bdd->prepare($req);
-      $req->execute($tabValeur);
+
+      if(@!$req->execute($tabValeur) && $req->errorInfo()[0] == 45000 ){
+         throw new Exception( $req->errorInfo()[2], 45000 ) ;
+      }
  
       
       @$resultat = $req->fetchAll(PDO::FETCH_ASSOC) ;
+      
       
       
       return $resultat ;
