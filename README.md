@@ -1,5 +1,5 @@
 # BHL_Clothes
-E-commerce website, school project.
+E-commerce website, school project. Site de vêtement en ligne pour ados et adulte dans le secteur de La Réunion.
 
 # Installation / Utilisation 
 
