@@ -1,4 +1,8 @@
 <form action='' class="form-signin" method="POST" autocomplete="chrome-off">
+    <!-- Button trigger modal -->
+
+   
+
       <div class="text-center mb-4">
        <a href="accueil" id="logo" ><span style="font-size: 3.4rem">  BHL Clothes    </span> </a>
         <h1 class="h3 mb-3 font-weight-normal">Veuillez vous inscrire</h1>
@@ -85,14 +89,10 @@
     </form>
 
 
+<?php 
 
+if( !empty($message) ){
+  echo "<script> popup(\"Inscription\",\"$message\", false); </script>";
+}
 
-<?php
-
-
-    if ($message==null) {
-        
-    }else{
-    echo $message;
-    }
 ?>

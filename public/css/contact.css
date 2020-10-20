@@ -20,12 +20,7 @@
     display: inline-block;
 } 
 
-hr{
-    width: 500px;
-    margin: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
+
 
 .infoContact{
     text-align: center;
@@ -87,7 +82,4 @@ p{
         margin-left: 0px;
     }
 
-    hr{
-        width: 390px;
-    }
 }

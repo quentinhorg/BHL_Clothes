@@ -67,29 +67,48 @@ class Routeur{
       //GESTION DES ERREURS
       catch(Exception $e){
 
-
-         
          switch ( $e->getCode() ) {
+            //SQL STATE 45000 (Exception custom)
             case 45000:
-               echo "<b> SQL STATE Exception : </b> <br>" ;
-               echo $e->xdebug_message;
-           
+               $erreurMsg = $e->xdebug_message;
+               $titreErreur = "<b> SQL STATE Exception : </b> <br>" ;
                break;
 
+            //Accès refusé (global)
+            case 403:
+               $titreErreur = "Accès refusé" ;
                $erreurMsg = $e->getMessage();
-               $this->vue = new Vue('Erreur');
-               $this->vue->setListeCss(["public/css/erreur.css"]) ;
-               $this->vue->setHeader("vue/header.php") ;
-               $this->vue->genererVue(array('erreurMsg' => $erreurMsg));
-            
+               
+               break;
+
+            //Accès refusé, nécessite une connexion de la part du client
+            case 401:
+               $titreErreur = "Vous devez être connecté" ;
+               $erreurMsg = $e->getMessage();
+               break;  
+
+            //Page non trouvée
+            case 404:
+               $titreErreur = "Page non trouvée";
+               $erreurMsg = "La page demandée n'a pas été trouvée sur notre serveur.";
+               break;  
+
+            case 403:
+               header(URL_SITE);
+               break;  
+               
+            //Erreur serveur (Par défaut / code = 500)
             default:
-              
+               $erreurMsg = $e->getMessage();
+               $titreErreur = "Erreur serveur" ;
                break;
          }
-      
 
-         
-           
+         $this->vue = new Vue('Erreur');
+         $this->vue->setListeCss(["public/css/erreur.css"]) ;
+         $this->vue->setHeader("vue/header.php") ;
+         $this->vue->genererVue( array("titreErreur" => $titreErreur,'erreurMsg' => $erreurMsg) );
+
 
          
       }

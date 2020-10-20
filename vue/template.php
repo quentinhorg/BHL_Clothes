@@ -55,6 +55,10 @@
 
 </head>
 <body>
+
+        <?php include "vue/vueModal.php"; ?>
+
+
    
     <?php echo $nav  //Insertion de la bar de navigation ?>
     <?php echo $header  //Insertion de la bar de navigation ?>
@@ -63,8 +67,12 @@
     </div>
 
     <?php echo $footer  //Insertion du footer ?>
+
+
+
   
 </body>
+
 
         
 </html>

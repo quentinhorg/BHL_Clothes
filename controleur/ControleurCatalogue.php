@@ -9,7 +9,7 @@ class ControleurCatalogue{
    public function __construct($url){
       
       if( isset($url) && count($url) > 3 ){
-         throw new Exception('Page introuvable');
+         throw new Exception('Page introuvable', 404);
       }
       else{
 

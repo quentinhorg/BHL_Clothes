@@ -12,7 +12,7 @@ class ControleurPanier{
    public function __construct($url){
       
    if( isset($url) && count($url) > 1 ){
-      throw new Exception('Page introuvable');
+      throw new Exception('Page introuvable', 404);
    }
    else{
 

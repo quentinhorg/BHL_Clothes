@@ -9,7 +9,7 @@ class ControleurFacture{
    public function __construct($url){
 
       if( isset($url) && count($url) > 2 ){
-         throw new Exception('Page introuvable');
+         throw new Exception('Page introuvable', 404);
       }
       else{
        
@@ -45,7 +45,7 @@ class ControleurFacture{
 
          }
          else{
-            throw new Exception('Page introuvable');
+            throw new Exception('Page introuvable', 404);
          }
          
       }

@@ -19,6 +19,7 @@ class ClientManager extends DataBase{
     }
 
     public function ClientEnLigne(){
+        
         if(  isset($_SESSION["id_client_en_ligne"]) ){
             return  $this->getClient($_SESSION["id_client_en_ligne"]);
         }else{ return null ;}

@@ -9,7 +9,7 @@ class ControleurVetement{
      
 
       if( isset($url) && count($url) > 2 ){
-         throw new Exception('Page introuvable');
+         throw new Exception('Page introuvable', 404);
       }
       else{
 

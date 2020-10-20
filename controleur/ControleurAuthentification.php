@@ -10,70 +10,91 @@ class ControleurAuthentification{
      
       
       if( isset($url) && count($url) > 2 ){
-         throw new Exception('Page introuvable');
+         throw new Exception('Page introuvable', 404);
       }
       //Inscription
-      else if(@strtolower($url[1]) == "inscription"){
-        
-         $message=null;
-         if (isset($_POST['submit'])){
-            if (!empty($_POST['nom'])) {
-               if (!empty($_POST['prenom'])) {
-                  if (!empty($_POST['cp'])) {
-                     if (!empty($_POST["rue"])){
-                        if (!empty($_POST['email'])) {
-                           if (!empty($_POST["mdp"])){
-                              if (!empty($_POST['tel'])) {
+      else {
 
-                                 $idClientRegister = $this->inscrireClient();
+         if( $GLOBALS["client_en_ligne"] == null ){
+               //Connexion
+            if(@strtolower($url[1])=="connexion" || !isset($url[1])|| empty($url[1])){
+               $message=null;
+               if (isset($_POST['submit'])){
+                  if (!empty($_POST['email'])){
+                     if (!empty($_POST['mdp'])){
+      
+                        $mail= $_POST['email'];
+                        $mdp = $_POST['mdp'];
+                        $this->tryConnexion($mail, $mdp);
+                        
+                     }else {  $message = "Veuillez entrer un mot de passe"; }
+                  }else {  $message = "Veuillez entrer votre Email"; }
+               }
+      
+               $this->vue = new Vue('Connexion') ;
+               $this->vue->genererVue(array("message"=>$message)) ;
+            }
+            //Inscription
+            else if(@strtolower($url[1]) == "inscription"){
+               $message=null;
+               if (isset($_POST['submit'])){
+                  if (!empty($_POST['nom'])) {
+                     if (!empty($_POST['prenom'])) {
+                        if (!empty($_POST['cp'])) {
+                           if (!empty($_POST["rue"])){
+                              if (!empty($_POST['email'])) {
+                                 if (!empty($_POST["mdp"])){
+                                    if (!empty($_POST['tel'])) {
+      
+                                       $idClientRegister = $this->inscrireClient();
+      
+                                       if( $_SESSION["ma_commande"]->panier() != NULL ){
+                                          $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
+                                       }
+                                 
+                                    }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
+                                 }else {  $message = "Veuillez entrer un mot de passe"; }
+                              }else {  $message = "Veuillez entrer votre Email"; }
+                           }else{ $message = "Veuillez entrer votre rue";} 
+                        }else {  $message = "Veuillez entrer votre code postal"; }
+                     }else {  $message = "Veuillez entrer un Prénom"; }
+                  }else {  $message = "Veuillez entrer un nom";   }
+               }
+               $this->vue = new Vue('Inscription') ;
+               $this->vue->genererVue(array("message"=>$message, "listCp" => $this->getListCpReunion() )) ;
 
-                                 if( $_SESSION["ma_commande"]->panier() != NULL ){
-                                    $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
-                                 }
-                           
-                              }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
-                           }else {  $message = "Veuillez entrer un mot de passe"; }
-                        }else {  $message = "Veuillez entrer votre Email"; }
-                     }else{ $message = "Veuillez entrer votre rue";} 
-                  }else {  $message = "Veuillez entrer votre code postal"; }
-               }else {  $message = "Veuillez entrer un Prénom"; }
-            }else {  $message = "Veuillez entrer un nom";   }
+            }
+            //Activation
+            else if( @strtolower($url[1]) == "activation" && isset($_GET["email"]) && isset($_GET["cle"])  ){
+               $message = $this->tryActiveCompte($_GET["email"], $_GET["cle"]);
+            
+               $this->vue = new Vue('Activation') ;
+               $this->vue->genererVue(array(
+                  "message" => $message
+               )) ;
+            }
+
+            else{
+               throw new Exception('Page introuvable', 404);
+            }
          }
-         $this->vue = new Vue('Inscription') ;
-         $this->vue->genererVue(array("message"=>$message, "listCp" => $this->getListCpReunion() )) ;
-      }
-      //Connexion
-      else if( @strtolower($url[1])=="connexion" || !isset($url[1])|| empty($url[1])){
-         $message=null;
-         if (isset($_POST['submit'])){
-            if (!empty($_POST['email'])){
-               if (!empty($_POST['mdp'])){
+         else{
+            
+            if( @strtolower($url[1]) == "deconnexion" ) {
+               $this->deconnexion();
+               header("Location: ".URL_SITE);
+            }
+            else{
+               throw new Exception('Page introuvable', 404);
+            }
 
-                  $mail= $_POST['email'];
-                  $mdp = $_POST['mdp'];
-                  $this->tryConnexion($mail, $mdp);
-                  
-               }else {  $message = "Veuillez entrer un mot de passe"; }
-            }else {  $message = "Veuillez entrer votre Email"; }
          }
-
-         $this->vue = new Vue('Connexion') ;
-         $this->vue->genererVue(array("message"=>$message)) ;
-      }
-
-      else if(@strtolower($url[1]) == "activation"){
- 
-         $message = $this->tryActiveCompte($_GET["email"], $_GET["cle"]);
+            
          
-         $this->vue = new Vue('Activation') ;
-         $this->vue->genererVue(array(
-            "message" => $message
-         )) ;
+        
 
       }
-      else{
-         throw new Exception('Page introuvable');
-      }
+      
    }
 
    //retourne les 3 derniers vetements
@@ -98,6 +119,13 @@ class ControleurAuthentification{
 
 
    }
+
+   private function deconnexion(){
+      $ClientManager = new ClientManager();
+      $ClientManager->deconnexion();
+  }
+
+
 
    
    private function suppSessionCmd(){
@@ -136,24 +164,22 @@ class ControleurAuthentification{
    }
 
    public function tryActiveCompte($mail, $cle){
-      
+      $ClientManager = new ClientManager;
+      $ClientManager->deconnexion();
       try{
-
-         $ClientManager = new ClientManager;
          $ClientManager->tryActiveCompte($mail, $cle) ;
-
-         $message = "Votre compte à bien été activé";
-
+         $message = "<b style='color:#51a251'> Votre compte à bien été activé </b>, vous pouvez maintenant <a href='authentification/connexion'> vous connectez </a>. ";
+         var_dump("azaz");
       } catch (Exception $e) {
-         
+     
          if($e->getMessage() == "L'email n'existe pas"){
-            $message = $mail." n'existe pas, veuilliez nous <a href='#'> contactez </a> si le problème persiste";
+            $message = $mail." n'existe pas, veuillez nous <a href='contact'> contactez </a> si le problème persiste.";
          }
          else if ($e->getMessage() == "La clé d'activation est incorrecte") {
             $message = "La clé d'activation est incorrecte.";
          }
          else if ($e->getMessage() == "Le compte est déjà activé") {
-            $message = "Ce compte est déjà activé.";
+            $message = "Ce compte est déjà activé, veuillez <a href='authentification/connexion'> vous connectez </a>.";
          }
          else{
             $message = "Erreur, votre compte n'a pas pu être activé." ;
@@ -161,6 +187,7 @@ class ControleurAuthentification{
 
       
       }
+
       return $message;
 
    }
@@ -215,9 +242,6 @@ class ControleurAuthentification{
       // send message
       mail($to, $subject, $body, $headers);
 
-
-
-      
     
     }
 

@@ -45,20 +45,6 @@ nos conseillers sont là pour vous répondre.</p>
 </div>
 
 
-
-<hr>
-
-<div class="infoContact">
-    <h2 style="margin-bottom: 25px;">Suivez-nous sur les réseaux</h2>
-    <ul>
-        <li>Facebook</li>
-        <li>Instagram</li>
-        <li>Twitter</li>
-        <li>0262 53 47 89</li>
-        <li>bhl.clothes@gmail.com</li>
-    </ul>
-</div>
-
 <script>
     function envoiMessage() {
         alert("Votre message a bien été envoyé.");

@@ -20,7 +20,7 @@
      
         <?php  if($clientEnLigne != null){  ?>
             <li class="nav-item">
-                <a class="nav-link" href="compte&deco=Ok"> 
+                <a class="nav-link" href="authentification/deconnexion"> 
                    Deconnexion
                 </a>
             </li> 
