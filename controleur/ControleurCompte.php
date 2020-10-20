@@ -5,22 +5,29 @@ class ControleurCompte{
     public function  __construct($url){
       
         if( isset($url) && count($url) > 3 ){
-            throw new Exception('Page introuvable', 404);
+            throw new Exception(null, 404);
         }
         else{
 
             if($GLOBALS["client_en_ligne"] != null ){
 
                 if( isset($url[1]) && $url[1] == "suivi"){
-                
-                    $this->vue = new Vue('Suivi') ;
-                    $this->vue->genererVue(array(
-                        "clientActif"=> $GLOBALS["client_en_ligne"],
-                        "listeEtat" => $this->listeEtat(),
-                        "infoCommande" => $this->commande($url[2]),
-                        "iconeSuivi" => $this->iconeSuivi()
-                        
-                    )) ;
+                    
+                    if( isset($url[2]) ){
+                        if($this->commande($url[2]) != null){
+                            if( $this->commande($url[2])->idClient() == $GLOBALS["client_en_ligne"]->getId() ){
+                                $this->vue = new Vue('Suivi') ;
+                                $this->vue->genererVue(array(
+                                    "clientActif"=> $GLOBALS["client_en_ligne"],
+                                    "listeEtat" => $this->listeEtat(),
+                                    "infoCommande" => $this->commande($url[2]),
+                                    "iconeSuivi" => $this->iconeSuivi()
+                                    
+                                )) ;
+                            }else{ throw new Exception('La commande ne vous appartient pas', 423); }
+                        } else{ throw new Exception('La commande n\'existe pas', 404); }
+                    } else{ throw new Exception(null, 404); }
+                   
                 }
                 else{
     

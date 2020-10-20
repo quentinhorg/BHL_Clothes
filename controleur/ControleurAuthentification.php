@@ -10,14 +10,15 @@ class ControleurAuthentification{
      
       
       if( isset($url) && count($url) > 2 ){
-         throw new Exception('Page introuvable', 404);
+         throw new Exception(null, 404);
       }
-      //Inscription
+
       else {
 
          if( $GLOBALS["client_en_ligne"] == null ){
-               //Connexion
-            if(@strtolower($url[1])=="connexion" || !isset($url[1])|| empty($url[1])){
+
+            // Connexion
+            if( @strtolower($url[1])=="connexion" || !isset($url[1])|| empty($url[1]) ){
                $message=null;
                if (isset($_POST['submit'])){
                   if (!empty($_POST['email'])){
@@ -31,8 +32,8 @@ class ControleurAuthentification{
                   }else {  $message = "Veuillez entrer votre Email"; }
                }
       
-               $this->vue = new Vue('Connexion') ;
-               $this->vue->genererVue(array("message"=>$message)) ;
+               $nomVue = "Connexion" ;
+               $donnee = array("message"=>$message) ;
             }
             //Inscription
             else if(@strtolower($url[1]) == "inscription"){
@@ -60,36 +61,38 @@ class ControleurAuthentification{
                      }else {  $message = "Veuillez entrer un Prénom"; }
                   }else {  $message = "Veuillez entrer un nom";   }
                }
-               $this->vue = new Vue('Inscription') ;
-               $this->vue->genererVue(array("message"=>$message, "listCp" => $this->getListCpReunion() )) ;
-
+               $nomVue = "Inscription" ;
+               $donnee = array("message"=>$message, "listCp" => $this->getListCpReunion()) ;
             }
             //Activation
-            else if( @strtolower($url[1]) == "activation" && isset($_GET["email"]) && isset($_GET["cle"])  ){
-               $message = $this->tryActiveCompte($_GET["email"], $_GET["cle"]);
-            
-               $this->vue = new Vue('Activation') ;
-               $this->vue->genererVue(array(
-                  "message" => $message
-               )) ;
-            }
+            else if( @strtolower($url[1]) == "activation" ){
 
-            else{
-               throw new Exception('Page introuvable', 404);
-            }
+               if( isset($_GET["email"]) && isset($_GET["cle"])  ){
+                  $message = $this->tryActiveCompte($_GET["email"], $_GET["cle"]);
+                  $nomVue = "Activation" ;
+                  $donnee = array("message"=>$message, "listCp" => $this->getListCpReunion()) ;
+               }else{ throw new Exception("Manque d'informations pour pouvoir procédé à l'activation du compte.", 400);  }
+               
+            }else { throw new Exception(null, 404); }
          }
          else{
-            
-            if( @strtolower($url[1]) == "deconnexion" ) {
+
+            if( @strtolower($url[1]) == "deconnexion" && $GLOBALS["client_en_ligne"] != null ){
                $this->deconnexion();
                header("Location: ".URL_SITE);
+               exit();
             }
             else{
-               throw new Exception('Page introuvable', 404);
+               throw new Exception(null, 404);
             }
-
+                 
+               
          }
-            
+        
+     
+
+         $this->vue = new Vue($nomVue) ;
+         $this->vue->genererVue($donnee) ;
          
         
 
@@ -155,7 +158,7 @@ class ControleurAuthentification{
          $_SESSION["id_client_en_ligne"] = $idClient ;
          $GLOBALS["client_en_ligne"] = $ClientManager->getClient($idClient) ;
          $this->suppSessionCmd();
-         header("Location: ".URL_SITE."/catalogue");
+         header("Location: ".URL_SITE."catalogue");
       }
       else{
          echo "Connexion échouée.";

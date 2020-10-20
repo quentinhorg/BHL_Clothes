@@ -9,45 +9,35 @@ class ControleurFacture{
    public function __construct($url){
 
       if( isset($url) && count($url) > 2 ){
-         throw new Exception('Page introuvable', 404);
+         throw new Exception(null, 404);
       }
       else{
        
-
-
-         
-         if(
-            isset($url[1]) && $GLOBALS["client_en_ligne"] != null 
-            && $this->facture($url[1])->Commande()->Etat()->id() != 1 
-            && $GLOBALS["client_en_ligne"]->getId() == $this->facture($url[1])->Commande()->idClient()
-         ){
-       
-            $client = $GLOBALS["client_en_ligne"] ;
-            $facture = $this->facture($url[1]) ;
-            $listeCp = $this->listeCp();
-            
-            include "vue/vueFacture.php";
-            $pdf->buildPDF();
-
-            if( isset($_GET["envoyerFactureMail"]) ){
-               $this->envoyerMailFacture($client, $facture, $pdf);   
-            }
-            $pdf->Output(); //Affichage du PDF
-
-        
-
-         
-
-           
-
+         if( isset($url[1]) ){
+            if( $this->facture($url[1]) != null ){
+               if(  $GLOBALS["client_en_ligne"] != null ){
+               
+                  if(
+                     $GLOBALS["client_en_ligne"]->getId() == $this->facture($url[1])->Commande()->idClient()
+                     && $this->facture($url[1])->Commande()->Etat()->id() != 1 
+                  ){
+                     $client = $GLOBALS["client_en_ligne"] ;
+                     $facture = $this->facture($url[1]) ;
+                     $listeCp = $this->listeCp();
+                     
+                     include "vue/vueFacture.php";
+                     $pdf->buildPDF();
       
+                     if( isset($_GET["envoyerFactureMail"]) ){
+                        $this->envoyerMailFacture($client, $facture, $pdf);   
+                     }
+                     $pdf->Output(); //Affichage du PDF
       
+                  } else{ throw new Exception('La facture ne vous apartient pas.', 423); }
+               } else{ throw new Exception('Vous devez être connecté pour voir vos factures.', 401); }
+            } else{ throw new Exception('La facture n\'existe pas', 404); }
+         } else{ throw new Exception(null, 400);  }
 
-         }
-         else{
-            throw new Exception('Page introuvable', 404);
-         }
-         
       }
 
    }
