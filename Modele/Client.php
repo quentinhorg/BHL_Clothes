@@ -11,6 +11,8 @@ class Client{
    private  $solde;
    private  $listeCmd = array(); //Tableau d'objet
    private  $CodePostal; // Objet
+   private  $active;
+   private  $dateInscription;
 
 
    
@@ -107,9 +109,18 @@ class Client{
         
     }
 
+    public function setActive($active){
+
+        $this->active = $active;
+    }
+
+    public function setDateInscription($dateInscription){
+
+        $this->dateInscription = $dateInscription;
+    }
+
 
    //GETTER
-
     public function getId(){
         return $this->id;
     }
@@ -149,7 +160,36 @@ class Client{
 
     public function solde(){
         return $this->solde;
-     }
+    }
+
+    public function active(){
+        return $this->active;
+    }
+
+    public function dateInscription(){
+        $dateFormat = null ;
+  
+        if( $this->dateInscription != null){
+           $date= new DateTime($this->dateInscription);
+           $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
+        }
+  
+        return $dateFormat;
+    }
+
+
+
+    // AUTRE METHODE
+    public function compteActive(){
+        $active= true;
+        
+        if ($this->active == 0) {
+            $active= false;
+        }
+
+
+        return $active;
+    }
 
 
 

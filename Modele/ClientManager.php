@@ -5,7 +5,6 @@ class ClientManager extends DataBase{
 
 
     public function getClient($id){
-      
         $req = "SELECT c.*,GROUP_CONCAT(co.num) as 'listeIdCmd'
                 FROM client c 
                 LEFT JOIN commande co ON c.id = co.idClient 
@@ -24,6 +23,13 @@ class ClientManager extends DataBase{
             return  $this->getClient($_SESSION["id_client_en_ligne"]);
         }else{ return null ;}
     
+    }
+
+    public function desactiveCompte($email, $cle){
+     
+        $this->getBdd(); //Autoriser l'access a la BDD
+        $req = "CALL desactiveCompte(?,?)"; 
+        $this->execBDD($req,[$email, $cle]);
     }
     
     public function insertBDD($email, $mdp, $nom, $prenom, $cp,$rue, $tel, $cleActivation){

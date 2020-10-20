@@ -85,7 +85,7 @@ class Routeur{
                $titreErreur = "Vous devez être connecté" ;
                $erreurMsg = $e->getMessage();
                break; 
-
+            
             //La syntaxe de la requête est erronée (Manque des infos)
             case 400:
                $titreErreur = "Requête erronée";
@@ -101,7 +101,6 @@ class Routeur{
                if($e->getMessage() == null){
                   $erreurMsg = "La page demandée est introuvable sur le serveur." ;
                }  else{ $erreurMsg = $e->getMessage(); }
-               
                break;  
 
             // Ressource bloqué
@@ -117,7 +116,7 @@ class Routeur{
                
             //Erreur serveur (Par défaut / code = 500)
             default:
-               $erreurMsg = $e->getMessage();
+               $erreurMsg = $e->xdebug_message;
                $titreErreur = "Erreur serveur" ;
                break;
          }

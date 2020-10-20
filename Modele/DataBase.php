@@ -68,8 +68,8 @@ abstract class DataBase{
 
       $req = self::$bdd->prepare($req);
 
-      if(@!$req->execute($tabValeur) && $req->errorInfo()[0] == 45000 ){
-         throw new Exception( $req->errorInfo()[2], 45000 ) ;
+      if(@!$req->execute($tabValeur) && isset($req->errorInfo()[0]) ){
+         throw new Exception( $req->errorInfo()[2], $req->errorInfo()[0] )  ;
       }
  
       

@@ -26,11 +26,20 @@ class ControleurAuthentification{
       
                         $mail= $_POST['email'];
                         $mdp = $_POST['mdp'];
-                        $this->tryConnexion($mail, $mdp);
-                        
-                     }else {  $message = "Veuillez entrer un mot de passe"; }
-                  }else {  $message = "Veuillez entrer votre Email"; }
-               }
+
+                        $ClientManager = new ClientManager();
+                        $idClient = $ClientManager->getId($mail, $mdp);
+
+                        if( $idClient >= 1 ){
+                           $active= $ClientManager->getClient($idClient)->compteActive() ;
+                           
+                           if ($active == true) {
+                              $this->tryConnexion($mail, $mdp);
+                           } else{  $message = "Votre compte n'a pas encore été activé.";  }
+                        } else{  $message = "Identifiants incorrecte.";  }
+                     } else { $message = "Veuillez entrer un mot de passe";  }
+               } else {  $message = "Veuillez entrer votre Email";  }
+            }
       
                $nomVue = "Connexion" ;
                $donnee = array("message"=>$message) ;
@@ -48,7 +57,7 @@ class ControleurAuthentification{
                                     if (!empty($_POST['tel'])) {
       
                                        $idClientRegister = $this->inscrireClient();
-      
+
                                        if( $_SESSION["ma_commande"]->panier() != NULL ){
                                           $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
                                        }
@@ -72,8 +81,18 @@ class ControleurAuthentification{
                   $nomVue = "Activation" ;
                   $donnee = array("message"=>$message, "listCp" => $this->getListCpReunion()) ;
                }else{ throw new Exception("Manque d'informations pour pouvoir procédé à l'activation du compte.", 400);  }
+            }
+            else if( @strtolower($url[1]) == "desactivation" && isset($_GET["email"]) && isset($_GET["cle"]) ){
+             
                
-            }else { throw new Exception(null, 404); }
+               $message = $this->desactiveCompte($_GET["email"], $_GET["cle"]);
+               $nomVue = "Desactivation" ;
+               $donnee = array("message"=> $message ) ;
+               
+            
+            }
+            else { throw new Exception(null, 404); }
+
          }
          else{
 
@@ -100,7 +119,6 @@ class ControleurAuthentification{
       
    }
 
-   //retourne les 3 derniers vetements
    private function inscrireClient(){
       $ClientManager = new ClientManager();
       $cleActivation = sha1(rand(1,9000));
@@ -150,20 +168,47 @@ class ControleurAuthentification{
    }
 
    private function tryConnexion($mail, $mdp){
-      $ClientManager = new ClientManager();
-      $idClient = $ClientManager->getId($mail, $mdp) ;
-    
-      if( $idClient >= 1 ){
+         $ClientManager = new ClientManager();
+         $idClient = $ClientManager->getId($mail, $mdp);
         
          $_SESSION["id_client_en_ligne"] = $idClient ;
          $GLOBALS["client_en_ligne"] = $ClientManager->getClient($idClient) ;
          $this->suppSessionCmd();
          header("Location: ".URL_SITE."catalogue");
-      }
-      else{
-         echo "Connexion échouée.";
-      }
    
+   }
+   //Supprime un compte pas encore activé
+   public function desactiveCompte($email, $cle){
+      $ClientManager = new ClientManager;
+
+      try{
+      
+         $ClientManager->desactiveCompte($email, $cle);
+         $message = "<b style='color:#51a251'> Votre compte à bien été désactivé / supprimé </b>";
+ 
+      } catch (Exception $e) {
+         
+         if($e->getMessage() == "La clé est incorrecte"){
+            $message = "Impossible de désactiver le compte, la clé est incorrecte.";
+         }
+         else if ($e->getMessage() == "Le compte est déjà activé") {
+            $message = "Ce compte est déjà activé, impossible de le supprimer / désactiver.";
+         }
+
+         else if ($e->getMessage() == "L'email n'existe pas") {
+            $message = "Ce compte n'existe pas ou il à été déjà désactivé / supprimé.";
+         }
+         else{
+            $message = "Erreur, votre compte n'a pas pu être désactivé." ;
+         }
+
+
+      }
+
+      return $message;
+  
+
+         
    }
 
    public function tryActiveCompte($mail, $cle){
@@ -172,7 +217,7 @@ class ControleurAuthentification{
       try{
          $ClientManager->tryActiveCompte($mail, $cle) ;
          $message = "<b style='color:#51a251'> Votre compte à bien été activé </b>, vous pouvez maintenant <a href='authentification/connexion'> vous connectez </a>. ";
-         var_dump("azaz");
+  
       } catch (Exception $e) {
      
          if($e->getMessage() == "L'email n'existe pas"){
@@ -203,18 +248,21 @@ class ControleurAuthentification{
 
    private function envoyerMailVerifCompte($email, $cleActivation){
       
-
       $baseDirectory = "btssio/BTS2/BHL_Clothes" ;
       $urlActivation = "http://".$_SERVER["SERVER_ADDR"]."/".$baseDirectory."/authentification/activation?email=".$email."&cle=".$cleActivation;
-     
+      $urlDesactivation = "http://".$_SERVER["SERVER_ADDR"]."/".$baseDirectory."/authentification/desactivation?email=".$email."&cle=".$cleActivation;
+      
 
+      
       // email stuff (change data below)
       $to = $email; 
       $from = "email.test.qh@gmail.com" ; 
       $subject = "Activation de votre compte BHL Clothes"; 
       $message = "<h3> Bienvenue ! </h3> 
       <br> Votre compte a bien été créé, il ne vous reste plus qu'à l'activer en cliquant sur le lien ci-dessous.
-      <br> <a href='".$urlActivation."'> $urlActivation <a> ";
+      <br> <a href='".$urlActivation."'> $urlActivation <a> <br> <br>
+      <p> Si vous êtes pas à l'origine de ce compte <a href='$urlDesactivation'> cliquer ici </a>. </p>
+      ";
 
       // a random hash will be necessary to send mixed content
       $separator = md5(time());

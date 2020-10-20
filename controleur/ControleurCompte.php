@@ -22,7 +22,6 @@ class ControleurCompte{
                                     "listeEtat" => $this->listeEtat(),
                                     "infoCommande" => $this->commande($url[2]),
                                     "iconeSuivi" => $this->iconeSuivi()
-                                    
                                 )) ;
                             }else{ throw new Exception('La commande ne vous appartient pas', 423); }
                         } else{ throw new Exception('La commande n\'existe pas', 404); }
