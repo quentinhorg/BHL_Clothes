@@ -86,6 +86,8 @@ class Vue{
          $nav = $this->genererFichier($this->nav, $donnee) ;
      
          return $nav;
+
+         
       }
 
 
@@ -97,6 +99,7 @@ class Vue{
       //$nav = null;
       $nav = $this->getNav();
       
+
 
 
       if($this->header != null){
