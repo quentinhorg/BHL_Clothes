@@ -68,9 +68,19 @@ abstract class DataBase{
 
       $req = self::$bdd->prepare($req);
 
-      if(@!$req->execute($tabValeur) && isset($req->errorInfo()[0]) ){
-         throw new Exception( $req->errorInfo()[2], $req->errorInfo()[0] )  ;
+ 
+
+      if(@!$req->execute($tabValeur) && isset($req->errorInfo()[0]) && !empty($req->errorInfo()[0]) ){
+
+         $ErrorCode = (int) $req->errorInfo()[0];
+
+         if( !is_int($ErrorCode) ){
+            $ErrorCode = null;
+         }
+        
+         throw new Exception( $req->errorInfo()[2], $ErrorCode )  ;
       }
+      
  
       
       @$resultat = $req->fetchAll(PDO::FETCH_ASSOC) ;

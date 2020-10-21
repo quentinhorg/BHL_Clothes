@@ -1,8 +1,8 @@
 <form action='' class="form-signin" method="POST">
       <div class="text-center mb-4">
-        <span id="logo" style="font-size"> BHL Clothes </span>
+        <span id="logo" style="font-size:4rem"> BHL Clothes </span>
         <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
-        <p>Veuilliez vous connecter. Si vous êtes nouveau sur le site,  <a href="authentification/inscription">inscrivez-vous </a></p>
+        <p>Veuilliez vous connecter si vous avez déjà un compte ou si vous êtes nouveau,  <a href="authentification/inscription">inscrivez-vous </a></p>
       </div>
 
       <div class="form-label-group">

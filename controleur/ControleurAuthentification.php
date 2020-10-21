@@ -9,7 +9,7 @@ class ControleurAuthentification{
 
      
       
-      if( isset($url) && count($url) > 2 ){
+      if( isset($url) && count($url) > 3 ){
          throw new Exception(null, 404);
       }
 
@@ -38,14 +38,15 @@ class ControleurAuthentification{
                            } else{  $message = "Votre compte n'a pas encore été activé.";  }
                         } else{  $message = "Identifiants incorrecte.";  }
                      } else { $message = "Veuillez entrer un mot de passe";  }
-               } else {  $message = "Veuillez entrer votre Email";  }
-            }
+                  } else {  $message = "Veuillez entrer votre Email";  }
+               }
       
                $nomVue = "Connexion" ;
                $donnee = array("message"=>$message) ;
             }
             //Inscription
             else if(@strtolower($url[1]) == "inscription"){
+               $popup = null;
                $message=null;
                if (isset($_POST['submit'])){
                   if (!empty($_POST['nom'])) {
@@ -57,7 +58,9 @@ class ControleurAuthentification{
                                     if (!empty($_POST['tel'])) {
       
                                        $idClientRegister = $this->inscrireClient();
-
+                                       $popup =  [
+                                          "Inscription terminée", 
+                                          "<div style='text-align:center;'> Un mail de confirmation a été envoyé à <b>".$_POST['email']."</b> <p style='font-style: italic ; font-size:0.8rem'> Si vous n'avez pas reçu le lien de confirmation <a href='contact'> contactez-nous </a>. </p> </div>"  ] ;
                                        if( $_SESSION["ma_commande"]->panier() != NULL ){
                                           $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
                                        }
@@ -71,17 +74,19 @@ class ControleurAuthentification{
                   }else {  $message = "Veuillez entrer un nom";   }
                }
                $nomVue = "Inscription" ;
-               $donnee = array("message"=>$message, "listCp" => $this->getListCpReunion()) ;
+               $donnee = array("message"=>$message, "popup" => $popup , "listCp" => $this->getListCpReunion()) ;
             }
             //Activation
             else if( @strtolower($url[1]) == "activation" ){
-
+               //Vue pour le lien d'activation recus par mail
                if( isset($_GET["email"]) && isset($_GET["cle"])  ){
                   $message = $this->tryActiveCompte($_GET["email"], $_GET["cle"]);
                   $nomVue = "Activation" ;
                   $donnee = array("message"=>$message, "listCp" => $this->getListCpReunion()) ;
-               }else{ throw new Exception("Manque d'informations pour pouvoir procédé à l'activation du compte.", 400);  }
+               }
+               else{ throw new Exception("Manque d'informations pour pouvoir procéder à l'activation du compte.", 400);  }
             }
+             //Désactivation
             else if( @strtolower($url[1]) == "desactivation" && isset($_GET["email"]) && isset($_GET["cle"]) ){
              
                
@@ -108,7 +113,6 @@ class ControleurAuthentification{
                
          }
         
-     
 
          $this->vue = new Vue($nomVue) ;
          $this->vue->genererVue($donnee) ;
@@ -134,7 +138,7 @@ class ControleurAuthentification{
          $cleActivation
       );
 
-      $this->envoyerMailVerifCompte($_POST['email'], $cleActivation);
+      $this->envoyerMailVerifCompte($_POST['email']);
 
       return $ClientManager->getId($_POST['email'], $_POST['mdp']);
 
@@ -246,11 +250,14 @@ class ControleurAuthentification{
       return $CodePostalManager->getListCp();
    }
 
-   private function envoyerMailVerifCompte($email, $cleActivation){
+   private function envoyerMailVerifCompte($email){
+
+      $ClientManager = new ClientManager;
+      $cle = $ClientManager->getCleClient($email);
       
       $baseDirectory = "btssio/BTS2/BHL_Clothes" ;
-      $urlActivation = "http://".$_SERVER["SERVER_ADDR"]."/".$baseDirectory."/authentification/activation?email=".$email."&cle=".$cleActivation;
-      $urlDesactivation = "http://".$_SERVER["SERVER_ADDR"]."/".$baseDirectory."/authentification/desactivation?email=".$email."&cle=".$cleActivation;
+      $urlActivation = "http://".$_SERVER["SERVER_ADDR"]."/".$baseDirectory."/authentification/activation?email=".$email."&cle=".$cle;
+      $urlDesactivation = "http://".$_SERVER["SERVER_ADDR"]."/".$baseDirectory."/authentification/desactivation?email=".$email."&cle=".$cle;
       
 
       

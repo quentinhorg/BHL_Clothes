@@ -91,8 +91,8 @@
 
 <?php 
 
-if( !empty($message) ){
-  echo "<script> popup(\"Inscription\",\"$message\", false); </script>";
+if( $popup != null ){
+  echo "<script> popup(\"".$popup[0]."\",\"".str_replace("\n", "", $popup[1])."\", false); </script>";
 }
 
 ?>

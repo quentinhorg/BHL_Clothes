@@ -91,7 +91,7 @@ class Routeur{
                $titreErreur = "Requête erronée";
                if( $e->getMessage() == null ){
                   $erreurMsg = $e->getMessage();
-               }else{  $erreurMsg = "La page demandé n\'a pas les ressources nécessaire pour répondre à la demande." ;  }
+               }else{  $erreurMsg = "La page demandé n'a pas les ressources nécessaire pour répondre à la demande." ;  }
              
                break;  
 

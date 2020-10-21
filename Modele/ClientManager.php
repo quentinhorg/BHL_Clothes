@@ -25,6 +25,14 @@ class ClientManager extends DataBase{
     
     }
 
+    public function getCleClient($email){
+
+        $this->getBdd(); //Autoriser l'access a la BDD
+        $req = "SELECT cleActivation AS 'cle' FROM client WHERE email LIKE ?"; 
+        return @$this->execBDD($req,[$email])[0]['cle'];
+    
+    }
+
     public function desactiveCompte($email, $cle){
      
         $this->getBdd(); //Autoriser l'access a la BDD
@@ -34,11 +42,12 @@ class ClientManager extends DataBase{
     
     public function insertBDD($email, $mdp, $nom, $prenom, $cp,$rue, $tel, $cleActivation){
         $this->getBdd(); //Autoriser l'access a la BDD
-        $req = "INSERT INTO client (email, mdp, nom, prenom ,codePostal, rue, tel, cleActivation) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"; 
+        $req = "INSERT INTO client (email, mdp, nom, prenom ,codePostal, rue, tel, cleActivation, dateInscription) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())"; 
 
         $this->execBDD($req,[$email, sha1($mdp), $nom, $prenom, $cp,$rue, $tel, $cleActivation]);
 
     }
+    
 
     public function getId($mail, $mdp){
   

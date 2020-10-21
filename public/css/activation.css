@@ -3,7 +3,10 @@
 }
 
 #contenu{
+  margin: auto;
   margin-top: 25vh;
+  max-width: 400px;
+  
 }
 
 
