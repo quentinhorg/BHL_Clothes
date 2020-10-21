@@ -27,7 +27,7 @@ class Client{
          $methode = 'set'.ucfirst($cle);
        
          if(method_exists($this, $methode)){
-            $this->$methode($valeur);
+            $this->$methode(htmlspecialchars($valeur));
          }
       }
    }

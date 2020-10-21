@@ -11,7 +11,7 @@ class Vetement{
    private   $listeTailleDispo; // OBJET
    private   $description;
    private   $nbAvis;
-   
+
 
    public function __construct(array $donnee){
       //var_dump($donnee);
@@ -44,9 +44,9 @@ class Vetement{
 
 
    public function setPrix($prix){
-      if(is_string($prix)){
+
          $this->prix = $prix;
-      }
+
    } 
    
    public function setMotifPosition($motifPosition){
@@ -91,17 +91,15 @@ class Vetement{
 
       foreach ($listeTaille as $taille) {
             $this->listeTailleDispo[] = $TailleManager->getTaille($taille);
-         
       }
 
    }
 
-   public function setNumGenre($numGenre){
-
-      $numGenre = (int) $numGenre;
-      if($numGenre > 0){
+   public function setCodeGenre($codeGenre){
+      
+      if(is_string($codeGenre)){
          $GenreManager = new GenreManager;
-         $this->genre = $GenreManager->getGenre($numGenre);
+         $this->genre = $GenreManager->getGenre($codeGenre);
       }
 
    }

@@ -193,106 +193,14 @@ CREATE TABLE `article_panier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ordreArrivee`) VALUES
-(1,	1,	'XL',	6,	3,	2),
-(12,	1,	'L',	18,	6,	6),
-(27,	1,	'M',	18,	1,	1),
-(29,	1,	'XL',	18,	1,	1),
-(32,	1,	'M',	18,	1,	1),
-(36,	1,	'XL',	6,	1,	8),
-(1,	2,	'S',	4,	1,	3),
-(3,	2,	'XL',	4,	1,	10),
-(21,	2,	'XL',	14,	1,	3),
-(23,	2,	'XL',	4,	1,	8),
-(23,	2,	'L',	14,	10,	5),
-(23,	2,	'XL',	14,	11,	9),
-(28,	2,	'L',	14,	1,	1),
-(36,	2,	'M',	14,	1,	9),
-(3,	3,	'L',	5,	1,	20),
-(8,	3,	'M',	5,	1,	27),
-(23,	3,	'L',	5,	10,	7),
-(27,	3,	'M',	5,	1,	2),
-(27,	3,	'S',	5,	1,	3),
-(3,	4,	'M',	1,	1,	2),
-(3,	4,	'M',	2,	1,	9),
-(12,	4,	'M',	2,	1,	4),
-(14,	4,	'M',	1,	1,	1),
-(16,	4,	'M',	3,	1,	2),
-(20,	4,	'M',	1,	1,	3),
-(23,	5,	'S',	8,	1,	19),
-(23,	5,	'XL',	8,	1,	20),
-(3,	6,	'L',	15,	1,	19),
-(3,	6,	'L',	16,	1,	14),
-(3,	6,	'M',	16,	1,	15),
-(3,	6,	'XL',	16,	2,	16),
-(3,	6,	'XS',	16,	1,	17),
-(8,	6,	'L',	7,	4,	25),
-(8,	6,	'L',	16,	1,	28),
-(17,	6,	'L',	7,	1,	8),
-(17,	6,	'M',	7,	1,	9),
-(17,	6,	'S',	7,	1,	10),
-(17,	6,	'XL',	7,	1,	11),
-(17,	6,	'XS',	7,	1,	12),
-(17,	6,	'L',	15,	1,	15),
-(17,	6,	'XS',	15,	1,	14),
-(17,	6,	'XS',	16,	1,	13),
-(20,	6,	'L',	15,	1,	4),
-(20,	6,	'M',	15,	1,	5),
-(21,	6,	'M',	16,	1,	1),
-(23,	6,	'L',	7,	1,	10),
-(23,	6,	'M',	7,	1,	11),
-(23,	6,	'S',	7,	1,	12),
-(23,	6,	'XL',	7,	1,	13),
-(23,	6,	'XS',	7,	1,	14),
-(23,	6,	'XL',	15,	1,	18),
-(23,	6,	'XS',	15,	1,	15),
-(23,	6,	'M',	16,	1,	17),
-(23,	6,	'XS',	16,	1,	16),
-(34,	6,	'L',	16,	10,	1),
-(36,	6,	'L',	15,	1,	10),
-(36,	6,	'L',	16,	10,	13),
-(3,	7,	'L',	10,	2,	21),
-(3,	7,	'M',	10,	1,	22),
-(3,	7,	'XL',	10,	1,	23),
-(3,	7,	'L',	17,	1,	25),
-(3,	7,	'M',	17,	1,	26),
-(3,	7,	'XL',	17,	2,	27),
-(13,	7,	'M',	17,	1,	3),
-(16,	7,	'L',	17,	3,	1),
-(17,	7,	'L',	10,	1,	2),
-(17,	7,	'M',	10,	1,	3),
-(17,	7,	'XL',	10,	1,	4),
-(17,	7,	'L',	17,	1,	7),
-(17,	7,	'M',	17,	1,	6),
-(17,	7,	'XL',	17,	1,	5),
-(26,	7,	'M',	10,	1,	4),
-(29,	7,	'L',	17,	1,	3),
-(30,	7,	'L',	17,	1,	1),
-(7,	8,	'L',	11,	1,	1),
-(8,	8,	'S',	11,	3,	29),
-(9,	8,	'S',	11,	1,	1),
-(20,	8,	'L',	11,	2,	6),
-(20,	8,	'S',	11,	1,	2),
-(21,	8,	'L',	11,	5,	4),
-(22,	8,	'S',	11,	1,	1),
-(30,	8,	'L',	11,	1,	2),
-(33,	8,	'M',	11,	1,	1),
-(36,	8,	'M',	11,	10,	12),
-(10,	9,	'M',	12,	1,	2),
-(19,	9,	'M',	12,	1,	1),
-(26,	9,	'M',	12,	1,	3),
-(3,	10,	'36',	13,	4,	13),
-(13,	10,	'36',	13,	1,	2),
-(15,	10,	'36',	13,	8,	1),
-(29,	10,	'36',	13,	1,	4),
-(3,	11,	'42',	9,	1,	4),
-(10,	11,	'42',	9,	1,	3),
-(12,	11,	'42',	9,	1,	5),
-(13,	11,	'42',	9,	1,	1),
-(17,	11,	'42',	9,	1,	1),
-(18,	11,	'42',	9,	1,	1),
-(27,	11,	'42',	9,	1,	4),
-(29,	11,	'42',	9,	1,	2),
-(35,	11,	'42',	9,	1,	1)
+(2,	1,	'M',	18,	1,	1),
+(3,	3,	'L',	5,	1,	2),
+(4,	3,	'L',	5,	1,	1),
+(3,	6,	'L',	7,	1,	1),
+(3,	6,	'L',	15,	2,	3),
+(1,	7,	'L',	10,	1,	3),
+(1,	7,	'L',	17,	1,	2),
+(1,	11,	'42',	9,	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -333,6 +241,36 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Ce vêtement n'est plus disponible di
 end if;
 
 
+
+END;;
+
+CREATE TRIGGER `before_update_article` BEFORE UPDATE ON `article_panier` FOR EACH ROW
+BEGIN
+
+DECLARE  int;
+SET  =(SELECT c.idEtat FROM commande c
+            WHERE c.num=OLD.numCmd);
+IF( >= 2) THEN
+
+     SIGNAL SQLSTATE '45000'SET MESSAGE_TEXT = "Impossible de modifier un article déjà payé.";
+END IF;
+END;;
+
+CREATE TRIGGER `article_panier_before_delete` BEFORE DELETE ON `article_panier` FOR EACH ROW
+BEGIN 
+
+DECLARE idEtatCmd int;
+
+SELECT c.idEtat
+INTO idEtatCmd
+FROM commande c
+WHERE c.num =OLD.numCmd ;
+
+#Si la commande est déjà payé empêcher la supression de l'article, mais si livré autorisé
+#Pour pourvoir supprimer un article, il faut soit être livré ou soit la commande n'est pas encore payé
+IF ( idEtatCmd BETWEEN 2 AND 4) THEN
+   SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible de supprimer un article déjà payé et non livré";
+end if;
 
 END;;
 
@@ -378,25 +316,24 @@ DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
   `id` int(11) NOT NULL,
   `nom` varchar(30) NOT NULL,
-  `typeTaille` varchar(20) NOT NULL DEFAULT 'chiffre',
   PRIMARY KEY (`id`),
   UNIQUE KEY `nom` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `categorie` (`id`, `nom`, `typeTaille`) VALUES
-(1,	'Robes',	'lettre'),
-(2,	'T-shirts & Débardeurs',	'lettre'),
-(3,	'Jeans',	'chiffre'),
-(4,	'Pulls',	'lettre'),
-(5,	'Shorts de bain',	'chiffre'),
-(6,	'Jupes',	'lettre'),
-(7,	'Gilets',	'chiffre'),
-(8,	'Vestes & Manteaux',	'chiffre'),
-(9,	'Chemisiers & Tuniques',	'lettre'),
-(10,	'Shorts & Bermudas',	'chiffre'),
-(11,	'Pantacourts',	'chiffre'),
-(12,	'Pantalons',	'chiffre')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `typeTaille` = VALUES(`typeTaille`);
+INSERT INTO `categorie` (`id`, `nom`) VALUES
+(9,	'Chemisiers & Tuniques'),
+(7,	'Gilets'),
+(3,	'Jeans'),
+(6,	'Jupes'),
+(11,	'Pantacourts'),
+(12,	'Pantalons'),
+(4,	'Pulls'),
+(1,	'Robes'),
+(10,	'Shorts & Bermudas'),
+(5,	'Shorts de bain'),
+(2,	'T-shirts & Débardeurs'),
+(8,	'Vestes & Manteaux')
+ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`);
 
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
@@ -411,27 +348,27 @@ CREATE TABLE `client` (
   `solde` float NOT NULL DEFAULT 100,
   `cleActivation` varchar(255) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 0,
-  `dateInscription` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+  `dateInscription` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_unique` (`email`),
   KEY `codePostal` (`codePostal`),
   CONSTRAINT `client_ibfk_1` FOREIGN KEY (`codePostal`) REFERENCES `code_postal` (`cp`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`, `tel`, `solde`, `cleActivation`, `active`, `dateInscription`) VALUES
-(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2905,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97480',	'3 rue de lameme',	'65454',	351,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2538.4,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
-(10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'roro',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	20.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2849.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
+(3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
+(4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
+(5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
+(6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
+(7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97480',	'3 rue de lameme',	'65454',	351,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	1943.7,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
+(10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'roro',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
+(11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
+(12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	20.1,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692848484',	899.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-20 23:38:03'),
-(30,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'ed573491383d5d7052276dd09beebea1637ac2a3',	1,	'2020-10-20 23:48:10')
+(15,	'hoareauquentin97480@gmail.com',	'26f293bee30380fdeeece466b90493ebfaa0d234',	'aza',	'zazazaz',	'97419',	'azazaz',	'87684684',	100,	'39c160cc462c6d690e3433feaf038a23966c241b',	1,	'2020-10-21 10:16:43')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`), `cleActivation` = VALUES(`cleActivation`), `active` = VALUES(`active`), `dateInscription` = VALUES(`dateInscription`);
 
 DELIMITER ;;
@@ -467,7 +404,7 @@ CREATE TABLE `client_histo` (
   `date_histo` datetime NOT NULL,
   `evenement_histo` varchar(30) NOT NULL,
   PRIMARY KEY (`id`,`date_histo`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`, `tel`, `solde`, `cleActivation`, `active`, `dateInscription`, `date_histo`, `evenement_histo`) VALUES
 (1,	'andrea@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'',	'22 rue des frangipaniers St Joseph',	'0692466990',	613.6,	'',	0,	'0000-00-00 00:00:00',	'2020-10-11 21:19:45',	'UPDATE'),
@@ -492,6 +429,7 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2905,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 21:38:54',	'UPDATE'),
 (1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2905,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2905,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2905,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 16:17:04',	'UPDATE'),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'',	'',	'0694458553',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 16:34:07',	'UPDATE'),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97400',	'7 impasse jesus',	'0694458553',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 14:45:52',	'UPDATE'),
 (2,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97400',	'7 impasse jesus',	'0694458553',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
@@ -508,23 +446,28 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (3,	'azaz@zaz.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 19:33:43',	'UPDATE'),
 (3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'',	'',	'0693238645',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 16:34:07',	'UPDATE'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 21:38:29',	'UPDATE'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'',	'',	'0692851347',	84.6,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 16:34:07',	'UPDATE'),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97469',	'6 impasse du cocon',	'0692851347',	84.6,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 21:38:29',	'UPDATE'),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 17:40:35',	'UPDATE'),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'',	'',	'0692753212',	984.2,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 16:34:07',	'UPDATE'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97469',	'9 chemin des zoizeau',	'0692753212',	984.2,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 21:38:29',	'UPDATE'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'',	'',	'65454',	351,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 16:34:07',	'UPDATE'),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97466',	'3 rue de lameme',	'65454',	351,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 21:38:54',	'UPDATE'),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97480',	'3 rue de lameme',	'65454',	351,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97480',	'3 rue de lameme',	'65454',	351,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97480',	'3 rue de lameme',	'65454',	351,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'',	'',	'0628468787',	656,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 16:34:07',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97442',	'8 chemin coquelicots',	'0628468787',	656,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 18:00:16',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97442',	'rue test',	'0628468787',	656,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 18:07:17',	'UPDATE'),
@@ -568,6 +511,16 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2583.4,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2583.4,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2583.4,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 13:02:48',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2538.4,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 10:17:53',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2459.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 11:06:23',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2384.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 11:34:01',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'<script> alert() ;</script>',	'97400',	'aaaaa',	'0628468787',	2384.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 11:41:31',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2384.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 16:38:00',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2309.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 16:38:06',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2234.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 16:38:08',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2159.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 16:38:16',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2084.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 17:04:21',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2016.3,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 17:10:57',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'test rue',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:03',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:12',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:57:50',	'UPDATE'),
@@ -586,15 +539,20 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (10,	'roro13@gmail.com',	'3eddfbf3c48b779222cd8eebb3e137614d5ffee2',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'roro',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 11:17:42',	'UPDATE'),
 (10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'roro',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'roro',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'roro',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97419',	'34 rue des fleurs',	'0693455667',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 21:38:46',	'UPDATE'),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97419',	'34 rue des fleurs',	'0693455667',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 21:38:54',	'UPDATE'),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:24',	'UPDATE'),
+(11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (12,	'zzzzz@gmail.com',	'a2b7caddbc353bd7d7ace2067b8c4e34db2097a3',	'zerzerazeaze',	'zerzr',	'97400',	'zerzerzer',	'984684',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 16:18:51',	'DELETE'),
 (12,	'zzzzz@gmail.z',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 18:23:00',	'UPDATE'),
 (12,	'zzzzz@gmail.z',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	20.1,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 19:33:30',	'UPDATE'),
 (12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	20.1,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	20.1,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	20.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:24',	'UPDATE'),
+(12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	20.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (13,	'eeeee@gmail.com',	'b2c4ee5de82866db38f79c6d4a91a626486b70e9',	'gggg',	'gggg',	'97419',	'gggg',	'4577357',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 16:18:51',	'DELETE'),
 (13,	'leajuliehoareau@orange.fr',	'93aff2be9522378c7f1b2ae24a5bfc95ae69acef',	'Hoareau',	'Léa',	'97480',	'10 rue Thérésien Cadet, BUTOR',	'0692345678',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 17:33:02',	'UPDATE'),
 (13,	'leajuliehoareau@orange.fr',	'93aff2be9522378c7f1b2ae24a5bfc95ae69acef',	'Hoareau',	'Léa',	'97480',	'10 rue Thérésien Cadet, BUTOR',	'0692345678',	1000,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 17:33:53',	'UPDATE'),
@@ -605,12 +563,15 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692345678',	899.5,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 17:41:04',	'UPDATE'),
 (13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692848484',	899.5,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692848484',	899.5,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
+(13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692848484',	899.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:10',	'UPDATE'),
+(13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692848484',	899.5,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09',	'2020-10-21 10:28:24',	'UPDATE'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-18 18:44:30',	'UPDATE'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:21',	'UPDATE'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 20:35:57',	'UPDATE'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-20 20:35:57',	'2020-10-20 23:37:15',	'UPDATE'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 23:37:15',	'2020-10-20 23:38:03',	'UPDATE'),
+(14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-20 23:38:03',	'2020-10-21 10:28:24',	'UPDATE'),
 (15,	'vvvvv@gmail.com',	'54a3ed0aa931b8a2c6666be8f3460ce0c9cde050',	'vvvv',	'vvvv',	'97419',	'vvvv',	'zerzer',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
 (15,	'vvvvv@gmail.com',	'54a3ed0aa931b8a2c6666be8f3460ce0c9cde050',	'vvvv',	'vvvv',	'97419',	'vvvv',	'zerzer',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:06:02',	'DELETE'),
 (15,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 18:08:50',	'UPDATE'),
@@ -624,19 +585,44 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (30,	'hoareauquentin97480@gmail.com',	'4ad583af22c2e7d40c1c916b2920299155a46464',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'ed573491383d5d7052276dd09beebea1637ac2a3',	0,	'0000-00-00 00:00:00',	'2020-10-20 23:47:21',	'UPDATE'),
 (30,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'ed573491383d5d7052276dd09beebea1637ac2a3',	0,	'2020-10-20 23:47:21',	'2020-10-20 23:48:04',	'UPDATE'),
 (30,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'ed573491383d5d7052276dd09beebea1637ac2a3',	0,	'2020-10-20 23:47:21',	'2020-10-20 23:48:10',	'UPDATE'),
+(30,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'ed573491383d5d7052276dd09beebea1637ac2a3',	1,	'2020-10-20 23:48:10',	'2020-10-21 08:20:13',	'DELETE'),
+(31,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'xxx',	'xxx',	'97400',	'xxxxx',	'8787787',	100,	'f7b41d20b69937da146fc75bff4c97615532586b',	0,	'0000-00-00 00:00:00',	'2020-10-21 08:22:52',	'DELETE'),
+(32,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'xxx',	'xxx',	'97400',	'xxxxx',	'8787787',	100,	'eb189f950d515341e1515abcd894d9a37047c5c8',	0,	'0000-00-00 00:00:00',	'2020-10-21 08:23:09',	'DELETE'),
 (33,	'hoareauquentin97480@gmail.com',	'aaa',	'aaa',	'aaa',	'97480',	'rue du machon',	'0698989898',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:31:31',	'DELETE'),
+(33,	'hoareauquentin97480@gmail.com',	'6f139768968a335839eae419e014a930f0758b77',	'zazaz',	'zaza',	'97413',	'azaza',	'zazazaz',	100,	'24309eca598922fc5db29c35679966ea8b14a4fd',	0,	'0000-00-00 00:00:00',	'2020-10-21 08:24:22',	'DELETE'),
 (34,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:31:48',	'DELETE'),
+(34,	'hoareauquentin97480@gmail.com',	'111f84b4a009f4c93e8a915c61d88bb90c3b2841',	'azazaz',	'zaza',	'97413',	'azaza',	'zazazaz',	100,	'7c269d45e17c15a6defc8e36c2f9a95852bfa188',	0,	'0000-00-00 00:00:00',	'2020-10-21 08:25:07',	'DELETE'),
+(35,	'hoareauquentin97480@gmail.com',	'111f84b4a009f4c93e8a915c61d88bb90c3b2841',	'azazaz',	'zaza',	'97413',	'azaza',	'zazazaz',	100,	'f37062d9a65543a46f2ba13299ba77a370a1c4eb',	0,	'0000-00-00 00:00:00',	'2020-10-21 08:25:27',	'DELETE'),
 (36,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:34:47',	'DELETE'),
+(36,	'hoareauquentin97480@gmail.com',	'111f84b4a009f4c93e8a915c61d88bb90c3b2841',	'azazaz',	'zaza',	'97413',	'azaza',	'zazazaz',	100,	'7eba27381c7a688f80d1f97c8ccfaa7ded17ee57',	0,	'0000-00-00 00:00:00',	'2020-10-21 08:26:14',	'DELETE'),
+(37,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'ff4fcd352b70c29f1b65c7d1702239a5c4a5f323',	0,	'0000-00-00 00:00:00',	'2020-10-21 08:44:00',	'DELETE'),
 (38,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:36:22',	'DELETE'),
+(38,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'0c774d8e1e30b273143a93836f845a4d3f44a60f',	0,	'2020-10-21 08:44:45',	'2020-10-21 08:45:18',	'DELETE'),
 (39,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:36:29',	'DELETE'),
+(39,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'bcd6b053f39a7428e6157dc0574980132111a7a5',	0,	'2020-10-21 08:45:20',	'2020-10-21 08:49:59',	'DELETE'),
 (40,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:37:07',	'UPDATE'),
 (40,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:38:12',	'DELETE'),
+(40,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'f010bc8c02bed4710d06bca5d4d05a483810c609',	0,	'2020-10-21 08:50:01',	'2020-10-21 08:53:57',	'DELETE'),
 (41,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:38:30',	'UPDATE'),
 (41,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 08:30:49',	'UPDATE'),
 (41,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 08:30:55',	'UPDATE'),
 (41,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 08:31:37',	'UPDATE'),
 (41,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 08:31:41',	'UPDATE'),
-(41,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 10:49:52',	'UPDATE')
+(41,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-20 10:49:52',	'UPDATE'),
+(41,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'4cc9d214074f0e8a09509bf88bd95b1c069b0565',	0,	'2020-10-21 08:53:58',	'2020-10-21 08:57:01',	'DELETE'),
+(42,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'da73f2a1704c83909a2cea4ad496fbc746e4de1a',	0,	'2020-10-21 08:57:02',	'2020-10-21 09:00:12',	'DELETE'),
+(43,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'c5646c24aae34705a73634c70f2616d6428d2a77',	0,	'2020-10-21 09:00:14',	'2020-10-21 09:01:00',	'DELETE'),
+(44,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'5748e8895723a0da63d2bc75b935735a9c0d9699',	0,	'2020-10-21 09:03:50',	'2020-10-21 09:04:35',	'UPDATE'),
+(44,	'hoareauquentin97480@gmail.com',	'c11db41b7fed034b25f1593da58f383cd60af7e2',	'zazaz',	'zaza',	'97400',	'azaza',	'azazaz',	100,	'5748e8895723a0da63d2bc75b935735a9c0d9699',	1,	'2020-10-21 09:03:50',	'2020-10-21 09:11:13',	'DELETE'),
+(45,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzzz',	'zz',	'97410',	'zzz',	'zzzz',	100,	'01592d51db5afd0165cb73baca5c0b340c4889f1',	0,	'2020-10-21 09:11:56',	'2020-10-21 09:12:25',	'DELETE'),
+(47,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzzz',	'zz',	'97410',	'zzz',	'zzzz',	100,	'81ea8be1af26fa1f9dfcd078e6471d549f88a70d',	0,	'2020-10-21 09:12:46',	'2020-10-21 09:13:06',	'UPDATE'),
+(47,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzzz',	'zz',	'97410',	'zzz',	'zzzz',	100,	'81ea8be1af26fa1f9dfcd078e6471d549f88a70d',	1,	'2020-10-21 09:12:46',	'2020-10-21 09:14:19',	'DELETE'),
+(48,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzzz',	'zz',	'97410',	'zzz',	'zzzz',	100,	'83c1b24c6399b8284b114fb23fa4a965446d27fc',	0,	'2020-10-21 09:14:21',	'2020-10-21 09:14:36',	'DELETE'),
+(49,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'zaza',	'97400',	'aza',	'azazaz',	100,	'9529ae880d8ed449abf95e7d43935cc9622b7fa9',	0,	'2020-10-21 09:23:18',	'2020-10-21 09:25:28',	'DELETE'),
+(50,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'zaza',	'97400',	'aza',	'azazaz',	100,	'bc4d45844d467b9fbd27dcd0b41fe52d229884c3',	0,	'2020-10-21 09:25:31',	'2020-10-21 10:11:35',	'UPDATE'),
+(50,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'zaza',	'97400',	'aza',	'azazaz',	100,	'bc4d45844d467b9fbd27dcd0b41fe52d229884c3',	1,	'2020-10-21 09:25:31',	'2020-10-21 10:16:20',	'DELETE'),
+(51,	'hoareauquentin97480@gmail.com',	'26f293bee30380fdeeece466b90493ebfaa0d234',	'aza',	'zazazaz',	'97419',	'azazaz',	'87684684',	100,	'39c160cc462c6d690e3433feaf038a23966c241b',	0,	'2020-10-21 10:16:43',	'2020-10-21 10:26:46',	'UPDATE'),
+(51,	'hoareauquentin97480@gmail.com',	'26f293bee30380fdeeece466b90493ebfaa0d234',	'aza',	'zazazaz',	'97419',	'azazaz',	'87684684',	100,	'39c160cc462c6d690e3433feaf038a23966c241b',	1,	'2020-10-21 10:16:43',	'2020-10-21 10:27:46',	'UPDATE')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`), `cleActivation` = VALUES(`cleActivation`), `active` = VALUES(`active`), `dateInscription` = VALUES(`dateInscription`), `date_histo` = VALUES(`date_histo`), `evenement_histo` = VALUES(`evenement_histo`);
 
 DROP TABLE IF EXISTS `code_postal`;
@@ -688,35 +674,10 @@ CREATE TABLE `commande` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
-(1,	1,	'2019-12-02 12:30:00',	3),
-(3,	3,	'2020-10-14 22:16:39',	1),
-(5,	5,	'2019-12-02 12:30:00',	1),
-(7,	8,	'2020-10-01 21:05:30',	2),
-(8,	8,	'2020-10-11 14:21:20',	2),
-(9,	1,	'2020-10-11 21:32:13',	2),
-(10,	1,	'2020-10-17 14:55:05',	2),
-(12,	10,	'2019-12-02 12:30:00',	1),
-(13,	11,	'2019-12-02 12:30:00',	1),
-(14,	4,	'2019-12-02 12:30:00',	1),
-(15,	8,	'2020-10-17 07:42:38',	3),
-(16,	8,	'2020-10-16 23:37:04',	2),
-(17,	8,	'2020-10-17 07:51:41',	2),
-(18,	8,	'2020-10-17 16:21:33',	2),
-(19,	8,	'2020-10-17 18:40:00',	2),
-(20,	8,	'2020-10-18 09:28:21',	2),
-(21,	8,	'2020-10-18 09:31:31',	2),
-(22,	8,	'2020-10-18 13:54:48',	2),
-(23,	8,	'2020-10-18 13:57:17',	2),
-(26,	12,	'2020-10-18 18:23:00',	2),
-(27,	13,	'2020-10-18 17:36:48',	4),
-(28,	13,	'0000-00-00 00:00:00',	1),
-(29,	14,	'2020-10-18 18:44:30',	2),
-(30,	14,	'0000-00-00 00:00:00',	1),
-(32,	1,	'0000-00-00 00:00:00',	1),
-(33,	8,	'2020-10-18 22:28:53',	2),
-(34,	8,	'2020-10-18 22:34:30',	2),
-(35,	8,	'2020-10-20 13:02:48',	2),
-(36,	8,	'0000-00-00 00:00:00',	1)
+(1,	8,	'2020-10-21 16:47:38',	5),
+(2,	1,	'2020-10-21 22:22:18',	1),
+(3,	8,	'2020-10-21 17:49:20',	1),
+(4,	8,	'2020-10-21 17:18:54',	5)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `dateCreation` = VALUES(`dateCreation`), `idEtat` = VALUES(`idEtat`);
 
 DELIMITER ;;
@@ -725,18 +686,30 @@ CREATE TRIGGER `commande_before_update` BEFORE UPDATE ON `commande` FOR EACH ROW
 BEGIN 
 
 DECLARE nbFactureActif int;
+DECLARE nbCommandeNonPaye int;
+
 
 SET nbFactureActif = (SELECT COUNT(f.numCmd) FROM facture f WHERE f.numCmd = OLD.num);
 
-
-IF (OLD.idEtat = 1 AND nbFactureActif = 0 AND NEW.idEtat = 2) THEN
-SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Erreur: Cette commande ne peut être considéré comme payé (Validé), car aucune facture ne lui correspond.";
+#Empêcher de considérer une commande non payé à une commande payé, car elle n'a aucune une facture
+IF (nbFactureActif = 0 AND NEW.idEtat >= 2) THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible de considérée cette commande comme payée, car aucune facture ne lui correspond.";
 end if;
 
-IF (OLD.idEtat >= 2 AND nbFactureActif >= 1 AND NEW.idEtat = 1) THEN
-SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Erreur: Cette commande ne peut être modifié à 'Non Payé', car elle à déjà été payé et correspond à une facture";
+#Empêcher de considérer une commande payé à une commande non payé, car elle possède une facture
+IF (nbFactureActif >= 1 AND NEW.idEtat = 1) THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible de considérer cette commande comme non payé, car elle correspond à une facture";
 end if;
 
+
+#Empecher d'avoir plusieurs fois l'Etat non payé / validé (id=1)
+SET nbCommandeNonPaye= (SELECT COUNT(c.idEtat) 
+          FROM commande c 
+          WHERE c.idClient=OLD.idClient 
+          AND c.idEtat=1);
+IF ( nbCommandeNonPaye >= 1 AND OLD.idEtat != NEW.idEtat ) THEN
+     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible d'avoir plusieurs commandes non validées.";
+end if;
 
 
 END;;
@@ -794,22 +767,33 @@ CREATE TABLE `facture` (
   CONSTRAINT `facture_ibfk_2` FOREIGN KEY (`cpLiv`) REFERENCES `code_postal` (`cp`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
-INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `typePaiement`, `datePaiement`) VALUES
-(10,	'BIGOT',	'Andréa',	'4 rue papangue',	'97420',	'Solde',	'2020-10-17 14:55:05'),
-(15,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-16 23:05:10'),
-(18,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-17 16:21:33'),
-(19,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-17 18:40:00'),
-(20,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-18 09:28:21'),
-(21,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-18 09:31:31'),
-(22,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-18 13:54:48'),
-(23,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-18 13:57:17'),
-(26,	'zzzz',	'zzzzz',	'azeaze',	'97412',	'Solde',	'2020-10-18 18:23:00'),
-(27,	'Hoareau',	'Léa',	'10 rue Thérésien Cadet, BUTOR',	'97480',	'Solde',	'2020-10-18 17:33:53'),
-(29,	'Hoareau',	'Pati',	'15, rue Des Pamplemousses ',	'97480',	'Solde',	'2020-10-18 18:44:30'),
-(33,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-18 22:28:53'),
-(34,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-18 22:34:30'),
-(35,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-20 13:02:48')
-ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `nomProp` = VALUES(`nomProp`), `prenomProp` = VALUES(`prenomProp`), `rueLiv` = VALUES(`rueLiv`), `cpLiv` = VALUES(`cpLiv`), `typePaiement` = VALUES(`typePaiement`), `datePaiement` = VALUES(`datePaiement`);
+
+DELIMITER ;;
+
+CREATE TRIGGER `facture_before_delete` BEFORE DELETE ON `facture` FOR EACH ROW
+BEGIN 
+DECLARE  int ;
+
+SELECT c.idEtat 
+INTO  
+FROM commande c
+WHERE c.num = OLD.numCmd ;
+
+#Empêcher de supprimer une facture dont la commande n'a pas encore été livré
+IF ( != 5) THEN
+   SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de supprimer une facture reliée à une commande non livrée';
+END IF;
+
+END;;
+
+CREATE TRIGGER `facture_after_delete` AFTER DELETE ON `facture` FOR EACH ROW
+BEGIN
+#Mettre l'etat de la commande à 'non payé'
+UPDATE commande SET idEtat = 1 WHERE num= OLD.numCmd ;
+
+END;;
+
+DELIMITER ;
 
 DROP TABLE IF EXISTS `genre`;
 CREATE TABLE `genre` (
@@ -828,23 +812,22 @@ ON DUPLICATE KEY UPDATE `code` = VALUES(`code`), `libelle` = VALUES(`libelle`);
 DROP TABLE IF EXISTS `taille`;
 CREATE TABLE `taille` (
   `libelle` varchar(3) NOT NULL,
-  `type` varchar(15) NOT NULL DEFAULT 'chiffre',
   PRIMARY KEY (`libelle`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `taille` (`libelle`, `type`) VALUES
-('32',	'chiffre'),
-('33',	'chiffre'),
-('34',	'chiffre'),
-('35',	'chiffre'),
-('36',	'chiffre'),
-('42',	'chiffre'),
-('L',	'lettre'),
-('M',	'lettre'),
-('S',	'lettre'),
-('XL',	'lettre'),
-('XS',	'lettre')
-ON DUPLICATE KEY UPDATE `libelle` = VALUES(`libelle`), `type` = VALUES(`type`);
+INSERT INTO `taille` (`libelle`) VALUES
+('32'),
+('34'),
+('36'),
+('38'),
+('40'),
+('42'),
+('L'),
+('M'),
+('S'),
+('XL'),
+('XS')
+ON DUPLICATE KEY UPDATE `libelle` = VALUES(`libelle`);
 
 DROP TABLE IF EXISTS `vetement`;
 CREATE TABLE `vetement` (
@@ -936,8 +919,6 @@ CREATE TABLE `vet_taille` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
-(20,	'33'),
-(21,	'35'),
 (10,	'36'),
 (11,	'42'),
 (27,	'42'),
@@ -945,6 +926,7 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (6,	'L'),
 (7,	'L'),
 (12,	'L'),
+(27,	'L'),
 (1,	'M'),
 (2,	'M'),
 (3,	'M'),
@@ -994,4 +976,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-20 19:58:09
+-- 2020-10-21 19:00:38
