@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-**Attente de cette fonctionnalité **
+**Attente de cette fonctionnalité**
 Décrivez ce que vous souhaitez voir de nouveau sur le projet.
 
 **Contexte supplémentaire**
