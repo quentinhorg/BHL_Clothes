@@ -5,7 +5,7 @@
 .genre{
     display: table;
     margin: auto;
-    margin-top: 20px;
+
 }
 
 .genre img{
@@ -44,7 +44,6 @@
     font-size: 30px;
     font-weight: bold;
     text-shadow: 2px 2px 10px black;
-    text-decoration: none;
 }
 
 
@@ -115,111 +114,3 @@
         width:365px;
     }
 }
-
-
-
-/* NOUVEAUTES */
-
-    .blog-post {
-      -webkit-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
-      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
-    }
-    
-    .blog-post .blog-img .overlay,
-    .blog-post .blog-img .post-meta {
-      position: absolute;
-      opacity: 0;
-      -webkit-transition: all 0.5s ease;
-      transition: all 0.5s ease;
-    }
-    
-    .blog-post .blog-img .overlay {
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
-    
-    .blog-post .blog-img .post-meta {
-      bottom: 5%;
-      right: 5%;
-      z-index: 1;
-    }
-    
-    .blog-post .blog-img .post-meta .read-more:hover {
-      color: #6dc77a !important;
-    }
-    
-    .blog-post .content h1, .blog-post .content h2, .blog-post .content h3, .blog-post .content h4, .blog-post .content h5, .blog-post .content h6 {
-      line-height: 1.2;
-    }
-    
-    .blog-post .content .title {
-      font-size: 18px;
-    }
-    
-    .blog-post .content .title:hover {
-      color: #6dc77a !important;
-    }
-    
-    .blog-post .content .author .name:hover {
-      color: #6dc77a !important;
-    }
-    
-    .blog-post:hover {
-      -webkit-transform: translateY(-7px);
-              transform: translateY(-7px);
-      -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-              box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    }
-    
-    .blog-post:hover .blog-img .overlay {
-      opacity: 0.65;
-    }
-    
-    .blog-post:hover .blog-img .post-meta {
-      opacity: 1;
-    }
-    
-    .blog-post .post-meta .like i,
-    .profile-post .like i {
-      -webkit-text-stroke: 2px #dd2427;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .blog-post .post-meta .like:active i, .blog-post .post-meta .like:focus i,
-    .profile-post .like:active i,
-    .profile-post .like:focus i {
-      -webkit-text-stroke: 0px #dd2427;
-      -webkit-text-fill-color: #dd2427;
-    }
-    
-  
-    .shadow {
-        -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15) !important;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.15) !important;
-    }
-    
-    .text-muted {
-        color: #8492a6 !important;
-    }
-    
-    
-    .para-desc {
-        max-width: 600px;
-    }
-    .text-muted {
-        color: #8492a6 !important;
-    }
-    
-    .section-title .title {
-        letter-spacing: 0.5px;
-        font-size: 30px;
-        margin-top: 100px;
-    margin-bottom: 10px!important;
-    }
-
-    .mt-2 a{
-        color: #e76c35;
-        text-decoration: none;
-    }

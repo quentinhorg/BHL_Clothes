@@ -23,7 +23,7 @@ class Avis{
         $methode = 'set'.ucfirst($cle);
        
         if(method_exists($this, $methode)){
-            $this->$methode(htmlspecialchars($valeur));
+            $this->$methode($valeur);
         }
       }
    }

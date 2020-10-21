@@ -30,7 +30,7 @@ class VetementManager extends DataBase{
 
     //Obtient les 3 dernières nouveautés
     public function getNouveaute(){
-        $req= $this->reqBase." ORDER BY v.id DESC LIMIT 3";
+        $req = "SELECT * FROM vetement LIMIT 3";
         $this->getBdd();
         return $this->getModele($req, ["*"], "Vetement");
     }

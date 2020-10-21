@@ -15,7 +15,6 @@ class ControleurCatalogue{
 
 
          $idCateg= null;
-         
          if( isset( $url[2])){
             $idCateg = $url[2];
          }
@@ -54,7 +53,7 @@ class ControleurCatalogue{
          $this->vue->genererVue(array( 
             "listeVetement"=> $listeVetement,
             "vuePagination" => $vuePagination,
-            "listeTaille"=>$this->listTaille($idCateg),
+            "listeTaille"=>$this->listTailleByCateg($idCateg),
             "listeGenre"=>$this->listeGenre(),
             "listClrPrincipale" => $this->listClrPrincipale(),
             "genreActive" => $this->genre($codeGenre),
@@ -85,9 +84,9 @@ class ControleurCatalogue{
       
    }
 
-   public function listTaille($idCateg){
+   public function listTailleByCateg($idCateg){
       $TaillesCatalogue = new TailleManager();
-      return $TaillesCatalogue->getListeTaille($idCateg);
+      return $TaillesCatalogue->getListeTailleByCateg($idCateg);
    }
 
    public function listClrPrincipale(){

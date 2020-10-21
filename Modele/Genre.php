@@ -24,6 +24,13 @@ class Genre{
 
    
    //SETTER
+   public function setNum($num){
+      $num = (int) $num;
+
+      if($num > 0){
+         $this->num = $num;
+      }
+   }
 
    public function setLibelle($libelle){
       if(is_string($libelle)){
@@ -43,7 +50,7 @@ class Genre{
          $listeIdCateg = explode(",", $listeIdCateg);
          $categManager = new CategorieManager ;
          foreach ($listeIdCateg as $categcode) {
-
+           
             $this->listeCateg[] = $categManager->getCateg($categcode) ;
          }
       }
