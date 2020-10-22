@@ -16,7 +16,7 @@
             <?php  $valueArticle = "idVet=".$article->id()."&taille=".$article->Taille()->libelle()."&numClr=".$article->Couleur()->num() ?>
             <div class="d-sm-flex justify-content-between my-4 pb-4 border-bottom">
                 <div class="media d-block d-sm-flex text-center text-sm-left">
-                    <a class="cart-item-thumb mx-auto mr-sm-4" href="#"> <img class="img" style="<?php echo $article->Couleur()->filterCssCode() ?>" src="<?php echo "public/media/vetement/id".$article->id() ?>" alt="Product"></a>
+                    <a class="cart-item-thumb mx-auto mr-sm-4" href="vetement/<?php echo $article->id()  ?>"> <img class="img" style="<?php echo $article->Couleur()->filterCssCode() ?>" src="<?php echo "public/media/vetement/id".$article->id() ?>" alt="Product"></a>
                     <div class="media-body pt-3">
                         <h3 class="product-card-title font-weight-semibold border-0 pb-0"><a href="#"> <?php echo $article->nom() ?></a></h3>
                         <div class="font-size-sm"><span class="text-muted mr-2">Taille:</span><?php echo $article->Taille()->libelle() ?></div>

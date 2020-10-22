@@ -89,8 +89,9 @@ class ControleurCatalogue{
       $TaillesCatalogue = new TailleManager();
 
       $listeTaille = array(
-         "lettre" =>$TaillesCatalogue->getListeTailleLettre(),
-         "chiffre" => $TaillesCatalogue->getListeTailleChiffre()
+         "chiffre" => $TaillesCatalogue->getListeTailleChiffre(),
+         "lettre" =>$TaillesCatalogue->getListeTailleLettre()
+       
       );
 
       return $listeTaille;

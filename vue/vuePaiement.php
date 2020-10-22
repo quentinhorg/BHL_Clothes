@@ -74,7 +74,7 @@
       <h4>Article(s) <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b><?php echo $maCommande->getQuantiteArticle() ?></b></span></h4>
       
       <?php foreach ($maCommande->panier() as $article) { ?>
-        <div class="articleLigne"> <div class='nomArti' ><?php echo "x".$article->qte()." " ?><a href="#"><?php echo $article->nom() ?></a></div>  <span class="price"><?php echo $article->prixTotalArt()."€" ?> </span> </div>
+        <div class="articleLigne"> <div class='nomArti' ><?php echo "x".$article->qte()." " ?><a href="vetement/<?php echo $article->id() ?>"><?php echo $article->nom() ?></a></div>  <span class="price"><?php echo $article->prixTotalArt()."€" ?> </span> </div>
       <?php } ?>
       <span> Prix de livraison : <?php echo $clientInfo->CodePostal()->prixLiv()."€"  ;?> </span>
 
