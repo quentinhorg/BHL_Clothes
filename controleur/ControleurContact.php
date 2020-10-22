@@ -65,7 +65,6 @@ class ControleurContact{
    private function insertBDDContact(){
       
       $ContactManager = new ContactManager();
-    
       $insertBDDContact= $ContactManager->insertBDDContact();
 
       return $insertBDDContact;

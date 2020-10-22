@@ -64,8 +64,7 @@ class ControleurPanier{
                if( $ArticleSession->dispo() ){
                   $this->maCommandeActif()->ajouterPanier($ArticleSession);
                }
-               
-               
+
          }
          //Panier BDD (Connecté)
          else{

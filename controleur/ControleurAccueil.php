@@ -16,7 +16,7 @@ class ControleurAccueil{
          $this->vue = new Vue('Accueil') ;
          $this->vue->setHeader("vue/header.php") ;
          $this->vue->genererVue(array("nouvVetement"=> $this->nouveauteVetement(),
-                                      "listeGenre" => $this->listeGenre()
+                                      "listeGenre" => $this->listeGenre(),
                                       )) ;
       }
    }
@@ -37,8 +37,6 @@ class ControleurAccueil{
 
       return $listeGenre;
    }
-
-
 
 
 }

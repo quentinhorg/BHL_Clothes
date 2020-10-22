@@ -21,8 +21,9 @@ class ControleurFacture{
                      $GLOBALS["client_en_ligne"]->getId() == $this->facture($url[1])->Commande()->idClient()
                      && $this->facture($url[1])->Commande()->Etat()->id() != 1 
                   ){
-                     $client = $GLOBALS["client_en_ligne"] ;
                      $facture = $this->facture($url[1]) ;
+                     $client = $this->client($facture->Commande()->idClient()) ;
+                    
                      $listeCp = $this->listeCp();
                      
                      include "vue/vueFacture.php";
@@ -53,6 +54,12 @@ class ControleurFacture{
 
       return $facture ;
    }
+
+        
+   private function client($idCli){
+      $ClientManager = new ClientManager();
+      return  $ClientManager->getClient( $idCli );
+  }
 
 
 
