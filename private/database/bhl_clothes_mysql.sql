@@ -197,9 +197,11 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (3,	3,	'L',	5,	1,	2),
 (4,	3,	'L',	5,	1,	1),
 (3,	6,	'L',	7,	1,	1),
-(3,	6,	'L',	15,	2,	3),
+(3,	6,	'L',	16,	1,	4),
 (1,	7,	'L',	10,	1,	3),
 (1,	7,	'L',	17,	1,	2),
+(3,	8,	'M',	11,	1,	6),
+(3,	10,	'36',	13,	1,	5),
 (1,	11,	'42',	9,	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
@@ -362,7 +364,7 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'azeaze',	'zerzer',	'97480',	'3 rue de lameme',	'65454',	351,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	1943.7,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	1871.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
 (10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'roro',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzz',	'zzzzz',	'97412',	'azeaze',	'azeaze',	20.1,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
@@ -521,6 +523,7 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2159.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 16:38:16',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2084.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 17:04:21',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	2016.3,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-21 17:10:57',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	1943.7,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-22 10:13:43',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'test rue',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:03',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:12',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:57:50',	'UPDATE'),
@@ -676,8 +679,8 @@ CREATE TABLE `commande` (
 INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
 (1,	8,	'2020-10-21 16:47:38',	5),
 (2,	1,	'2020-10-21 22:22:18',	1),
-(3,	8,	'2020-10-21 17:49:20',	1),
-(4,	8,	'2020-10-21 17:18:54',	5)
+(3,	8,	'2020-10-22 10:42:31',	5),
+(4,	8,	'2020-10-22 11:05:52',	1)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `dateCreation` = VALUES(`dateCreation`), `idEtat` = VALUES(`idEtat`);
 
 DELIMITER ;;
@@ -706,9 +709,10 @@ end if;
 SET nbCommandeNonPaye= (SELECT COUNT(c.idEtat) 
           FROM commande c 
           WHERE c.idClient=OLD.idClient 
-          AND c.idEtat=1);
-IF ( nbCommandeNonPaye >= 1 AND OLD.idEtat != NEW.idEtat ) THEN
-     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible d'avoir plusieurs commandes non validées.";
+          AND c.idEtat=1
+          AND c.num != OLD.num); 
+IF ( nbCommandeNonPaye >= 1 ) THEN
+     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible d'avoir plusieurs commandes non payé.";
 end if;
 
 
@@ -746,7 +750,7 @@ CREATE TABLE `etat` (
 
 INSERT INTO `etat` (`id`, `libelle`, `description`) VALUES
 (1,	'Pas confirmé',	'Votre commande n\'a pas encore été validée, ni payé.'),
-(2,	'En instruction ',	'Votre commande est en cours d\'instruction par nos experts.'),
+(2,	'En instruction ',	'Vous avez payé, votre commande est en cours d\'instruction par nos experts.'),
 (3,	'Préparation en cours',	'Votre commande est en préparation.'),
 (4,	'Livraison en cours',	'Votre commande est actuellement en chemin.'),
 (5,	'Livré',	'Votre commande à été livré.')
@@ -767,8 +771,17 @@ CREATE TABLE `facture` (
   CONSTRAINT `facture_ibfk_2` FOREIGN KEY (`cpLiv`) REFERENCES `code_postal` (`cp`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
+INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `typePaiement`, `datePaiement`) VALUES
+(3,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 10:13:43')
+ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `nomProp` = VALUES(`nomProp`), `prenomProp` = VALUES(`prenomProp`), `rueLiv` = VALUES(`rueLiv`), `cpLiv` = VALUES(`cpLiv`), `typePaiement` = VALUES(`typePaiement`), `datePaiement` = VALUES(`datePaiement`);
 
 DELIMITER ;;
+
+CREATE TRIGGER `facture_after_insert` AFTER INSERT ON `facture` FOR EACH ROW
+BEGIN
+#Mettre à jours l'etat de la commande à : 'payé'
+UPDATE commande SET idEtat = 2 WHERE num = NEW.numCmd ;
+END;;
 
 CREATE TRIGGER `facture_before_delete` BEFORE DELETE ON `facture` FOR EACH ROW
 BEGIN 
@@ -976,4 +989,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-21 19:00:38
+-- 2020-10-22 07:07:53
