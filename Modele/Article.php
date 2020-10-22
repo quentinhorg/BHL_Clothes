@@ -1,9 +1,9 @@
 <?php 
 
 class Article extends Vetement{
-   protected  $Taille ; //Objet
+   protected  $taille ;
    protected  $qte;
-   protected  $Couleur; //Objet
+   protected  $numClr; 
    protected  $prixTotalArt;
 
 
@@ -27,14 +27,12 @@ class Article extends Vetement{
 
    }
 
-   public function setNumClr($idCouleur){
-      $CouleurManager = new CouleurManager;
-      $this->Couleur = $CouleurManager->getCouleur($idCouleur);
+   public function setNumClr($num){
+      $this->numClr = $num;
    }
 
    public function setTaille($idTaille){
-      $TailleManager = new TailleManager;
-      $this->Taille = $TailleManager->getTaille($idTaille);
+     $this->taille = $idTaille;
    }
 
    public function setPrixTotalArt($prix){
@@ -56,11 +54,15 @@ class Article extends Vetement{
    }
 
    public function Couleur(){
-      return $this->Couleur;
+      $CouleurManager = new CouleurManager;
+      $Couleur = $CouleurManager->getCouleur($this->numClr);
+      return $Couleur ;
    }
 
    public function Taille(){
-      return $this->Taille;
+      $TailleManager = new TailleManager;
+      $Taille = $TailleManager->getTaille($this->taille);
+      return $Taille;
    }
 
    public function prixTotalArt(){
@@ -72,9 +74,8 @@ class Article extends Vetement{
 
    public function dispo(){
       $VetementManager = new VetementManager;
-
       //Retourne VRAI si l'article est disponible dans la BDD ou FAUX si n'est pas disponible par rapport  à la taille et la couleur choisies des attributs de la classe
-      return  $VetementManager->verifDisponibiliteTailleCouleur($this->id(), $this->Couleur->num(), $this->Taille->libelle() );
+      return  $VetementManager->verifDisponibiliteTailleCouleur($this->id(), $this->Couleur()->num(), $this->Taille()->libelle() );
       
    }
 

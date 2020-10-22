@@ -4,10 +4,9 @@ class Commande{
    private  $num;
    private  $dateCreation;
    private  $idClient;
-   private  $Etat; //Object
+   private  $idEtat;
    private  $prixTTC;
    private  $typePaiement;
-   protected  $panier= array() ; //Tableau Objet : Article
    private  $totalArticle;
    protected  $prixHT;
    
@@ -28,7 +27,7 @@ class Commande{
             $this->$methode($valeur);
          }
       }
-      $this->setPanier();
+
    }
 
    
@@ -63,14 +62,8 @@ class Commande{
       }
    }
 
-   public function setPanier(){
-      $ArticleManager = new ArticleManager;
-      $this->panier = $ArticleManager->getListeArticleByCmd($this->num) ;
-   }
-
    public function setIdEtat($idEtat){
-      $EtatManager = new EtatManager;
-      $this->Etat = $EtatManager->getEtat($idEtat);
+      $this->idEtat = $idEtat;
    }
 
    public function setPrixTTC($prix){
@@ -121,11 +114,15 @@ class Commande{
    }
 
    public function panier(){
-      return $this->panier;
+      $ArticleManager = new ArticleManager;
+      $panier = $ArticleManager->getListeArticleByCmd($this->num) ;
+      return $panier;
    }
 
    public function Etat(){
-      return $this->Etat;
+      $EtatManager = new EtatManager;
+      $Etat = $EtatManager->getEtat($this->idEtat);
+      return $Etat;
    }
 
    public function typePaiement(){
@@ -153,8 +150,7 @@ class Commande{
    public function getQuantiteArticle(){
       $totalQte = 0;
       
-         foreach ($this->panier as $article) {
-          
+         foreach ($this->panier() as $article) {
             $totalQte = $totalQte+$article->qte();
          }
      
@@ -167,8 +163,8 @@ class Commande{
    public function indiceArticlePanier( $idVet, $taille, $numClr){
       $indicePanier = null;
 
-      if($this->panier != null){
-         foreach ($this->panier as $indice => $article) {
+      if($this->panier() != null){
+         foreach ($this->panier() as $indice => $article) {
          
             if( 
                $article->id() == $idVet

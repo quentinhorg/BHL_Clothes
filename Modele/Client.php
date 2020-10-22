@@ -9,8 +9,8 @@ class Client{
    private  $rue;
    private  $tel;
    private  $solde;
-   private  $listeCmd = array(); //Tableau d'objet
-   private  $CodePostal; // Objet
+   private  $listeIdCmd = array();
+   private  $codePostal;
    private  $active;
    private  $dateInscription;
 
@@ -77,9 +77,7 @@ class Client{
 
     public function setCodePostal($CodePostal){
         if(is_string($CodePostal)){
-            $CodePostalManager = new CodePostalManager;
-           
-            $this->CodePostal =  $CodePostalManager->getCp($CodePostal);
+          $this->codePostal = $CodePostal ;
         }
     }
 
@@ -98,13 +96,10 @@ class Client{
     }
 
     public function setListeIdCmd($listeIdCmd){
+
         if($listeIdCmd != null){
             $tabIdCmd = explode(",",$listeIdCmd);
-       
-            $CommandeManageur = new CommandeManager();
-            foreach ($tabIdCmd as $id){
-                $this->listeCmd[]=$CommandeManageur->getCommande($id);
-            }
+            $this->listeIdCmd = $tabIdCmd ;
         }
         
     }
@@ -147,15 +142,25 @@ class Client{
         return $this->rue;
     }
     public function CodePostal(){
-        return $this->CodePostal;
+        $CodePostalManager = new CodePostalManager;   
+        $CodePostal =  $CodePostalManager->getCp($this->codePostal);
+        return $CodePostal;
     }
 
     public function getTel(){
         return $this->tel;
     }
 
+    //Tableau d'objet
     public function listCmd(){
-       return $this->listeCmd;
+        
+        $CommandeManageur = new CommandeManager();
+
+        foreach ($this->listeIdCmd as $id){
+            $listeCmd[]= $CommandeManageur->getCommande($id);
+        }
+
+       return $listeCmd;
     }
 
     public function solde(){

@@ -5,10 +5,10 @@ class Vetement{
    private   $nom;
    public    $prix;
    private   $motifPosition;
-   private   $categ; // OBJET
-   public    $listeCouleurDispo; // OBJET
-   private   $genre; // OBJET
-   private   $listeTailleDispo; // OBJET
+   private   $idCateg; 
+   public    $listeIdCouleurDispo = array(); 
+   private   $codeGenre;
+   private   $listeIdTailleDispo = array();
    private   $description;
    private   $nbAvis;
 
@@ -58,27 +58,18 @@ class Vetement{
    public function setIdCateg($idCateg){
       $idCateg = (int) $idCateg;
       if($idCateg > 0){
-         $CategManager = new CategorieManager;
-         $this->categ = $CategManager->getCateg($idCateg);
+         $this->idCateg = $idCateg;
       }
+
+      
 
    }
 
    public function setListeIdCouleurDispo($listIdCouleur){
-      $listIdCouleur = explode(",", $listIdCouleur);
-      
+   
       if($listIdCouleur != null){
-
-         $CouleurManager = new CouleurManager;
-
-         foreach ($listIdCouleur as $idCouleur) {
-            $idCouleur = (int) $idCouleur;
-            if($idCouleur > 0){
-               $this->listeCouleurDispo[] = $CouleurManager->getCouleur($idCouleur);
-
-            }
-            
-         }
+         $listIdCouleur = explode(",", $listIdCouleur);
+         $this->listeIdCouleurDispo = $listIdCouleur;
 
       }
       
@@ -86,20 +77,18 @@ class Vetement{
 
    public function setListeTailleDispo($listeTaille){
 
-      $listeTaille = explode(",", $listeTaille);
-      $TailleManager = new TailleManager;
-
-      foreach ($listeTaille as $taille) {
-            $this->listeTailleDispo[] = $TailleManager->getTaille($taille);
+      if($listeTaille != null){
+         $listeTaille = explode(",", $listeTaille);
+         $this->listeIdTailleDispo = $listeTaille ;
       }
+      
 
    }
 
    public function setCodeGenre($codeGenre){
       
       if(is_string($codeGenre)){
-         $GenreManager = new GenreManager;
-         $this->genre = $GenreManager->getGenre($codeGenre);
+         $this->codeGenre = $codeGenre;
       }
 
    }
@@ -134,20 +123,44 @@ class Vetement{
       return number_format($this->prix, 2) ;
    }
 
-   public function categ(){
-      return $this->categ;
+   public function Categ(){
+      $CategManager = new CategorieManager;
+      $Categ = $CategManager->getCateg($this->idCateg);
+      return $Categ;
    }
 
+   //Tableau d'object
    public function listeCouleurDispo(){
-      return $this->listeCouleurDispo;
+
+      
+      $CouleurManager = new CouleurManager;
+
+      foreach ($this->listeIdCouleurDispo as $idCouleur) {
+         $idCouleur = (int) $idCouleur;
+
+         if($idCouleur > 0){
+            $listeCouleurDispo[] = $CouleurManager->getCouleur($idCouleur);
+         }
+         
+      }
+
+      return $listeCouleurDispo;
    }
 
    public function listeTailleDispo(){
-      return $this->listeTailleDispo;
+      $TailleManager = new TailleManager;
+
+      foreach ($this->listeIdTailleDispo as $taille) {
+            $listeTailleDispo[] = $TailleManager->getTaille($taille);
+      }
+
+      return $listeTailleDispo;
    }
 
-   public function genre(){
-      return $this->genre;
+   public function Genre(){
+      $GenreManager = new GenreManager;
+      $Genre = $GenreManager->getGenre($this->codeGenre);
+      return $Genre;
    }
    
    public function motifPosition(){

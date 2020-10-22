@@ -1,11 +1,11 @@
 <?php 
 
 class Facture{
-   private   $Commande; //Object
+   private   $numCmd;
    private   $nomProp;
    public    $prenomProp;
    private   $rueLiv;
-   private   $CodePostal; // OBJET
+   private   $cpLiv;
    private   $typePaiement; 
    public    $datePaiement; 
 
@@ -27,8 +27,7 @@ class Facture{
    //SETTER
    public function setNumCmd($numCmd){
     
-      $CommandeManager = new CommandeManager;
-      $this->Commande = $CommandeManager->getCommande($numCmd);
+    $this->numCmd = $numCmd;
    }
 
    public function setNomProp($nomProp){
@@ -56,8 +55,8 @@ class Facture{
    } 
    
    public function setCpLiv($cpLiv){
-      $CodePostalManager= new CodePostalManager;
-      $this->CodePostal = $CodePostalManager->getCp($cpLiv);
+
+      $this->cpLiv = cpLiv;
    }
 
    public function setDatePaiement($date){
@@ -73,7 +72,9 @@ class Facture{
    //GETTER
 
    public function Commande(){
-      return $this->Commande;
+      $CommandeManager = new CommandeManager;
+      $Commande = $CommandeManager->getCommande($this->numCmd);
+      return $Commande;
    }
 
    public function nomProp(){
@@ -106,7 +107,11 @@ class Facture{
    }
 
    public function CodePostal(){
-      return $this->CodePostal;
+
+      $CodePostalManager= new CodePostalManager;
+      $CodePostal = $CodePostalManager->getCp($this->cpLiv);
+
+      return $CodePostal;
    }
 
 

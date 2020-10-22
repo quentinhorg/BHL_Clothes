@@ -3,7 +3,7 @@
 class Genre{
    private  $code;
    private  $libelle;
-   private  $listeCateg; //Objet
+   private  $listeIdCategorie;
    
    
    public function __construct(array $donnee){
@@ -37,18 +37,17 @@ class Genre{
       }
    }
 
+ 
    public function setListeIdCategorie($listeIdCateg){
       
       if($listeIdCateg != null ){
          $listeIdCateg = explode(",", $listeIdCateg);
-         $categManager = new CategorieManager ;
-         foreach ($listeIdCateg as $categcode) {
-
-            $this->listeCateg[] = $categManager->getCateg($categcode) ;
-         }
+      
+         $this->listeCateg =  $listeIdCateg  ;
       }
-
    }
+
+
  
    
 
@@ -65,7 +64,14 @@ class Genre{
    }
 
    public function listeCateg(){
-      return $this->listeCateg;
+
+      $CategManager = new CategorieManager ;
+
+      foreach ($this->listeCateg as $categCode) {
+         $listObjCateg[] = $CategManager->getCateg($categCode) ;
+      }
+
+      return $listObjCateg ;
    }
 
 

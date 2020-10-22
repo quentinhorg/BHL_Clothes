@@ -3,6 +3,7 @@
 class CommandeSession extends Commande{
 
    private $CommandeManager;
+   public $panier = array();
 
 
    public function viderPanier(){
@@ -37,6 +38,9 @@ class CommandeSession extends Commande{
 
    }
 
+   public function panier(){
+      return $this->panier;
+   }
    
 
 

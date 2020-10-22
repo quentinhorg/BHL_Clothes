@@ -3,7 +3,7 @@
 class Couleur{
    private  $num;
    private  $nom;
-   private  $idVet; //Object
+   private  $idVet;
    private  $filterCssCode;
    private  $dispo;
    

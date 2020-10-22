@@ -2,7 +2,7 @@
 
 class Avis{
    private  $id;
-   private  $Client; //Object
+   private  $idClient;
    private  $idVet;
    private  $commentaire;
    private  $note;
@@ -39,8 +39,7 @@ class Avis{
     }
 
     public function setIdClient($idClient){
-        $ClientManager = new ClientManager;
-        $this->Client = $ClientManager->getClient($idClient);
+        $this->idClient = $idClient ;
     }
 
     public function setIdVet($idVet){
@@ -76,7 +75,9 @@ class Avis{
     }
 
     public function Client(){
-        return $this->Client;
+        $ClientManager = new ClientManager;
+        $Client = $ClientManager->getClient($this->idClient);
+        return $Client;
     }
 
     public function idVet(){
