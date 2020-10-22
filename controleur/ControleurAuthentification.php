@@ -54,19 +54,23 @@ class ControleurAuthentification{
                         if (!empty($_POST['cp'])) {
                            if (!empty($_POST["rue"])){
                               if (!empty($_POST['email'])) {
-                                 if (!empty($_POST["mdp"])){
-                                    if (!empty($_POST['tel'])) {
-      
-                                       $idClientRegister = $this->inscrireClient();
-                                       $popup =  [
-                                          "Inscription terminée", 
-                                          "<div style='text-align:center;'> Un mail de confirmation a été envoyé à <b>".$_POST['email']."</b> <p style='font-style: italic ; font-size:0.8rem'> Si vous n'avez pas reçu le lien de confirmation <a href='contact'> contactez-nous </a>. </p> </div>"  ] ;
-                                       if( $_SESSION["ma_commande"]->panier() != NULL ){
-                                          $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
-                                       }
-                                 
-                                    }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
-                                 }else {  $message = "Veuillez entrer un mot de passe"; }
+                                 $ClientManager = new ClientManager();
+
+                                 if( !$ClientManager->emailExiste($_POST['email'])  ){
+                                    if (!empty($_POST["mdp"])){
+                                       if (!empty($_POST['tel'])) {
+                                          
+                                          $idClientRegister = $this->inscrireClient();
+                                          $popup =  [
+                                             "Inscription terminée", 
+                                             "<div style='text-align:center;'> Un mail de confirmation a été envoyé à <b>".$_POST['email']."</b> <p style='font-style: italic ; font-size:0.8rem'> Si vous n'avez pas reçu le lien de confirmation <a href='contact'> contactez-nous </a>. </p> </div>"  ] ;
+                                          if( $_SESSION["ma_commande"]->panier() != NULL ){
+                                             $this->insertPanierSessionToBdd($idClientRegister, $_SESSION["ma_commande"]);
+                                          }
+                                    
+                                       }else {  $message = "Veuillez entrer votre numéro de téléphone"; }
+                                    }else {  $message = "Veuillez entrer un mot de passe"; }
+                                 } else{ $message = "Ce mail est déjà utilisé." ;}
                               }else {  $message = "Veuillez entrer votre Email"; }
                            }else{ $message = "Veuillez entrer votre rue";} 
                         }else {  $message = "Veuillez entrer votre code postal"; }

@@ -11,6 +11,7 @@ header{
    margin-top: 100px;
    font-size: 20px;
    font-family: Arial, Helvetica, sans-serif;
+   display: block!important;
 }
 
 .erreur input{
@@ -35,3 +36,4 @@ header{
 .erreur p{
    font-size: 15px;
 }
+

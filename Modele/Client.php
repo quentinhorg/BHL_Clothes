@@ -153,14 +153,30 @@ class Client{
 
     //Tableau d'objet
     public function listCmd(){
-        
+        $listeCmd = array();
         $CommandeManageur = new CommandeManager();
+       
 
         foreach ($this->listeIdCmd as $id){
             $listeCmd[]= $CommandeManageur->getCommande($id);
         }
 
        return $listeCmd;
+    }
+
+    //Tableau d'objet
+    public function listCmdPaye(){
+        $listeCmdPaye = array();
+        $listeCommandeClient = $this->listCmd() ;
+
+        foreach ($listeCommandeClient as $cmd){
+            if($cmd->Etat()->id() != 1 ){
+                $listeCmdPaye[]= $cmd ;
+            }
+            
+        }
+
+       return $listeCmdPaye;
     }
 
     public function solde(){

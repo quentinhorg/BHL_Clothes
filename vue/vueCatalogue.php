@@ -44,29 +44,37 @@
 
                 echo "<hr>";
                 echo "<h3> Taille </h3>";
-                echo "<ul>";
+                
 
-                $checked = "";
-                foreach ($listeTaille as $Taille ){ 
-                 
-                    //garder les champs
-                    if(isset($_GET["taille"]) && in_array($Taille->libelle(), $_GET["taille"])){
-                        $checked = "checked";
+              
+                echo "<div class='tailleList'>" ;
+                foreach ($listeTaille as $typeTaille => $Taille) {
+                    echo "<ul>";
+                
+                    foreach ($listeTaille[$typeTaille] as $Taille ){ 
+                        $checked = "";
+                        //garder les champs
+                        if(isset($_GET["taille"]) && in_array($Taille->libelle(), $_GET["taille"])){
+                            $checked = "checked";
+                        }
+
+                        echo "<li> " ;
+
+                        echo "<label for='taille_".$Taille->libelle()."' class='container'>".$Taille->libelle() ;
+                        echo "<input $checked name='taille[]' value='".$Taille->libelle()."' id='taille_".$Taille->libelle()."' type='checkbox' >" ;
+                        echo "<span class='checkmark'> </span>" ;
+                        echo "</label>" ;
+
+                    //echo     "<input name='taille[]' id='taille_".$Taille->libelle()."' type='checkbox' value='".$Taille->libelle()."'>  <label for='taille_".$Taille->libelle()."'> ".$Taille->libelle()."</label>" ;
+                        echo "</li>";
+                        
+                        $checked = null;
                     }
-
-                    echo "<li> " ;
-
-                    echo "<label for='taille_".$Taille->libelle()."' class='container'>".$Taille->libelle() ;
-                    echo "<input $checked name='taille[]' value='".$Taille->libelle()."' id='taille_".$Taille->libelle()."' type='checkbox' >" ;
-                    echo "<span class='checkmark'> </span>" ;
-                    echo "</label>" ;
-
-                   //echo     "<input name='taille[]' id='taille_".$Taille->libelle()."' type='checkbox' value='".$Taille->libelle()."'>  <label for='taille_".$Taille->libelle()."'> ".$Taille->libelle()."</label>" ;
-                    echo "</li>";
-                    
-                    $checked = null;
-                }
                 echo "</ul>" ;
+             }
+             echo "</div>" ;
+               
+
             }
                 
         ?>
@@ -195,32 +203,15 @@ if( $vuePagination != null){
 
 
 <script>
- Catalogue = new Catalogue();
- Catalogue.changeColor();
+Catalogue = new Catalogue();
+Catalogue.changeColor();
+
  
- 
- $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
 
-
-// $("#filtrer").click(function(){
-
-//     var form = $("#formFiltrage");
-//     var serializedData = form.serialize();
-//     $.ajax({
-//         url : "catalogue",
-//         data : "trier=Ok&"+serializedData,
-//         type : 'POST',
-//         success : function(result) {
-//             $("#listVetement").html($(result).find("#listVetement"));
-//         }
-
-//     });
-    
-
-// }) ;
 
 
 </script>

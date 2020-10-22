@@ -99,3 +99,10 @@ body{
   height: unset!important;
 
 }
+
+.error-msg{
+  text-align:center ;
+  color: rgb(199, 33, 33) ;
+  font-weight: bold;
+  background-color: #ffe9e9;
+}

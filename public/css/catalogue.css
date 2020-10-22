@@ -296,3 +296,12 @@ only screen and (max-width: 950px){
 
    }
 }
+
+.tailleList {
+  display: flex;
+ }
+
+.tailleList ul:last-child{
+  margin-left: auto ;
+  display: block;
+}

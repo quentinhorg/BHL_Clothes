@@ -1,4 +1,26 @@
 <?php 
+
+
+
+
+//Gestionnaire d'erreur personalisé 
+set_error_handler('exceptions_error_handler');
+function exceptions_error_handler($severity, $message, $filename, $lineno) {
+
+   if (error_reporting() == 0) {
+    
+      return;
+   }
+   if (error_reporting() & $severity) {
+      
+      throw new ErrorException($message, 0, $severity, $filename, $lineno);
+      
+   }
+ 
+}
+
+
+
 header("Cache-Control: no-cache, must-revalidate");
 require_once('vue/Vue.php');
 
@@ -8,12 +30,19 @@ class Routeur{
    private $vue;
 
    public function routerLaPage(){
+      
+      
+  
+
       try{
+         ob_start();
+
+        
          //Permet d'auto générer les modèles necessaires pour données appelées
          spl_autoload_register(function($classe){
             require_once('Modele/'.$classe.'.php');
          });
-         
+        
          session_start(); //Démarrage de la session
          $ClientManager = new ClientManager;
          $GLOBALS["client_en_ligne"] = $ClientManager->ClientEnLigne() ;
@@ -25,11 +54,11 @@ class Routeur{
             $CommandeManager = new CommandeManager;
             $CommandeManager->creerCommandeSession();
          }    
-
+    
        
          
 
-      
+       
          
          
          //Vérifie sur on navigue sur une page
@@ -44,9 +73,11 @@ class Routeur{
            //Si le fichier controleur existe
             if( file_exists($controleurFichier) ){
              
-               require_once($controleurFichier); //Intègre le controleur
-               $this->ctrl = new $controleurClasse($url); //Affection du la classe controleur
-               
+      
+                  require_once($controleurFichier); //Intègre le controleur
+                  $this->ctrl = new $controleurClasse($url); //Affection du la classe controleur
+            
+             
 
                
             }
@@ -66,8 +97,10 @@ class Routeur{
       }
       //GESTION DES ERREURS
       catch(Exception $e){
+        
 
          switch ( $e->getCode() ) {
+         
             //SQL STATE 45000 (Exception custom)
             case 45000:
                $erreurMsg = $e->xdebug_message;
@@ -125,9 +158,18 @@ class Routeur{
          $this->vue->setListeCss(["public/css/erreur.css"]) ;
          $this->vue->setHeader("vue/header.php") ;
          $this->vue->genererVue( array("titreErreur" => $titreErreur,'erreurMsg' => $erreurMsg) );
-
+       
 
          
+      }
+      //Erreur PHP interne
+      catch(Throwable $zz){
+         $cache = ob_get_clean();
+         echo $zz->xdebug_message ;
+
+         echo " <br> <br>  <h1> Affichage avant l'erreur: </h1> <br> <br> ". $cache ;
+
+
       }
 
       

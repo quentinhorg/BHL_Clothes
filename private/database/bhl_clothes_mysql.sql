@@ -203,6 +203,7 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (5,	6,	'L',	7,	1,	1),
 (6,	6,	'L',	7,	2,	2),
 (6,	6,	'L',	16,	1,	4),
+(2,	7,	'L',	10,	1,	2),
 (3,	8,	'M',	11,	1,	6),
 (5,	8,	'S',	11,	1,	2),
 (3,	10,	'36',	13,	1,	5),
@@ -361,10 +362,10 @@ CREATE TABLE `client` (
   UNIQUE KEY `email_unique` (`email`),
   KEY `codePostal` (`codePostal`),
   CONSTRAINT `client_ibfk_1` FOREIGN KEY (`codePostal`) REFERENCES `code_postal` (`cp`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`, `tel`, `solde`, `cleActivation`, `active`, `dateInscription`) VALUES
-(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2849.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2779,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
 (3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
@@ -376,7 +377,7 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`
 (12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'JEAN',	'Bryan',	'97412',	'26 impasse des cerisiers',	'0693421697',	20.1,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692848484',	899.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-20 23:38:03'),
-(18,	'hoareauquentin97480@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzzz',	'zzzzz',	'97410',	'zzzzz',	'zzzzz',	100,	'b66cd90e3946dd63b5a914d5eb2c7eddb46177ec',	1,	'2020-10-22 20:26:02')
+(19,	'hoareauquentin97480@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'azaz',	'azazaz',	'97400',	'azaz',	'azaz',	100,	'b99dfad9dfce6db8291c587455dec8f5ab378920',	1,	'2020-10-22 20:59:03')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`), `cleActivation` = VALUES(`cleActivation`), `active` = VALUES(`active`), `dateInscription` = VALUES(`dateInscription`);
 
 DELIMITER ;;
@@ -438,6 +439,7 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2905,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
 (1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2905,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
 (1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2905,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 16:17:04',	'UPDATE'),
+(1,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	2849.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-22 21:38:25',	'UPDATE'),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'',	'',	'0694458553',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 16:34:07',	'UPDATE'),
 (2,	'quentin@live.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97400',	'7 impasse jesus',	'0694458553',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 14:45:52',	'UPDATE'),
 (2,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97400',	'7 impasse jesus',	'0694458553',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
@@ -606,6 +608,8 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (17,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97470',	'123 chemin des lilas',	'zzz',	100,	'2a8a15f1fccbf07279ef24c839182d5f102cdb20',	1,	'2020-10-22 20:22:08',	'2020-10-22 20:24:06',	'UPDATE'),
 (17,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'HOAREAU',	'Quentin',	'97470',	'123 chemin des lilas',	'0692332211',	100,	'2a8a15f1fccbf07279ef24c839182d5f102cdb20',	1,	'2020-10-22 20:22:08',	'2020-10-22 20:25:44',	'DELETE'),
 (18,	'hoareauquentin97480@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzzz',	'zzzzz',	'97410',	'zzzzz',	'zzzzz',	100,	'b66cd90e3946dd63b5a914d5eb2c7eddb46177ec',	0,	'2020-10-22 20:26:02',	'2020-10-22 20:26:15',	'UPDATE'),
+(18,	'hoareauquentin97480@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'zzzzz',	'zzzzz',	'97410',	'zzzzz',	'zzzzz',	100,	'b66cd90e3946dd63b5a914d5eb2c7eddb46177ec',	1,	'2020-10-22 20:26:02',	'2020-10-22 20:58:29',	'DELETE'),
+(19,	'hoareauquentin97480@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'azaz',	'azazaz',	'97400',	'azaz',	'azaz',	100,	'b99dfad9dfce6db8291c587455dec8f5ab378920',	0,	'2020-10-22 20:59:03',	'2020-10-22 20:59:18',	'UPDATE'),
 (21,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:20:17',	'DELETE'),
 (23,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:21:25',	'DELETE'),
 (25,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:24:11',	'DELETE'),
@@ -703,7 +707,7 @@ CREATE TABLE `commande` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
-(2,	1,	'2020-10-21 22:22:18',	1),
+(2,	1,	'2020-10-22 21:38:25',	2),
 (3,	8,	'2020-10-22 10:42:31',	5),
 (4,	8,	'2020-10-22 11:09:07',	2),
 (5,	8,	'2020-10-22 11:13:40',	2),
@@ -797,6 +801,7 @@ CREATE TABLE `facture` (
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `typePaiement`, `datePaiement`) VALUES
+(2,	'BIGOT',	'Andréa',	'4 rue papangue',	'97480',	'Solde',	'2020-10-22 21:38:25'),
 (3,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 10:13:43'),
 (4,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 11:09:07'),
 (5,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 11:13:40'),
@@ -888,7 +893,7 @@ CREATE TABLE `vetement` (
 
 INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `description`, `idCateg`) VALUES
 (1,	'Robe D\'Eté Superposée Fleurie Imprimée',	25.5,	NULL,	'F',	'Petite robe imprimée en coton avec des bretelles fines. Matières: rayonne.',	1),
-(2,	'Short de Survêtement à Cordon',	10,	NULL,	'F',	'Short',	5),
+(2,	'Short de Survêtement à Cordon',	10,	NULL,	'F',	'Short court à cordon. Matière: coton.',	5),
 (3,	'T-shirt Manche longue unicolore',	15,	NULL,	'F',	'Tshirt manche longue en coton.',	2),
 (4,	'Pull Court Simple Surdimensionné',	37,	NULL,	'F',	'Pull court manches longues. Matières: coton, polyester',	4),
 (5,	'Pull Court Rayé à Col Rond',	38.2,	NULL,	'F',	'Pull rayé manches longues au col rond. Matières: polyester, coton',	4),
@@ -897,7 +902,7 @@ INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `desc
 (8,	'Pull Tordu à Epaule Dénudée',	20,	NULL,	'F',	'Pull qui décore avec un design torsadé à l\'avant. Matières: coton, polyacrylique.',	4),
 (9,	'Veste Déchirée En Couleur Unie En Denim',	34.9,	NULL,	'M',	'Veste déchirée avec un col rabattu à manches longues. Matières: coton, polyester.',	8),
 (10,	'Pantalon Slim Taille Haute Déchiré',	12,	NULL,	'F',	'Pantalon taille haute, coupe slim avec la taille élastique. Matière: coton.\r\n',	12),
-(11,	'Bermuda chino uni',	15,	NULL,	'H',	'222',	10),
+(11,	'Bermuda chino uni',	15,	NULL,	'H',	'Bermuda chino uni parfait pour l\'été.',	10),
 (12,	'T-shirt Graphique Grue Barboteuse Chinoise Fleurie Imprimé',	17.99,	NULL,	'H',	'T-shirt manches courtes imprimé en coton.',	2),
 (13,	'T-shirt Court Sanglé à Col V',	10,	NULL,	'F',	'T-shirt Court Sanglé à Col V.\r\nMatières: Polyuréthane,Rayonne',	2),
 (14,	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée',	11,	NULL,	'F',	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée. \r\nMatières: Coton,Polyester',	2),
@@ -946,7 +951,7 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (15,	6,	'Mauve rayé blanc et noir',	'hue-rotate(45deg)',	1),
 (16,	6,	'Rouge rayé blanc et noir',	'hue-rotate(110deg);',	1),
 (17,	7,	'Vert fluo',	'hue-rotate(120deg)',	1),
-(18,	1,	'Bleu',	'',	1)
+(18,	1,	'Bleu',	'',	0)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idVet` = VALUES(`idVet`), `nom` = VALUES(`nom`), `filterCssCode` = VALUES(`filterCssCode`), `dispo` = VALUES(`dispo`);
 
 DROP TABLE IF EXISTS `vet_taille`;
@@ -961,12 +966,28 @@ CREATE TABLE `vet_taille` (
 
 INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (10,	'36'),
+(10,	'38'),
+(11,	'38'),
+(10,	'40'),
+(11,	'40'),
+(10,	'42'),
 (11,	'42'),
 (27,	'42'),
 (3,	'L'),
 (6,	'L'),
 (7,	'L'),
+(9,	'L'),
 (12,	'L'),
+(13,	'L'),
+(14,	'L'),
+(15,	'L'),
+(16,	'L'),
+(18,	'L'),
+(19,	'L'),
+(22,	'L'),
+(23,	'L'),
+(24,	'L'),
+(25,	'L'),
 (27,	'L'),
 (1,	'M'),
 (2,	'M'),
@@ -975,14 +996,24 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (7,	'M'),
 (8,	'M'),
 (9,	'M'),
+(13,	'M'),
 (14,	'M'),
+(16,	'M'),
+(17,	'M'),
+(19,	'M'),
 (22,	'M'),
 (23,	'M'),
+(24,	'M'),
+(25,	'M'),
+(26,	'M'),
 (3,	'S'),
 (4,	'S'),
 (5,	'S'),
 (6,	'S'),
 (8,	'S'),
+(12,	'S'),
+(13,	'S'),
+(14,	'S'),
 (15,	'S'),
 (17,	'S'),
 (25,	'S'),
@@ -996,11 +1027,17 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (16,	'XL'),
 (18,	'XL'),
 (19,	'XL'),
+(23,	'XL'),
+(24,	'XL'),
+(25,	'XL'),
 (1,	'XS'),
 (6,	'XS'),
 (8,	'XS'),
 (13,	'XS'),
-(24,	'XS')
+(15,	'XS'),
+(17,	'XS'),
+(24,	'XS'),
+(26,	'XS')
 ON DUPLICATE KEY UPDATE `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`);
 
 DROP VIEW IF EXISTS `vue_categpargenre`;
@@ -1015,6 +1052,6 @@ DROP TABLE IF EXISTS `vue_categpargenre`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,group_concat(distinct `vcl`.`num` order by `vcl`.`filterCssCode` ASC separator ',') AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-22 16:34:57
+-- 2020-10-22 17:45:46

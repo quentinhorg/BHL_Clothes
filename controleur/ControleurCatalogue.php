@@ -54,7 +54,7 @@ class ControleurCatalogue{
          $this->vue->genererVue(array( 
             "listeVetement"=> $listeVetement,
             "vuePagination" => $vuePagination,
-            "listeTaille"=>$this->listTaille($idCateg),
+            "listeTaille"=> $this->listeTaille() ,
             "listeGenre"=>$this->listeGenre(),
             "listClrPrincipale" => $this->listClrPrincipale(),
             "genreActive" => $this->genre($codeGenre),
@@ -85,9 +85,15 @@ class ControleurCatalogue{
       
    }
 
-   public function listTaille($idCateg){
+   public function listeTaille(){
       $TaillesCatalogue = new TailleManager();
-      return $TaillesCatalogue->getListeTaille($idCateg);
+
+      $listeTaille = array(
+         "lettre" =>$TaillesCatalogue->getListeTailleLettre(),
+         "chiffre" => $TaillesCatalogue->getListeTailleChiffre()
+      );
+
+      return $listeTaille;
    }
 
    public function listClrPrincipale(){

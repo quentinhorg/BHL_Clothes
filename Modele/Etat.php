@@ -41,11 +41,7 @@ class Etat{
 
 
    public function setDescription($description){
-
-         $this->description = $description;
-
-  
-   
+      $this->description = $description;
    }
 
  
@@ -65,6 +61,19 @@ class Etat{
    public function description(){
       //return $this->dispo;
       return $this->description;
+   }
+
+   public function classIcon(){
+         
+      $listeIcone= array(
+         "1" => "fa fa-user",
+         "2" =>"fa fa-search",
+         "3" => "fa fa-hourglass",
+         "4" => "fa fa-plane",
+         "5" => "fa fa-check-circle"
+     );
+
+     return $listeIcone[$this->id()];
    }
 
 

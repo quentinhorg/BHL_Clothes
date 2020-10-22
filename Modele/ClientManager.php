@@ -33,6 +33,19 @@ class ClientManager extends DataBase{
     
     }
 
+    public function emailExiste($email){
+        $existe = false ;
+
+        $this->getBdd(); //Autoriser l'access a la BDD
+        $req = "SELECT COUNT(*) AS 'nbEmail' FROM client WHERE email LIKE ?"; 
+
+        if( $this->execBDD($req,[$email])[0]['nbEmail'] == 1 ){
+            $existe = true ;
+        }
+        
+        return $existe ;
+    }
+
     public function desactiveCompte($email, $cle){
      
         $this->getBdd(); //Autoriser l'access a la BDD

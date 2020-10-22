@@ -31,6 +31,7 @@ class ControleurFacture{
       
                      if( isset($_GET["envoyerFactureMail"]) ){
                         $this->envoyerMailFacture($client, $facture, $pdf);   
+                        header("Location: ".URL_SITE."facture/".$facture->Commande()->num() );
                      }
                      $pdf->Output(); //Affichage du PDF
       

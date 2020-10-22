@@ -20,8 +20,7 @@ class ControleurCompte{
                                 $this->vue->genererVue(array(
                                     "clientActif"=> $GLOBALS["client_en_ligne"],
                                     "listeEtat" => $this->listeEtat(),
-                                    "infoCommande" => $this->commande($url[2]),
-                                    "iconeSuivi" => $this->iconeSuivi()
+                                    "infoCommande" => $this->commande($url[2])
                                 )) ;
                             }else{ throw new Exception('La commande ne vous appartient pas', 423); }
                         } else{ throw new Exception('La commande n\'existe pas', 404); }
@@ -86,12 +85,6 @@ class ControleurCompte{
     private function getNewInfoClientActif(){
         $ClientManager = new ClientManager();
         return  $ClientManager->getClient( $GLOBALS["client_en_ligne"]->getId() );
-    }
-
-    private function iconeSuivi(){
-        $EtatManager = new EtatManager();
-        $listeIcone = $EtatManager->getListClassIconEtat();
-        return $listeIcone;
     }
 
     

@@ -3,19 +3,12 @@
 
 
 
-.form-control{
-    /* width: auto;
-    margin: auto; */
-}
 
 #exampleFormControlTextarea1{
-    /* width: 270px;
-    margin: auto; */
     width: 475px;
 }
 
 .form-group{
-    /* text-align: center;*/
     width: 200px;
     display: inline-block;
 } 
@@ -62,7 +55,7 @@ p{
     }
 }
 
-@media all and (max-width:400px){
+@media all and (max-width:500px){
     .contact{
         width:350px;
         margin:auto;
