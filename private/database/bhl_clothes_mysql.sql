@@ -208,8 +208,12 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (5,	8,	'S',	11,	1,	2),
 (3,	10,	'36',	13,	1,	5),
 (6,	10,	'36',	13,	1,	6),
-(7,	10,	'36',	13,	1,	2),
-(7,	11,	'42',	9,	9,	1)
+(8,	19,	'L',	23,	5,	3),
+(7,	23,	'M',	26,	1,	3),
+(8,	24,	'L',	28,	1,	2),
+(7,	28,	'M',	46,	6,	2),
+(7,	28,	'M',	51,	1,	1),
+(8,	28,	'L',	46,	1,	1)
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
 
 DELIMITER ;;
@@ -338,8 +342,7 @@ INSERT INTO `categorie` (`id`, `nom`) VALUES
 (12,	'Pantalons'),
 (4,	'Pulls'),
 (1,	'Robes'),
-(10,	'Shorts & Bermudas'),
-(5,	'Shorts de bain'),
+(5,	'Shorts'),
 (2,	'T-shirts & Débardeurs'),
 (8,	'Vestes & Manteaux')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`);
@@ -371,7 +374,7 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'MOREL',	'Seb',	'97480',	'3 rue de lameme',	'0692987874',	351,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	1653.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	1218.7,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
 (10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'0692458595',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'JEAN',	'Bryan',	'97412',	'26 impasse des cerisiers',	'0693421697',	20.1,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
@@ -539,6 +542,8 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	1826.1,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-22 11:13:40',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	1762.3,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-22 16:54:16',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	1653.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-22 20:19:53',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	1653.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-23 01:00:54',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	1467.4,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-23 01:05:57',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'test rue',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:03',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:12',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:57:50',	'UPDATE'),
@@ -712,7 +717,8 @@ INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
 (4,	8,	'2020-10-22 11:09:07',	2),
 (5,	8,	'2020-10-22 11:13:40',	2),
 (6,	8,	'2020-10-22 16:54:16',	2),
-(7,	8,	'0000-00-00 00:00:00',	1)
+(7,	8,	'2020-10-23 01:00:54',	2),
+(8,	8,	'2020-10-23 01:05:57',	2)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `dateCreation` = VALUES(`dateCreation`), `idEtat` = VALUES(`idEtat`);
 
 DELIMITER ;;
@@ -805,7 +811,9 @@ INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `ty
 (3,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 10:13:43'),
 (4,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 11:09:07'),
 (5,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 11:13:40'),
-(6,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 16:54:16')
+(6,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 16:54:16'),
+(7,	'Gamer',	'Goldow',	'20 rue de la république',	'97400',	'Solde',	'2020-10-23 01:00:54'),
+(8,	'Gamer',	'Goldow',	'20 rue de la république',	'97400',	'Solde',	'2020-10-23 01:05:57')
 ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `nomProp` = VALUES(`nomProp`), `prenomProp` = VALUES(`prenomProp`), `rueLiv` = VALUES(`rueLiv`), `cpLiv` = VALUES(`cpLiv`), `typePaiement` = VALUES(`typePaiement`), `datePaiement` = VALUES(`datePaiement`);
 
 DELIMITER ;;
@@ -878,7 +886,7 @@ ON DUPLICATE KEY UPDATE `libelle` = VALUES(`libelle`);
 DROP TABLE IF EXISTS `vetement`;
 CREATE TABLE `vetement` (
   `id` int(11) NOT NULL,
-  `nom` varchar(60) NOT NULL,
+  `nom` varchar(80) NOT NULL,
   `prix` float NOT NULL,
   `motifPosition` varchar(150) DEFAULT '',
   `codeGenre` varchar(1) NOT NULL,
@@ -902,15 +910,15 @@ INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `desc
 (8,	'Pull Tordu à Epaule Dénudée',	20,	NULL,	'F',	'Pull qui décore avec un design torsadé à l\'avant. Matières: coton, polyacrylique.',	4),
 (9,	'Veste Déchirée En Couleur Unie En Denim',	34.9,	NULL,	'M',	'Veste déchirée avec un col rabattu à manches longues. Matières: coton, polyester.',	8),
 (10,	'Pantalon Slim Taille Haute Déchiré',	12,	NULL,	'F',	'Pantalon taille haute, coupe slim avec la taille élastique. Matière: coton.\r\n',	12),
-(11,	'Bermuda chino uni',	15,	NULL,	'H',	'Bermuda chino uni parfait pour l\'été.',	10),
-(12,	'T-shirt Graphique Grue Barboteuse Chinoise Fleurie Imprimé',	17.99,	NULL,	'H',	'T-shirt manches courtes imprimé en coton.',	2),
+(11,	'Bermuda chino uni',	15,	NULL,	'H',	'Bermuda chino uni parfait pour l\'été.',	5),
+(12,	'T-shirt Graphique Grue Barboteuse Chinoise Fleurie Imprimé',	17.99,	'background-position: 305px;',	'H',	'T-shirt manches courtes imprimé en coton.',	2),
 (13,	'T-shirt Court Sanglé à Col V',	10,	NULL,	'F',	'T-shirt Court Sanglé à Col V.\r\nMatières: Polyuréthane,Rayonne',	2),
 (14,	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée',	11,	NULL,	'F',	'Débardeur d\'Entraînement Côtelé à Bretelle Croisée. \r\nMatières: Coton,Polyester',	2),
-(15,	'Haut Court Côtelé Sans Dos à Bretelle ',	12,	NULL,	'F',	'Haut Court Côtelé Sans Dos à Bretelle qui met en valeur la taille marquée. \r\nMatières: Polyuréthane,Rayonne',	2),
-(16,	' Haut Court Côtelé à Bretelle Trodu',	15,	NULL,	'F',	'Haut Court Côtelé à Bretelle Trodu.\r\nHaut qui flatte la silhouette avec des fines bretelles mettant en avant le décolleté et le dos. \r\nMatières: Polyuréthane,Rayonne',	2),
-(17,	'T-Shirt à Imprimé Rayures En Blocs De Couleurs',	10,	NULL,	'H',	'Un t-shirt avec un motif à rayures panachées, un col rond, des manches courtes et une coupe classique.\r\nMatières: Polyester',	2),
+(15,	'Haut Court Côtelé Sans Dos à Bretelle ',	12,	'background-position: 90px;',	'F',	'Haut Court Côtelé Sans Dos à Bretelle qui met en valeur la taille marquée. \r\nMatières: Polyuréthane,Rayonne',	2),
+(16,	' Haut Court Côtelé à Bretelle Tordu',	15,	'background-position: 100px;',	'F',	'Haut Court Côtelé à Bretelle Trodu.\r\nHaut qui flatte la silhouette avec des fines bretelles mettant en avant le décolleté et le dos. \r\nMatières: Polyuréthane,Rayonne',	2),
+(17,	'T-Shirt à Imprimé Rayures En Blocs De Couleurs',	10,	'    background-position: 180px;',	'H',	'Un t-shirt avec un motif à rayures panachées, un col rond, des manches courtes et une coupe classique.\r\nMatières: Polyester',	2),
 (18,	'T-shirt Rose Brodée à Manches Courtes',	13.5,	NULL,	'H',	'T-shirt basique surmonté d\'un col rond et manches courtes.\r\nMatières: Coton,Polyester,Spandex',	2),
-(19,	'Veste Déchirée Avec Poche à Rabat En Denim',	37.6,	NULL,	'H',	'Veste déchirée manches longues.\r\nMatières: Coton,Polyester,Spandex',	8),
+(19,	'Veste Déchirée Avec Poche à Rabat En Denim',	37.6,	'background-position: 85px;',	'H',	'Veste déchirée manches longues.\r\nMatières: Coton,Polyester,Spandex',	8),
 (20,	'Pantalon de Survêtement Lettre Applique à Cordon en Laine',	23.5,	NULL,	'H',	'Pantalon de Survêtement avec élastique à la taille en coton.',	12),
 (21,	'Pantalon Panneau En Blocs De Couleurs à Taille Elastique',	19.99,	NULL,	'H',	'Pantalon à Taille Elastique en polyesther. ',	12),
 (22,	'T-shirt Rayé Chiffre Brodé à Manches Longues',	14.9,	NULL,	'H',	'T-shirt Rayé Chiffre Brodé à Manches Longues\r\nMatières: Coton,Polyacrylique,Polyester',	4),
@@ -918,7 +926,22 @@ INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `desc
 (24,	'Mini Robe à Carreaux Ligne A',	11.2,	NULL,	'F',	'Détendu en forme, féminin dans le style, cette robe cami dispose d\'une impression tout au long de ceindre, fines bretelles et une coupe mini longueur séduisante, dans une silhouette évasée. portez-le avec des talons pour un style charmant.\r\nMatières: Polyester',	1),
 (25,	'Jupe Ligne A Teintée à Cordon',	13,	NULL,	'F',	'Jupe colorée en polyester. ',	6),
 (26,	'Mini Jupe Ligne A Nouée',	14,	NULL,	'F',	'Jupe courte avec une fermeture zippée. \r\nMatières: Polyester,Polyuréthane',	6),
-(27,	'Short Déchiré Zippé Design En Denim',	19.65,	NULL,	'H',	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	10)
+(27,	'Short Déchiré Zippé Design En Denim',	19.65,	NULL,	'H',	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	5),
+(28,	'Pull Court Simple Surdimensionné - Brique Réfractaire M',	19.5,	'',	'F',	'Pull oversize, manches longues et épaule tombante.\r\nMatières: Coton,Polyester;',	4),
+(29,	'Pull Court Rayé à Col Rond - Noir',	15.5,	'',	'F',	'Pull décontracté court à col rond. \r\nMatières: Coton,Polyester',	4),
+(30,	'Short Paperbag Ceinturé Fleuri Imprimé à Volants - Multi Xl',	8.66,	'',	'F',	'Short souple taille haute avec une ceinture à nouer. \r\nMatières: Rayonne',	5),
+(31,	'Mini Short Plissé Noué ',	10,	'',	'F',	'Short style décontracté, fermeture braguette zippée. \r\nMatières: Polyester',	5),
+(32,	'Frayed Hem Ripped Pocket Denim Shorts',	17.5,	'',	'F',	'Short en denim déchiré.\r\nMatières: Coton, Polyester.',	5),
+(33,	'Short Paperbag Rayé Ceinturé',	8.5,	'',	'F',	'Doté d\'un motif à rayures tout au long, ce short a une ceinture haute. La ceinture de  nouée autour de la taille ajoute du charme et de la mode. \r\nMatières: Polyester',	5),
+(34,	'Short noué à volants et bordure en crochet',	9,	'',	'F',	'Short court à volants resserré à la taille avec un élastiques.\r\nMatières: Rayonne.',	5),
+(35,	'Short Teinté Ceinturé à Jambe Large',	10,	'',	'F',	'Short court noué à la taille.\r\nMatières: Polyester.\r\n',	5),
+(36,	'Pantalon Droit Boutonné En Velours Côtelé',	13.5,	'',	'F',	'Pantalon droit en velours côtelé.\r\nMatières: Coton, Polyester',	12),
+(37,	'Pantalon Visage Souriant Bicolore à Cordon - Multi-b L',	15.6,	'',	'M',	'Pantalon à cordon décontracté. Tissu légèrement extensible.\r\nMatières: Polyester.',	12),
+(38,	'Chemise en velours côtelé à manches longues et empiècement color-block',	20,	'',	'H',	'Veste stylée très colorée.\r\nMatières: Coton, Polyester',	8),
+(40,	'Short de bain imprimé avec cordon de serrage',	25.5,	'',	'H',	'Short de bain en polyester avec cordon.',	5),
+(49,	'Pantalon Déchiré Zippé En Denim - Bleu 2xl',	30,	'',	'H',	'Pantalon déchiré type regular. \r\nMatières: Coton, Polyester, Polyuréthane.',	12),
+(50,	'Jean Droit Déchiré Long - Noir Xl',	25,	'',	'H',	'Jean déchiré type regular.\r\nMatières: Coton, Polyester',	3),
+(51,	'Pantalon Crayon Zippé Ange en Denim - Blanc 32',	35,	'',	'H',	'Pantalon crayon type regular.\r\nMatières: Coton, Spandex.',	12)
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prix` = VALUES(`prix`), `motifPosition` = VALUES(`motifPosition`), `codeGenre` = VALUES(`codeGenre`), `description` = VALUES(`description`), `idCateg` = VALUES(`idCateg`);
 
 DROP TABLE IF EXISTS `vet_couleur`;
@@ -951,7 +974,48 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (15,	6,	'Mauve rayé blanc et noir',	'hue-rotate(45deg)',	1),
 (16,	6,	'Rouge rayé blanc et noir',	'hue-rotate(110deg);',	1),
 (17,	7,	'Vert fluo',	'hue-rotate(120deg)',	1),
-(18,	1,	'Bleu',	'',	0)
+(18,	1,	'Bleu',	'',	0),
+(19,	20,	'Gris',	NULL,	1),
+(20,	22,	'Rayé noir',	NULL,	1),
+(21,	21,	'Couleur jaune rose bleu vert',	NULL,	1),
+(22,	13,	'Noir',	NULL,	1),
+(23,	19,	'Bleu marine jean',	NULL,	1),
+(24,	14,	'Noir',	NULL,	1),
+(25,	25,	'Arc-en-ciel',	NULL,	1),
+(26,	23,	'Noir rose',	NULL,	1),
+(27,	26,	'Marron',	NULL,	1),
+(28,	24,	'Noir',	NULL,	1),
+(29,	12,	'Noir à motif rond rouge',	NULL,	1),
+(30,	27,	'Jean',	NULL,	1),
+(31,	17,	'Blanc à rayure jaune',	NULL,	1),
+(32,	15,	'Rose ',	NULL,	1),
+(33,	16,	'Violet ',	NULL,	1),
+(34,	18,	'Noir',	NULL,	1),
+(35,	19,	'Gris',	'grayscale(1);',	1),
+(36,	17,	'Blanc à rayure vert',	'hue-rotate(45deg)',	1),
+(38,	26,	'Vert',	'hue-rotate(100deg)',	1),
+(39,	26,	'Rose',	'hue-rotate(300deg)',	1),
+(40,	17,	'Blanc à rayure vert',	'hue-rotate(190deg)',	1),
+(41,	15,	'Vert',	'hue-rotate(100deg)',	1),
+(42,	15,	'Bleu',	'hue-rotate(200deg)',	1),
+(43,	16,	'Jaune',	'hue-rotate(120deg)',	1),
+(44,	15,	'Violet',	'hue-rotate(300deg)',	1),
+(45,	16,	'Vert',	'hue-rotate(200deg)',	1),
+(46,	28,	'Rouge brique',	NULL,	1),
+(47,	25,	'Multicolore océan  ',	'hue-rotate(120deg);',	1),
+(48,	28,	'Vert forêt',	'hue-rotate(180deg);',	1),
+(49,	12,	'Noir motif rond orange',	'hue-rotate(45deg);',	1),
+(50,	12,	'Noir motif rond rose',	'hue-rotate(320deg);',	1),
+(51,	28,	'Violet clairci',	'saturate(1.2) brightness(1.2) hue-rotate(600000000deg)',	1),
+(52,	30,	'Rouge à mini pois blanc ',	NULL,	1),
+(53,	29,	'Noir rayé blanc',	'',	1),
+(54,	31,	'Kaki foncé',	NULL,	1),
+(55,	32,	'Jean clair ',	NULL,	1),
+(56,	33,	'Vert forêt rayé orange',	NULL,	1),
+(57,	37,	'Semi rouge et noir',	NULL,	1),
+(58,	49,	'Jean basic',	NULL,	1),
+(59,	50,	'Noir jean',	NULL,	1),
+(60,	51,	'Blanc à motif coloré',	NULL,	1)
 ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idVet` = VALUES(`idVet`), `nom` = VALUES(`nom`), `filterCssCode` = VALUES(`filterCssCode`), `dispo` = VALUES(`dispo`);
 
 DROP TABLE IF EXISTS `vet_taille`;
@@ -988,7 +1052,8 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (23,	'L'),
 (24,	'L'),
 (25,	'L'),
-(27,	'L'),
+(28,	'L'),
+(29,	'L'),
 (1,	'M'),
 (2,	'M'),
 (3,	'M'),
@@ -1006,6 +1071,8 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (24,	'M'),
 (25,	'M'),
 (26,	'M'),
+(28,	'M'),
+(29,	'M'),
 (3,	'S'),
 (4,	'S'),
 (5,	'S'),
@@ -1018,6 +1085,7 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (17,	'S'),
 (25,	'S'),
 (26,	'S'),
+(28,	'S'),
 (1,	'XL'),
 (2,	'XL'),
 (3,	'XL'),
@@ -1030,6 +1098,7 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (23,	'XL'),
 (24,	'XL'),
 (25,	'XL'),
+(29,	'XL'),
 (1,	'XS'),
 (6,	'XS'),
 (8,	'XS'),
@@ -1054,4 +1123,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-22 17:45:46
+-- 2020-10-22 21:10:18
