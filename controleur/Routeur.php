@@ -13,7 +13,7 @@ function exceptions_error_handler($severity, $message, $filename, $lineno) {
    }
    if (error_reporting() & $severity) {
       
-      throw new ErrorException($message, 0, $severity, $filename, $lineno);
+      throw new ErrorException($message, 500, $severity, $filename, $lineno);
       
    }
  
@@ -96,81 +96,78 @@ class Routeur{
       
       }
       //GESTION DES ERREURS
-      catch(Exception $e){
+      catch(Throwable $e){
+
+       
+            switch ( $e->getCode() ) {
+               //SQL STATE 45000 (Exception custom)
+               case 45000:
+                  $erreurMsg = $e->xdebug_message;
+                  $titreErreur = "<b> SQL STATE Exception : </b> <br>" ;
+                  break;
+   
+               //Accès refusé (global)
+               case 403:
+                  $titreErreur = "Accès refusé" ;
+                  $erreurMsg = $e->getMessage();
+                  break;
+   
+               //Accès refusé, nécessite une connexion de la part du client
+               case 401:
+                  $titreErreur = "Vous devez être connecté" ;
+                  $erreurMsg = $e->getMessage();
+                  break; 
+               
+               //La syntaxe de la requête est erronée (Manque des infos)
+               case 400:
+                  $titreErreur = "Requête erronée";
+                  if( $e->getMessage() == null ){
+                     $erreurMsg = $e->getMessage();
+                  }else{  $erreurMsg = "La page demandé n'a pas les ressources nécessaire pour répondre à la demande." ;  }
+                  break;  
+   
+               //Page non trouvée
+               case 404:
+                  $titreErreur = "Page non trouvée";
+                  if($e->getMessage() == null){
+                     $erreurMsg = "La page demandée est introuvable sur le serveur." ;
+                  }  else{ $erreurMsg = $e->getMessage(); }
+                  break;  
+   
+               // Ressource bloqué
+               case 423:
+                  $titreErreur = "Ressource bloqué";
+                  $erreurMsg = $e->getMessage();
+                  break; 
+                  
+               // Authentification acceptée mais les droits refusé
+               case 403:
+                  header(URL_SITE);
+                  break;  
+                  
+               //Erreur serveur (Par défaut / code = 500)
+               default:
+                  $cache = ob_get_clean();
+                  echo "<h1> Page d'erreur en BETA : </h1> <br>";
+                  echo "<h1> Erreur : </h1> <br> " ;
+                  
+                  echo $e->xdebug_message ;
+      
+                  echo "<hr> <br> <br> <br> <br>  <h1> Affichage avant l'erreur: </h1> <br> <br> ". $cache ;
+                  exit();
+            }
+
+            $this->vue = new Vue('Erreur');
+            $this->vue->setListeCss(["public/css/erreur.css"]) ;
+            $this->vue->setHeader("vue/header.php") ;
+            $this->vue->genererVue( array("titreErreur" => $titreErreur,'erreurMsg' => $erreurMsg) );
+
+
+         }
         
 
-         switch ( $e->getCode() ) {
-         
-            //SQL STATE 45000 (Exception custom)
-            case 45000:
-               $erreurMsg = $e->xdebug_message;
-               $titreErreur = "<b> SQL STATE Exception : </b> <br>" ;
-               break;
 
-            //Accès refusé (global)
-            case 403:
-               $titreErreur = "Accès refusé" ;
-               $erreurMsg = $e->getMessage();
-               break;
-
-            //Accès refusé, nécessite une connexion de la part du client
-            case 401:
-               $titreErreur = "Vous devez être connecté" ;
-               $erreurMsg = $e->getMessage();
-               break; 
-            
-            //La syntaxe de la requête est erronée (Manque des infos)
-            case 400:
-               $titreErreur = "Requête erronée";
-               if( $e->getMessage() == null ){
-                  $erreurMsg = $e->getMessage();
-               }else{  $erreurMsg = "La page demandé n'a pas les ressources nécessaire pour répondre à la demande." ;  }
-             
-               break;  
-
-            //Page non trouvée
-            case 404:
-               $titreErreur = "Page non trouvée";
-               if($e->getMessage() == null){
-                  $erreurMsg = "La page demandée est introuvable sur le serveur." ;
-               }  else{ $erreurMsg = $e->getMessage(); }
-               break;  
-
-            // Ressource bloqué
-            case 423:
-               $titreErreur = "Ressource bloqué";
-               $erreurMsg = $e->getMessage();
-               break; 
-               
-            // Authentification acceptée mais les droits refusé
-            case 403:
-               header(URL_SITE);
-               break;  
-               
-            //Erreur serveur (Par défaut / code = 500)
-            default:
-               $erreurMsg = $e->xdebug_message;
-               $titreErreur = "Erreur serveur" ;
-               break;
-         }
-
-         $this->vue = new Vue('Erreur');
-         $this->vue->setListeCss(["public/css/erreur.css"]) ;
-         $this->vue->setHeader("vue/header.php") ;
-         $this->vue->genererVue( array("titreErreur" => $titreErreur,'erreurMsg' => $erreurMsg) );
-       
-
-         
-      }
-      //Erreur PHP interne
-      catch(Throwable $zz){
-         $cache = ob_get_clean();
-         echo $zz->xdebug_message ;
-
-         echo " <br> <br>  <h1> Affichage avant l'erreur: </h1> <br> <br> ". $cache ;
-
-
-      }
+     
 
       
    }

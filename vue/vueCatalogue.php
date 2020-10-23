@@ -12,7 +12,7 @@
 
 
     <?php
-    
+
     if( $genreActive != null){
 
         echo "<h3>".$genreActive->libelle()."</h3>" ;
@@ -29,6 +29,7 @@
      
         echo "<ul>";
         foreach ($listeGenre as $genre) {
+            
             echo "<li> <a href='catalogue/".$genre->code()."'>".$genre->libelle()." </a> </li>" ;
         }
         echo "</ul>" ;
