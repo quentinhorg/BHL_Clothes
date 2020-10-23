@@ -15,7 +15,7 @@ class ControleurCompte{
                     
                     if( isset($url[2]) ){
                         if($this->commande($url[2]) != null){
-                            if( $this->commande($url[2])->idClient() == $GLOBALS["client_en_ligne"]->getId() ){
+                            if( $this->commande($url[2])->idClient() == $GLOBALS["client_en_ligne"]->id() ){
                                 $this->vue = new Vue('Suivi') ;
                                 $this->vue->genererVue(array(
                                     "clientActif"=> $GLOBALS["client_en_ligne"],
@@ -84,7 +84,7 @@ class ControleurCompte{
         
     private function getNewInfoClientActif(){
         $ClientManager = new ClientManager();
-        return  $ClientManager->getClient( $GLOBALS["client_en_ligne"]->getId() );
+        return  $ClientManager->getClient( $GLOBALS["client_en_ligne"]->id() );
     }
 
     
@@ -112,19 +112,19 @@ class ControleurCompte{
 
     public function changeMail(){
         $ClientManager = new ClientManager();
-        $idCli = $GLOBALS["client_en_ligne"]->getId();
+        $idCli = $GLOBALS["client_en_ligne"]->id();
         $ClientManager->changeMail($idCli);
     }
 
     public function changeMdp(){
         $ClientManager = new ClientManager();
-        $idCli = $GLOBALS["client_en_ligne"]->getId();
+        $idCli = $GLOBALS["client_en_ligne"]->id();
         $ClientManager->changeMdp($idCli);
     }
 
     public function changeAdresse(){
         $ClientManager = new ClientManager();
-        $idCli = $GLOBALS["client_en_ligne"]->getId();
+        $idCli = $GLOBALS["client_en_ligne"]->id();
         $ClientManager->changeAdresse($idCli);
     }
 

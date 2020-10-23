@@ -1,7 +1,7 @@
  
     <?php
         //var_dump($clientActif);
-        echo "<h2>".$clientActif->getNom()." ".$clientActif->getPrenom()."</h2>";
+        echo "<h2>".$clientActif->nom()." ".$clientActif->prenom()."</h2>";
     ?>
 
     <div class="tab">

@@ -6,7 +6,7 @@ class HtmlArticle {
       this.qte = this.elementId.find(".qte input").val() ;
    }
 
-   getNom(){
+   nom(){
       return this.nom ;
    }
 

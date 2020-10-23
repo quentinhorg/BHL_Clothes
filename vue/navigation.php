@@ -28,7 +28,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="compte"> 
                
-                    <?php echo $clientEnLigne->getPrenom(); ?> 
+                    <?php echo $clientEnLigne->prenom(); ?> 
                 </a>
             </li> 
                   

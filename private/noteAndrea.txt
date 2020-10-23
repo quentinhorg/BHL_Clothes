@@ -3,7 +3,7 @@
 
 Récupérer qqch dans url → $_GET['idClient'] 
 
-				        → depuis une méthode private → utiliser les get() →  $ligne->getId(); 
+				        → depuis une méthode private → utiliser les get() →  $ligne->id(); 
 
 
 $tab[]= quand retourne une liste 

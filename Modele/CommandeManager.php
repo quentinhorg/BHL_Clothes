@@ -33,7 +33,7 @@ class CommandeManager extends DataBase{
     
         if( $GLOBALS["client_en_ligne"] != null  ){
      
-            $clientId = $GLOBALS["client_en_ligne"]->getId();
+            $clientId = $GLOBALS["client_en_ligne"]->id();
  
             $req = "SELECT c.num as 'numCmd'
             FROM commande c

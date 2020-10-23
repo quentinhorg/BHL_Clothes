@@ -116,7 +116,7 @@ class Client{
 
 
    //GETTER
-    public function getId(){
+    public function id(){
         return $this->id;
     }
 
@@ -130,11 +130,11 @@ class Client{
     }
    
 
-    public function getNom(){
+    public function nom(){
         return $this->nom;
     }
 
-    public function getPrenom(){
+    public function prenom(){
         return $this->prenom;
     }
 
@@ -147,7 +147,7 @@ class Client{
         return $CodePostal;
     }
 
-    public function getTel(){
+    public function tel(){
         return $this->tel;
     }
 

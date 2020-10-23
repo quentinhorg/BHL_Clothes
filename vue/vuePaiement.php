@@ -15,10 +15,10 @@
             <h3>Adresse de facturation</h3>
             <p> Pour modifier vos informations aller dans les paramètres. </p>
             <label for="fnom"><i class="fa fa-user"></i> Nom </label>
-            <input type="text" id="fnom" name="nom" value="<?php echo $clientInfo->getNom() ;?>" disabled>
+            <input type="text" id="fnom" name="nom" value="<?php echo $clientInfo->nom() ;?>" disabled>
 
             <label for="fprenom"><i class="fa fa-user"></i> Prénom </label>
-            <input type="text" id="fprenom" value="<?php echo $clientInfo->getPrenom() ;?>" disabled>
+            <input type="text" id="fprenom" value="<?php echo $clientInfo->prenom() ;?>" disabled>
 
             <label for="femail"><i class="fa fa-envelope"></i> Mail </label>
             <input type="text" id="femail" value="<?php echo $clientInfo->email() ;?>" disabled>

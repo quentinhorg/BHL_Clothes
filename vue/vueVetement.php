@@ -129,7 +129,7 @@
                 
                 <div class="contenuBloc">
                     <div class="info">
-                            <p><?php echo $avis->Client()->getNom()." ".$avis->Client()->getPrenom(); ?></p>
+                            <p><?php echo $avis->Client()->nom()." ".$avis->Client()->prenom(); ?></p>
                             <div class="note">
                     
                                 <?php 

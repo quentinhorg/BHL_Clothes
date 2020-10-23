@@ -69,8 +69,8 @@ class ControleurPanier{
          //Panier BDD (Connecté)
          else{
 
-            if(  $this->CommandeManager->possedeCommandeNonPayer( $GLOBALS["client_en_ligne"]->getId() ) == false ){
-               $numCmd = $this->CommandeManager->insertCommande( $GLOBALS["client_en_ligne"]->getId() );
+            if(  $this->CommandeManager->possedeCommandeNonPayer( $GLOBALS["client_en_ligne"]->id() ) == false ){
+               $numCmd = $this->CommandeManager->insertCommande( $GLOBALS["client_en_ligne"]->id() );
             }
             $numCmd = $this->maCommandeActif()->num();
             $this->ArticleManager->inserer( $numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"] );

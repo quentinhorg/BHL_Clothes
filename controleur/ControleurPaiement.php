@@ -66,7 +66,7 @@ class ControleurPaiement{
          $CommandeManager = new CommandeManager;
          $numCmdPaye = $this->maCommande()->num();
          
-         $CommandeManager->payerPanierActif($GLOBALS["client_en_ligne"]->getId());
+         $CommandeManager->payerPanierActif($GLOBALS["client_en_ligne"]->id());
          header("Location: ".URL_SITE."facture/".$numCmdPaye."&envoyerFactureMail=Ok");
 
       } catch (Exception $e) {

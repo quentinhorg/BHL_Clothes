@@ -73,7 +73,7 @@ class ControleurVetement{
    private function insertAvis($idVet){
       $AvisManager = new AvisManager();
       $ClientManager= new ClientManager();
-      $idClient= $GLOBALS["client_en_ligne"]->getId();
+      $idClient= $GLOBALS["client_en_ligne"]->id();
 
       $AvisManager->insertAvis($idVet, $idClient);
    }

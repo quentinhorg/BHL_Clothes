@@ -6,10 +6,10 @@ require('public/FPDF-master/fpdf.php');
 // adresse de l'entreprise qui émet la facture
 $adresse = "BHL Clothes - Entreprise\n97480 Saint-Joseph\n\nbhl_clothes@gmail.com\n(+33) 3 89 68 27 54";
 // adresse du client
-$adresseClient = "Nom : ".$client->getNom()."\nPrénom : ".$client->getPrenom()."\nTéléphone : ".$client->getTel()."\nAdresse : ".$client->rue()." ".$client->CodePostal()->cp().' ('.$client->CodePostal()->libelle().")";
+$adresseClient = "Nom : ".$client->nom()."\nPrénom : ".$client->prenom()."\nTéléphone : ".$client->tel()."\nAdresse : ".$client->rue()." ".$client->CodePostal()->cp().' ('.$client->CodePostal()->libelle().")";
 // initialise l'objet facturePDF
 $pdf = new facturePDF($adresse, $adresseClient, "BHL Clothes - Entreprise - 97480 Saint-Joseph - bhl_clothes@gmail.com - (+33) 3 89 68 27 54\nLes produits livrés demeurent la propriété exclusive de notre entreprise jusqu'au paiement complet de la présente facture.\nRCS : 245-532-578- RE / TVA Intracomunautaire : FR 02 4578 1455 5578 3254 / SIRET 887 547 259 974 125");
-$pdf->SetTitle('Commande N-'.$facture->Commande()->num().' - '.$client->getNom().' '.$client->getPrenom() );
+$pdf->SetTitle('Commande N-'.$facture->Commande()->num().' - '.$client->nom().' '.$client->prenom() );
 // défini le logo
 $pdf->setLogo('public/media/bhl_clothes/logo.png');
 // entete des produits

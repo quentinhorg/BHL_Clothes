@@ -18,7 +18,7 @@ class ControleurFacture{
                if(  $GLOBALS["client_en_ligne"] != null ){
                
                   if(
-                     $GLOBALS["client_en_ligne"]->getId() == $this->facture($url[1])->Commande()->idClient()
+                     $GLOBALS["client_en_ligne"]->id() == $this->facture($url[1])->Commande()->idClient()
                      && $this->facture($url[1])->Commande()->Etat()->id() != 1 
                   ){
                      $facture = $this->facture($url[1]) ;
@@ -79,7 +79,7 @@ class ControleurFacture{
       $to = $Client->email(); 
       $from = "email.test.qh@gmail.com" ; 
       $subject = "BHL Clothes - Détails de votre commande"; 
-      $message = "<p>Bonjour ".$Client->getNom()." ".$Client->getPrenom().",  <br> 
+      $message = "<p>Bonjour ".$Client->nom()." ".$Client->prenom().",  <br> 
             Merci de votre commande du jour ! Votre confiance nous touche beaucoup…
             Nous mettons tout en œuvre pour la préparer avec les meilleures précautions d'hygiène et de sécurité, ce qui nous impose des délais moins rapides qu'habituellement.
             Trouvez ci-joint votre facture. Vous pourrez aussi suivre son expédition depuis votre compte client. <br>
@@ -96,7 +96,7 @@ class ControleurFacture{
       $eol = PHP_EOL;
 
       // attachment name
-      $filename = "Facture N".$Facture->Commande()->num()." - ".$Client->getNom()." ".$Client->getPrenom().".pdf";
+      $filename = "Facture N".$Facture->Commande()->num()." - ".$Client->nom()." ".$Client->prenom().".pdf";
 
       // encode data (puts attachment in proper format)
       $pdfdoc = $pdf->Output("", "S");
