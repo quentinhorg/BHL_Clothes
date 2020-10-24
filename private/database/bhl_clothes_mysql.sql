@@ -158,7 +158,7 @@ BEGIN
                  FROM client c
                  where c.id = _idClient;
 
-                UPDATE client SET solde = (soldeClient-montantCmdTTC) WHERE id = _idClient ; 
+                UPDATE client SET solde = ROUND(soldeClient-montantCmdTTC,2) WHERE id = _idClient ; 
                 INSERT INTO facture VALUES(_numCmd, nomCli, prenomCli, rueCli, cpCli, "Solde", NOW());
                 UPDATE commande SET idEtat = 2 WHERE num = _numCmd ; 
               ELSE
@@ -213,8 +213,10 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (8,	24,	'L',	28,	1,	2),
 (7,	28,	'M',	46,	6,	2),
 (7,	28,	'M',	51,	1,	1),
-(8,	28,	'L',	46,	1,	1)
-ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`), `numClr` = VALUES(`numClr`), `qte` = VALUES(`qte`), `ordreArrivee` = VALUES(`ordreArrivee`);
+(8,	28,	'L',	46,	1,	1),
+(9,	30,	'34',	52,	4,	9),
+(9,	39,	'M',	65,	1,	4),
+(9,	50,	'36',	59,	9,	8);
 
 DELIMITER ;;
 
@@ -322,8 +324,7 @@ INSERT INTO `avis` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VA
 (6,	8,	11,	'Je suis déçu, la texture blanchit facilement. ',	1,	'2020-10-11 00:03:20'),
 (7,	11,	10,	'Ce pantalon est sympa mais un peu grand pour un 36',	3,	'2020-10-13 20:40:17'),
 (8,	4,	4,	'Matière souple et confortable. Bon pull',	4,	'2020-10-13 20:51:44'),
-(9,	14,	1,	'Matière très agréable à porter. De bonne qualité.\r\nChoisir une taille au dessus si vous êtes grande. ',	4,	'2020-10-18 18:53:09')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `idClient` = VALUES(`idClient`), `idVet` = VALUES(`idVet`), `commentaire` = VALUES(`commentaire`), `note` = VALUES(`note`), `date` = VALUES(`date`);
+(9,	14,	1,	'Matière très agréable à porter. De bonne qualité.\r\nChoisir une taille au dessus si vous êtes grande. ',	4,	'2020-10-18 18:53:09');
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
@@ -344,8 +345,7 @@ INSERT INTO `categorie` (`id`, `nom`) VALUES
 (1,	'Robes'),
 (5,	'Shorts'),
 (2,	'T-shirts & Débardeurs'),
-(8,	'Vestes & Manteaux')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`);
+(8,	'Vestes & Manteaux');
 
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
@@ -374,14 +374,13 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`
 (5,	'ryan.lauret974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Ryan',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (7,	'test@test.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'MOREL',	'Seb',	'97480',	'3 rue de lameme',	'0692987874',	351,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	1218.7,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	909.061,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
 (10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'0692458595',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (12,	'zzzzz@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'JEAN',	'Bryan',	'97412',	'26 impasse des cerisiers',	'0693421697',	20.1,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692848484',	899.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
 (14,	'patihoareau@gmail.com',	'8cb2237d0679ca88db6464eac60da96345513964',	'Hoareau',	'Pati',	'97480',	'15, rue Des Pamplemousses ',	'0693114750',	2.5,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-20 23:38:03'),
-(19,	'hoareauquentin97480@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'azaz',	'azazaz',	'97400',	'azaz',	'azaz',	100,	'b99dfad9dfce6db8291c587455dec8f5ab378920',	1,	'2020-10-22 20:59:03')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`), `cleActivation` = VALUES(`cleActivation`), `active` = VALUES(`active`), `dateInscription` = VALUES(`dateInscription`);
+(19,	'hoareauquentin97480@gmail.com',	'cb990257247b592eaaed54b84b32d96b7904fd95',	'azaz',	'azazaz',	'97400',	'azaz',	'azaz',	100,	'b99dfad9dfce6db8291c587455dec8f5ab378920',	1,	'2020-10-22 20:59:03');
 
 DELIMITER ;;
 
@@ -544,6 +543,7 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'aaaaa',	'0628468787',	1653.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-22 20:19:53',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	1653.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-23 01:00:54',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	1467.4,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-23 01:05:57',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	1218.7,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-24 21:32:56',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'test rue',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:03',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:12',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:57:50',	'UPDATE'),
@@ -660,8 +660,7 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (50,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'zaza',	'97400',	'aza',	'azazaz',	100,	'bc4d45844d467b9fbd27dcd0b41fe52d229884c3',	0,	'2020-10-21 09:25:31',	'2020-10-21 10:11:35',	'UPDATE'),
 (50,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'zaza',	'97400',	'aza',	'azazaz',	100,	'bc4d45844d467b9fbd27dcd0b41fe52d229884c3',	1,	'2020-10-21 09:25:31',	'2020-10-21 10:16:20',	'DELETE'),
 (51,	'hoareauquentin97480@gmail.com',	'26f293bee30380fdeeece466b90493ebfaa0d234',	'aza',	'zazazaz',	'97419',	'azazaz',	'87684684',	100,	'39c160cc462c6d690e3433feaf038a23966c241b',	0,	'2020-10-21 10:16:43',	'2020-10-21 10:26:46',	'UPDATE'),
-(51,	'hoareauquentin97480@gmail.com',	'26f293bee30380fdeeece466b90493ebfaa0d234',	'aza',	'zazazaz',	'97419',	'azazaz',	'87684684',	100,	'39c160cc462c6d690e3433feaf038a23966c241b',	1,	'2020-10-21 10:16:43',	'2020-10-21 10:27:46',	'UPDATE')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `email` = VALUES(`email`), `mdp` = VALUES(`mdp`), `nom` = VALUES(`nom`), `prenom` = VALUES(`prenom`), `codePostal` = VALUES(`codePostal`), `rue` = VALUES(`rue`), `tel` = VALUES(`tel`), `solde` = VALUES(`solde`), `cleActivation` = VALUES(`cleActivation`), `active` = VALUES(`active`), `dateInscription` = VALUES(`dateInscription`), `date_histo` = VALUES(`date_histo`), `evenement_histo` = VALUES(`evenement_histo`);
+(51,	'hoareauquentin97480@gmail.com',	'26f293bee30380fdeeece466b90493ebfaa0d234',	'aza',	'zazazaz',	'97419',	'azazaz',	'87684684',	100,	'39c160cc462c6d690e3433feaf038a23966c241b',	1,	'2020-10-21 10:16:43',	'2020-10-21 10:27:46',	'UPDATE');
 
 DROP TABLE IF EXISTS `code_postal`;
 CREATE TABLE `code_postal` (
@@ -695,14 +694,13 @@ INSERT INTO `code_postal` (`cp`, `libelle`, `prixLiv`) VALUES
 ('97450',	'Saint-Louis',	30),
 ('97460',	'Saint-Paul',	30),
 ('97470',	'Saint-Benoit',	30),
-('97480',	'Saint-Joseph',	30)
-ON DUPLICATE KEY UPDATE `cp` = VALUES(`cp`), `libelle` = VALUES(`libelle`), `prixLiv` = VALUES(`prixLiv`);
+('97480',	'Saint-Joseph',	30);
 
 DROP TABLE IF EXISTS `commande`;
 CREATE TABLE `commande` (
   `num` int(11) NOT NULL,
   `idClient` int(11) NOT NULL,
-  `dateCreation` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+  `dateCreation` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `idEtat` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`num`),
   KEY `commande_client_FK` (`idClient`),
@@ -712,14 +710,14 @@ CREATE TABLE `commande` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
-(2,	1,	'2020-10-22 21:38:25',	2),
-(3,	8,	'2020-10-22 10:42:31',	5),
-(4,	8,	'2020-10-22 11:09:07',	2),
-(5,	8,	'2020-10-22 11:13:40',	2),
-(6,	8,	'2020-10-22 16:54:16',	2),
-(7,	8,	'2020-10-23 01:00:54',	2),
-(8,	8,	'2020-10-23 01:05:57',	2)
-ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idClient` = VALUES(`idClient`), `dateCreation` = VALUES(`dateCreation`), `idEtat` = VALUES(`idEtat`);
+(2,	1,	'2020-10-22 21:38:25',	1),
+(3,	8,	'2020-10-22 10:42:31',	3),
+(4,	8,	'2020-10-24 20:45:40',	2),
+(5,	8,	'2020-10-24 20:44:48',	2),
+(6,	8,	'2020-10-24 20:45:38',	3),
+(7,	8,	'2020-10-24 20:45:10',	5),
+(8,	8,	'2020-10-23 01:05:57',	2),
+(9,	8,	'2020-10-24 21:30:56',	1);
 
 DELIMITER ;;
 
@@ -749,8 +747,8 @@ SET nbCommandeNonPaye= (SELECT COUNT(c.idEtat)
           WHERE c.idClient=OLD.idClient 
           AND c.idEtat=1
           AND c.num != OLD.num); 
-IF ( nbCommandeNonPaye >= 1 ) THEN
-     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible d'avoir plusieurs commandes non payé.";
+IF ( nbCommandeNonPaye >= 1 && NEW.idEtat = 1  ) THEN
+     SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible d'avoir plusieurs commandes non payé pour un client.";
 end if;
 
 
@@ -772,8 +770,7 @@ CREATE TABLE `contact` (
 INSERT INTO `contact` (`idContact`, `nom`, `email`, `numero`, `sujet`, `message`) VALUES
 (1,	'Andréa',	'andrea@bigot974',	692466990,	'compte',	'J\'ai oublié mon mot de passe'),
 (2,	'Andréa',	'andrea@bigot974',	692458565,	'subject',	'Problème'),
-(3,	'Jérémy',	'andrea@bigot974',	69232231,	'subject',	'Problème avec ma commande')
-ON DUPLICATE KEY UPDATE `idContact` = VALUES(`idContact`), `nom` = VALUES(`nom`), `email` = VALUES(`email`), `numero` = VALUES(`numero`), `sujet` = VALUES(`sujet`), `message` = VALUES(`message`);
+(3,	'Jérémy',	'andrea@bigot974',	69232231,	'subject',	'Problème avec ma commande');
 
 DROP TABLE IF EXISTS `etat`;
 CREATE TABLE `etat` (
@@ -788,8 +785,7 @@ INSERT INTO `etat` (`id`, `libelle`, `description`) VALUES
 (2,	'En instruction ',	'Vous avez payé, votre commande est en cours d\'instruction par nos experts.'),
 (3,	'Préparation en cours',	'Votre commande est en préparation.'),
 (4,	'Livraison en cours',	'Votre commande est actuellement en chemin.'),
-(5,	'Livré',	'Votre commande à été livré.')
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `libelle` = VALUES(`libelle`), `description` = VALUES(`description`);
+(5,	'Livré',	'Votre commande à été livré.');
 
 DROP TABLE IF EXISTS `facture`;
 CREATE TABLE `facture` (
@@ -807,14 +803,12 @@ CREATE TABLE `facture` (
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `typePaiement`, `datePaiement`) VALUES
-(2,	'BIGOT',	'Andréa',	'4 rue papangue',	'97480',	'Solde',	'2020-10-22 21:38:25'),
 (3,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 10:13:43'),
 (4,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 11:09:07'),
 (5,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 11:13:40'),
 (6,	'Gamer',	'Goldow',	'aaaaa',	'97400',	'Solde',	'2020-10-22 16:54:16'),
 (7,	'Gamer',	'Goldow',	'20 rue de la république',	'97400',	'Solde',	'2020-10-23 01:00:54'),
-(8,	'Gamer',	'Goldow',	'20 rue de la république',	'97400',	'Solde',	'2020-10-23 01:05:57')
-ON DUPLICATE KEY UPDATE `numCmd` = VALUES(`numCmd`), `nomProp` = VALUES(`nomProp`), `prenomProp` = VALUES(`prenomProp`), `rueLiv` = VALUES(`rueLiv`), `cpLiv` = VALUES(`cpLiv`), `typePaiement` = VALUES(`typePaiement`), `datePaiement` = VALUES(`datePaiement`);
+(8,	'Gamer',	'Goldow',	'20 rue de la république',	'97400',	'Solde',	'2020-10-23 01:05:57');
 
 DELIMITER ;;
 
@@ -860,8 +854,7 @@ CREATE TABLE `genre` (
 INSERT INTO `genre` (`code`, `libelle`) VALUES
 ('F',	'Femme'),
 ('H',	'Homme'),
-('M',	'Mixte')
-ON DUPLICATE KEY UPDATE `code` = VALUES(`code`), `libelle` = VALUES(`libelle`);
+('M',	'Mixte');
 
 DROP TABLE IF EXISTS `taille`;
 CREATE TABLE `taille` (
@@ -880,8 +873,7 @@ INSERT INTO `taille` (`libelle`) VALUES
 ('M'),
 ('S'),
 ('XL'),
-('XS')
-ON DUPLICATE KEY UPDATE `libelle` = VALUES(`libelle`);
+('XS');
 
 DROP TABLE IF EXISTS `vetement`;
 CREATE TABLE `vetement` (
@@ -909,7 +901,7 @@ INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `desc
 (7,	'T-shirt Motif De Lettre Dessin Animé',	15,	NULL,	'H',	'T-shirt pour homme en coton, col rond.',	2),
 (8,	'Pull Tordu à Epaule Dénudée',	20,	NULL,	'F',	'Pull qui décore avec un design torsadé à l\'avant. Matières: coton, polyacrylique.',	4),
 (9,	'Veste Déchirée En Couleur Unie En Denim',	34.9,	NULL,	'M',	'Veste déchirée avec un col rabattu à manches longues. Matières: coton, polyester.',	8),
-(10,	'Pantalon Slim Taille Haute Déchiré',	12,	NULL,	'F',	'Pantalon taille haute, coupe slim avec la taille élastique. Matière: coton.\r\n',	12),
+(10,	'Pantalon Slim Taille Haute Déchiré',	12,	'background-position: 250px;',	'F',	'Pantalon taille haute, coupe slim avec la taille élastique. Matière: coton.\r\n',	12),
 (11,	'Bermuda chino uni',	15,	NULL,	'H',	'Bermuda chino uni parfait pour l\'été.',	5),
 (12,	'T-shirt Graphique Grue Barboteuse Chinoise Fleurie Imprimé',	17.99,	'background-position: 305px;',	'H',	'T-shirt manches courtes imprimé en coton.',	2),
 (13,	'T-shirt Court Sanglé à Col V',	10,	NULL,	'F',	'T-shirt Court Sanglé à Col V.\r\nMatières: Polyuréthane,Rayonne',	2),
@@ -931,18 +923,26 @@ INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `desc
 (29,	'Pull Court Rayé à Col Rond - Noir',	15.5,	'',	'F',	'Pull décontracté court à col rond. \r\nMatières: Coton,Polyester',	4),
 (30,	'Short Paperbag Ceinturé Fleuri Imprimé à Volants - Multi Xl',	8.66,	'',	'F',	'Short souple taille haute avec une ceinture à nouer. \r\nMatières: Rayonne',	5),
 (31,	'Mini Short Plissé Noué ',	10,	'',	'F',	'Short style décontracté, fermeture braguette zippée. \r\nMatières: Polyester',	5),
-(32,	'Frayed Hem Ripped Pocket Denim Shorts',	17.5,	'',	'F',	'Short en denim déchiré.\r\nMatières: Coton, Polyester.',	5),
+(32,	'Short en denim avec poche déchirée et ourlet effiloché',	17.5,	'',	'F',	'Short en denim déchiré.\r\nMatières: Coton, Polyester.',	5),
 (33,	'Short Paperbag Rayé Ceinturé',	8.5,	'',	'F',	'Doté d\'un motif à rayures tout au long, ce short a une ceinture haute. La ceinture de  nouée autour de la taille ajoute du charme et de la mode. \r\nMatières: Polyester',	5),
 (34,	'Short noué à volants et bordure en crochet',	9,	'',	'F',	'Short court à volants resserré à la taille avec un élastiques.\r\nMatières: Rayonne.',	5),
 (35,	'Short Teinté Ceinturé à Jambe Large',	10,	'',	'F',	'Short court noué à la taille.\r\nMatières: Polyester.\r\n',	5),
-(36,	'Pantalon Droit Boutonné En Velours Côtelé',	13.5,	'',	'F',	'Pantalon droit en velours côtelé.\r\nMatières: Coton, Polyester',	12),
-(37,	'Pantalon Visage Souriant Bicolore à Cordon - Multi-b L',	15.6,	'',	'M',	'Pantalon à cordon décontracté. Tissu légèrement extensible.\r\nMatières: Polyester.',	12),
+(36,	'Pantalon Droit Boutonné En Velours Côtelé',	13.5,	'    background-position: 425px;',	'F',	'Pantalon droit en velours côtelé.\r\nMatières: Coton, Polyester',	12),
+(37,	'Pantalon Visage Souriant Bicolore à Cordon - Multi-b L',	15.6,	'    background-position: 376px;',	'M',	'Pantalon à cordon décontracté. Tissu légèrement extensible.\r\nMatières: Polyester.',	12),
 (38,	'Chemise en velours côtelé à manches longues et empiècement color-block',	20,	'',	'H',	'Veste stylée très colorée.\r\nMatières: Coton, Polyester',	8),
-(40,	'Short de bain imprimé avec cordon de serrage',	25.5,	'',	'H',	'Short de bain en polyester avec cordon.',	5),
-(49,	'Pantalon Déchiré Zippé En Denim - Bleu 2xl',	30,	'',	'H',	'Pantalon déchiré type regular. \r\nMatières: Coton, Polyester, Polyuréthane.',	12),
-(50,	'Jean Droit Déchiré Long - Noir Xl',	25,	'',	'H',	'Jean déchiré type regular.\r\nMatières: Coton, Polyester',	3),
-(51,	'Pantalon Crayon Zippé Ange en Denim - Blanc 32',	35,	'',	'H',	'Pantalon crayon type regular.\r\nMatières: Coton, Spandex.',	12)
-ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `nom` = VALUES(`nom`), `prix` = VALUES(`prix`), `motifPosition` = VALUES(`motifPosition`), `codeGenre` = VALUES(`codeGenre`), `description` = VALUES(`description`), `idCateg` = VALUES(`idCateg`);
+(39,	'Mini Robe Moulante Découpée à Col Montant ',	20,	'',	'F',	'Robe moulante manches longues.\r\nMatières: Polyester,Rayonne',	1),
+(40,	'Short de bain imprimé avec cordon de serrage',	25.5,	'    background-position: 440px;',	'H',	'Short de bain en polyester avec cordon.',	5),
+(41,	'Short De Plage Palmier Imprimé',	15,	'',	'H',	'Short de plage imprimé à cordon.\r\nMatières: Polyester',	5),
+(42,	'Short Déchiré Jointif En Denim',	24,	'',	'H',	'Short déchiré en jean style décontracté.\r\nMatières: Coton,Polyester',	5),
+(43,	'Short De Plage Rayé Fleur Imprimé à Cordon',	16,	'    background-position: 373px;',	'H',	'Short de plage court imprimé. \r\nMatières: Polyester',	5),
+(44,	'Pantalon Cargo Panneau En Blocs De Couleurs à Pieds Etroits',	25.9,	'background-position: 204px;',	'H',	'Pantalon cargo type regular avec cordon de serrage.\r\nMatières: Coton',	12),
+(45,	'Veste Poche à Rabat Motif De Rose',	19.5,	'',	'H',	'Veste à motif, col montant.\r\nMatières: Coton,Polyester',	8),
+(46,	'Veste Décontractée Contrastée Rayée En Blocs De Couleurs à Goutte Epaule',	39.99,	'background-position: 206px;',	'H',	'Veste rayée en polyester. ',	8),
+(47,	'Veste Motif De Lettre Décorée De Poche',	29.99,	'background-position: 204px;',	'H',	'Veste style décontracté en polyester.',	8),
+(48,	'Sweat à Capuche Fourré Teinté Lettre Brodée',	27.99,	'',	'M',	'Sweat à capuche très doux.\r\nMatières: Coton, Polyester',	4),
+(49,	'Pantalon Déchiré Zippé En Denim - Bleu 2xl',	30,	'background-position: 204px;',	'H',	'Pantalon déchiré type regular. \r\nMatières: Coton, Polyester, Polyuréthane.',	12),
+(50,	'Jean Droit Déchiré Long - Noir Xl',	25,	'    background-position: 222px;',	'H',	'Jean déchiré type regular.\r\nMatières: Coton, Polyester',	3),
+(51,	'Pantalon Crayon Zippé Ange en Denim - Blanc 32',	35,	'background-position: 204px;',	'H',	'Pantalon crayon type regular.\r\nMatières: Coton, Spandex.',	12);
 
 DROP TABLE IF EXISTS `vet_couleur`;
 CREATE TABLE `vet_couleur` (
@@ -974,7 +974,7 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (15,	6,	'Mauve rayé blanc et noir',	'hue-rotate(45deg)',	1),
 (16,	6,	'Rouge rayé blanc et noir',	'hue-rotate(110deg);',	1),
 (17,	7,	'Vert fluo',	'hue-rotate(120deg)',	1),
-(18,	1,	'Bleu',	'',	0),
+(18,	1,	'Bleu',	'',	1),
 (19,	20,	'Gris',	NULL,	1),
 (20,	22,	'Rayé noir',	NULL,	1),
 (21,	21,	'Couleur jaune rose bleu vert',	NULL,	1),
@@ -1015,8 +1015,52 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (57,	37,	'Semi rouge et noir',	NULL,	1),
 (58,	49,	'Jean basic',	NULL,	1),
 (59,	50,	'Noir jean',	NULL,	1),
-(60,	51,	'Blanc à motif coloré',	NULL,	1)
-ON DUPLICATE KEY UPDATE `num` = VALUES(`num`), `idVet` = VALUES(`idVet`), `nom` = VALUES(`nom`), `filterCssCode` = VALUES(`filterCssCode`), `dispo` = VALUES(`dispo`);
+(60,	51,	'Blanc à motif coloré',	NULL,	1),
+(61,	34,	'Jaune',	NULL,	1),
+(62,	35,	'Motif bleu et blanc',	NULL,	1),
+(63,	36,	'Vert',	NULL,	1),
+(64,	38,	'Coloré jaune vert rouge noir',	NULL,	0),
+(65,	39,	'Marron clair',	NULL,	1),
+(66,	40,	'Multicolore et noir ',	NULL,	1),
+(67,	41,	'Bleu et blanc',	NULL,	1),
+(68,	42,	'Jean',	NULL,	1),
+(69,	43,	'Noir et motif fleuri',	NULL,	1),
+(70,	44,	'Noir et rouge',	NULL,	1),
+(71,	45,	'Noir',	NULL,	1),
+(72,	46,	'Bleu jaune et blanc',	NULL,	1),
+(73,	47,	'Jaune et noir',	NULL,	1),
+(74,	48,	'Multicolore blanc rose et bleu',	NULL,	1),
+(76,	48,	'Multicolore blanc rose et violet',	'hue-rotate(45deg)',	1),
+(77,	48,	'Multicolore blanc rose et vert',	'hue-rotate(500deg)',	1),
+(78,	46,	'Violet vert et blanc',	'hue-rotate(45deg)',	1),
+(79,	46,	'Vert rose et blanc',	'hue-rotate(300deg)',	1),
+(80,	47,	'Vert et noir',	'hue-rotate(45deg)',	1),
+(81,	47,	'Bleu et noir',	'hue-rotate(900deg)',	1),
+(82,	47,	'Orange et noir',	'hue-rotate(700deg)',	1),
+(83,	44,	'Noir et vert',	'hue-rotate(100deg)',	1),
+(84,	44,	'Noir et bleu',	'hue-rotate(200deg)',	1),
+(85,	43,	'Noir et motif fleuri rose vert',	'hue-rotate(300deg)',	1),
+(86,	41,	'Orange et blanc',	'hue-rotate(200deg)',	1),
+(87,	41,	'Vert et blanc',	'hue-rotate(300deg)',	1),
+(88,	39,	'Gris',	'grayscale(1)',	1),
+(89,	39,	'Rose',	'hue-rotate(300deg)',	1),
+(90,	39,	'Vert',	'hue-rotate(400deg)',	1),
+(91,	39,	'Bleu',	'hue-rotate(900deg)',	1),
+(92,	37,	'Semi bleu et noir',	'hue-rotate(200deg)',	1),
+(93,	36,	'Bleu',	'hue-rotate(45deg)',	1),
+(94,	36,	'Rose',	'hue-rotate(200deg)',	1),
+(95,	36,	'Violet',	'hue-rotate(500deg)',	1),
+(96,	35,	'Motif violet et blanc',	'hue-rotate(45deg)',	1),
+(97,	35,	'Motif rose et blanc',	'hue-rotate(100deg)',	1),
+(98,	35,	'Motif vert et blanc',	'hue-rotate(300deg)',	1),
+(99,	34,	'Vert',	'hue-rotate(45deg)',	1),
+(100,	34,	'Bleu',	'hue-rotate(500deg)',	1),
+(101,	34,	'Orange',	'hue-rotate(700deg)',	1),
+(102,	32,	'Violet',	'hue-rotate(45deg)',	1),
+(103,	32,	'Rose',	'hue-rotate(100deg)',	1),
+(104,	30,	'Vert à mini pois blanc',	'hue-rotate(100deg)',	1),
+(105,	30,	'Bleu à mini pois blanc',	'hue-rotate(200deg)',	1),
+(106,	30,	'Fuchsia à mini pois blanc ',	'hue-rotate(700deg)',	1);
 
 DROP TABLE IF EXISTS `vet_taille`;
 CREATE TABLE `vet_taille` (
@@ -1029,14 +1073,53 @@ CREATE TABLE `vet_taille` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
+(34,	'32'),
+(37,	'32'),
+(49,	'32'),
+(30,	'34'),
+(34,	'34'),
+(40,	'34'),
+(49,	'34'),
 (10,	'36'),
+(30,	'36'),
+(31,	'36'),
+(32,	'36'),
+(33,	'36'),
+(34,	'36'),
+(37,	'36'),
+(40,	'36'),
+(49,	'36'),
+(50,	'36'),
+(51,	'36'),
 (10,	'38'),
 (11,	'38'),
+(30,	'38'),
+(31,	'38'),
+(32,	'38'),
+(33,	'38'),
+(36,	'38'),
+(37,	'38'),
+(40,	'38'),
+(43,	'38'),
+(49,	'38'),
+(50,	'38'),
+(51,	'38'),
 (10,	'40'),
 (11,	'40'),
+(30,	'40'),
+(31,	'40'),
+(32,	'40'),
+(36,	'40'),
+(42,	'40'),
+(43,	'40'),
+(50,	'40'),
+(51,	'40'),
 (10,	'42'),
 (11,	'42'),
 (27,	'42'),
+(36,	'42'),
+(42,	'42'),
+(43,	'42'),
 (3,	'L'),
 (6,	'L'),
 (7,	'L'),
@@ -1054,6 +1137,16 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (25,	'L'),
 (28,	'L'),
 (29,	'L'),
+(35,	'L'),
+(38,	'L'),
+(40,	'L'),
+(41,	'L'),
+(42,	'L'),
+(43,	'L'),
+(44,	'L'),
+(45,	'L'),
+(46,	'L'),
+(48,	'L'),
 (1,	'M'),
 (2,	'M'),
 (3,	'M'),
@@ -1073,6 +1166,17 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (26,	'M'),
 (28,	'M'),
 (29,	'M'),
+(35,	'M'),
+(38,	'M'),
+(39,	'M'),
+(40,	'M'),
+(42,	'M'),
+(43,	'M'),
+(44,	'M'),
+(45,	'M'),
+(46,	'M'),
+(47,	'M'),
+(48,	'M'),
 (3,	'S'),
 (4,	'S'),
 (5,	'S'),
@@ -1086,6 +1190,10 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (25,	'S'),
 (26,	'S'),
 (28,	'S'),
+(39,	'S'),
+(42,	'S'),
+(45,	'S'),
+(47,	'S'),
 (1,	'XL'),
 (2,	'XL'),
 (3,	'XL'),
@@ -1099,6 +1207,12 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (24,	'XL'),
 (25,	'XL'),
 (29,	'XL'),
+(38,	'XL'),
+(40,	'XL'),
+(41,	'XL'),
+(42,	'XL'),
+(43,	'XL'),
+(48,	'XL'),
 (1,	'XS'),
 (6,	'XS'),
 (8,	'XS'),
@@ -1106,8 +1220,10 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (15,	'XS'),
 (17,	'XS'),
 (24,	'XS'),
-(26,	'XS')
-ON DUPLICATE KEY UPDATE `idVet` = VALUES(`idVet`), `taille` = VALUES(`taille`);
+(26,	'XS'),
+(41,	'XS'),
+(45,	'XS'),
+(47,	'XS');
 
 DROP VIEW IF EXISTS `vue_categpargenre`;
 CREATE TABLE `vue_categpargenre` (`codeGenre` varchar(1), `ListeIdCategorie` mediumtext);
@@ -1123,4 +1239,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeIdCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-22 21:10:18
+-- 2020-10-24 19:50:19
