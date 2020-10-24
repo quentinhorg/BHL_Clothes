@@ -16,8 +16,8 @@
 }
  
 .sidebar a.active {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #333;
+  color: #fff;
 }
 
 .sidebar a:hover:not(.active) {
@@ -43,4 +43,9 @@
     text-align: center;
     float: none;
   }
+}
+
+.sidebar h5{
+  padding: 16px;
+ 
 }

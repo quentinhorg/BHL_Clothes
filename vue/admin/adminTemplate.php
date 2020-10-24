@@ -5,8 +5,8 @@
     <base href="/btssio/BTS2/BHL_Clothes/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="public\bootstrap-4.3.1\bootstrap.min.css">
-    <link rel="icon" type="image/png" href="public\media\bhl_clothes\logo_icon.png" />
+    <link rel="stylesheet" href="public/bootstrap-4.3.1/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="public/media/bhl_clothes/logo_icon.png" />
     
 
     <script src="public/script/js/jquery-3.4.0.min.js"></script>     <!-- JQuery 3.4.0 -->
@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="public/css/admin/adminNavigation.css"> <!-- Css de la Navigation -->
     <link rel="stylesheet" href="public/css/admin/adminFooter.css"> <!-- Css du Footer -->
     <link rel="stylesheet" href="public/script/DataTable/datatable.css"> <!-- Css pour la librerie DataTable -->
+    <script src="public/script/DataTable/datatable.js"> </script>   <!-- Script pour la librerie DataTable -->
   
      <!-- Bootstrap Intégration  -->
     
@@ -47,6 +48,10 @@
 </head>
 <body>
 
+<!-- Inclu le popup -->
+<?php include "vue/vueModal.php"; ?>
+  
+
 <?php echo $nav  //Insertion de la bar de navigation ?>
 
 
@@ -58,8 +63,12 @@
 
 
 
-  
+
 </body>
+
+
+
+
 
 
         

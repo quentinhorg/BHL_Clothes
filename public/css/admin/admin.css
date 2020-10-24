@@ -11,3 +11,63 @@ body {
  }
  
 
+ 
+
+/* RESPONSIVE */
+@media 
+only screen and (max-width: 900px){
+    #content{
+        max-width: 600px;
+    }
+}
+
+@media 
+only screen and (max-width: 650px){
+
+   
+
+	/* Changer l'affichage du tableau en générale (pasasge à la ligne) */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Efface l'affichage du nav du tableau */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+    }
+
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+        padding-left: 50%; 
+        text-align: right;
+	}
+    
+    /* Ajoute un style au contenu avant le td */
+	td:before { 
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bolder;
+    }
+
+    /* Affichage des titres des valeurs devant chaque données */
+    td:nth-of-type(1):before { content: "Id"; }
+	td:nth-of-type(2):before { content: "Nom"; }
+	td:nth-of-type(3):before { content: "Email"; }
+	td:nth-of-type(4):before { content: "Tel"; }
+
+
+    
+    
+}

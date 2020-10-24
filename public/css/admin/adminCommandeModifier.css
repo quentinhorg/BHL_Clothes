@@ -1,0 +1,9 @@
+#commandeInfo{
+   margin:auto;
+   max-width: 800px;
+   border: solid #dee2e6 1px
+}
+
+.paiementInfo label{
+   font-weight: bold;
+}
