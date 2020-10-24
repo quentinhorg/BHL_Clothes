@@ -3,24 +3,25 @@
 class Vue{
 
    // ATTRIBUTS
-    private $fichier;
-    private $template;
-    private $titre;
-    private $listeCss;
-    private $nav;
-    private $header;
-    private $listeJsScript;
+    protected $fichier;
+    protected $template;
+    protected $titre;
+    protected $listeCss;
+    protected $nav;
+    protected $header;
+    protected $listeJsScript;
+    protected $footer;
     
     //Construction de la vue
    public function __construct($page){
       //Initialisation par défaut
-    
       $this->fichier= 'vue/vue'.ucfirst($page).'.php';
 
       $this->template= "vue/template.php" ;
       $this->titre= $page;
       $this->listeCss= ["public/css/".strtolower($page).".css"] ;
       $this->nav= "vue/navigation.php";
+      $this->footer = "vue/footer.php";
       $this->listeJsScript= array() ;
     }
 
@@ -50,7 +51,7 @@ class Vue{
    }
 
 
-    private function genererFichier($fichier, $donnee){
+    protected function genererFichier($fichier, $donnee){
       
         if (file_exists($fichier)){
          
@@ -75,8 +76,7 @@ class Vue{
       private function getNav(){
          $GenreManager = new GenreManager() ;
          $CommandeManager = new CommandeManager() ;
-        
-     
+
          $donnee = [
             "listeGenre" => $GenreManager->getListeGenre(),
             "qtePanier" => $CommandeManager->getCmdActiveClient()->getQuantiteArticle(),
@@ -103,7 +103,7 @@ class Vue{
          $header =  $this->genererFichier($this->header, $donnee);
       }else{ $header  = null;}
       
-      $footer= $this->genererFichier("vue/footer.php", $donnee);
+      $footer= $this->genererFichier($this->footer, $donnee);
      
       //Génération final
       $vue = $this->genererFichier($this->template, array(

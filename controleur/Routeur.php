@@ -1,14 +1,9 @@
 <?php 
-
-
-
-
 //Gestionnaire d'erreur personalisé 
 set_error_handler('exceptions_error_handler');
 function exceptions_error_handler($severity, $message, $filename, $lineno) {
 
    if (error_reporting() == 0) {
-    
       return;
    }
    if (error_reporting() & $severity) {
@@ -19,64 +14,51 @@ function exceptions_error_handler($severity, $message, $filename, $lineno) {
  
 }
 
-
-
 header("Cache-Control: no-cache, must-revalidate");
+
 require_once('vue/Vue.php');
+require_once('vue/admin/VueAdmin.php');
 
 class Routeur{
    
+   private $url;
    private $ctrl;
    private $vue;
 
-   public function routerLaPage(){
-      
-      
-  
+   public function __construct( $url = array("Accueil") ){
+      $this->url = $url ;
+   }
 
-      try{
-         ob_start();
+   private function setControleur($base = null){
 
-        
-         //Permet d'auto générer les modèles necessaires pour données appelées
-         spl_autoload_register(function($classe){
-            require_once('Modele/'.$classe.'.php');
-         });
-        
-         session_start(); //Démarrage de la session
-         $ClientManager = new ClientManager;
-         $GLOBALS["client_en_ligne"] = $ClientManager->ClientEnLigne() ;
-         
-       
-
-         //Si le panier session n'a pas encore été défni et personne n'est connecté
-         if( !isset($_SESSION["ma_commande"]) && $GLOBALS["client_en_ligne"] == null ){
-            $CommandeManager = new CommandeManager;
-            $CommandeManager->creerCommandeSession();
-         }    
-    
-       
-         
-
-       
-         
-         
          //Vérifie sur on navigue sur une page
-         if( isset($_GET['url']) ){
+         if( !empty($this->url) ){
           
-            $url = explode('/', filter_var( $_GET['url'], FILTER_SANITIZE_URL) ); //Récupération de chaque partie de l'url (ex: www.site.fr/admin/commande/ => [admin,commande])
+
+            $controleur = ucfirst(strtolower($this->url[0])); //Tranform la première du ctrl en MAJ (pour convention fichier)
+            if($base != null ){
+               
+               if( !isset($this->url[1]) ) {$this->url[1] = "Accueil" ;}
+               $controleurClasse = "Controleur".$controleur.ucfirst(strtolower($this->url[1])); // Récupération du nom du  de la classe Controleur
+            }
+            else{
+               $controleurClasse = "Controleur".$controleur; // Récupération du nom du  de la classe Controleur
+            }
+
+           
             
-            $controleur = ucfirst(strtolower($url[0])); //Tranform la première du ctrl en MAJ (pour convention fichier)
-            $controleurClasse = "Controleur".$controleur; // Récupération du nom du  de la classe Controleur
-            $controleurFichier = "Controleur/".$controleurClasse.".php"; // Récupération du path nom Controleur
+            $controleurFichier = "Controleur/$base/".$controleurClasse.".php"; // Récupération du path nom Controleur
             
+
+
+
            //Si le fichier controleur existe
             if( file_exists($controleurFichier) ){
              
-      
-                  require_once($controleurFichier); //Intègre le controleur
-                  $this->ctrl = new $controleurClasse($url); //Affection du la classe controleur
-            
+               
+               require_once($controleurFichier); //Intègre le controleur
+               $this->ctrl = new $controleurClasse($this->url); //Affection du la classe controleur
+               
              
 
                
@@ -88,10 +70,45 @@ class Routeur{
          }
          
          else{
-            $url = [''];
+            $this->url = [''];
             require_once('controleur/ControleurAccueil.php');
-            $this->ctrl = new ControleurAccueil($url);
+            $this->ctrl = new ControleurAccueil($this->url);
          }
+
+      
+   }
+   
+   public function routerLaPage(){
+
+      try{
+         ob_start();
+         //Permet d'auto générer les modèles necessaires pour données appelées
+         spl_autoload_register(function($classe){
+            require_once('Modele/'.$classe.'.php');
+         });
+        
+         
+         session_start(); //Démarrage de la session
+         $ClientManager = new ClientManager;
+         $GLOBALS["client_en_ligne"] = $ClientManager->ClientEnLigne() ;
+         
+       
+         
+         //Si le panier session n'a pas encore été défni et personne n'est connecté
+         if( !isset($_SESSION["ma_commande"]) && $GLOBALS["client_en_ligne"] == null ){
+            $CommandeManager = new CommandeManager;
+            $CommandeManager->creerCommandeSession();
+         }
+         
+         
+         if($this->url[0] == "admin" ){
+            $this->setControleur("admin");
+         }
+         else{
+            $this->setControleur();
+         }
+         
+      
      
       
       }
@@ -136,7 +153,7 @@ class Routeur{
    
                // Ressource bloqué
                case 423:
-                  $titreErreur = "Ressource bloqué";
+                  $titreErreur = "Ressource bloquée";
                   $erreurMsg = $e->getMessage();
                   break; 
                   
@@ -161,7 +178,6 @@ class Routeur{
             $this->vue->setListeCss(["public/css/erreur.css"]) ;
             $this->vue->setHeader("vue/header.php") ;
             $this->vue->genererVue( array("titreErreur" => $titreErreur,'erreurMsg' => $erreurMsg) );
-
 
          }
         
