@@ -82,7 +82,7 @@ class ControleurPanier{
       $nouvelArticle = $this->maCommandeActif()->panier()[$indiceNouvelArt];
 
       $jsonData = array(
-         'totalQtePanier' => $this->maCommandeActif()->getQuantiteArticle(),
+         'totalQtePanier' => $this->maCommandeActif()->totalArticle(),
          "newPrixArt" => $nouvelArticle->prixTotalArt(),
          "prixCmdHT" => $this->maCommandeActif()->prixHT(),
          "prixCmdTTC" => $this->maCommandeActif()->prixTTC()
@@ -107,7 +107,7 @@ class ControleurPanier{
       }
 
       $jsonData = array(
-         'totalQtePanier' => $this->maCommandeActif()->getQuantiteArticle(),
+         'totalQtePanier' => $this->maCommandeActif()->totalArticle(),
          "prixCmdHT" => $this->maCommandeActif()->prixHT()
       );
       echo json_encode($jsonData);
@@ -133,7 +133,7 @@ class ControleurPanier{
 
 
       $jsonData = array(
-         'totalQtePanier' => $this->maCommandeActif()->getQuantiteArticle(),
+         'totalQtePanier' => $this->maCommandeActif()->totalArticle(),
          "newPrixArt" => $ArticleModifier->prixTotalArt(),
          "prixCmdHT" => $this->maCommandeActif()->prixHT(),
          "prixCmdTTC" => $this->maCommandeActif()->prixTTC()

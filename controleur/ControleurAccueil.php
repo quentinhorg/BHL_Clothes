@@ -24,7 +24,7 @@ class ControleurAccueil{
    //retourne les 3 derniers vetements
    private function nouveauteVetement(){
       $VetementManageur = new VetementManager();
-    
+      
       $listeNouv= $VetementManageur->getNouveaute();
 
       return $listeNouv;  
@@ -32,7 +32,7 @@ class ControleurAccueil{
 
    public function listeGenre(){
       $GenreManager= new GenreManager();
-
+      
       $listeGenre= $GenreManager->getListeGenre();
 
       return $listeGenre;

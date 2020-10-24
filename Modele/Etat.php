@@ -66,7 +66,7 @@ class Etat{
    public function classIcon(){
          
       $listeIcone= array(
-         "1" => "fa fa-user",
+         "1" => "fa fa-exclamation-circle ",
          "2" =>"fa fa-search",
          "3" => "fa fa-hourglass",
          "4" => "fa fa-plane",
@@ -75,6 +75,20 @@ class Etat{
 
      return $listeIcone[$this->id()];
    }
+
+   public function colorCode(){
+         
+      $listeIcone= array(
+         "1" => "#b31c1c",
+         "2" => "#28689e",
+         "3" => "black",
+         "4" => "#c39d10",
+         "5" => "#249c49"
+     );
+
+     return $listeIcone[$this->id()];
+   }
+
 
 
    

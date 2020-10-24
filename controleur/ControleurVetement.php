@@ -6,7 +6,8 @@ class ControleurVetement{
    // CONSTRUCTEUR 
    public function __construct($url){
       
-     
+
+   
 
       if( isset($url) && count($url) > 2 ){
          throw new Exception(null, 404);
@@ -33,23 +34,27 @@ class ControleurVetement{
                $msg= "Veuillez ajouter un avis.";
             }
          }
-
-         $this->vue = new Vue('Vetement') ;
-         $this->vue->setListeJsScript(["public/script/js/bootstrapNote.js", 
-                                       "public/script/js/jqueryNote.js",
-                                       "public/script/js/Vetement.js"]);
-         $this->vue->setListeCss(["public/css/fontawesomeNote.css"]); 
-         $this->vue->genererVue(array( 
-            "infoVetement"     => $this->infoVetement($id),
-            "msg"              => $msg ,
-            "listeAvis" => $this->listeAvis($id),
-            "client" => $GLOBALS["client_en_ligne"]
-         )) ;
+          if(  $this->infoVetement($id)->dispoPourVendre() == true){
+            $this->vue = new Vue('Vetement') ;
+            $this->vue->setListeJsScript(["public/script/js/bootstrapNote.js", 
+                                          "public/script/js/jqueryNote.js",
+                                          "public/script/js/Vetement.js"]);
+            $this->vue->setListeCss(["public/css/fontawesomeNote.css"]); 
+            $this->vue->genererVue(array( 
+               "infoVetement"     => $this->infoVetement($id),
+               "msg"              => $msg,
+               "listeAvis" => $this->listeAvis($id),
+               "client" => $GLOBALS["client_en_ligne"]
+            )) ;
+         }
+       else{
+          throw new Exception("Produit indisponible", 423);
+       }
          
       }
 
    }
-
+   
    private function infoVetement($id){
       $VetementManageur = new VetementManager();
       $infoVetement= $VetementManageur->getVetement($id);
@@ -58,7 +63,7 @@ class ControleurVetement{
      
    }
 
-   // afficher les aviss selon le vêtement
+   // afficher les avis selon le vêtement
    private function listeAvis($id){
 
       $AvisManager= new AvisManager();

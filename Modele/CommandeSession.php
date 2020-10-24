@@ -16,6 +16,7 @@ class CommandeSession extends Commande{
 
    public function reloadPrixHT(){
      
+      //Prix HT
       $prixPanierHT = $this->CommandeManager->getPrixTotalPanierHT($this->panier());
       parent::setPrixHT($prixPanierHT);
    }
@@ -60,6 +61,16 @@ class CommandeSession extends Commande{
       $this->panier[$indice]->setQte($qteActuelle-1) ;
       $this->reloadPrixHT();
 
+   }
+
+   public function totalArticle(){
+      $totalQte = 0;
+      
+         foreach ($this->panier() as $article) {
+            $totalQte = $totalQte+$article->qte();
+         }
+     
+      return $totalQte;
    }
 
 

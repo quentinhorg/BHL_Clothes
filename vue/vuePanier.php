@@ -127,13 +127,15 @@ $('.quantity button').on('click', function() {
    }
 
    var postVal = $(this).val()+"&qte=1";
-
+   
+   console.log(submitName);
    $.ajax({
 		url : "panier",
 		data : submitName+"=Ok"+"&"+postVal,
     type : 'POST',
     dataType : 'json',
 		success : function (result) {
+      
       $("#qtePanierNav span .nbQte").text(result['totalQtePanier']) ; 
       $("#prixCmdHT span").text(result["prixCmdHT"]) ;
      

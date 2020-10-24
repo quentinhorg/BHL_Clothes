@@ -132,7 +132,8 @@ class Vetement{
    //Tableau d'object
    public function listeCouleurDispo(){
 
-      
+      $listeCouleurDispo = array();
+
       $CouleurManager = new CouleurManager;
 
       foreach ($this->listeIdCouleurDispo as $idCouleur) {
@@ -179,6 +180,28 @@ class Vetement{
    public function nbAvis(){
       return $this->nbAvis;
    }
+
+   //AUTRES MÉTHODE
+
+   public function dispoPourVendre(){
+      $peutVendre = false ;
+      //Retourne VRAI si l'article est disponible dans la BDD (au moins uen taille et au moins une couleur)
+      $VetementManager= new VetementManager();
+     // var_dump( $VetementManager->verifDisponibilite( $this->id )["COUNT(*)"] );
+
+
+      if(   $VetementManager->verifDisponibilite( $this->id ) >= 1){
+         $peutVendre = true ;
+      }
+
+      return $peutVendre;
+      
+   }
+
+
+
+
+   
 
 
 

@@ -2,14 +2,22 @@
 
 class CommandeManager extends DataBase{
 
-    public $reqBase = "SELECT *, calcCmdTTC(commande.num) AS 'prixTTC' , calcCmdHT(commande.num) AS 'prixHT', COUNT(article_panier.numCmd) as 'totalArticle' 
-    FROM commande 
-    INNER JOIN client ON client.id=commande.idClient
-    INNER JOIN code_postal ON code_postal.cp=client.codePostal
-    LEFT JOIN article_panier ON article_panier.numCmd=commande.num" ;
+    public $reqBase = "SELECT DISTINCT c.*, calcCmdTTC(c.num) AS 'prixTTC',  calcCmdHT(c.num) AS 'prixHT', (SELECT SUM(ap2.qte) FROM article_panier ap2 WHERE ap2.numCmd = c.num ) as 'totalArticle' 
+    FROM commande c
+    LEFT JOIN client clt ON clt.id=c.idClient
+    LEFT JOIN code_postal cp ON cp.cp=clt.codePostal
+    LEFT JOIN article_panier ap ON ap.numCmd=c.num" ;
+
+    public function getListCommande(){
+        $req = $this->reqBase;
+        $this->getBdd();
+        $commande =  $this->getModele($req, ["*"], "Commande");
+
+        return $commande;
+    }
 
     public function getCommande($numCmdBDD){
-        $req = $this->reqBase." WHERE num = ? GROUP BY commande.num";
+        $req = $this->reqBase." WHERE c.num = ? GROUP BY c.num";
         $this->getBdd();
         $commande =  @$this->getModele($req, [$numCmdBDD], "Commande")[0];
 
@@ -20,19 +28,27 @@ class CommandeManager extends DataBase{
        
         $this->getBdd(); 
         $newID = $this->getNewIdTable('commande','num');
-        $reqClient = "INSERT INTO commande(num,idClient) VALUES(?,?)" ;
+        $reqClient = "INSERT INTO commande(num,idClient, dateCreation) VALUES(?,?, NOW())" ;
         $this->getBdd();
         $this->execBdd($reqClient, [$newID, $idClient]);
 
         return $newID;
     }
 
+    public function modifierEtat($numCmd, $idEtat){
+   
+        $this->getBdd(); 
+        $req = "UPDATE commande SET idEtat = ? WHERE num = ?" ;
+        $this->execBdd($req, [$idEtat, $numCmd]);
+    }
+
 
     // A COMPLETER
     public function getCmdActiveClient(){
     
+       
         if( $GLOBALS["client_en_ligne"] != null  ){
-     
+        
             $clientId = $GLOBALS["client_en_ligne"]->id();
  
             $req = "SELECT c.num as 'numCmd'
@@ -44,7 +60,7 @@ class CommandeManager extends DataBase{
             $this->getBdd();
 
             $resultat =  $this->execBdd($req, [$clientId]);
-
+         
             if(  $resultat != null  ){
                 $CmdId = $resultat[0]["numCmd"] ;
                 $cmd = $this->getCommande( $CmdId );
@@ -124,8 +140,8 @@ class CommandeManager extends DataBase{
     }
 
     public function viderPanier($numCmd){
+        
         //Supprime également la commande car trigger
-
         $req = "DELETE FROM article_panier WHERE numCmd = ?" ;
         $this->getBdd();
 

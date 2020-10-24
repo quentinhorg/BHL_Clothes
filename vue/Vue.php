@@ -77,9 +77,10 @@ class Vue{
          $GenreManager = new GenreManager() ;
          $CommandeManager = new CommandeManager() ;
 
+
          $donnee = [
             "listeGenre" => $GenreManager->getListeGenre(),
-            "qtePanier" => $CommandeManager->getCmdActiveClient()->getQuantiteArticle(),
+            "qtePanier" => $CommandeManager->getCmdActiveClient()->totalArticle(),
             "clientEnLigne" => $GLOBALS["client_en_ligne"]
          ] ;
 

@@ -61,7 +61,6 @@ class ControleurCompte{
                     $GLOBALS["client_en_ligne"] = $this->getNewInfoClientActif() ;
                     
                     $this->vue = new Vue('Compte') ;
-                    $this->vue->setListeJsScript(["public\script\DataTable\datatable.js"]);
                     $this->vue->setListeCss(["public/css/compte_dataTables.css", "public/css/compte_responsive"]);
                     $this->vue->genererVue(array(
                         "clientActif"=> $GLOBALS["client_en_ligne"],

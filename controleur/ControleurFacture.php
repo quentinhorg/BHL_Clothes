@@ -51,8 +51,6 @@ class ControleurFacture{
       $FactureManager = new FactureManager();
       $facture = $FactureManager->getFacture($idCmd);
 
-   
-
       return $facture ;
    }
 

@@ -7,7 +7,10 @@ class Facture{
    private   $rueLiv;
    private   $cpLiv;
    private   $typePaiement; 
-   public    $datePaiement; 
+   private   $datePaiement; 
+   private   $soldeAvantPaiement; 
+   private   $soldeApresPaiement; 
+  
 
 
    public function __construct(array $donnee){
@@ -52,11 +55,28 @@ class Facture{
       if(is_string($prenomProp)){
          $this->prenomProp = $prenomProp;
       }
+   }
+
+   public function setSoldeAvantPaiement($solde){
+      $solde = (float) $solde;
+      if($solde > 0){
+         $this->soldeAvantPaiement = $solde;
+      }
+
    } 
+
+   public function setSoldeApresPaiement($solde){
+      $solde = (float) $solde;
+      if($solde > 0){
+         $this->soldeApresPaiement = $solde;
+      }
+
+   } 
+   
    
    public function setCpLiv($cpLiv){
 
-      $this->cpLiv = cpLiv;
+      $this->cpLiv = $cpLiv;
    }
 
    public function setDatePaiement($date){
@@ -88,6 +108,16 @@ class Facture{
    public function typePaiement(){
       return $this->typePaiement;
    }
+
+   public function soldeAvantPaiement(){
+      return $this->soldeAvantPaiement;
+   }
+
+   public function soldeApresPaiement(){
+      return $this->soldeApresPaiement;
+   }
+
+
 
    public function datePaiement(){
 

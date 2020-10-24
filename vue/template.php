@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="public/css/navigation.css"> <!-- Css de la Navigation -->
     <link rel="stylesheet" href="public/css/footer.css"> <!-- Css du Footer -->
     <link rel="stylesheet" href="public/script/DataTable/datatable.css"> <!-- Css pour la librerie DataTable -->
-  
+    <script src="public/script/DataTable/datatable.js"> </script>   <!-- Script pour la librerie DataTable -->
      <!-- Bootstrap Intégration  -->
     
     <script src="public\bootstrap-4.3.1\bootstrap.min.js"></script>

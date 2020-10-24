@@ -6,7 +6,6 @@ class Commande{
    private  $idClient;
    private  $idEtat;
    private  $prixTTC;
-   private  $typePaiement;
    private  $totalArticle;
    protected  $prixHT;
    
@@ -50,9 +49,6 @@ class Commande{
       
    }
 
-   public function setTypePaiement($typeP){
-      $this->typePaiement = $typeP;
-   }
 
    public function setNum($num){
       $num = (int) $num;
@@ -98,6 +94,11 @@ class Commande{
       return $this->idClient;
    }
 
+   public function Client(){
+      $ClientManager = new ClientManager;
+      return $ClientManager->getClient($this->idClient);
+   }
+
    public function dateCreation(){
       $dateFormat = null ;
 
@@ -125,10 +126,6 @@ class Commande{
       return $Etat;
    }
 
-   public function typePaiement(){
-      return $this->typePaiement;
-   }
-
    public function prixTTC(){
       return number_format($this->prixTTC, 2) ;
    }
@@ -141,23 +138,17 @@ class Commande{
       return number_format($this->prixHT, 2) ;
    }
 
+   public function getFacture(){
+      $FactureManager = new FactureManager;
+      return $FactureManager->getFacture($this->num);
+   }
+
    
 
 
    //AUTRES METHODES
 
-
-   public function getQuantiteArticle(){
-      $totalQte = 0;
-      
-         foreach ($this->panier() as $article) {
-            $totalQte = $totalQte+$article->qte();
-         }
-     
-      
-
-      return $totalQte;
-   }
+   
 
 
    public function indiceArticlePanier( $idVet, $taille, $numClr){

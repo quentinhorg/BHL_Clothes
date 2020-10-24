@@ -127,6 +127,21 @@ class VetementManager extends DataBase{
         
     }
 
+    public function verifDisponibilite($id){
+
+        //verif avec une req si le vet a au moins une taille et une couleur par rapport au paramettre passé
+        $req="SELECT COUNT(*) AS 'nbRow'
+              FROM vue_vet_disponibilite
+              WHERE listeIdCouleurDispo is not null 
+              AND listeTailleDispo is not null
+              AND idVet=?";
+        $this->getBdd();
+        return $this->execBDD($req, [$id])[0]["nbRow"];
+
+
+
+    }
+
 }
 
 ?>
