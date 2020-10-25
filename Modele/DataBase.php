@@ -67,9 +67,6 @@ abstract class DataBase{
       
 
       $req = self::$bdd->prepare($req);
-
- 
-
       if(@!$req->execute($tabValeur) && isset($req->errorInfo()[0]) && !empty($req->errorInfo()[0]) ){
 
          $ErrorCode = (int) $req->errorInfo()[0];
@@ -86,7 +83,7 @@ abstract class DataBase{
       @$resultat = $req->fetchAll(PDO::FETCH_ASSOC) ;
       
       
-      
+     
       return $resultat ;
       
       $req->closeCursor();

@@ -28,7 +28,8 @@ class ControleurCatalogue{
        
 
          //Systeme de recherche
-         if(isset($_GET['trier']) || isset($_POST['motCle']) ){
+         if(isset($_GET['trier']) || isset($_GET['motCle']) ){
+          
             $listeVetement = $this->recherche($codeGenre, $idCateg);
          }
        
@@ -121,7 +122,7 @@ class ControleurCatalogue{
    }
 
    public function recherche($genre, $categorie){
-
+   
       $this->vetementManager = new VetementManager;
       $this->vetementManager->setPagination(10);
 
@@ -142,6 +143,7 @@ class ControleurCatalogue{
 
       $motCle=null;
       if(!empty($_GET['motCle'])){
+     
          $motCle = $_GET['motCle'];
       }
       

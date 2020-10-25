@@ -10,7 +10,7 @@ nos conseillers sont là pour vous répondre.</p>
         </div>
         <div class="form-group mail">
             <label for="exampleInputEmail1">Mail</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="exemple@gmail.com" size="30" maxlength="15" name="email">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="exemple@gmail.com" size="30" name="email">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Numéro</label>

@@ -6,10 +6,8 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-  <form class="form-inline" method="POST">
-      <input class="form-control mr-sm-2" type="search" name="motCle" placeholder="Que chercher vous ?" aria-label="Search">
-      
-      
+  <form class="form-inline" action='catalogue' method="GET">
+      <input class="form-control mr-sm-2" type="search" <?php if(isset($_GET["motCle"]) ){ echo "value='".$_GET["motCle"]."'" ;} ?>  name="motCle" placeholder="Que chercher vous ?" aria-label="Search">
   </form>
   
   

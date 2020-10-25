@@ -78,26 +78,8 @@
  
 
 
-   
-     
-      <?php     
-  if( $message != null){
-    echo "<p class='error-msg'>". $message."</p>" ;
-  }
-?>
-
-
       <button class="btn btn-lg btn-primary btn-block" name="submit" type="submit">S'inscrire</button>
 
       <p class="mt-5 mb-3 text-muted text-center">&copy; 2020-2021</p>
     </form>
 
-
-<?php 
-
-
-if( $popup != null ){
-  echo "<script> popup(\"".$popup[0]."\",\"".str_replace("\n", "", $popup[1])."\", false); </script>";
-}
-
-?>

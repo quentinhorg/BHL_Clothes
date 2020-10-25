@@ -3,7 +3,7 @@
         <div class="card mb-3">
           <div class="p-4 text-center text-white text-lg bg-dark rounded-top"><span class="text-uppercase">Suivi de la commande Numéros - </span><span class="text-medium"><?php echo $infoCommande->num() ?></span></div>
           <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
-            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Type de paiement via:</span> <?php echo $infoCommande->typePaiement() ?> </div>
+            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Type de paiement via:</span> <?php echo $infoCommande->getFacture()->typePaiement() ?> </div>
             <div class="w-100 text-center py-1 px-2"><span class="text-medium">Total d'articles:</span> <?php echo $infoCommande->totalArticle() ?> </div>
             <div class="w-100 text-center py-1 px-2"><span class="text-medium">Date d'achat:</span> <span><?php echo $infoCommande->dateCreation() ?> </span> </div>
           </div>

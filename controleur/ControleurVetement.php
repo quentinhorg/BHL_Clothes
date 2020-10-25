@@ -23,9 +23,9 @@ class ControleurVetement{
                
                if ( isset($_POST['note']) && !empty($_POST['note'])) {
                   $this->insertAvis($id);
+                  
                   $msg="Votre avis a bien été posté.";
                }
-
                else{
                   $msg= "Veuillez ajouter une note.";
                }

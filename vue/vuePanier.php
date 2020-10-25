@@ -9,7 +9,7 @@
   <div class="container pb-5 mt-n2 mt-md-n3">
     <div class="row">
         <div class="col-xl-9 col-md-8">
-            <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Mes articles</span> <form method="POST" id="formViderPanier" action=""> <button onclick=" return confirm('Etes vous sûre de vouloir supprimez tous vos articles ?')"  type="submit" name="viderPanier" value="Vider mon panier"> Vider mon panier </button> </form>  </a></h2>
+            <h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Mes articles</span> <form method="POST" id="formViderPanier" action=""> <button onclick=" return confirm('Etes vous sûre de vouloir supprimez tous vos articles ?')"  type="submit" name="viderPanier" value="Vider mon panier" class='btn-primary form-control'> Vider mon panier </button> </form>  </a></h2>
             <!-- Item-->
             <?php foreach ($cmdActif->panier() as $article) { ?>
 

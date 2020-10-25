@@ -16,9 +16,11 @@
         <p>Votre email est actuellement <a><?php echo $clientActif->email();?></a> </p> 
         <p>Si vous souhaitez le modifier, entrez votre nouvelle adresse Email puis confirmez le</p>
         <form action="compte#email" method="POST">
-            <input type="email" name="changeMail" placeholder="Entrez votre nouvelle adresse Email"  ><br>
-            <input type="email" name="changeMail2" placeholder="Confirmez votre nouvelle adresses Email"  ><br>
-            <input type="submit" value="Changer l'adresse Email " name="submitMail">
+          
+            <input disabled type="email" name="changeMail" placeholder="Entrez votre nouvelle adresse Email"  ><br>
+            <input disabled type="email" name="cha   ngeMail2" placeholder="Confirmez votre nouvelle adresses Email"  ><br>
+            <input disabled type="submit" value="Changer l'adresse Email " name="submitMail">
+            <br> Indisponible pour le moment
         </form>
     </div>
 
