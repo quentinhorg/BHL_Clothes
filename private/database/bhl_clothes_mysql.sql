@@ -212,7 +212,7 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (7,	23,	'M',	26,	1,	3),
 (8,	24,	'L',	28,	1,	2),
 (11,	25,	'M',	25,	1,	1),
-(13,	26,	'M',	38,	8,	4),
+(13,	26,	'M',	38,	1,	6),
 (7,	28,	'M',	46,	6,	2),
 (7,	28,	'M',	51,	1,	1),
 (8,	28,	'L',	46,	1,	1),
@@ -220,8 +220,8 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (11,	28,	'M',	48,	1,	4),
 (11,	29,	'M',	53,	1,	3),
 (11,	33,	'36',	56,	1,	6),
+(13,	36,	'38',	94,	1,	5),
 (12,	47,	'M',	80,	1,	4),
-(13,	47,	'M',	81,	10,	3),
 (12,	49,	'38',	58,	1,	1),
 (13,	50,	'36',	59,	1,	2);
 
@@ -269,10 +269,10 @@ END;;
 CREATE TRIGGER `before_update_article` BEFORE UPDATE ON `article_panier` FOR EACH ROW
 BEGIN
 
-DECLARE  int;
-SET  =(SELECT c.idEtat FROM commande c
+DECLARE idEtat_  int;
+SET idEtat_ =(SELECT c.idEtat FROM commande c
             WHERE c.num=OLD.numCmd);
-IF( >= 2) THEN
+IF(idEtat_ >= 2) THEN
 
      SIGNAL SQLSTATE '45000'SET MESSAGE_TEXT = "Impossible de modifier un article déjà payé.";
 END IF;
@@ -857,15 +857,15 @@ END;;
 
 CREATE TRIGGER `facture_before_delete` BEFORE DELETE ON `facture` FOR EACH ROW
 BEGIN 
-DECLARE  int ;
+DECLARE idEtat_ int ;
 
 SELECT c.idEtat 
-INTO  
+INTO idEtat_ 
 FROM commande c
 WHERE c.num = OLD.numCmd ;
 
 #Empêcher de supprimer une facture dont la commande n'a pas encore été livré
-IF ( != 5) THEN
+IF ( idEtat_  != 5) THEN
    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Impossible de supprimer une facture reliée à une commande non livrée';
 END IF;
 
@@ -1277,4 +1277,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS sele
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-25 17:12:33
+-- 2020-10-25 18:27:52
