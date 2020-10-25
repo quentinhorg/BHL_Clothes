@@ -15,11 +15,11 @@ class ControleurPanier{
       throw new Exception(null, 404);
    }
    else{
-
+    
       //Initialisation des Managers
       $this->ArticleManager = new ArticleManager;
       $this->CommandeManager = new CommandeManager;
-
+   
 
       
       if( isset($_POST["ajouterArticle"]) ){

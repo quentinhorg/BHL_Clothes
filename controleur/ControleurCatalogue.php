@@ -78,7 +78,7 @@ class ControleurCatalogue{
          $listeVetement =  $this->vetementManager->getListeVetByGenre($libelleGenre);
       }
       else{
-         $listeVetement = $this->vetementManager->getListeVetement();
+         $listeVetement = $this->vetementManager->getListeVetementDispo();
       }
 
       return $listeVetement;

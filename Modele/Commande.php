@@ -13,6 +13,7 @@ class Commande{
    
    
    public function __construct(array $donnee){
+      $this->totalArticle= 0;
       $this->hydrate($donnee);
    }
 
@@ -26,7 +27,7 @@ class Commande{
             $this->$methode($valeur);
          }
       }
-
+    
    }
 
    
@@ -73,6 +74,11 @@ class Commande{
    }
 
    public function setTotalArticle($totalArticle){
+
+      if($totalArticle == null){
+         $totalArticle = 0 ;
+      }
+      
       $this->totalArticle = $totalArticle;
    }
 

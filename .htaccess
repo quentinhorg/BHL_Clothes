@@ -11,3 +11,11 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R]
 
 
+
+# Rendre accessible la section admin que en local
+ RewriteCond %{REQUEST_URI} admin 
+ RewriteCond %{HTTP_HOST} !=127.0.0.1
+ RewriteCond %{HTTP_HOST} !=localhost
+ RewriteRule ^(.*) /
+
+

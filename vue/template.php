@@ -67,7 +67,8 @@
     </div>
 
     <?php echo $footer  //Insertion du footer ?>
-
+    
+    <?php $Popup->genererVue() ?>
 
 
   

@@ -3,12 +3,12 @@
 class VetementManager extends DataBase{
     private $reqBase = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis
     FROM vetement v
-    INNER JOIN vue_vet_disponibilite vvd ON vvd.idVet = v.id
-    INNER JOIN vet_taille vt ON vt.idVet = v.id 
-    INNER JOIN vet_couleur vc ON vc.idVet= v.id 
-    INNER JOIN categorie c ON c.id= v.idCateg
-    INNER JOIN genre g ON g.code = v.codeGenre
-    INNER JOIN taille t ON t.libelle = vt.taille" ;
+    LEFT JOIN vue_vet_disponibilite vvd ON vvd.idVet = v.id
+    LEFT JOIN vet_taille vt ON vt.idVet = v.id 
+    LEFT JOIN vet_couleur vc ON vc.idVet= v.id 
+    LEFT JOIN categorie c ON c.id= v.idCateg
+    LEFT JOIN genre g ON g.code = v.codeGenre
+    LEFT JOIN taille t ON t.libelle = vt.taille" ;
 
     public $Pagination = null;
 
@@ -42,9 +42,19 @@ class VetementManager extends DataBase{
         return $this->getModele($req, [$id], "Vetement")[0];
     }
 
+    public function getListeVetement(){
+     
+        $req = $this->reqBase." ORDER BY v.id DESC";
+        $this->getBdd();
+        $resultat = $this->getModele($req, ["*"], "Vetement") ;
+
+    
+       
+        return $resultat;
+    }
 
     //Obtient toute la liste de vêtements
-    public function getListeVetement(){
+    public function getListeVetementDispo(){
         $resultat = null;
         if( $this->Pagination != null){
             $req = $this->reqBase." WHERE vvd.listeIdCouleurDispo IS NOT NULL

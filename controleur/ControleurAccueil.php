@@ -4,6 +4,7 @@ require_once('vue/Vue.php');
 
 class ControleurAccueil{
    private $vue;
+   public $message;
 
    // CONSTRUCTEUR 
    public function __construct($url){
@@ -14,6 +15,8 @@ class ControleurAccueil{
       else{
 
          $this->vue = new Vue('Accueil') ;
+       
+         
          $this->vue->setHeader("vue/header.php") ;
          $this->vue->genererVue(array("nouvVetement"=> $this->nouveauteVetement(),
                                       "listeGenre" => $this->listeGenre(),
@@ -24,6 +27,7 @@ class ControleurAccueil{
    //retourne les 3 derniers vetements
    private function nouveauteVetement(){
       $VetementManageur = new VetementManager();
+      
       
       $listeNouv= $VetementManageur->getNouveaute();
 

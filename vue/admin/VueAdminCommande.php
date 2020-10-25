@@ -20,16 +20,16 @@ $(document).ready(function(){
 
       
         <tr>   
-         <form action="" method="POST"> 
+      
             <td> <?php echo $commande->num(); ?> </td> 
             <td> <?php echo $commande->dateCreation();?>   </td> 
             <td> <?php echo $commande->Client()->nom()." ".$commande->Client()->prenom() ;?>   </td>
             <td style='<?php echo "color:".$commande->Etat()->colorCode().";" ?>'> <?php echo "<i class='".$commande->Etat()->classIcon()."'> </i> ".$commande->Etat()->libelle()  ?>  </td>
-            <td> <a href="admin/commande/<?php echo $commande->num() ?>"> <button type='button' class='btn-primary'> Modifier / Consulter </button> </a> 
-            <a href="admin/commande/<?php echo $commande->num() ?>?action=supprimer"> <button type='button' class='btn-primary'> Spprimer </button> </a> 
-            <a href="facture/<?php echo $commande->num() ?>"> <button type='button' class='btn-primary'> Voir facture </button> </a>  </td>
+            <td class='form-inline'> <a href="admin/commande/<?php echo $commande->num() ?>"> <button type='button' class='form-control'> Modifier / Consulter </button> </a> 
+            <form action="admin/commande/<?php echo $commande->num() ?>" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer cette commande ?")' type='submit' name='supprimerCommande' class='form-control'> Supprimer </button> </form>
+            <a href="facture/<?php echo $commande->num() ?>"> <button <?php if($commande->getFacture() == null){echo "disabled" ;} ?> type='button' class='form-control'> Voir facture </button> </a>  </td>
                 
-         </form>
+  
         </tr>
       
 
@@ -37,3 +37,8 @@ $(document).ready(function(){
 
     </table>
 </div>
+
+<?php 
+//Affiche le message du popup si il a été passé dans la vue et n'est pas null
+
+?>

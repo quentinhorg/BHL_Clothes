@@ -7,6 +7,7 @@ class ControleurAdminCommande{
    private $CommandeManager ;
    private $EtatManager ;
    private $FactureManager ;
+   public $message;
 
    // CONSTRUCTEUR 
    public function __construct($url){
@@ -15,51 +16,45 @@ class ControleurAdminCommande{
          throw new Exception(null, 404);
       }
       else{
-         //Initialisatio ndes managers 
-         $this->CommandeManager = new CommandeManager;
-         $this->EtatManager = new EtatManager;
-         $this->FactureManager = new FactureManager;
+            //Initialisatio ndes managers 
+            $this->CommandeManager = new CommandeManager;
+            $this->EtatManager = new EtatManager;
+            $this->FactureManager = new FactureManager;
+      
 
-         $popup = null;
-
-         if( isset($_POST["modifierEtatCmd"]) ){
-            $popup[0] = "Commande Numéro ".$url[2] ;
-            $popup[1] = $this->modifierEtat($url[2], $_POST["etat"]);
-         }
-         else if( isset($_POST["supprimerFacture"]) ){
-            $popup[0] = "Commande Numéro ".$url[2] ;
-            $popup[1] = $this->supprimerFacture($url[2]);
-         }
-         else if( isset($_POST["supprimerCommande"]) ){
-            $popup[0] = "Commande Numéro ".$url[2] ;
-            $popup[1] = $this->supprimerCommande($url[2]);
-         }
+            if( isset($_POST["modifierEtatCmd"]) ){
+               $this->modifierEtat($url[2], $_POST["etat"]);
+            }
+            else if( isset($_POST["supprimerFacture"]) ){
+               $this->supprimerFacture($url[2]);
+            }
+            else if( isset($_POST["supprimerCommande"]) ){
+               $this->supprimerCommande($url[2]);
+            }
+            
          
-        
-         //Modifier une commande
-         if( isset($url[2]) ){
+            //Modifier une commande
+            if( isset($url[2]) && $this->message != "La commande à bien été supprimé." ){
 
-            $vue = "AdminCommandeModifier" ;
-            $donnee = array( 
-              "listEtat" => $this->listEtat(),
-              "commande" => $this->commandeInfo($url[2]),
-              "popup" => $popup
-            );
-         }
+               $vue = "AdminCommandeModifier" ;
+               $donnee = array( 
+               "listEtat" => $this->listEtat(),
+               "commande" => $this->commandeInfo($url[2])
+               );
+            }
 
-         //Listing des commandes 
-         else{
-            $vue = "AdminCommande" ;
-            $donnee = array( 
-               "commandeList" =>  $this->listCommande(),
-               "popup" => $popup
-              
-            );
-         }
-         
+            //Listing des commandes 
+            else{
+               $vue = "AdminCommande" ;
+               $donnee = array( 
+                  "commandeList" =>  $this->listCommande()
+               );
+            }
+            
          
 
          $this->vue = new VueAdmin($vue) ;
+         $this->vue->Popup->setMessage($this->message);
          $this->vue->genererVue($donnee) ;
       }
    }
@@ -80,15 +75,15 @@ class ControleurAdminCommande{
       try{
 
          $this->CommandeManager->modifierEtat($numCmd, $idEtat);
-         $message= "L'etat à bien était modifié";
+         $this->message= "L'etat à bien été modifié";
   
       } catch (Exception $e) {
      
-         $message = $e->getMessage() ;
+         $this->message = $e->getMessage() ;
       
       }
 
-      return $message ;
+ 
    }
 
    private function supprimerFacture($numCmd){
@@ -96,16 +91,16 @@ class ControleurAdminCommande{
       try{
 
          $this->FactureManager->supprimerFacture($numCmd);
-         $message= "La facture à bien été supprimé.";
+         $this->message= "La facture à bien été supprimé.";
   
       } catch (Exception $e) {
      
-         $message = $e->getMessage() ;
+         $this->message = $e->getMessage() ;
          
       
       }
 
-      return $message ;
+ 
    }
 
    private function supprimerCommande($numCmd){
@@ -113,20 +108,19 @@ class ControleurAdminCommande{
       try{
          //Apres le vide du panier, la commande se supprime automatiquement  
          $this->CommandeManager->viderPanier($numCmd);
-         $message= "La commande à bien été supprimé.";
+         $this->message= "La commande à bien été supprimé.";
   
       } catch (Exception $e) {
 
          if($e->getCode() == 45000 ){
-            $message = $e->getMessage() ;
+            $this->message = $e->getMessage() ;
          }
          else{
-            $message = "<b>Erreur lors de la suppression </b> <br>".$e->getMessage();
+            $this->message = "<b>Erreur lors de la suppression </b> <br>".$e->getMessage();
          }
         
       }
 
-      return $message ;
    }
 
   

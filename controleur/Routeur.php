@@ -15,7 +15,7 @@ function exceptions_error_handler($severity, $message, $filename, $lineno) {
 }
 
 header("Cache-Control: no-cache, must-revalidate");
-
+require_once('vue/Popup.php');
 require_once('vue/Vue.php');
 require_once('vue/admin/VueAdmin.php');
 

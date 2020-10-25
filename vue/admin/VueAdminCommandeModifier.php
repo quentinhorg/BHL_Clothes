@@ -77,7 +77,7 @@
             <?php if($commande->getFacture() != null) { ?>
                 <form action="" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer cette facture ?")' type='submit' name='supprimerFacture'> Supprimer la facture </form>
             <?php } ?>
-            <form action="" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer cette commande ?")' type='submit' name='supprimerCommande'> Supprimer la commande </form>
+            <form action="" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer cette commande ?")' type='submit' name='supprimerCommande'> Supprimer la commande </button> </form>
         </td> 
     </tr>
  
@@ -118,9 +118,3 @@
     $("#selectEtat").val(<?php echo $commande->Etat()->id() ; ?>) ;
 </script>
 
-<?php 
-//Affiche le message du popup si il a été passé dans la vue et n'est pas null
-if( $popup != null ){
-    echo "<script> popup(\"".$popup[0]."\",\"".str_replace("\n", "", $popup[1])."\", false); </script>";
-} 
-?>

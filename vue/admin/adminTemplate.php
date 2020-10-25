@@ -49,7 +49,7 @@
 <body>
 
 <!-- Inclu le popup -->
-<?php include "vue/vueModal.php"; ?>
+
   
 
 <?php echo $nav  //Insertion de la bar de navigation ?>
@@ -61,13 +61,10 @@
 
 <?php echo $footer  //Insertion du footer ?>
 
-
+<?php echo $Popup->genererVue() //Insertion du footer ?>
 
 
 </body>
-
-
-
 
 
 

@@ -13,6 +13,7 @@ class VueAdmin extends Vue{
         $this->nav= "vue/admin/adminNavigation.php";
         $this->footer = "vue/admin/adminFooter.php";
         $this->listeJsScript= array() ;
+        $this->Popup = new Popup;
       }
 
         private function getNav(){
@@ -41,7 +42,8 @@ class VueAdmin extends Vue{
            'header' => $header,
            'footer' => $footer,
            'listeCss' => $this->listeCss,
-           "listeJsScript"=> $this->listeJsScript
+           "listeJsScript"=> $this->listeJsScript,
+           "Popup" => $this->Popup
         ));
   
         //Intégration de la vue

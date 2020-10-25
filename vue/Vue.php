@@ -11,6 +11,7 @@ class Vue{
     protected $header;
     protected $listeJsScript;
     protected $footer;
+    public $Popup;
     
     //Construction de la vue
    public function __construct($page){
@@ -23,6 +24,8 @@ class Vue{
       $this->nav= "vue/navigation.php";
       $this->footer = "vue/footer.php";
       $this->listeJsScript= array() ;
+      $this->Popup = new Popup;
+      
     }
 
     public function setListeJsScript($listeFichier){
@@ -114,7 +117,8 @@ class Vue{
          'header' => $header,
          'footer' => $footer,
          'listeCss' => $this->listeCss,
-         "listeJsScript"=> $this->listeJsScript
+         "listeJsScript"=> $this->listeJsScript,
+         "Popup" => $this->Popup
       ));
 
       //Intégration de la vue
