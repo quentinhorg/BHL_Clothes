@@ -12,11 +12,12 @@ RewriteRule ^(.*)/$ /$1 [L,R]
 
 
 
-# Rendre accessible la section admin que en local
- RewriteCond %{REQUEST_URI} admin 
- RewriteCond %{HTTP_HOST} !=127.0.0.1
- RewriteCond %{HTTP_HOST} !=localhost
- RewriteCond %{REMOTE_ADDR} !=165.169.60.44 #Ip Andréa
- RewriteRule ^(.*) /
+#Rendre accessible la section admin que en local
+   RewriteCond %{REQUEST_URI} admin 
+   RewriteCond %{HTTP_HOST} !=127.0.0.1
+   RewriteCond %{HTTP_HOST} !=localhost
+# Ip Andrea
+   RewriteCond %{REMOTE_ADDR} !=165.169.60.44 
+   RewriteRule ^(.*) /
 
 
