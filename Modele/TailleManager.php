@@ -8,6 +8,12 @@ class TailleManager extends DataBase{
         return @$this->getModele($req, [$libelle], "Taille")[0]; // Si une valeur
     }
 
+    public function getListeTaille(){
+        $req = "SELECT t.* FROM taille t";
+        $this->getBdd();
+        return $this->getModele($req,["*"],"Taille");
+    }
+
     public function getListeTailleLettre(){
         $req = "SELECT t.* FROM taille t WHERE t.libelle NOT REGEXP '^[0-9]+$'; ";
         $this->getBdd();

@@ -6,9 +6,9 @@ class Vetement{
    public    $prix;
    private   $motifPosition;
    private   $idCateg; 
-   public    $listeIdCouleurDispo = array(); 
+   public    $listeNumCouleurDispo = array(); 
    private   $codeGenre;
-   private   $listeIdTailleDispo = array();
+   private   $listeTailleDispo = array();
    private   $description;
    private   $nbAvis;
 
@@ -65,11 +65,11 @@ class Vetement{
 
    }
 
-   public function setListeIdCouleurDispo($listIdCouleur){
+   public function setlisteNumCouleurDispo($listIdCouleur){
    
       if($listIdCouleur != null){
          $listIdCouleur = explode(",", $listIdCouleur);
-         $this->listeIdCouleurDispo = $listIdCouleur;
+         $this->listeNumCouleurDispo = $listIdCouleur;
 
       }
       
@@ -79,7 +79,7 @@ class Vetement{
 
       if($listeTaille != null){
          $listeTaille = explode(",", $listeTaille);
-         $this->listeIdTailleDispo = $listeTaille ;
+         $this->listeTailleDispo = $listeTaille ;
       }
       
 
@@ -136,7 +136,7 @@ class Vetement{
 
       $CouleurManager = new CouleurManager;
 
-      foreach ($this->listeIdCouleurDispo as $idCouleur) {
+      foreach ($this->listeNumCouleurDispo as $idCouleur) {
          $idCouleur = (int) $idCouleur;
 
          if($idCouleur > 0){
@@ -151,7 +151,8 @@ class Vetement{
    public function listeTailleDispo(){
       $TailleManager = new TailleManager;
 
-      foreach ($this->listeIdTailleDispo as $taille) {
+      $listeTailleDispo = array();
+      foreach ($this->listeTailleDispo as $taille) {
             $listeTailleDispo[] = $TailleManager->getTaille($taille);
       }
 
@@ -168,9 +169,6 @@ class Vetement{
       return $this->motifPosition;
    }
 
-   public function getTextureDefaut(){
-
-   }
 
    public function description(){
       return $this->description;
@@ -181,17 +179,26 @@ class Vetement{
       return $this->nbAvis;
    }
 
+   public function test(){
+      // $GenreManager = new GenreManager;
+      // $Genre = $GenreManager->getGenre($this->codeGenre);
+      // return $Genre->libelle();
+      //return $VetementManager->verifDisponibilite($this->id) ;
+   }
+
    //AUTRES MÉTHODE
 
    public function dispoPourVendre(){
-      $peutVendre = false ;
-      //Retourne VRAI si l'article est disponible dans la BDD (au moins uen taille et au moins une couleur)
-      $VetementManager= new VetementManager();
-     // var_dump( $VetementManager->verifDisponibilite( $this->id )["COUNT(*)"] );
+      $peutVendre = true ;
 
+      if( $this->listeTailleDispo == null ){
+         $peutVendre = false ;
+      }
 
-      if(   $VetementManager->verifDisponibilite( $this->id ) >= 1){
-         $peutVendre = true ;
+  
+      if( $this->listeNumCouleurDispo == null ){
+    
+         $peutVendre = false ;
       }
 
       return $peutVendre;

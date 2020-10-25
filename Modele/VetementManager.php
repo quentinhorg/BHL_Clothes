@@ -57,7 +57,7 @@ class VetementManager extends DataBase{
     public function getListeVetementDispo(){
         $resultat = null;
         if( $this->Pagination != null){
-            $req = $this->reqBase." WHERE vvd.listeIdCouleurDispo IS NOT NULL
+            $req = $this->reqBase." WHERE vvd.listeNumCouleurDispo IS NOT NULL
             AND vvd.listeTailleDispo IS NOT NULL ORDER BY v.id DESC";
             $this->Pagination->getBdd();
             
@@ -73,7 +73,7 @@ class VetementManager extends DataBase{
         $resultat = null;
         if( $this->Pagination != null){
             $Recherche = new Recherche($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre, $motCle) ;
-            $reqRecherche = $this->reqBase." WHERE vvd.listeIdCouleurDispo IS NOT NULL
+            $reqRecherche = $this->reqBase." WHERE vvd.listeNumCouleurDispo IS NOT NULL
             AND vvd.listeTailleDispo IS NOT NULL ".$Recherche->getReqFinal() ;
 
          
@@ -94,7 +94,7 @@ class VetementManager extends DataBase{
         $this->getBdd();
         $req = $this->reqBase." WHERE v.idCateg = ? 
         AND codeGenre = ? 
-        AND vvd.listeIdCouleurDispo IS NOT NULL
+        AND vvd.listeNumCouleurDispo IS NOT NULL
         AND vvd.listeTailleDispo IS NOT NULL
         ORDER BY v.id DESC";
         
@@ -105,7 +105,7 @@ class VetementManager extends DataBase{
         $this->getBdd();
 
         $req = $this->reqBase." WHERE codeGenre = ? 
-        AND vvd.listeIdCouleurDispo IS NOT NULL
+        AND vvd.listeNumCouleurDispo IS NOT NULL
         AND vvd.listeTailleDispo IS NOT NULL
         ORDER BY v.id DESC";
         $this->getBdd();
@@ -141,14 +141,13 @@ class VetementManager extends DataBase{
 
         //verif avec une req si le vet a au moins une taille et une couleur par rapport au paramettre passé
         $req="SELECT COUNT(*) AS 'nbRow'
-              FROM vue_vet_disponibilite
-              WHERE listeIdCouleurDispo is not null 
-              AND listeTailleDispo is not null
-              AND idVet=?";
+        FROM vue_vet_disponibilite
+        WHERE listeNumCouleurDispo is not null 
+        AND listeTailleDispo is not null
+        AND idVet=?";
         $this->getBdd();
+        
         return $this->execBDD($req, [$id])[0]["nbRow"];
-
-
 
     }
 

@@ -59,7 +59,6 @@
     <?php echo $contenu  //Insertion des contenue de la page active ?>
 </div>
 
-<?php echo $footer  //Insertion du footer ?>
 
 <?php echo $Popup->genererVue() //Insertion du footer ?>
 

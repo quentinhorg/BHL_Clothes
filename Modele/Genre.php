@@ -66,11 +66,9 @@ class Genre{
    public function listeCateg(){
 
       $CategManager = new CategorieManager ;
-
       foreach ($this->listeCateg as $categCode) {
          $listObjCateg[] = $CategManager->getCateg($categCode) ;
       }
-
       return $listObjCateg ;
    }
 
