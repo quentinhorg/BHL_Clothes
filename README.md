@@ -3,7 +3,10 @@ E-commerce website, school project. Site de vêtement en ligne pour ados et adul
 
 # Installation / Utilisation 
 
-1) Changer la base du chemain relatif du projet par ici [template.php - Line 4](https://github.com/quentinhoareau/BHL_Clothes/blob/ec3706c4cda75250fe356e34177baf10b848e058/vue/template.php#L4).
+1) Changer la base du chemain relatif du projet par ici [template.php - Line 4](https://github.com/quentinhoareau/BHL_Clothes/blob/ec3706c4cda75250fe356e34177baf10b848e058/vue/template.php#L4) et ici  [template.php - Line 5](https://github.com/quentinhorg/BHL_Clothes/blob/master/vue/admin/adminTemplate.php#L5)
+
+
+.
 	- Exemple :  Pour nous la base va être : `"/btssio/BTS2/BHL_Clothes/"` car notre url est : ![image](https://user-images.githubusercontent.com/64120596/96407777-3773e780-11f3-11eb-932f-472d2c826150.png)
     
 
