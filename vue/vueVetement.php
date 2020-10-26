@@ -15,7 +15,6 @@
 
         <hr>
 
-        
         <form action="" method="POST" id="vetementChoisi">
             <label for="">Couleur: </label>
             <ul class='listeCouleur' id="couleur">
