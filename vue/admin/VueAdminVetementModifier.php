@@ -9,19 +9,18 @@
   <tbody>
     <tr>
       <th scope="row">Id</th>
-      <td><input class='form-control' disabled value='<?php echo $vetement->id()?>' type="text"></td>
- 
+      <td><input class='form-control' disabled value='<?php echo $vetement->id()?>' type="text" name='idVet'></td>
     </tr>
 
     <tr>
       <th scope="row">Nom</th>
-      <td><input class='form-control' disabled value='<?php echo $vetement->nom()?>' type="text"></td>
+      <td><input class='form-control' value='<?php echo $vetement->nom()?>' type="text"></td>
  
     </tr>
  
     <tr>
       <th scope="row">Prix</th>
-      <td><input class='form-control' value='<?php echo $vetement->prix()?>' type="number"> </td>
+      <td><input class='form-control' step="any" value='<?php echo $vetement->prix()?>' style="width:100px" type="number"> €</td>
     </tr>
 
     
@@ -29,7 +28,7 @@
       <th scope="row">Catégorie</th>
       <td class='form-inline'>
          
-          <select class='form-control col-sm-7' name="etat" id="selectEtat">
+          <select class='form-control col-sm-7' name="etat" id="selectCateg">
       
               <?php foreach ($listCate as $categorie) {?>
                
@@ -44,7 +43,7 @@
  
 
     <tr class='paiementInfo'>
-      <th scope="row"> Information du paiement </th>
+      <th scope="row"> Information </th>
       <td> 
           <div> <label> XXXX </label> <span>  <?php echo "XXXX" ?> <span> </div> 
           <div> <label> XXXX </label> <span>  <?php echo "XXXX" ?> <span> </div> 
@@ -59,18 +58,27 @@
     
     <tr>
       <th scope="row">Genre </th>
-      <td> <?php echo $vetement->Genre()->libelle() ?> </td>
+      
+      <td> 
+        <?php foreach ( $listGenre as $Genre ) {  ?>
+        
+        <?php  } ?>
+    
+      </td>
     </tr>
 
     
     <tr>
-      <th scope="row">Motif </th>
-      <td> <?php echo $vetement->motifPosition() ?> </td>
+      <th scope="row">Configuration du motif </th>
+      
+      <td> <input type="text" placeholder="Aucun" value='<?php echo $vetement->motifPosition() ?>'> </td>
     </tr>
 
     <tr>
       <th scope="row">Description </th>
-      <td> <?php echo $vetement->description() ?> </td>
+      <td>
+          <textarea name="description" id="" cols="30" rows="10"><?php echo $vetement->description() ?> </textarea>
+        </td>
     </tr>
 
     <tr>
@@ -78,7 +86,8 @@
       
         <td class='form-inline'> 
             <form action="" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer ce vetement ?")' type='submit' name='supprimerVetement'> Supprimer le vetement </button> </form>
-        </td> 
+        </td>
+
     </tr>
  
   </tbody>
@@ -102,9 +111,8 @@
          
           <select class='form-control col-sm-7' name="etat" id="selectEtat">
       
-              <?php foreach ($listTaille as $taille) {?>
-               
-                <option value="<?php echo $taille->libelle() ?>"> <?php echo $taille->libelle() ?></option>
+              <?php foreach ($listTaille as $taille) { ?>
+                <option <?php if ($vetement->possedeTaille($taille->libelle()) == true) {echo "disabled"; }?> value="<?php echo $taille->libelle() ?>"> <?php echo $taille->libelle() ?></option>
                 <?php  } ?>
           
           </select>
@@ -122,7 +130,7 @@
           <select class='form-control col-sm-7' name="etat" id="selectEtat">
       
               <?php foreach ($vetement->listeCouleurDispo() as $couleur) {?>
-               
+
                 <option value="<?php echo $couleur->num() ?>"> <?php echo $couleur->nom() ?></option>
                 <?php  } ?>
           
@@ -144,6 +152,6 @@
 
 <script>
     //Attribuer automatiquement l'etat de la vetement au menu de selection
-    //$("#selectEtat").val(<?php //echo $vetement->Etat()->id() ; ?>) ;
+    $("#selectCateg").val(<?php echo $vetement->Categ()->id() ; ?>) ;
 </script>
 

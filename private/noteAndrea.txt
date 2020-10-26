@@ -42,3 +42,6 @@ $id= $_GET['idVet];
 
 
 Requête nbAvis, nbCouleur... -> ajouter un attribut dans la classe concernée, req imbriquée
+
+
+if: comparer même type!!!!

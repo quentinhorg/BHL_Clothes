@@ -186,7 +186,7 @@ class Vetement{
       //return $VetementManager->verifDisponibilite($this->id) ;
    }
 
-   //AUTRES MÉTHODE
+   //AUTRES MÉTHODES
 
    public function dispoPourVendre(){
       $peutVendre = true ;
@@ -202,6 +202,25 @@ class Vetement{
       }
 
       return $peutVendre;
+      
+   }
+
+   public function possedeTaille($taille){
+
+      $possedeTaille=false;
+      
+      foreach ($this->listeTailleDispo as $tailleDispo) {
+         
+
+         if ($taille == $tailleDispo) {
+            
+            $possedeTaille= true;
+            break;
+         }
+         
+      }
+
+      return $possedeTaille;
       
    }
 

@@ -16,10 +16,11 @@ class ControleurAdminVetement{
          throw new Exception(null, 404);
       }
       else{
-            //Initialisatio ndes managers 
+            //Initialisation des managers 
             $this->VetementManager = new VetementManager;
             $this->TailleManager = new TailleManager;
             $this->CategorieManager = new CategorieManager;
+            $this->GenreManager = new GenreManager;
       
 
             if( isset($_POST["modifierVet"]) ){
@@ -34,7 +35,8 @@ class ControleurAdminVetement{
                $donnee = array( 
                   "vetement" => $this->vetementInfo($url[2]),
                   "listTaille" => $this->listTaille(),
-                  "listCate" => $this->listCateg()
+                  "listCate" => $this->listCateg(),
+                  "listGenre" =>$this->listGenre()
                
                );
             }
@@ -65,6 +67,12 @@ class ControleurAdminVetement{
    private function listCateg(){
       return $this->CategorieManager->getListeCateg();
    }
+
+   // Categorie
+   private function listGenre(){
+      return $this->GenreManager->getListeGenre();
+   }
+
 
 
    // Vetement
