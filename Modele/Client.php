@@ -19,6 +19,8 @@ class Client{
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
+      
+
    }
 
    //HYDRATATION
@@ -28,6 +30,7 @@ class Client{
        
          if(method_exists($this, $methode)){
             $this->$methode(htmlspecialchars($valeur));
+
          }
       }
    }

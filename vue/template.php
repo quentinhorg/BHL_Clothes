@@ -68,7 +68,7 @@
 
     <?php echo $footer  //Insertion du footer ?>
     
-    <?php $Popup->genererVue() ?>
+    <?php $Popup->genererVue() //Affichage du popup?>
 
 
   

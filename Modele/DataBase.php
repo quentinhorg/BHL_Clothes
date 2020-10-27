@@ -32,9 +32,6 @@ abstract class DataBase{
       $req = self::$bdd->prepare($req);
       $req->execute($tabValeur);
       
-      
-      
-
       if($req != null || empty($req) ){
 
          while($donnee = $req->fetch(PDO::FETCH_ASSOC)){
@@ -42,9 +39,6 @@ abstract class DataBase{
             $var[] = new $obj($donnee);
             
          }
-
-         
-     
       }
 
       else{
