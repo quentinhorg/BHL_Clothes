@@ -14,6 +14,15 @@ class TailleManager extends DataBase{
         return $this->getModele($req,["*"],"Taille");
     }
 
+    public function getListeTailleForVet($idVet){
+        $req = "SELECT t.* 
+        FROM vet_taille vt 
+        INNER JOIN taille t ON t.libelle = vt.taille 
+        WHERE vt.idVet =?";
+        $this->getBdd();
+        return $this->getModele($req,[$idVet],"Taille");
+    }
+
     public function getListeTailleLettre(){
         $req = "SELECT t.* FROM taille t WHERE t.libelle NOT REGEXP '^[0-9]+$'; ";
         $this->getBdd();

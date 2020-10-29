@@ -2,3 +2,11 @@ select option:disabled{
     background-color: grey!important;
     color: white;
  }
+
+ .btn-primary {
+    border-color: #ffffff;
+}
+
+table.disponibilite tr td:last-child{
+    width: 100px;
+}

@@ -21,10 +21,13 @@ class ControleurAdminVetement{
             $this->TailleManager = new TailleManager;
             $this->CategorieManager = new CategorieManager;
             $this->GenreManager = new GenreManager;
-      
+            $this->CouleurManager = new CouleurManager;
 
             if( isset($_POST["modifierVet"]) ){
                $this->modifierVet($url[2], );
+            }
+            if( isset($_POST["ajouterCouleur"]) ){
+               $this->ajouterCouleur($url[2], $_POST["nomClr"], $_POST["filterCssCodeClr"], $_POST["dispoClr"]);
             }
 
          
@@ -79,6 +82,11 @@ class ControleurAdminVetement{
    private function listVetement(){
       return $this->VetementManager->getListeVetement();
    }
+   private function ajouterCouleur($idVet, $nomClr, $filterCssCodeClr, $dispoClr){
+      $this->CouleurManager->insertBDD($idVet, $nomClr, $filterCssCodeClr, $dispoClr);
+   }
+
+
    private function vetementInfo($id){
       return $this->VetementManager->getVetement($id);
    }
