@@ -10,6 +10,8 @@ class CouleurManager extends DataBase{
     }
 
     public function insertBDD($idVet, $nomClr, $filterCssCodeClr, $dispoClr){
+        if( empty($filterCssCodeClr)){$filterCssCodeClr= null;}
+        
         $this->getBdd();
         $newNum = $this->getNewIdTable('vet_couleur','num');
 
@@ -18,8 +20,20 @@ class CouleurManager extends DataBase{
         $this->execBDD($req, [$newNum, $idVet, $nomClr, $filterCssCodeClr, $dispoClr]);
     }
 
+    public function deleteBDD($numClr){
+        $req = "DELETE FROM vet_couleur WHERE num = ?";
+        $this->getBdd();
+        $this->execBDD($req, [$numClr]);
+    }
+     public function updateBDD($numClr, $nomClr, $filterCssCodeClr, $dispoClr){
+        if( empty($filterCssCodeClr)){$filterCssCodeClr= null;}
+        $req = "UPDATE vet_couleur SET nom = ?,filterCssCode=?, dispo =? WHERE num = ?";
+        $this->getBdd();
+        $this->execBDD($req, [$nomClr, $filterCssCodeClr, $dispoClr, $numClr]);
+    }
+
     public function getListeCouleurForVet($idVet){
-        $req = "SELECT * FROM vet_couleur WHERE idVet = ?";
+        $req = "SELECT * FROM vet_couleur WHERE idVet = ? ORDER BY filterCssCode ASC";
         $this->getBdd();
         return $this->getModele($req, [$idVet], "Couleur");
     }

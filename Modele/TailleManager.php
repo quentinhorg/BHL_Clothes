@@ -14,6 +14,19 @@ class TailleManager extends DataBase{
         return $this->getModele($req,["*"],"Taille");
     }
 
+    public function insertBDD($idVet, $libelle){
+        $req = "INSERT INTO vet_taille VALUES(?,?)";
+        $this->getBdd();
+        $this->execBDD($req, [$idVet, $libelle]);
+    }
+
+    public function deleteBDD($idVet, $taille){
+        $req = "DELETE FROM vet_taille WHERE idVet = ? AND taille = ?";
+        $this->getBdd();
+        $this->execBDD($req, [$idVet, $taille]);
+    }
+
+
     public function getListeTailleForVet($idVet){
         $req = "SELECT t.* 
         FROM vet_taille vt 

@@ -17,7 +17,7 @@ class Vetement{
          $methode = 'set'.ucfirst($cle);
       
          if(method_exists($this, $methode)){
-            $this->$methode($valeur);
+            $this->$methode(htmlspecialchars($valeur));
          }
       }
    }
@@ -170,9 +170,9 @@ class Vetement{
       $possedeTaille=false;
       
       foreach ($this->listeTailleDispo() as $tailleDispo) {
-         
+        
 
-         if ($taille == $tailleDispo) {
+         if ($taille == $tailleDispo->libelle()) {
             
             $possedeTaille= true;
             break;

@@ -2,91 +2,99 @@
 <div class="row">
   <div class="col-md-5 col-md-push-5">
   <!--------------- Info du vetement ---------------->
-  <table class="table" id="vetementInfo">
-    <thead class="thead-dark">
-      <tr >
-        <th scope="col" colspan="2" >Infos Global </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">Id</th>
-        <td><input class='form-control' disabled value='<?php echo $vetement->id()?>' type="text" name='idVet'></td>
-      </tr>
-      <tr>
-        <th scope="row">Nom</th>
-        <td><input class='form-control' value='<?php echo $vetement->nom()?>' type="text"></td>
-      </tr>
-      <tr>
-        <th scope="row">Prix</th>
-        <td><input class='form-control' step="any" value='<?php echo $vetement->prix()?>' style="width:100px" type="number"> €</td>
-      </tr>
-      <tr>
-        <th scope="row">Catégorie</th>
-        <td class='form-inline'>
-          
-            <select class='form-control col-sm-7' name="etat" id="selectCateg">
-        
-                <?php foreach ($listCate as $categorie) {?>
-                
-                  <option value="<?php echo $categorie->id() ?>"> <?php echo $categorie->nom() ?></option>
-                  <?php  } ?>
+
+  <form action="" method="POST" id="modifierVet">
+    <table class="table" id="vetementInfo">
+      <thead class="thead-dark">
+        <tr >
+          <th scope="col" colspan="2" >Infos Global </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Id</th>
+          <td><input class='form-control' disabled value="<?php echo $vetement->id()?>" type="text" name='idVet'></td>
+        </tr>
+        <tr>
+          <th scope="row">Nom</th>
+          <td><input class='form-control' name="nomVet" value="<?php echo $vetement->nom()?>" type="text"></td>
+        </tr>
+        <tr>
+          <th scope="row">Prix</th>
+          <td><input class='form-control' name="prixVet" step="any" value="<?php echo $vetement->prix()?>" style="width:100px" type="number"> €</td>
+        </tr>
+        <tr>
+          <th scope="row">Catégorie</th>
+          <td class='form-inline'>
             
-            </select>
-                
-          </td>
+              <select class='form-control col-sm-7' name="categVet" id="selectCateg">
+          
+                  <?php foreach ($listCateg as $categorie) {?>
+                    <option value="<?php echo $categorie->id() ?>"> <?php echo $categorie->nom() ?></option>
+                  <?php  } ?>
+              
+              </select>
 
-      </tr>
-  
+          <!-- Selection automatique du genre  -->
+          <script> $("#selectCateg").val('<?php echo $vetement->Categ()->id() ?>') ;</script>
+                  
+            </td>
 
-      <tr class='paiementInfo'>
-        <th scope="row"> Information </th>
-        <td> 
-            <div> <label> XXXX </label> <span>  <?php echo "XXXX" ?> <span> </div> 
-            <div> <label> XXXX </label> <span>  <?php echo "XXXX" ?> <span> </div> 
-            <div> <label> XXXX </label> <span>  <?php echo "XXXX" ?> <span> </div> 
-          </td>
-      </tr>
+        </tr>
     
 
 
       
-      <tr>
-        <th scope="row">Genre </th>
+
+
         
-        <td> 
-          <?php foreach ( $listGenre as $Genre ) {  ?>
+        <tr>
+          <th scope="row">Genre </th>
           
-          <?php  } ?>
-      
-        </td>
-      </tr>
-
-      
-      <tr>
-        <th scope="row">Configuration du motif </th>
+          <td> 
+          <select class='form-control col-sm-7' name="genreVet" id="selectGenre">
+            
+            <?php foreach ( $listGenre as $Genre ) {  ?>
+              <option value="<?php echo $Genre->code() ?>"> <?php echo $Genre->libelle() ?></option>
+            <?php  } ?>
         
-        <td> <input type="text" placeholder="Aucun" value='<?php echo $vetement->motifPosition() ?>'> </td>
-      </tr>
 
-      <tr>
-        <th scope="row">Description </th>
-        <td>
-            <textarea name="description" id="" cols="30" rows="10"><?php echo $vetement->description() ?> </textarea>
-          </td>
-      </tr>
+          </select>
 
-      <tr>
-        <th scope="row">Action</th>
+          <!-- Selection automatique du genre  -->
+          <script> $("#selectGenre").val('<?php echo $vetement->Genre()->code() ?>') ;</script>
         
-          <td class='form-inline'> 
-              <form action="" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer ce vetement ?")' type='submit' name='supprimerVetement'> Supprimer le vetement </button> </form>
           </td>
 
-      </tr>
-  
-    </tbody>
-  </table>
+        </tr>
+
+        
+        <tr>
+          <th scope="row">Configuration du motif </th>
+          
+          <td> <input type="text" placeholder="Aucun" name="motifConfigVet" value="<?php echo $vetement->motifPosition() ?>""> </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Description </th>
+          <td>
+              <textarea name="descVet" cols="30" rows="10"><?php echo $vetement->description() ?> </textarea>
+            </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Action</th>
+          
+            <td class='form-inline'> 
+                <button   class="btn-primary form-control" type='submit' name='modifierVet'> Modifier le vetement </button>
+                <button   class="btn-primary form-control" onclick='return confirm("Voulez-vous vraiment supprimer ce vetement ?")' type='submit' name='supprimerVetement'> Supprimer le vetement </button>
+            </td>
+
+        </tr>
+    
+      </tbody>
+    </table>
+  </form>
 
   </div>
   <div class="col-md-6 col-md-pull-5">
@@ -105,22 +113,23 @@
   <?php foreach ($vetement->listeCouleur() as $couleur) {?>
     <form action="" id='modifierCouleur' method="POST"> 
     <tr>
-      <td > <?php echo $couleur->nom() ?> </td>
-      <td > <input placeholder='Aucun' value="<?php echo $couleur->filterCssCode() ?>" type="text">  </td>
+      <td> <input placeholder='Aucun' name="nomClr" value="<?php echo $couleur->nom() ?>" type="text"></td>
+      <td > <input placeholder='Aucun' name="filterCssCodeClr" value="<?php echo $couleur->filterCssCode() ?>" type="text">  </td>
       <td> Disponible
-        <select name="clrDispo" id="">
+        <select name="dispoClr" id="">
           <option value="1"> Oui</option>
           <option value="0"> Non</option>
         </select>
       </td>
       <td> 
-        <form action="" id='supprimerCouleur' method="POST"> <button style="background-color: #bf4c4c;" class="btn-primary form-control" type="submit" value="<?php echo $couleur->num() ?>"> <i class="fa fa-trash "></i> </button>  </form>  
-        <button class="btn-primary form-control" type="submit" name="modifierCouleur"> <i class="fa fa-floppy-o"> </i>  </button>
+        <button class="btn-primary form-control" type="submit" name="modifierCouleur" value="<?php echo $couleur->num() ?>"> <i class="fa fa-floppy-o"> </i>  </button>
+        <button style="background-color: #bf4c4c;" name="supprimerCouleur" onclick="return confirm('Vous-vous vraiment supprimer cette couleur ?')" class="btn-primary form-control" type="submit" value="<?php echo $couleur->num() ?>"> <i class="fa fa-trash "></i> </button>  
       </td>
 
     </tr>
     </form>
-    <script> $("select[name='clrDispo']").last().val(<?php echo $couleur->dispo() ?>) ;</script>
+    <!-- Selection automatique de la disponibilité des couleurs  -->
+    <script> $("select[name='dispoClr']").last().val(<?php echo $couleur->dispo() ?>) ;</script>
     <?php  } ?>
 
     <form action="" id='ajouterCouleur' method="POST"> 
@@ -158,7 +167,7 @@
     <?php foreach ($vetement->listeTailleDispo() as $taille) { ?>
       <tr> 
         <td> <?php echo $taille->libelle() ?> </td>
-        <td> <form action="" id='supprimerTaille' method="POST"> <button style="background-color: #bf4c4c;" class="btn-primary form-control" type="submit" value="<?php echo $taille->libelle() ?>"> <i class="fa fa-trash "></i>  </button>  </form> </td>
+        <td> <form action="" id='supprimerTaille' method="POST"> <button name="supprimerTaille" style="background-color: #bf4c4c;" class="btn-primary form-control" type="submit" value="<?php echo $taille->libelle() ?>"> <i class="fa fa-trash "></i>  </button>  </form> </td>
       </tr>
     <?php  } ?>
 
@@ -166,18 +175,20 @@
     <tr>
       <td>
          
-          <select class='form-control' name="etat" id="selectEtat">
-      
+          <select class='form-control' name="taille" id="selectTaille">
+
               <?php foreach ($listTaille as $taille) { ?>
-                <option <?php if ($vetement->possedeTaille($taille->libelle()) == true) {echo "disabled"; }?> value="<?php echo $taille->libelle() ?>"> <?php echo $taille->libelle() ?></option>
-                <?php  } ?>
           
+                <option <?php if ($vetement->possedeTaille($taille->libelle() ) == true) {echo "disabled"; }?> value="<?php echo $taille->libelle() ?>"> <?php echo $taille->libelle() ?></option>
+                <?php  } ?>
+
+              
           </select>
                
         </td>
 
         <td>  
-          <button style="background-color: #3bbf82;" class="btn-primary form-control" type="submit"> <i class="fa fa-plus-circle"> </i> </button>
+          <button style="background-color: #3bbf82;" name="ajouterTaille" class="btn-primary form-control" type="submit"> <i class="fa fa-plus-circle"> </i> </button>
        </td>
 
     </tr>

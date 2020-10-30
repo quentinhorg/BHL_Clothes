@@ -16,6 +16,17 @@ class CategorieManager extends DataBase{
         return $this->getModele($req, ["*"], "Categorie");
     }
 
+    public function getListeGategForGenre($codeGenre){
+        $req = "SELECT DISTINCT c.* 
+        FROM genre g 
+        INNER JOIN vetement v ON v.codeGenre = g.code
+        INNER JOIN categorie c ON c.id = v.idCateg 
+        WHERE g.code = ?
+        order by c.nom";
+        $this->getBdd();
+        return $this->getModele($req, [$codeGenre], "Categorie");
+    }
+
 
 
 

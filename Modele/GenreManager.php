@@ -1,8 +1,7 @@
 <?php
 
 class GenreManager extends DataBase{
-    private $reqBase = "SELECT * FROM vue_categpargenre vcg 
-    RIGHT JOIN genre g ON vcg.codeGenre = g.code";
+    private $reqBase = "SELECT g.* FROM genre g";
     
     public function getGenre($code){
         $req = $this->reqBase." WHERE g.code LIKE ?";

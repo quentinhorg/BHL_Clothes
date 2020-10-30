@@ -2,9 +2,7 @@
 
 class Genre{
    private  $code;
-   private  $libelle;
-   private  $listeIdCategorie;
-   
+   private  $libelle;   
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
@@ -38,17 +36,6 @@ class Genre{
    }
 
  
-   public function setListeIdCategorie($listeIdCateg){
-      
-      if($listeIdCateg != null ){
-         $listeIdCateg = explode(",", $listeIdCateg);
-      
-         $this->listeCateg =  $listeIdCateg  ;
-      }
-   }
-
-
- 
    
 
    //GETTER
@@ -64,12 +51,8 @@ class Genre{
    }
 
    public function listeCateg(){
-
       $CategManager = new CategorieManager ;
-      foreach ($this->listeCateg as $categCode) {
-         $listObjCateg[] = $CategManager->getCateg($categCode) ;
-      }
-      return $listObjCateg ;
+      return $CategManager->getListeGategForGenre($this->code);
    }
 
 

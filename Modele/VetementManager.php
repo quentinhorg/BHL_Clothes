@@ -48,8 +48,6 @@ class VetementManager extends DataBase{
         $this->getBdd();
         $resultat = $this->getModele($req, ["*"], "Vetement") ;
 
-    
-       
         return $resultat;
     }
 
@@ -148,6 +146,16 @@ class VetementManager extends DataBase{
         $this->getBdd();
         
         return $this->execBDD($req, [$id])[0]["nbRow"];
+
+    }
+
+    //Modifier un vêtement
+    public function updateBDD($id, $nom, $prix ,$motifPosition ,$codeGenre ,$description ,$idCateg){
+        if( empty($motifPosition) ){$motifPosition = null;}
+        $req="UPDATE vetement SET nom=?, prix=?, motifPosition=?, codeGenre=?, description=?, idCateg = ? WHERE id= ?";
+        $this->getBdd();
+        $this->execBDD($req, [$nom, $prix ,$motifPosition ,$codeGenre ,$description ,$idCateg, $id]);
+      
 
     }
 

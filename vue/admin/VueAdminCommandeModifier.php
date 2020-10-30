@@ -99,14 +99,56 @@
   </thead>
   <tbody>
   <?php foreach ($commande->panier() as $Article) {?>
-    <tr>
-      <th scope="row"><?php echo $Article->nom() ?></th>
-      <td> <?php echo $Article->Taille()->libelle() ?> </td>
-      <td><?php echo $Article->Couleur()->nom() ?></td>
-      <td> <?php echo $Article->qte() ?> </td>
-      <td> <?php echo $Article->prixTotalArt()."€" ?> </td>
-      <td> <button> Supprimer </button> <button> Modifier </button>  </td>
-    </tr>
+    
+    <form id="editArticle" method="POST">
+    
+    <!-- Anciennes valeurs  -->
+    <div style="display:none">
+      <input type="text" readonly name="ancien[taille]" value='<?php echo $Article->Taille()->libelle() ?>'>
+      <input type="text" readonly name="ancien[numClr]" value='<?php echo $Article->Couleur()->num() ?>'>
+    </div>
+
+
+      <tr>
+        <th scope="row"><?php echo $Article->nom() ?> </th>
+        <td> 
+          <select name="tailleArt" >
+          <?php foreach ($Article->listeTailleDispo() as $Taille) { ?>
+              <option value="<?php echo $Taille->libelle() ?>"> <?php echo $Taille->libelle() ?> </option>
+            <?php } ?>
+          </select>
+
+           <!-- Selection automatique de la taille de l'article concerné  -->
+           <script> $("select[name='tailleArt']").last().val('<?php echo $Article->Taille()->libelle() ?>') ;</script>
+      
+        
+        </td>
+        <td>
+          <select name="numClrArt">
+            <?php foreach ($Article->listeCouleurDispo() as $couleur) { ?>
+              <option value="<?php echo $couleur->num() ?>"> <?php echo $couleur->nom() ?> </option>
+            <?php } ?>
+          </select>
+
+             <!-- Selection automatique de la couleur de l'article concerné  -->
+             <script> $("select[name='numClrArt']").last().val('<?php echo $Article->Couleur()->num() ?>') ;</script>
+      
+        
+
+        </td>
+        <td> <input type="number" value="<?php echo $Article->qte() ?>" max="10" name="qteArt"></td>
+        <td> <?php echo $Article->prixTotalArt()."€" ?> </td>
+        <td> 
+          <button onclick='return confirm("Voulez-vous vraiment supprimer cette article ?")' type='submit' name='supprimerArticle' value="<?php echo $Article->id() ?>" > Supprimer </button> 
+              
+            
+   
+         
+
+          <button type='submit' name='modifierArticle' value="<?php echo $Article->id() ?>" > Modifier </button> 
+        </td>
+      </tr>
+    </form>
   <?php } ?>
    
   </tbody>

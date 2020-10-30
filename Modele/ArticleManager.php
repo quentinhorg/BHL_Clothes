@@ -15,6 +15,14 @@ class ArticleManager extends DataBase{
       return $this->getModele($reqArt, [$idCmd], "Article");
    }
 
+   public function updateBDD($idCmd, $idVet, $taille, $idClr, $qte, $ancien){
+      
+      $req = "UPDATE article_panier SET taille = ?, numClr = ?, qte = ?
+      WHERE numCmd = ? AND idVet = ? AND taille = ? AND numClr = ?";
+      $this->getBdd();
+      $this->execBDD($req, [ $taille, $idClr, $qte, $idCmd, $idVet, $ancien["taille"], $ancien["numClr"] ]);
+   }
+
 
 
 
@@ -26,14 +34,11 @@ class ArticleManager extends DataBase{
   
    }
 
-      public function diminuerQte($idCmd, $idVet, $idTaille, $idClr){
-
-            $req = "CALL insert_article(?, ?, ?, ?, -1)";
-            $this->getBdd();
-            $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr]);
-
-      }
-
+   public function diminuerQte($idCmd, $idVet, $idTaille, $idClr){
+         $req = "CALL insert_article(?, ?, ?, ?, -1)";
+         $this->getBdd();
+         $this->execBDD($req, [$idCmd, $idVet, $idTaille, $idClr]);
+   }
 
 
 

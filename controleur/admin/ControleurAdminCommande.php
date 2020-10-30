@@ -20,16 +20,28 @@ class ControleurAdminCommande{
             $this->CommandeManager = new CommandeManager;
             $this->EtatManager = new EtatManager;
             $this->FactureManager = new FactureManager;
+            $this->ArticleManager = new ArticleManager;
       
-
+            //Etat d'une commande
             if( isset($_POST["modifierEtatCmd"]) ){
                $this->modifierEtat($url[2], $_POST["etat"]);
             }
-            else if( isset($_POST["supprimerFacture"]) ){
+
+            //Facture
+            if( isset($_POST["supprimerFacture"]) ){
                $this->supprimerFacture($url[2]);
             }
             else if( isset($_POST["supprimerCommande"]) ){
                $this->supprimerCommande($url[2]);
+            }
+
+            //Article
+            if(isset($_POST["supprimerArticle"])){
+             
+               $this->supprimerArticle($url[2], $_POST["supprimerArticle"], $_POST["tailleArt"], $_POST["numClrArt"]);
+            }
+            else if(isset($_POST["modifierArticle"])){
+               $this->modifierArticle($url[2], $_POST["modifierArticle"], $_POST["tailleArt"], $_POST["numClrArt"], $_POST["qteArt"], $_POST["ancien"]);
             }
             
          
@@ -59,13 +71,34 @@ class ControleurAdminCommande{
       }
    }
    
+   //Commande
    private function listCommande(){
       return $this->CommandeManager->getListCommande();
    }
    private function commandeInfo($num){
       return $this->CommandeManager->getCommande($num);
    }
+   private function supprimerCommande($numCmd){
 
+      try{
+         //Apres le vide du panier, la commande se supprime automatiquement  
+         $this->CommandeManager->viderPanier($numCmd);
+         $this->message= "La commande à bien été supprimé.";
+  
+      } catch (Exception $e) {
+
+         if($e->getCode() == 45000 ){
+            $this->message = $e->getMessage() ;
+         }
+         else{
+            $this->message = "<b>Erreur lors de la suppression </b> <br>".$e->getMessage();
+         }
+        
+      }
+
+   }
+
+   //Etat
    private function listEtat(){
       return $this->EtatManager->getListEtat();
    }
@@ -86,8 +119,8 @@ class ControleurAdminCommande{
  
    }
 
+   //Facture
    private function supprimerFacture($numCmd){
-
       try{
 
          $this->FactureManager->supprimerFacture($numCmd);
@@ -103,25 +136,46 @@ class ControleurAdminCommande{
  
    }
 
-   private function supprimerCommande($numCmd){
-
+   //Article
+   private function supprimerArticle($numCmd, $idVet, $tailleArt, $numClrArt){
       try{
-         //Apres le vide du panier, la commande se supprime automatiquement  
-         $this->CommandeManager->viderPanier($numCmd);
-         $this->message= "La commande à bien été supprimé.";
+
+         $this->ArticleManager->supprimer($numCmd, $idVet, $tailleArt, $numClrArt);
+         $this->message= "L'article à bien été supprimé.";
   
       } catch (Exception $e) {
-
-         if($e->getCode() == 45000 ){
-            $this->message = $e->getMessage() ;
+         
+         if($e->getCode() == 45000){
+            $this->message = $e->getMessage();
          }
          else{
-            $this->message = "<b>Erreur lors de la suppression </b> <br>".$e->getMessage();
+            $this->message = "<b> Erreur lors de la suppression de l'article </b> <br>";
          }
-        
       }
 
+ 
    }
+
+   private function modifierArticle($numCmd, $idVet, $tailleArt, $numClrArt, $qte, $ancienValue){
+
+      try{
+
+         $this->ArticleManager->updateBDD($numCmd, $idVet, $tailleArt, $numClrArt, $qte, $ancienValue);
+         $this->message= "L'article à bien été modifié.";
+  
+      } catch (Exception $e) {
+         if($e->getCode() == 45000){
+            $this->message = $e->getMessage();
+         }
+         else{
+            $this->message = "<b> Erreur lors de la modification de l'article </b> <br>";
+         }
+      }
+
+ 
+   }
+
+
 
   
 
