@@ -8,7 +8,7 @@ class VetementManager extends DataBase{
     LEFT JOIN vet_couleur vc ON vc.idVet= v.id 
     LEFT JOIN categorie c ON c.id= v.idCateg
     LEFT JOIN genre g ON g.code = v.codeGenre
-    LEFT JOIN taille t ON t.libelle = vt.taille" ;
+    LEFT JOIN taille t ON t.libelle = vt.taille";
 
     public $Pagination = null;
 

@@ -5,7 +5,7 @@ class ClientManager extends DataBase{
 
 
     public function getClient($id){
-        $req = "SELECT c.*,GROUP_CONCAT(co.num) as 'listeIdCmd'
+        $req = "SELECT c.*
                 FROM client c 
                 LEFT JOIN commande co ON c.id = co.idClient 
                 WHERE c.id = ?
@@ -22,7 +22,6 @@ class ClientManager extends DataBase{
         if(  isset($_SESSION["id_client_en_ligne"]) ){
             return  $this->getClient($_SESSION["id_client_en_ligne"]);
         }else{ return null ;}
-    
     }
 
     public function getCleClient($email){
@@ -71,7 +70,6 @@ class ClientManager extends DataBase{
     }
 
     public function tryActiveCompte($mail, $cle){
-
         $this->getBdd();
         $req = "CALL activeCompte(?, ?)";
         $this->execBDD($req,[$mail,$cle]) ;
@@ -90,12 +88,6 @@ class ClientManager extends DataBase{
         $resultat = $this->execBDD($changeMdp,[sha1($_POST['changeMdp']),$id]);
     }
     
-    public function deconnexion(){
-        $_SESSION["id_client_en_ligne"] = null;
-        unset($_SESSION["id_client_en_ligne"]);
-        session_destroy();
-    }
-
     public function changeAdresse($id){
         $this->getBdd();
         $changeAdresse = "UPDATE client SET rue = ?, codePostal = ? WHERE id = ? ;" ;

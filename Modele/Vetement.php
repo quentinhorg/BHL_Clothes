@@ -150,38 +150,38 @@ class Vetement{
    //AUTRES MÉTHODES
    public function dispoPourVendre(){
       $peutVendre = true ;
-
       if( $this->listeTailleDispo() == null ){
          $peutVendre = false ;
       }
-
-  
       if( $this->listeCouleurDispo() == null ){
-    
          $peutVendre = false ;
       }
-
       return $peutVendre;
-      
    }
 
    public function possedeTaille($taille){
-
       $possedeTaille=false;
-      
-      foreach ($this->listeTailleDispo() as $tailleDispo) {
-        
 
+      foreach ($this->listeTailleDispo() as $tailleDispo) {
          if ($taille == $tailleDispo->libelle()) {
-            
             $possedeTaille= true;
             break;
          }
-         
-      }
-
       return $possedeTaille;
+   }
+   }
+
+   
+   public function vueMotif(Couleur $Couleur){
+      $checked = null;
+      $idMotif = "Vet".$this->id."_motif_Clr".$Couleur->num();
       
+      if($this->listeCouleurDispo()[0]->num() == $Couleur->num() ){ $checked = "checked" ;}
+
+      echo "<div class='motifVet'>";
+      echo "<label for='$idMotif' style='background-image:url(public/media/vetement/id$this->id.jpg); filter: ".$Couleur->filterCssCode()." ; $this->motifPosition'></label>" ;
+      echo "<input id='$idMotif' name='numClr' $checked style='display:none' value='".$Couleur->num()."' type='radio' >";
+      echo "</div>";
    }
 
 

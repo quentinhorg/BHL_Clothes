@@ -12,7 +12,6 @@
     <tr>
       <th scope="row">Date de création</th>
       <td><input class='form-control' disabled value='<?php echo $commande->dateCreation()?>' type="text"></td>
- 
     </tr>
 
     <tr>
@@ -133,7 +132,7 @@
              <!-- Selection automatique de la couleur de l'article concerné  -->
              <script> $("select[name='numClrArt']").last().val('<?php echo $Article->Couleur()->num() ?>') ;</script>
       
-        
+              
 
         </td>
         <td> <input type="number" value="<?php echo $Article->qte() ?>" max="10" name="qteArt"></td>

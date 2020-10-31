@@ -58,4 +58,22 @@ hr{
 
 
 
+/* Motif des vêtements */
+
+.motifVet label{
+   width: 25px;
+   height: 25px;
+   display: inline-block;
+   margin: 3px 3px;
+   cursor: pointer;
+   background-position: center;
+}
+
+.motifVet{
+   list-style-type: none;
+   display: inline-flex;
+   background-color: white;
+   border: 1px solid grey;
+   margin: 0 4px;
+} 
 

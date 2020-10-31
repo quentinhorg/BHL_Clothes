@@ -72,13 +72,13 @@
         <tr>
           <th scope="row">Configuration du motif </th>
           
-          <td> <input type="text" placeholder="Aucun" name="motifConfigVet" value="<?php echo $vetement->motifPosition() ?>""> </td>
+          <td> <input type="text" placeholder="Aucun" name="motifConfigVet" value="<?php echo $vetement->motifPosition() ?>"> </td>
         </tr>
 
         <tr>
           <th scope="row">Description </th>
           <td>
-              <textarea name="descVet" cols="30" rows="10"><?php echo $vetement->description() ?> </textarea>
+              <textarea name="descVet" cols="30" rows="10"><?php echo $vetement->description() ?></textarea>
             </td>
         </tr>
 
@@ -102,6 +102,7 @@
     <table class="table disponibilite">
   <thead class="thead-dark">
     <tr>
+      <th scope="col" class="col-sm-2" > Motif  </th>
       <th scope="col" > Nom  </th>
       <th scope="col" > Filtre CSS  </th>
       <th scope="col" > Disponible  </th>
@@ -113,6 +114,7 @@
   <?php foreach ($vetement->listeCouleur() as $couleur) {?>
     <form action="" id='modifierCouleur' method="POST"> 
     <tr>
+      <td class="col-sm-2"> <?php $vetement->vueMotif($couleur) ?> </td>
       <td> <input placeholder='Aucun' name="nomClr" value="<?php echo $couleur->nom() ?>" type="text"></td>
       <td > <input placeholder='Aucun' name="filterCssCodeClr" value="<?php echo $couleur->filterCssCode() ?>" type="text">  </td>
       <td> Disponible
@@ -134,6 +136,7 @@
 
     <form action="" id='ajouterCouleur' method="POST"> 
     <tr>
+        <td class="col-sm-2"> </td>
         <td> <input type="text" name="nomClr" placeholder="Nom"> </td>
         <td> <input type="text" name="filterCssCodeClr" placeholder="hue-rotate(xx)"> </td>
         <td> Disponible

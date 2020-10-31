@@ -2,7 +2,9 @@
 
 class CommandeManager extends DataBase{
 
-    public $reqBase = "SELECT DISTINCT c.*, calcCmdTTC(c.num) AS 'prixTTC',  calcCmdHT(c.num) AS 'prixHT', (SELECT SUM(ap2.qte) FROM article_panier ap2 WHERE ap2.numCmd = c.num ) as 'totalArticle' 
+    public $reqBase = "SELECT DISTINCT c.*, calcCmdTTC(c.num) AS 'prixTTC',  
+    calcCmdHT(c.num) AS 'prixHT',
+    (SELECT SUM(ap2.qte) FROM article_panier ap2 WHERE ap2.numCmd = c.num ) as 'totalArticle' 
     FROM commande c
     LEFT JOIN client clt ON clt.id=c.idClient
     LEFT JOIN code_postal cp ON cp.cp=clt.codePostal
@@ -13,6 +15,13 @@ class CommandeManager extends DataBase{
         $this->getBdd();
         $commande =  $this->getModele($req, ["*"], "Commande");
 
+        return $commande;
+    }
+
+    public function getListCommandeForClient($idClient){
+        $req = $this->reqBase." WHERE c.idClient= ?";
+        $this->getBdd();
+        $commande =  $this->getModele($req, [$idClient], "Commande");
         return $commande;
     }
 

@@ -188,8 +188,8 @@ CREATE TABLE `article_panier` (
   KEY `numClr` (`numClr`),
   CONSTRAINT `CONTIENT_commande0_FK` FOREIGN KEY (`numCmd`) REFERENCES `commande` (`num`),
   CONSTRAINT `CONTIENT_vetement_FK` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`),
-  CONSTRAINT `article_panier_ibfk_2` FOREIGN KEY (`numClr`) REFERENCES `vet_couleur` (`num`),
-  CONSTRAINT `article_panier_ibfk_3` FOREIGN KEY (`taille`) REFERENCES `taille` (`libelle`)
+  CONSTRAINT `article_panier_ibfk_3` FOREIGN KEY (`taille`) REFERENCES `taille` (`libelle`),
+  CONSTRAINT `article_panier_ibfk_5` FOREIGN KEY (`numClr`) REFERENCES `vet_couleur` (`num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ordreArrivee`) VALUES
@@ -212,18 +212,18 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (7,	23,	'M',	26,	1,	3),
 (8,	24,	'L',	28,	1,	2),
 (11,	25,	'M',	25,	1,	1),
-(13,	26,	'M',	38,	1,	6),
+(13,	26,	'S',	39,	3,	8),
 (7,	28,	'M',	46,	6,	2),
 (7,	28,	'M',	51,	1,	1),
 (8,	28,	'L',	46,	1,	1),
 (11,	28,	'M',	46,	1,	5),
 (11,	28,	'M',	48,	1,	4),
 (11,	29,	'M',	53,	1,	3),
+(13,	30,	'34',	104,	1,	9),
 (11,	33,	'36',	56,	1,	6),
-(13,	36,	'38',	94,	1,	5),
+(13,	36,	'40',	94,	3,	7),
 (12,	47,	'M',	80,	1,	4),
-(12,	49,	'38',	58,	1,	1),
-(13,	50,	'36',	59,	1,	2);
+(12,	49,	'38',	58,	1,	1);
 
 DELIMITER ;;
 
@@ -744,7 +744,7 @@ CREATE TABLE `commande` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
-(3,	8,	'2020-10-22 10:42:31',	3),
+(3,	8,	'2020-10-22 10:42:31',	2),
 (4,	8,	'2020-10-24 20:45:40',	2),
 (6,	8,	'2020-10-24 20:45:38',	4),
 (7,	8,	'2020-10-24 20:45:10',	5),
@@ -930,7 +930,7 @@ CREATE TABLE `vetement` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `description`, `idCateg`) VALUES
-(1,	'Robe D\'Eté Superposée Fleurie Imprimée',	25.5,	NULL,	'F',	'Petite robe imprimée en coton avec des bretelles fines. Matières: rayonne.',	1),
+(1,	'Robe D\'Eté Superposée Fleurie Imprimée',	35.5,	NULL,	'F',	'Petite robe imprimée en coton avec des bretelles fines. Matières: rayonne.        ',	1),
 (2,	'Short de Survêtement à Cordon',	10,	NULL,	'F',	'Short court à cordon. Matière: coton.',	5),
 (3,	'T-shirt Manche longue unicolore',	15,	NULL,	'F',	'Tshirt manche longue en coton.',	2),
 (4,	'Pull Court Simple Surdimensionné',	37,	NULL,	'F',	'Pull court manches longues. Matières: coton, polyester',	4),
@@ -987,9 +987,10 @@ CREATE TABLE `vet_couleur` (
   `num` int(3) NOT NULL,
   `idVet` int(3) NOT NULL,
   `nom` varchar(200) NOT NULL,
-  `filterCssCode` varchar(200) DEFAULT NULL,
+  `filterCssCode` varchar(200) DEFAULT '',
   `dispo` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`num`),
+  UNIQUE KEY `idVet_filterCssCode` (`idVet`,`filterCssCode`),
   KEY `idVet` (`idVet`),
   CONSTRAINT `vet_couleur_ibfk_1` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1012,7 +1013,6 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (15,	6,	'Mauve rayé blanc et noir',	'hue-rotate(45deg)',	1),
 (16,	6,	'Rouge rayé blanc et noir',	'hue-rotate(110deg);',	1),
 (17,	7,	'Vert fluo',	'hue-rotate(120deg)',	1),
-(18,	1,	'Bleu',	'',	1),
 (19,	20,	'Gris',	NULL,	1),
 (20,	22,	'Rayé noir',	NULL,	1),
 (21,	21,	'Couleur jaune rose bleu vert',	NULL,	1),
@@ -1049,7 +1049,7 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (53,	29,	'Noir rayé blanc',	'',	1),
 (54,	31,	'Kaki foncé',	NULL,	1),
 (55,	32,	'Jean clair ',	NULL,	1),
-(56,	33,	'Vert forêt rayé orange',	NULL,	1),
+(56,	33,	'Vert forêt rayé orange',	NULL,	0),
 (57,	37,	'Semi rouge et noir',	NULL,	1),
 (58,	49,	'Jean basic',	NULL,	1),
 (59,	50,	'Noir jean',	NULL,	1),
@@ -1098,7 +1098,11 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (103,	32,	'Rose',	'hue-rotate(100deg)',	1),
 (104,	30,	'Vert à mini pois blanc',	'hue-rotate(100deg)',	1),
 (105,	30,	'Bleu à mini pois blanc',	'hue-rotate(200deg)',	1),
-(106,	30,	'Fuchsia à mini pois blanc ',	'hue-rotate(700deg)',	1);
+(106,	30,	'Fuchsia à mini pois blanc ',	'hue-rotate(700deg)',	1),
+(107,	1,	'Bleu',	NULL,	1),
+(109,	46,	'',	NULL,	1),
+(110,	46,	'',	NULL,	1),
+(111,	1,	'',	NULL,	1);
 
 DROP TABLE IF EXISTS `vet_taille`;
 CREATE TABLE `vet_taille` (
@@ -1111,6 +1115,7 @@ CREATE TABLE `vet_taille` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
+(10,	'32'),
 (34,	'32'),
 (37,	'32'),
 (49,	'32'),
@@ -1215,6 +1220,7 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (46,	'M'),
 (47,	'M'),
 (48,	'M'),
+(1,	'S'),
 (3,	'S'),
 (4,	'S'),
 (5,	'S'),
@@ -1231,8 +1237,8 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (39,	'S'),
 (42,	'S'),
 (45,	'S'),
+(46,	'S'),
 (47,	'S'),
-(1,	'XL'),
 (2,	'XL'),
 (3,	'XL'),
 (5,	'XL'),
@@ -1251,7 +1257,6 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (42,	'XL'),
 (43,	'XL'),
 (48,	'XL'),
-(1,	'XS'),
 (6,	'XS'),
 (8,	'XS'),
 (13,	'XS'),
@@ -1263,18 +1268,10 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 (45,	'XS'),
 (47,	'XS');
 
-DROP VIEW IF EXISTS `vue_categpargenre`;
-CREATE TABLE `vue_categpargenre` (`codeGenre` varchar(1), `ListeIdCategorie` mediumtext);
-
-
 DROP VIEW IF EXISTS `vue_vet_disponibilite`;
 CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeNumCouleurDispo` mediumtext, `listeTailleDispo` mediumtext);
-
-
-DROP TABLE IF EXISTS `vue_categpargenre`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_categpargenre` AS select `g`.`code` AS `codeGenre`,group_concat(distinct `v`.`idCateg` separator ',') AS `ListeIdCategorie` from (`genre` `g` join `vetement` `v` on(`v`.`codeGenre` = `g`.`code`)) group by `v`.`codeGenre` order by `g`.`code`;
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-25 18:27:52
+-- 2020-10-31 04:21:11

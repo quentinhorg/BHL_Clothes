@@ -150,8 +150,9 @@ class ControleurAuthentification{
    }
 
    private function deconnexion(){
-      $ClientManager = new ClientManager();
-      $ClientManager->deconnexion();
+      $_SESSION["id_client_en_ligne"] = null;
+      unset($_SESSION["id_client_en_ligne"]);
+      session_destroy();
   }
 
 
@@ -221,7 +222,7 @@ class ControleurAuthentification{
 
    public function tryActiveCompte($mail, $cle){
       $ClientManager = new ClientManager;
-      $ClientManager->deconnexion();
+      $this->deconnexion();
       try{
          $ClientManager->tryActiveCompte($mail, $cle) ;
          $this->message = "<b style='color:#51a251'> Votre compte à bien été activé </b>, vous pouvez maintenant <a href='authentification/connexion'> vous connectez </a>. ";

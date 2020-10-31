@@ -17,16 +17,13 @@
 
         <form action="" method="POST" id="vetementChoisi">
             <label for="">Couleur: </label>
-            <ul class='listeCouleur' id="couleur">
+            <ul>
             <!-- <select name="numClr"> -->
                 <?php foreach($infoVetement->listeCouleurDispo() as $indice => $couleur ) { 
-                    $idColor = "numClr".$couleur->num();
+                    
                     ?>
                     <li>  
-                        <label style="background-image:url(public/media/vetement/id<?php echo $infoVetement->id() ?>.jpg) ; <?php echo "filter: ".$couleur->filterCssCode()  ?>; <?php echo $infoVetement->motifPosition() ?>" for="<?php  echo $idColor ?>"> </label> 
-                        <input <?php if($indice == 0){ echo "checked" ;} ?> name="numClr" style="display:none" id='<?php echo $idColor ?>' value="<?php echo $couleur->num(); ?>" type="radio" > 
-                        
-                    
+                      <?php $infoVetement->vueMotif($couleur); ?>
                     </li>
                 <?php } ?>
             </select>

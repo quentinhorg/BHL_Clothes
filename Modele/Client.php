@@ -9,7 +9,6 @@ class Client{
    private  $rue;
    private  $tel;
    private  $solde;
-   private  $listeIdCmd = array();
    private  $codePostal;
    private  $active;
    private  $dateInscription;
@@ -98,14 +97,6 @@ class Client{
             }
     }
 
-    public function setListeIdCmd($listeIdCmd){
-
-        if($listeIdCmd != null){
-            $tabIdCmd = explode(",",$listeIdCmd);
-            $this->listeIdCmd = $tabIdCmd ;
-        }
-        
-    }
 
     public function setActive($active){
 
@@ -157,14 +148,8 @@ class Client{
     //Tableau d'objet
     public function listCmd(){
         $listeCmd = array();
-        $CommandeManageur = new CommandeManager();
-       
-
-        foreach ($this->listeIdCmd as $id){
-            $listeCmd[]= $CommandeManageur->getCommande($id);
-        }
-
-       return $listeCmd;
+        $CommandeManager = new CommandeManager();
+       return $CommandeManager->getListCommandeForClient($this->id);
     }
 
     //Tableau d'objet

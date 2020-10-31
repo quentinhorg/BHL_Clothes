@@ -101,12 +101,9 @@ class Routeur{
          }
          
          
-         if($this->url[0] == "admin" ){
-            $this->setControleur("admin");
-         }
-         else{
+       
             $this->setControleur();
-         }
+        
          
       
      
