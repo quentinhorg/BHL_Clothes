@@ -116,7 +116,7 @@ class Vetement{
       return $TailleManager->getListeTailleForVet($this->id);
    }
 
-   //Retourne une liste d'object couleur disponible pour le veteemnt conerné
+   //Retourne une liste d'object couleur disponible pour le vetement conerné
    public function listeCouleurDispo(){
       $listeCouleurDispo = array();
       foreach ($this->listeCouleur() as $couleur) {

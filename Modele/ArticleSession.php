@@ -12,9 +12,9 @@ class ArticleSession extends Article{
       $this->setTaille($taille);
       $this->setNumClr($numClr);
       $this->setQte($qte);
-      
    }
 
+   //Setter
    public function setQte($qte){
       parent::setQte($qte);
       $this->setPrixTotalArt($this->qte * $this->prix);

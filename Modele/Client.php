@@ -175,12 +175,12 @@ class Client{
         return $this->active;
     }
 
-    public function dateInscription(){
+    public function dateInscription($format){
         $dateFormat = null ;
-  
+        
         if( $this->dateInscription != null){
            $date= new DateTime($this->dateInscription);
-           $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
+           $dateFormat = date_format($date, $format) ;
         }
   
         return $dateFormat;

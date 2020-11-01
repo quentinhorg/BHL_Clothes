@@ -54,8 +54,11 @@
          //Procédure pour éviter dupliquer la variable "page=" dans l'url
          if(strpos($href,"page")){
             $href =  substr($href, 0, strpos($href,"page")-1); // retourne "de"
+            
          }
-         $href.="&page=";
+         $symbole = "?";
+         if(strpos($href, "?")){$symbole = "&" ;}
+         $href.= $symbole."page=";
 
       
          

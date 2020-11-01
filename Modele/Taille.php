@@ -24,7 +24,6 @@ class Taille{
 
    
    //SETTER
-
    public function setLibelle($libelle){
       if(is_string($libelle)){
          $this->libelle = $libelle;
