@@ -3,7 +3,7 @@ E-commerce website, school project. Site de vêtement en ligne pour ados et adul
 
 # Installation / Utilisation 
 
-1) Changer la base du chemain relatif du projet par ici [template.php - Line 4](https://github.com/quentinhoareau/BHL_Clothes/blob/ec3706c4cda75250fe356e34177baf10b848e058/vue/template.php#L4) et ici  [template.php - Line 5](https://github.com/quentinhorg/BHL_Clothes/blob/master/vue/admin/adminTemplate.php#L5)
+1) Changer la base du chemain relatif du projet par ici [template.php - Line 4](https://github.com/quentinhoareau/BHL_Clothes/blob/ec3706c4cda75250fe356e34177baf10b848e058/vue/template.php#L4) et ici  [adminTemplate.php - Line 5](https://github.com/quentinhorg/BHL_Clothes/blob/master/vue/admin/adminTemplate.php#L5)
 
 
 .
