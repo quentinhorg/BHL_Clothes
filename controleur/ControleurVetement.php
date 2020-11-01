@@ -44,7 +44,7 @@ class ControleurVetement{
                "infoVetement"     => $this->infoVetement($id),
                "msg"              => $msg,
                "listeAvis" => $this->listeAvis($id),
-               "client" => $GLOBALS["client_en_ligne"]
+               "client" => $GLOBALS["user_en_ligne"]
             )) ;
          }
        else{
@@ -78,7 +78,7 @@ class ControleurVetement{
    private function insertAvis($idVet){
       $AvisManager = new AvisManager();
       $ClientManager= new ClientManager();
-      $idClient= $GLOBALS["client_en_ligne"]->id();
+      $idClient= $GLOBALS["user_en_ligne"]->id();
 
       $AvisManager->insertAvis($idVet, $idClient);
    }

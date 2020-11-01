@@ -11,8 +11,9 @@ class ControleurAdminCommande{
 
    // CONSTRUCTEUR 
    public function __construct($url){
-      
-      if( isset($url) && count($url) > 3 ){
+     
+      if( isset($url) && count($url) > 4 ){
+       
          throw new Exception(null, 404);
       }
       else{
@@ -44,9 +45,21 @@ class ControleurAdminCommande{
                $this->modifierArticle($url[2], $_POST["modifierArticle"], $_POST["tailleArt"], $_POST["numClrArt"], $_POST["qteArt"], $_POST["ancien"]);
             }
             
-         
+            
             //Modifier une commande
-            if( isset($url[2]) && $this->message != "La commande à bien été supprimé." ){
+            if( isset($url[3]) && $url[3] == "facture" ){
+
+               
+
+               $facture = $this->commandeInfo($url[2])->getFacture() ;
+               $client = $this->commandeInfo($url[2])->Client() ;
+               
+               include "vue/vueFacture.php";
+               $pdf->buildPDF();
+               $pdf->Output();
+               exit();
+            }
+            else if( isset($url[2]) && $this->message != "La commande à bien été supprimé." ){
 
                $vue = "AdminCommandeModifier" ;
                $donnee = array( 
@@ -54,6 +67,7 @@ class ControleurAdminCommande{
                "commande" => $this->commandeInfo($url[2])
                );
             }
+            
 
             //Listing des commandes 
             else{

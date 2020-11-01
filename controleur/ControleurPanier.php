@@ -57,7 +57,7 @@ class ControleurPanier{
 
         
          //Panier Session (Hors ligne)
-         if( $GLOBALS["client_en_ligne"] == null ){
+         if( $GLOBALS["user_en_ligne"] == null ){
 
                $ArticleSession = new ArticleSession($_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"]);
                
@@ -69,8 +69,8 @@ class ControleurPanier{
          //Panier BDD (Connecté)
          else{
 
-            if(  $this->CommandeManager->possedeCommandeNonPayer( $GLOBALS["client_en_ligne"]->id() ) == false ){
-               $numCmd = $this->CommandeManager->insertCommande( $GLOBALS["client_en_ligne"]->id() );
+            if(  $this->CommandeManager->possedeCommandeNonPayer( $GLOBALS["user_en_ligne"]->id() ) == false ){
+               $numCmd = $this->CommandeManager->insertCommande( $GLOBALS["user_en_ligne"]->id() );
             }
             $numCmd = $this->maCommandeActif()->num();
             $this->ArticleManager->inserer( $numCmd,  $_POST["idVet"], $_POST["taille"], $_POST["qte"], $_POST["numClr"] );
@@ -98,7 +98,7 @@ class ControleurPanier{
       $numCmd = $this->maCommandeActif()->num() ;
 
       //Panier Session (Hors ligne)
-      if( $GLOBALS["client_en_ligne"] == null ){
+      if( $GLOBALS["user_en_ligne"] == null ){
          $this->maCommandeActif()->supprimerArticle($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
       }
       //Panier BDD (Connecté)
@@ -118,7 +118,7 @@ class ControleurPanier{
 
    private function diminuerArticle(){
          //Panier Session (Hors ligne)
-         if( $GLOBALS["client_en_ligne"] == null ){
+         if( $GLOBALS["user_en_ligne"] == null ){
             $this->maCommandeActif()->diminuerArticle($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
          }
          //Panier BDD (Connecté)
@@ -154,7 +154,7 @@ class ControleurPanier{
 
 
    private function viderPanierActif(){
-      if( $GLOBALS["client_en_ligne"] == null ){
+      if( $GLOBALS["user_en_ligne"] == null ){
          $this->maCommandeActif()->viderPanier();
       }
       else{

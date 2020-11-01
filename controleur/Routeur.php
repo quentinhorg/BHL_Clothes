@@ -77,6 +77,14 @@ class Routeur{
 
       
    }
+
+   public function UtilisateurEnLigne(){
+      if(  isset($_SESSION["id_client_en_ligne"]) ){
+         $ClientManager = new ClientManager;
+          return $ClientManager->getClient($_SESSION["id_client_en_ligne"]);
+       }
+      else{ return null ;}
+  }
    
    public function routerLaPage(){
 
@@ -86,16 +94,12 @@ class Routeur{
          spl_autoload_register(function($classe){
             require_once('Modele/'.$classe.'.php');
          });
-        
          
          session_start(); //Démarrage de la session
-         $ClientManager = new ClientManager;
-         $GLOBALS["client_en_ligne"] = $ClientManager->ClientEnLigne() ;
-         
-       
+         $GLOBALS["user_en_ligne"] = $this->UtilisateurEnLigne() ;
          
          //Si le panier session n'a pas encore été défni et personne n'est connecté
-         if( !isset($_SESSION["ma_commande"]) && $GLOBALS["client_en_ligne"] == null ){
+         if( !isset($_SESSION["ma_commande"]) && $GLOBALS["user_en_ligne"] == null ){
             $CommandeManager = new CommandeManager;
             $CommandeManager->creerCommandeSession();
          }

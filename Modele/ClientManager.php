@@ -3,7 +3,6 @@
 
 class ClientManager extends DataBase{
 
-
     public function getClient($id){
         $req = "SELECT c.*
                 FROM client c 
@@ -17,12 +16,7 @@ class ClientManager extends DataBase{
         return @$this->getModele($req, [$id], "Client")[0];
     }
 
-    public function ClientEnLigne(){
-        
-        if(  isset($_SESSION["id_client_en_ligne"]) ){
-            return  $this->getClient($_SESSION["id_client_en_ligne"]);
-        }else{ return null ;}
-    }
+
 
     public function getCleClient($email){
 

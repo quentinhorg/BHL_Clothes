@@ -15,10 +15,10 @@ class ControleurFacture{
        
          if( isset($url[1]) ){
             if( $this->facture($url[1]) != null ){
-               if(  $GLOBALS["client_en_ligne"] != null ){
+               if(  $GLOBALS["user_en_ligne"] != null ){
                
                   if(
-                     $GLOBALS["client_en_ligne"]->id() == $this->facture($url[1])->Commande()->idClient()
+                     $GLOBALS["user_en_ligne"]->id() == $this->facture($url[1])->Commande()->idClient()
                      && $this->facture($url[1])->Commande()->Etat()->id() != 1 
                   ){
                      $facture = $this->facture($url[1]) ;

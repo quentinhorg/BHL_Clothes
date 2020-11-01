@@ -3,7 +3,7 @@
 
 | Variables  | Description |
 | ------------- | ------------- |
-| $GLOBALS["client_en_ligne"]  | Retourne l'object d'un Client en ligne ou NULL si personne n'est connecté: (utilisable sur toutes les pages)  |
+| $GLOBALS["user_en_ligne"]  | Retourne l'object d'un Client en ligne ou NULL si personne n'est connecté: (utilisable sur toutes les pages)  |
 
 ---
 

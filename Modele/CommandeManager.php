@@ -56,9 +56,9 @@ class CommandeManager extends DataBase{
     public function getCmdActiveClient(){
     
        
-        if( $GLOBALS["client_en_ligne"] != null  ){
+        if( $GLOBALS["user_en_ligne"] != null  ){
         
-            $clientId = $GLOBALS["client_en_ligne"]->id();
+            $clientId = $GLOBALS["user_en_ligne"]->id();
  
             $req = "SELECT c.num as 'numCmd'
             FROM commande c

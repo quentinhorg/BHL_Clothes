@@ -43,7 +43,7 @@ foreach ($facture->Commande()->panier() as $article) {
 $pdf->totalAdd(array('Type de paiement', $facture->typePaiement()));
 $pdf->totalAdd(array('Total article', $facture->Commande()->totalArticle()));
 $pdf->totalAdd(array('Total HT', $facture->Commande()->prixHT()." EUR") );
-$pdf->totalAdd(array('Livraison', $GLOBALS["client_en_ligne"]->CodePostal()->prixLiv().' EUR'));
+$pdf->totalAdd(array('Livraison', $client->CodePostal()->prixLiv().' EUR'));
 $pdf->totalAdd(array('Total TTC', $facture->Commande()->prixTTC()." EUR") );
 
 

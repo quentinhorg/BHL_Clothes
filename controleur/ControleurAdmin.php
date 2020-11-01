@@ -15,9 +15,18 @@ class ControleurAdmin{
          throw new Exception(null, 404);
       }
       else{
- 
-         if( !isset($url[1])  ) {  $urlAdmin = "Accueil" ; } else {$urlAdmin = $url[1] ;} //Si pas défini mettre à l'accueil de l'admin
 
+         //Vérififcatio ndes droits d'accès à la page actif
+
+         
+         if( 
+            isset($_SESSION["admin"])
+         ){ 
+            if( !isset($url[1]) ){  header("Location: ".URL_SITE."admin/commande");  }
+            else{$urlAdmin = $url[1] ;}
+         } 
+         else { $urlAdmin = "Authentification" ; } //Si pas défini mettre à l'accueil de l'admin
+         
      
          $ctrlName = $this->getCtrlAdmin($urlAdmin);  //Obtention du nom du controleur admin
         

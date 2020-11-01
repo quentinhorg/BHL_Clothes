@@ -24,14 +24,14 @@ class ControleurPaiement{
           
             $this->vue = new Vue('Paiement') ;
             $donneeVue = array(
-               "clientInfo"=> $GLOBALS["client_en_ligne"],
+               "clientInfo"=> $GLOBALS["user_en_ligne"],
                "maCommande"=> $this->maCommande()
             ) ;
             $this->vue->genererVue($donneeVue) ;
             
            
         }
-         else if ($GLOBALS["client_en_ligne"] == null && COUNT($this->maCommande()->panier()) >= 1 ) {
+         else if ($GLOBALS["user_en_ligne"] == null && COUNT($this->maCommande()->panier()) >= 1 ) {
             header("Location: ".URL_SITE."/authentification/inscription");
          }
          else{
@@ -66,7 +66,7 @@ class ControleurPaiement{
          $CommandeManager = new CommandeManager;
          $numCmdPaye = $this->maCommande()->num();
          
-         $CommandeManager->payerPanierActif($GLOBALS["client_en_ligne"]->id());
+         $CommandeManager->payerPanierActif($GLOBALS["user_en_ligne"]->id());
          header("Location: ".URL_SITE."facture/".$numCmdPaye."&envoyerFactureMail=Ok");
 
       } catch (Exception $e) {
@@ -87,7 +87,7 @@ class ControleurPaiement{
       && $this->maCommande()->Etat() != null //Possède un État
       && $this->maCommande()->Etat()->id() == 1 //La commande n'a pas encore été payé
       && COUNT($this->maCommande()->panier()) >= 1 // Au moins u narticle
-      && $GLOBALS["client_en_ligne"] != null; //Un client est en ligne
+      && $GLOBALS["user_en_ligne"] != null; //Un client est en ligne
       
    }
    

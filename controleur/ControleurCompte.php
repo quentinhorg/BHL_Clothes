@@ -9,16 +9,16 @@ class ControleurCompte{
         }
         else{
 
-            if($GLOBALS["client_en_ligne"] != null ){
+            if($GLOBALS["user_en_ligne"] != null ){
 
                 if( isset($url[1]) && $url[1] == "suivi"){
                     
                     if( isset($url[2]) ){
                         if($this->commande($url[2]) != null){
-                            if( $this->commande($url[2])->idClient() == $GLOBALS["client_en_ligne"]->id() ){
+                            if( $this->commande($url[2])->idClient() == $GLOBALS["user_en_ligne"]->id() ){
                                 $this->vue = new Vue('Suivi') ;
                                 $this->vue->genererVue(array(
-                                    "clientActif"=> $GLOBALS["client_en_ligne"],
+                                    "clientActif"=> $GLOBALS["user_en_ligne"],
                                     "listeEtat" => $this->listeEtat(),
                                     "infoCommande" => $this->commande($url[2])
                                 )) ;
@@ -39,7 +39,7 @@ class ControleurCompte{
                     }
         
                     if(isset($_POST['submitMdp'])){
-                        $mdpBdd = $GLOBALS["client_en_ligne"]->mdp();
+                        $mdpBdd = $GLOBALS["user_en_ligne"]->mdp();
                             if (!empty($_POST['changeMdp']) && !empty($_POST['changeMdp2']) && !empty($_POST['ancienMdp']) ){
                                 if($_POST['changeMdp'] == $_POST['changeMdp2']){
                                     if($_POST['ancienMdp'] == $mdpBdd  ){
@@ -58,12 +58,12 @@ class ControleurCompte{
                     }
     
                     //Actualisation des  nouvelles données du client
-                    $GLOBALS["client_en_ligne"] = $this->getNewInfoClientActif() ;
+                    $GLOBALS["user_en_ligne"] = $this->getNewInfoClientActif() ;
                     
                     $this->vue = new Vue('Compte') ;
                     $this->vue->setListeCss(["public/css/compte_dataTables.css", "public/css/compte_responsive"]);
                     $this->vue->genererVue(array(
-                        "clientActif"=> $GLOBALS["client_en_ligne"],
+                        "clientActif"=> $GLOBALS["user_en_ligne"],
                         "message"=>$message,
                         "listeCP"=>$this->getListCp()
                     )) ;
@@ -83,7 +83,7 @@ class ControleurCompte{
         
     private function getNewInfoClientActif(){
         $ClientManager = new ClientManager();
-        return  $ClientManager->getClient( $GLOBALS["client_en_ligne"]->id() );
+        return  $ClientManager->getClient( $GLOBALS["user_en_ligne"]->id() );
     }
 
     
@@ -111,19 +111,19 @@ class ControleurCompte{
 
     public function changeMail(){
         $ClientManager = new ClientManager();
-        $idCli = $GLOBALS["client_en_ligne"]->id();
+        $idCli = $GLOBALS["user_en_ligne"]->id();
         $ClientManager->changeMail($idCli);
     }
 
     public function changeMdp(){
         $ClientManager = new ClientManager();
-        $idCli = $GLOBALS["client_en_ligne"]->id();
+        $idCli = $GLOBALS["user_en_ligne"]->id();
         $ClientManager->changeMdp($idCli);
     }
 
     public function changeAdresse(){
         $ClientManager = new ClientManager();
-        $idCli = $GLOBALS["client_en_ligne"]->id();
+        $idCli = $GLOBALS["user_en_ligne"]->id();
         $ClientManager->changeAdresse($idCli);
     }
 

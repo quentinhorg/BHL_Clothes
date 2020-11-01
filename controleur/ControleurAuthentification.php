@@ -16,7 +16,7 @@ class ControleurAuthentification{
 
       else {
 
-         if( $GLOBALS["client_en_ligne"] == null ){
+         if( $GLOBALS["user_en_ligne"] == null ){
 
             // Connexion
             if( @strtolower($url[1])=="connexion" || !isset($url[1])|| empty($url[1]) ){
@@ -104,7 +104,7 @@ class ControleurAuthentification{
          }
          else{
 
-            if( @strtolower($url[1]) == "deconnexion" && $GLOBALS["client_en_ligne"] != null ){
+            if( @strtolower($url[1]) == "deconnexion" && $GLOBALS["user_en_ligne"] != null ){
                $this->deconnexion();
                header("Location: ".URL_SITE);
                exit();
@@ -181,7 +181,7 @@ class ControleurAuthentification{
          $idClient = $ClientManager->getId($mail, $mdp);
         
          $_SESSION["id_client_en_ligne"] = $idClient ;
-         $GLOBALS["client_en_ligne"] = $ClientManager->getClient($idClient) ;
+         $GLOBALS["user_en_ligne"] = $ClientManager->getClient($idClient) ;
          $this->suppSessionCmd();
          header("Location: ".URL_SITE."catalogue");
    

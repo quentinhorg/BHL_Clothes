@@ -84,7 +84,7 @@ class Vue{
          $donnee = [
             "listeGenre" => $GenreManager->getListeGenre(),
             "qtePanier" => $CommandeManager->getCmdActiveClient()->totalArticle(),
-            "clientEnLigne" => $GLOBALS["client_en_ligne"]
+            "clientEnLigne" => $GLOBALS["user_en_ligne"]
          ] ;
 
          $nav = $this->genererFichier($this->nav, $donnee) ;
