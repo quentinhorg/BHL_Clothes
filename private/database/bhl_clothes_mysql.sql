@@ -202,6 +202,8 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (6,	6,	'L',	7,	2,	2),
 (6,	6,	'L',	16,	1,	4),
 (9,	6,	'L',	15,	7,	1),
+(14,	7,	'L',	10,	1,	5),
+(14,	7,	'M',	17,	2,	6),
 (3,	8,	'M',	11,	1,	6),
 (12,	9,	'M',	12,	1,	3),
 (3,	10,	'36',	13,	1,	5),
@@ -219,7 +221,7 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (11,	28,	'M',	46,	1,	5),
 (11,	28,	'M',	48,	1,	4),
 (11,	29,	'M',	53,	1,	3),
-(13,	30,	'34',	104,	1,	9),
+(13,	30,	'34',	104,	3,	9),
 (11,	33,	'36',	56,	1,	6),
 (13,	36,	'40',	94,	3,	7),
 (12,	47,	'M',	80,	1,	4),
@@ -384,7 +386,7 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`
 (5,	'lauret.vincent@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Vincent',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (7,	'seb_morel@outlook.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'MOREL',	'Seb',	'97480',	'3 rue de lameme',	'0692987874',	351,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
-(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Quentin',	'97400',	'20 rue de la république',	'0628468787',	1873.4,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Quentin',	'97400',	'20 rue de la république',	'0628468787',	1734.92,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48'),
 (10,	'roro13@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Robin',	'Jean',	'97480',	'36 rue des merisier ',	'0692458595',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	100,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (13,	'leajuliehoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692818484',	899.5,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
@@ -565,6 +567,7 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Gamer',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	2000,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-25 00:57:41',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Goldow',	'97400',	'20 rue de la république',	'0628468787',	2000,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-25 00:57:47',	'UPDATE'),
 (8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Quentin',	'97400',	'20 rue de la république',	'0628468787',	2000,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-25 17:30:21',	'UPDATE'),
+(8,	'goldow974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Quentin',	'97400',	'20 rue de la république',	'0628468787',	1873.4,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-20 13:02:48',	'2020-10-31 08:33:34',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'test rue',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:03',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:25:12',	'UPDATE'),
 (9,	'test@test',	'df5fe22a5f8fb50cc3bd59f34a438bc6dddb52a3',	'testnom',	'testpnom',	'97413',	'rue du test',	'6969',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 17:57:50',	'UPDATE'),
@@ -747,12 +750,13 @@ INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
 (3,	8,	'2020-10-22 10:42:31',	2),
 (4,	8,	'2020-10-24 20:45:40',	2),
 (6,	8,	'2020-10-24 20:45:38',	4),
-(7,	8,	'2020-10-24 20:45:10',	5),
+(7,	8,	'2020-10-24 20:45:10',	2),
 (8,	8,	'2020-10-23 01:05:57',	4),
 (9,	8,	'2020-10-25 17:22:06',	2),
 (11,	22,	'2020-10-25 19:18:12',	1),
 (12,	23,	'2020-10-25 19:32:58',	4),
-(13,	8,	'2020-10-25 19:53:29',	1);
+(13,	8,	'2020-10-25 19:53:29',	2),
+(14,	8,	'2020-10-31 09:11:54',	1);
 
 DELIMITER ;;
 
@@ -845,7 +849,8 @@ INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `ty
 (7,	'Gamer',	'Goldow',	'20 rue de la république',	'97400',	'Solde',	'2020-10-23 01:00:54'),
 (8,	'Gamer',	'Goldow',	'20 rue de la république',	'97400',	'Solde',	'2020-10-23 01:05:57'),
 (9,	'Hoareau',	'Quentin',	'20 rue de la république',	'97400',	'Solde',	'2020-10-25 17:30:21'),
-(12,	'ABUFERA',	'Ophelien',	'119 rue leconte de lisle',	'97480',	'Solde',	'2020-10-25 19:34:32');
+(12,	'ABUFERA',	'Ophelien',	'119 rue leconte de lisle',	'97480',	'Solde',	'2020-10-25 19:34:32'),
+(13,	'Hoareau',	'Quentin',	'20 rue de la république',	'97400',	'Solde',	'2020-10-31 08:33:34');
 
 DELIMITER ;;
 
@@ -954,7 +959,7 @@ INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `desc
 (22,	'T-shirt Rayé Chiffre Brodé à Manches Longues',	14.9,	NULL,	'H',	'T-shirt Rayé Chiffre Brodé à Manches Longues\r\nMatières: Coton,Polyacrylique,Polyester',	4),
 (23,	'Robe à Bretelle Fleurie Plissée à Volants',	20,	NULL,	'F',	'Robe à Bretelle Fleurie Plissée à Volants.\r\nLes plis sont réunis avec la taille élastique et le dos smocké aide à façonner les courbes.\r\nMatières: Polyester',	1),
 (24,	'Mini Robe à Carreaux Ligne A',	11.2,	NULL,	'F',	'Détendu en forme, féminin dans le style, cette robe cami dispose d\'une impression tout au long de ceindre, fines bretelles et une coupe mini longueur séduisante, dans une silhouette évasée. portez-le avec des talons pour un style charmant.\r\nMatières: Polyester',	1),
-(25,	'Jupe Ligne A Teintée à Cordon',	13,	NULL,	'F',	'Jupe colorée en polyester. ',	6),
+(25,	'Jupe Ligne A Teintée à Cordon',	13,	NULL,	'F',	'Jupe colorée en polyester.',	6),
 (26,	'Mini Jupe Ligne A Nouée',	14,	NULL,	'F',	'Jupe courte avec une fermeture zippée. \r\nMatières: Polyester,Polyuréthane',	6),
 (27,	'Short Déchiré Zippé Design En Denim',	19.65,	NULL,	'H',	'Short déchiré zippé en denim.\r\nMatières: Coton,Polyester,Spandex',	5),
 (28,	'Pull Court Simple Surdimensionné - Brique Réfractaire M',	19.5,	'',	'F',	'Pull oversize, manches longues et épaule tombante.\r\nMatières: Coton,Polyester;',	4),
@@ -1040,7 +1045,7 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (44,	15,	'Violet',	'hue-rotate(300deg)',	1),
 (45,	16,	'Vert',	'hue-rotate(200deg)',	1),
 (46,	28,	'Rouge brique',	NULL,	1),
-(47,	25,	'Multicolore océan  ',	'hue-rotate(120deg);',	1),
+(47,	25,	'Multicolore océan',	'hue-rotate(120deg);',	1),
 (48,	28,	'Vert forêt',	'hue-rotate(180deg);',	1),
 (49,	12,	'Noir motif rond orange',	'hue-rotate(45deg);',	1),
 (50,	12,	'Noir motif rond rose',	'hue-rotate(320deg);',	1),
@@ -1099,10 +1104,7 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (104,	30,	'Vert à mini pois blanc',	'hue-rotate(100deg)',	1),
 (105,	30,	'Bleu à mini pois blanc',	'hue-rotate(200deg)',	1),
 (106,	30,	'Fuchsia à mini pois blanc ',	'hue-rotate(700deg)',	1),
-(107,	1,	'Bleu',	NULL,	1),
-(109,	46,	'',	NULL,	1),
-(110,	46,	'',	NULL,	1),
-(111,	1,	'',	NULL,	1);
+(107,	1,	'Bleu',	NULL,	1);
 
 DROP TABLE IF EXISTS `vet_taille`;
 CREATE TABLE `vet_taille` (
@@ -1271,7 +1273,8 @@ INSERT INTO `vet_taille` (`idVet`, `taille`) VALUES
 DROP VIEW IF EXISTS `vue_vet_disponibilite`;
 CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeNumCouleurDispo` mediumtext, `listeTailleDispo` mediumtext);
 
+
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-10-31 04:21:11
+-- 2020-11-01 03:39:18
