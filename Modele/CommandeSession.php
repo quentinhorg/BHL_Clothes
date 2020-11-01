@@ -22,8 +22,6 @@ class CommandeSession extends Commande{
    }
 
    public function ajouterPanier( ArticleSession $ArticleSession ){
-
-      
       $indiceArticle = $this->indiceArticlePanier($ArticleSession->id(), $ArticleSession->Taille()->libelle(), $ArticleSession->Couleur()->num() ) ;
   
       if($indiceArticle !== null ){

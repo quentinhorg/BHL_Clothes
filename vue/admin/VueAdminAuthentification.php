@@ -1,6 +1,6 @@
 <form action='' class="form-signin" method="POST">
       <div class="text-center mb-4">
-        <span id="logo" style="font-size:4rem"> Esapce admin </span>
+        <span id="logo" style="font-size:4rem"> Espace admin </span>
         <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
         <p> Veuillez entrez le mot de passe de l'administrattion.</p>
       </div>

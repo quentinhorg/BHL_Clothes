@@ -122,8 +122,9 @@ class VetementManager extends DataBase{
         INNER JOIN genre g ON g.code = v.codeGenre
         INNER JOIN taille t ON t.libelle = vt.taille
         WHERE vt.taille = ?
+        AND vc.dispo=1
         AND vc.num = ?
-        AND v.id = ? ";
+        AND v.id = ?";
         $this->getBdd();
         $nbRow = intval($this->execBDD($req, [$taille, $numClr, $idVet])[0]["nbRow"]) ;
   

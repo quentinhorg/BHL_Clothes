@@ -65,7 +65,6 @@ class Routeur{
             }
             else{
                throw new Exception (null,404);  
-           
             }
          }
          
