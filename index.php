@@ -4,7 +4,7 @@
 $test = str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" : "http" . "://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']) ) ;
 define('URL_SITE',  $test) ;
 
-$lienActive = str_replace("/btssio/BTS2/BHL_Clothes/","",$_SERVER['REQUEST_URI']).parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY) ;
+$lienActive = str_replace("/btssio/BTS2/BHL_Clothes/","",$_SERVER['REQUEST_URI']) ;
 define('LIEN_ACTIVE',  $lienActive) ;
 
 require_once('controleur/Routeur.php');
