@@ -42,6 +42,7 @@ class VetementManager extends DataBase{
         return $this->getModele($req, [$id], "Vetement")[0];
     }
 
+    //Obtient la liste des vêtements
     public function getListeVetement(){
      
         $req = $this->reqBase." ORDER BY v.id DESC";
@@ -51,7 +52,7 @@ class VetementManager extends DataBase{
         return $resultat;
     }
 
-    //Obtient toute la liste de vêtements
+    //Obtient toute la liste de vêtements dispo
     public function getListeVetementDispo(){
         $resultat = null;
         if( $this->Pagination != null){
@@ -86,30 +87,8 @@ class VetementManager extends DataBase{
      
     }
 
-    public function getListeVetByCategGenre($codeGenre, $idCateg){
-        $this->getBdd();
 
-        $this->getBdd();
-        $req = $this->reqBase." WHERE v.idCateg = ? 
-        AND codeGenre = ? 
-        AND vvd.listeNumCouleurDispo IS NOT NULL
-        AND vvd.listeTailleDispo IS NOT NULL
-        ORDER BY v.id DESC";
-        
-        return $this->getModele($req, [$idCateg, $codeGenre], "Vetement");
-    }
-
-    public function getListeVetByGenre($codeGenre){
-        $this->getBdd();
-
-        $req = $this->reqBase." WHERE codeGenre = ? 
-        AND vvd.listeNumCouleurDispo IS NOT NULL
-        AND vvd.listeTailleDispo IS NOT NULL
-        ORDER BY v.id DESC";
-        $this->getBdd();
-        return $this->getModele($req, [$codeGenre], "Vetement");
-    }
-
+    //Retourne vrai si la taille et la couleur du vestement sont dispo
     public function verifDisponibiliteTailleCouleur($idVet, $numClr, $taille){
         $dispo = false;
   
@@ -134,20 +113,6 @@ class VetementManager extends DataBase{
   
         return $dispo;
         
-    }
-
-    public function verifDisponibilite($id){
-
-        //verif avec une req si le vet a au moins une taille et une couleur par rapport au paramettre passé
-        $req="SELECT COUNT(*) AS 'nbRow'
-        FROM vue_vet_disponibilite
-        WHERE listeNumCouleurDispo is not null 
-        AND listeTailleDispo is not null
-        AND idVet=?";
-        $this->getBdd();
-        
-        return $this->execBDD($req, [$id])[0]["nbRow"];
-
     }
 
     //Modifier un vêtement

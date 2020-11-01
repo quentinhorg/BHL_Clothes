@@ -22,7 +22,7 @@ $(document).ready(function(){
         <tr>   
       
             <td> <?php echo $commande->num(); ?> </td> 
-            <td> <?php echo $commande->dateCreation();?>   </td> 
+            <td> <?php echo $commande->dateCreation('d/m/Y à H\hi');?>   </td> 
             <td> <?php echo $commande->Client()->nom()." ".$commande->Client()->prenom() ;?>   </td>
             <td style='<?php echo "color:".$commande->Etat()->colorCode().";" ?>'> <?php echo "<i class='".$commande->Etat()->classIcon()."'> </i> ".$commande->Etat()->libelle()  ?>  </td>
             <td class='form-inline'> <a href="admin/commande/<?php echo $commande->num() ?>"> <button type='button' class='form-control'> Modifier / Consulter </button> </a> 

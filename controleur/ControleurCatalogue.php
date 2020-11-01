@@ -3,7 +3,7 @@ require_once('vue/Vue.php');
 
 class ControleurCatalogue{
    private $vue;
-   private $vetementManager;
+   private $VetementManager;
 
    // CONSTRUCTEUR 
    public function __construct($url){
@@ -12,48 +12,44 @@ class ControleurCatalogue{
          throw new Exception(null, 404);
       }
       else{
+         $this->VetementManager = new VetementManager;
+         $this->VetementManager->setPagination(10);
 
-
-         $idCateg= null;
+     
+   
          
-         if( isset( $url[2])){
-            $idCateg = $url[2];
-         }
 
-         $codeGenre = null;
-         if( isset( $url[1])){
-            $codeGenre = $url[1];
-         }
-
-       
-
-         //Systeme de recherche
-         if(isset($_GET['trier']) || isset($_GET['motCle']) ){
           
-            $listeVetement = $this->recherche($codeGenre, $idCateg);
+         $idCateg= null; $codeGenre = null;
+         if( isset( $url[2])){ $idCateg = $url[2]; }
+         if( isset( $url[1])){ $codeGenre = $url[1]; }
+
+        
+
+         //Systeme de tri
+         if( isset($_GET['trier']) || isset($_GET['motCle']) || $idCateg != null || $codeGenre != null  ){
+            
+            $listeVetementDispo = $this->recherche($codeGenre, $idCateg);
          }
-       
+         //Tous les vêtements
          else{
-            $listeVetement =  $this->listeVetement($codeGenre,  $idCateg);
+           
+            $listeVetementDispo =  $this->listeVetementDispo();
+          
          }
-       
+      
+        
 
       
-            //Récupèration des arguments de l'url actif
-            $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 
-            "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .  
-            $_SERVER['REQUEST_URI']; 
-            $argUrl = parse_url($link, PHP_URL_QUERY);
-
-            $vuePagination = $this->vetementManager->Pagination->getVuePagination("catalogue?".$argUrl) ;
+           
       
 
-
+         $vuePagination = $this->VetementManager->Pagination->getVuePagination(LIEN_ACTIVE) ;
 
          $this->vue = new Vue('Catalogue') ;
          $this->vue->setListeJsScript(["public\script\js\Catalogue.js"]);
          $this->vue->genererVue(array( 
-            "listeVetement"=> $listeVetement,
+            "listeVetementDispo"=> $listeVetementDispo,
             "vuePagination" => $vuePagination,
             "listeTaille"=> $this->listeTaille() ,
             "listeGenre"=>$this->listeGenre(),
@@ -68,21 +64,11 @@ class ControleurCatalogue{
    }
 
    //Retourne la liste des vêtement par catégorie ou non =)
-   private function listeVetement($libelleGenre, $idCateg){
-      $this->vetementManager = new VetementManager;
-      $this->vetementManager->setPagination(10);
+   private function listeVetementDispo(){
+      
+      $listeVetementDispo = $this->VetementManager->getListeVetementDispo();
 
-      if($libelleGenre != null && $idCateg != null){
-         $listeVetement =  $this->vetementManager->getListeVetByCategGenre($libelleGenre, $idCateg);
-      }
-      else if($libelleGenre != null && $idCateg == null){
-         $listeVetement =  $this->vetementManager->getListeVetByGenre($libelleGenre);
-      }
-      else{
-         $listeVetement = $this->vetementManager->getListeVetementDispo();
-      }
-
-      return $listeVetement;
+      return $listeVetementDispo;
       
    }
 
@@ -122,10 +108,7 @@ class ControleurCatalogue{
    }
 
    public function recherche($genre, $categorie){
-   
-      $this->vetementManager = new VetementManager;
-      $this->vetementManager->setPagination(10);
-
+      
       $prixIntervale = null;
       if (!empty($_GET['budget']) ){
          $prixIntervale = [0, $_GET['budget']];
@@ -148,7 +131,7 @@ class ControleurCatalogue{
       }
       
       
-      $resultat = $this->vetementManager->getRechercheVetement(
+      $resultat = $this->VetementManager->getRechercheVetement(
          $prixIntervale, 
          $listeTaille, 
          $listeCouleur, 

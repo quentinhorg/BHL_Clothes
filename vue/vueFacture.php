@@ -30,7 +30,7 @@ $pdf->elementAdd('', 'traitBas', 'footer');
 
 
 // numéro de facture, date, texte avant le numéro de page
-$pdf->initFacture("Commande n° ".$facture->Commande()->num(), "97480 - Saint-Joseph, Fait le ".$facture->datePaiement(), "Page ");
+$pdf->initFacture("Commande n° ".$facture->Commande()->num(), "97480 - Saint-Joseph, Fait le ".$facture->datePaiement('d/m/Y à H\hi'), "Page ");
 // produit
 
 //Liste des articles
