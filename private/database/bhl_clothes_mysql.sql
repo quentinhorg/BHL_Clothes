@@ -1,17 +1,14 @@
--- Adminer 4.7.7 MySQL dump
+-- Adminer 4.7.5 MySQL dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP DATABASE IF EXISTS `bhl_clothes`;
-CREATE DATABASE `bhl_clothes` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `bhl_clothes`;
-
 DELIMITER ;;
 
-CREATE FUNCTION `calcCmdHT`(`_numCmd` int) RETURNS float
+DROP FUNCTION IF EXISTS `calcCmdHT`;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `calcCmdHT`(`_numCmd` int) RETURNS float
 BEGIN
           
         RETURN (SELECT ROUND(sum(ap.qte*v.prix),2) AS 'prixTTC' FROM article_panier ap 
@@ -19,7 +16,8 @@ INNER JOIN vetement v ON v.id = ap.idVet
 WHERE ap.numCmd = _numCmd );
     END;;
 
-CREATE FUNCTION `calcCmdTTC`(`_numCmd` int) RETURNS float
+DROP FUNCTION IF EXISTS `calcCmdTTC`;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `calcCmdTTC`(`_numCmd` int) RETURNS float
 BEGIN
 RETURN (
 
@@ -33,14 +31,16 @@ WHERE cmd.num = _numCmd
 
 END;;
 
-CREATE FUNCTION `prixTotalArt`(`_idArt` int, `_qte` int) RETURNS float
+DROP FUNCTION IF EXISTS `prixTotalArt`;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `prixTotalArt`(`_idArt` int, `_qte` int) RETURNS float
 BEGIN
   RETURN (SELECT ROUND(_qte*v.prix,2) AS 'prixTotalArt' 
 FROM vetement v
 WHERE v.id = _idArt);
 END;;
 
-CREATE FUNCTION `qte_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11)) RETURNS int(11)
+DROP FUNCTION IF EXISTS `qte_article`;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `qte_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11)) RETURNS int(11)
 BEGIN
   RETURN (SELECT qte
   FROM article_panier ap
@@ -50,7 +50,8 @@ BEGIN
   AND ap.numClr = _numClr);
 END;;
 
-CREATE PROCEDURE `activeCompte`(IN `_email` varchar(255), IN `_cle` varchar(255))
+DROP PROCEDURE IF EXISTS `activeCompte`;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `activeCompte`(IN `_email` varchar(255), IN `_cle` varchar(255))
 BEGIN
    DECLARE dejaActive int; DECLARE emailCli varchar(255); DECLARE cleCli varchar(255);
 
@@ -76,7 +77,8 @@ BEGIN
 
 END;;
 
-CREATE PROCEDURE `desactiveCompte`(IN `_email` varchar(255), IN `_cle` varchar(255))
+DROP PROCEDURE IF EXISTS `desactiveCompte`;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `desactiveCompte`(IN `_email` varchar(255), IN `_cle` varchar(255))
 BEGIN
    DECLARE compteActive int; DECLARE emailCli varchar(255); DECLARE cleCli varchar(255);
 
@@ -100,7 +102,8 @@ BEGIN
 
 END;;
 
-CREATE PROCEDURE `insert_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11), _qte int)
+DROP PROCEDURE IF EXISTS `insert_article`;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11), _qte int)
 BEGIN
 DECLARE newOrdreArr tinyint;
 DECLARE qteArticle int;
@@ -139,7 +142,8 @@ END IF;
 
 END;;
 
-CREATE PROCEDURE `payerCommandeViaSolde`(IN `_idClient` int, IN `_numCmd` int)
+DROP PROCEDURE IF EXISTS `payerCommandeViaSolde`;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `payerCommandeViaSolde`(IN `_idClient` int, IN `_numCmd` int)
 BEGIN
             DECLARE soldeClient float; DECLARE montantCmdTTC float; DECLARE etatCmd float;
             DECLARE nomCli varchar(200); DECLARE prenomCli varchar(200); DECLARE rueCli varchar(200); DECLARE cpCli varchar(5);
@@ -408,7 +412,7 @@ CREATE TABLE `client` (
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`, `tel`, `solde`, `cleActivation`, `active`, `dateInscription`) VALUES
 (1,	'andrea974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Andréa',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	9779,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
-(3,	'jerem_lebon@fauxemail.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
+(3,	'jerem_lebon@fauxemail.fr',	'4d13fcc6eda389d4d679602171e11593eadae9b9',	'LEBON',	'Jérémy',	'97410',	'7 rue du pinguin',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09'),
 (4,	'grondin.chalotte@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Charlotte',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (5,	'lauret.vincent@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LAURET',	'Vincent',	'97410',	'6 impasse du cocon',	'0692851347',	84.6,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
 (6,	'mathilde20@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'PAYET',	'Mathilde',	'97410',	'9 chemin des zoizeau',	'0692753212',	984.2,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09'),
@@ -500,6 +504,11 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 17:05:09',	'UPDATE'),
 (3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-10-21 10:28:43',	'UPDATE'),
 (3,	'azaz@zaz.fre',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09',	'2020-10-25 18:01:21',	'UPDATE'),
+(3,	'jerem_lebon@fauxemail.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-10-19 17:05:09',	'2020-11-02 13:31:48',	'UPDATE'),
+(3,	'jerem_lebon@fauxemail.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-11-02 14:34:32',	'UPDATE'),
+(3,	'jerem_lebon@fauxemail.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-11-02 14:50:15',	'UPDATE'),
+(3,	'jerem_lebon@fauxemail.fr',	'4d13fcc6eda389d4d679602171e11593eadae9b9',	'LEBON',	'Jérémy',	'97400',	'7 rue ninja',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-11-02 15:34:14',	'UPDATE'),
+(3,	'jerem_lebon@fauxemail.fr',	'4d13fcc6eda389d4d679602171e11593eadae9b9',	'LEBON',	'Jérémy',	'97410',	'lolo 5 rue',	'0693122478',	9582.9,	'544107c473636dc8ee1a114774d35d91a475293c',	1,	'2020-10-19 17:05:09',	'2020-11-02 15:34:28',	'UPDATE'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'',	'',	'0693238645',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-13 16:34:07',	'UPDATE'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-17 21:38:29',	'UPDATE'),
 (4,	'grondin.sam@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'GRONDIN',	'Samuel',	'97410',	'3 chemin des fleurs',	'0693238645',	45.15,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 16:38:52',	'UPDATE'),
@@ -1025,7 +1034,23 @@ INSERT INTO `vetement` (`id`, `nom`, `prix`, `motifPosition`, `codeGenre`, `desc
 (48,	'Sweat à Capuche Fourré Teinté Lettre Brodée',	27.99,	'',	'M',	'Sweat à capuche très doux.\r\nMatières: Coton, Polyester',	4),
 (49,	'Pantalon Déchiré Zippé En Denim - Bleu 2xl',	30,	'background-position: 204px;',	'H',	'Pantalon déchiré type regular. \r\nMatières: Coton, Polyester, Polyuréthane.',	12),
 (50,	'Jean Droit Déchiré Long - Noir Xl',	25,	'    background-position: 222px;',	'H',	'Jean déchiré type regular.\r\nMatières: Coton, Polyester',	3),
-(51,	'Pantalon Crayon Zippé Ange en Denim - Blanc 32',	35,	'background-position: 204px;',	'H',	'Pantalon crayon type regular.\r\nMatières: Coton, Spandex.',	12);
+(51,	'Pantalon Crayon Zippé Ange en Denim - Blanc 32',	35,	'background-position: 204px;',	'H',	'Pantalon crayon type regular.\r\nMatières: Coton, Spandex.',	12),
+(52,	'test',	10,	'',	'H',	'ddd',	2);
+
+DELIMITER ;;
+
+CREATE TRIGGER `after_insert_vetement` AFTER INSERT ON `vetement` FOR EACH ROW
+BEGIN
+
+DECLARE numVetCouleur int;
+SET numVetCouleur= (SELECT max(num )+1
+                    FROM vet_couleur);
+
+INSERT INTO vet_couleur VALUES (numVetCouleur, NEW.id, "Couleur orginale", null, 1);
+
+END;;
+
+DELIMITER ;
 
 DROP TABLE IF EXISTS `vet_couleur`;
 CREATE TABLE `vet_couleur` (
@@ -1144,7 +1169,55 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (104,	30,	'Vert à mini pois blanc',	'hue-rotate(100deg)',	1),
 (105,	30,	'Bleu à mini pois blanc',	'hue-rotate(200deg)',	1),
 (106,	30,	'Fuchsia à mini pois blanc ',	'hue-rotate(700deg)',	1),
-(107,	1,	'Bleu',	NULL,	1);
+(107,	1,	'Bleu',	NULL,	1),
+(108,	52,	'Couleur orginale',	NULL,	1);
+
+DELIMITER ;;
+
+CREATE TRIGGER `before_insert_vetCouleur` BEFORE INSERT ON `vet_couleur` FOR EACH ROW
+BEGIN
+
+DECLARE nbCouleurOrg int;
+SET nbCouleurOrg= (SELECT COUNT(*) 
+                   FROM vet_couleur vc
+                   WHERE vc.idVet=NEW.idVet AND vc.filterCssCode is null);
+
+-- empêcher d'avoir plus d'une couleur d'origine -- 
+IF (nbCouleurOrg >=1) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Un vêtement ne peut posséder qu'une seule couleur d'origine à la fois";
+END IF;
+END;;
+
+CREATE TRIGGER `before_update_vetCouleur` BEFORE UPDATE ON `vet_couleur` FOR EACH ROW
+BEGIN
+
+DECLARE nbCouleurOrg int;
+SET nbCouleurOrg= (SELECT COUNT(*) 
+                   FROM vet_couleur vc
+                   WHERE vc.idVet=OLD.idVet AND vc.filterCssCode is null);
+
+IF (OLD.filterCssCode IS NULL AND NEW.filterCssCode IS NOT NULL  ) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible de modifier, il faut minimum une couleur d'origine";
+END IF;
+
+
+
+
+-- empêcher d'avoir plus d'une couleur d'origine -- 
+IF (nbCouleurOrg >=1 AND OLD.filterCssCode IS NOT NULL AND NEW.filterCssCode IS NULL) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Un vêtement ne peut posséder qu'une seule couleur d'origine à la fois";
+END IF;
+
+END;;
+
+CREATE TRIGGER `before_delete_vetCouleur` BEFORE DELETE ON `vet_couleur` FOR EACH ROW
+BEGIN
+IF (OLD.filterCssCode IS NULL  ) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT= "Impossible de supprimer, il faut minimum une couleur d'origine";
+END IF;
+END;;
+
+DELIMITER ;
 
 DROP TABLE IF EXISTS `vet_taille`;
 CREATE TABLE `vet_taille` (
@@ -1315,6 +1388,6 @@ CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeNumCouleurDispo` me
 
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-11-01 17:12:13
+-- 2020-11-02 15:53:18
