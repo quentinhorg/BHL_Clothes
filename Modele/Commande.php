@@ -105,12 +105,12 @@ class Commande{
       return $ClientManager->getClient($this->idClient);
    }
 
-   public function dateCreation(){
+   public function dateCreation($format){
       $dateFormat = null ;
 
       if( $this->dateCreation != null){
          $date= new DateTime($this->dateCreation);
-         $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
+         $dateFormat = date_format($date, $format) ;
       }
 
       return $dateFormat;

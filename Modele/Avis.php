@@ -8,9 +8,6 @@ class Avis{
    private  $note;
    private  $date;
 
-
-
-   
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
@@ -32,10 +29,7 @@ class Avis{
    
    //SETTER
     public function setId($id){
-        $id = (int) $id;
-            if($id > 0){
-                $this->id = $id;
-            }
+        $this->id = $id;
     }
 
     public function setIdClient($idClient){
@@ -63,7 +57,11 @@ class Avis{
     }
 
     public function setDate($date){
-        $this->date = $date;
+
+        if(is_string($date)){
+            $this->date = $date;
+        }
+       
     }
 
 
@@ -77,7 +75,7 @@ class Avis{
     public function Client(){
         $ClientManager = new ClientManager;
         $Client = $ClientManager->getClient($this->idClient);
-        return $Client;
+        return $Client; // Objet Client
     }
 
     public function idVet(){
@@ -92,8 +90,9 @@ class Avis{
         return $this->note;
     }
 
-    public function date(){
-        return $this->date;
+    public function date($format){
+        $date= new DateTime($this->date);
+        return date_format($date, $format); //Format date choisis en paramètre
     }
 
 

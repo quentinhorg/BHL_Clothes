@@ -116,7 +116,7 @@ class Vetement{
       return $TailleManager->getListeTailleForVet($this->id);
    }
 
-   //Retourne une liste d'object couleur disponible pour le veteemnt conerné
+   //Retourne une liste d'object couleur disponible pour le vetement conerné
    public function listeCouleurDispo(){
       $listeCouleurDispo = array();
       foreach ($this->listeCouleur() as $couleur) {
@@ -148,6 +148,8 @@ class Vetement{
    }
 
    //AUTRES MÉTHODES
+
+   //Retourne VRAI si l'article peut se vendre (possède au moins uen taille et une couleur)
    public function dispoPourVendre(){
       $peutVendre = true ;
       if( $this->listeTailleDispo() == null ){
@@ -159,6 +161,7 @@ class Vetement{
       return $peutVendre;
    }
 
+
    public function possedeTaille($taille){
       $possedeTaille=false;
 
@@ -167,8 +170,9 @@ class Vetement{
             $possedeTaille= true;
             break;
          }
+      }
+      
       return $possedeTaille;
-   }
    }
 
    
@@ -176,7 +180,7 @@ class Vetement{
       $checked = null;
       $idMotif = "Vet".$this->id."_motif_Clr".$Couleur->num();
       
-      if($this->listeCouleurDispo()[0]->num() == $Couleur->num() ){ $checked = "checked" ;}
+      if( count($this->listeCouleurDispo()) >= 1 && $this->listeCouleurDispo()[0]->num() == $Couleur->num() ){ $checked = "checked" ;}
 
       echo "<div class='motifVet'>";
       echo "<label for='$idMotif' style='background-image:url(public/media/vetement/id$this->id.jpg); filter: ".$Couleur->filterCssCode()." ; $this->motifPosition'></label>" ;

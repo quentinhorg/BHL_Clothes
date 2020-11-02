@@ -119,13 +119,13 @@ class Facture{
 
 
 
-   public function datePaiement(){
+   public function datePaiement($format){
 
       $dateFormat = null ;
 
       if( $this->datePaiement != null){
          $date= new DateTime($this->datePaiement);
-         $dateFormat = date_format($date, 'd/m/Y à H\hi') ;
+         $dateFormat = date_format($date, $format) ;
       }
 
       return $dateFormat;
