@@ -8,7 +8,7 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 DELIMITER ;;
 
 DROP FUNCTION IF EXISTS `calcCmdHT`;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `calcCmdHT`(`_numCmd` int) RETURNS float
+CREATE FUNCTION `calcCmdHT`(`_numCmd` int) RETURNS float
 BEGIN
           
         RETURN (SELECT ROUND(sum(ap.qte*v.prix),2) AS 'prixTTC' FROM article_panier ap 
@@ -17,7 +17,7 @@ WHERE ap.numCmd = _numCmd );
     END;;
 
 DROP FUNCTION IF EXISTS `calcCmdTTC`;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `calcCmdTTC`(`_numCmd` int) RETURNS float
+CREATE FUNCTION `calcCmdTTC`(`_numCmd` int) RETURNS float
 BEGIN
 RETURN (
 
@@ -32,7 +32,7 @@ WHERE cmd.num = _numCmd
 END;;
 
 DROP FUNCTION IF EXISTS `prixTotalArt`;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `prixTotalArt`(`_idArt` int, `_qte` int) RETURNS float
+CREATE FUNCTION `prixTotalArt`(`_idArt` int, `_qte` int) RETURNS float
 BEGIN
   RETURN (SELECT ROUND(_qte*v.prix,2) AS 'prixTotalArt' 
 FROM vetement v
@@ -40,7 +40,7 @@ WHERE v.id = _idArt);
 END;;
 
 DROP FUNCTION IF EXISTS `qte_article`;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `qte_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11)) RETURNS int(11)
+CREATE FUNCTION `qte_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11)) RETURNS int(11)
 BEGIN
   RETURN (SELECT qte
   FROM article_panier ap
@@ -51,7 +51,7 @@ BEGIN
 END;;
 
 DROP PROCEDURE IF EXISTS `activeCompte`;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `activeCompte`(IN `_email` varchar(255), IN `_cle` varchar(255))
+CREATE PROCEDURE `activeCompte`(IN `_email` varchar(255), IN `_cle` varchar(255))
 BEGIN
    DECLARE dejaActive int; DECLARE emailCli varchar(255); DECLARE cleCli varchar(255);
 
@@ -78,7 +78,7 @@ BEGIN
 END;;
 
 DROP PROCEDURE IF EXISTS `desactiveCompte`;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `desactiveCompte`(IN `_email` varchar(255), IN `_cle` varchar(255))
+CREATE PROCEDURE `desactiveCompte`(IN `_email` varchar(255), IN `_cle` varchar(255))
 BEGIN
    DECLARE compteActive int; DECLARE emailCli varchar(255); DECLARE cleCli varchar(255);
 
@@ -103,7 +103,7 @@ BEGIN
 END;;
 
 DROP PROCEDURE IF EXISTS `insert_article`;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11), _qte int)
+CREATE PROCEDURE `insert_article`(_numCmd int(11), _idVet int(3), _taille varchar(3), _numClr int(11), _qte int)
 BEGIN
 DECLARE newOrdreArr tinyint;
 DECLARE qteArticle int;
@@ -143,7 +143,7 @@ END IF;
 END;;
 
 DROP PROCEDURE IF EXISTS `payerCommandeViaSolde`;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `payerCommandeViaSolde`(IN `_idClient` int, IN `_numCmd` int)
+CREATE PROCEDURE `payerCommandeViaSolde`(IN `_idClient` int, IN `_numCmd` int)
 BEGIN
             DECLARE soldeClient float; DECLARE montantCmdTTC float; DECLARE etatCmd float;
             DECLARE nomCli varchar(200); DECLARE prenomCli varchar(200); DECLARE rueCli varchar(200); DECLARE cpCli varchar(5);
@@ -1388,6 +1388,6 @@ CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeNumCouleurDispo` me
 
 
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-11-02 15:53:18
+-- 2020-11-02 16:15:44
