@@ -110,3 +110,16 @@ hr{
 .dropdown-content a{
    border: none!important;
 }
+
+.account{
+   text-align: center;
+}
+
+.account a{
+   padding-bottom: 0;
+}
+.account span{
+   color:green;
+   font-size: 0.9rem;
+
+}

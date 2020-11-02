@@ -10,14 +10,12 @@ RewriteRule ^(.*)$ index.php?url=$1 [QSA]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R]
 
-
-
 #Rendre accessible la section admin que en local
    RewriteCond %{REQUEST_URI} admin 
    RewriteCond %{HTTP_HOST} !=127.0.0.1
    RewriteCond %{HTTP_HOST} !=localhost
 # Ip Andrea
-   RewriteCond %{REMOTE_ADDR} !=10.10.0.15
+   RewriteCond %{REMOTE_ADDR} !=165.169.60.44
    RewriteRule ^(.*) /
 
 

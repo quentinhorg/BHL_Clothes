@@ -137,7 +137,7 @@
 
 <hr>
 
-<?php if($listeVetement != null){?>
+<?php if($listeVetementDispo != null){?>
 
 <?php 
 
@@ -147,7 +147,7 @@ if( $vuePagination != null){
 
 ?>
 
-<?php foreach ($listeVetement as $vetement) { ?>
+<?php foreach ($listeVetementDispo as $vetement) { ?>
     <div class="cadreVet">
     <a href="vetement/<?php echo $vetement->id() ?>"><img class="imgArticle" src="public/media/vetement/id<?php echo $vetement->id() ?>.jpg" alt="">  </a>
         <p>

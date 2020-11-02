@@ -11,7 +11,7 @@
   <tbody>
     <tr>
       <th scope="row">Date de création</th>
-      <td><input class='form-control' disabled value='<?php echo $commande->dateCreation()?>' type="text"></td>
+      <td><input class='form-control' disabled value='<?php echo $commande->dateCreation('d/m/Y à H\hi')?>' type="text"></td>
     </tr>
 
     <tr>
@@ -54,7 +54,7 @@
     <tr class='paiementInfo'>
       <th scope="row"> Information du paiement </th>
       <td> 
-          <div> <label> Date de paiement: </label> <span>  <?php echo $facture->datePaiement() ?> <span> </div> 
+          <div> <label> Date de paiement: </label> <span>  <?php echo $facture->datePaiement('d/m/Y à H\hi') ?> <span> </div> 
           <div> <label> Type de paiement: </label> <span>  <?php echo $facture->typePaiement() ?> <span> </div> 
           <div> <label> Total payé : </label> <span>  <?php echo $commande->prixTTC()."€" ?> <span> </div> 
           <div> <label> Prix livraison : </label> <span>  <?php echo $facture->CodePostal()->prixLiv()."€ (".$facture->CodePostal()->libelle().", ".$facture->CodePostal()->cp().")" ?> <span> </div> 

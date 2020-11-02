@@ -5,7 +5,7 @@
           <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
             <div class="w-100 text-center py-1 px-2"><span class="text-medium">Type de paiement via:</span> <?php echo $infoCommande->getFacture()->typePaiement() ?> </div>
             <div class="w-100 text-center py-1 px-2"><span class="text-medium">Total d'articles:</span> <?php echo $infoCommande->totalArticle() ?> </div>
-            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Date d'achat:</span> <span><?php echo $infoCommande->dateCreation() ?> </span> </div>
+            <div class="w-100 text-center py-1 px-2"><span class="text-medium">Date d'achat:</span> <span><?php echo $infoCommande->dateCreation('d/m/Y à H\hi') ?> </span> </div>
           </div>
           <div class="card-body">
             <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">

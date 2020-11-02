@@ -5,7 +5,7 @@ class ControleurPanier{
    private $vue;
    private $ArticleManager;
    private $CommandeManager;
-
+   public $message;
    
 
    // CONSTRUCTEUR 
@@ -19,13 +19,15 @@ class ControleurPanier{
       //Initialisation des Managers
       $this->ArticleManager = new ArticleManager;
       $this->CommandeManager = new CommandeManager;
-   
-
       
+
+      if ( isset($_GET['panierPasDispo']) && $_GET['panierPasDispo'] == "ok") {
+         $this->message= "Veuillez supprimer les articles non disponibles avant de payer.";
+      }
       if( isset($_POST["ajouterArticle"]) ){
          $this->ajouterArticle();
       }
-      else if(isset($_POST["deleteArticle"])){
+      else if(isset($_POST["deleteArticle"])){  
          $this->supprimerArticle();
       }
       else  if(isset($_POST["diminuerQte"])) {
@@ -35,8 +37,8 @@ class ControleurPanier{
          $this->viderPanierActif();
       }
 
-
       $this->vue = new Vue('Panier') ;
+      $this->vue->Popup->setMessage($this->message);
       $this->vue->setListeJsScript(["public/script/js/HtmlArticle.js","public/script/js/HtmlPanier.js" ]);
       $donneeVue = array(
          "cmdActif"=> $this->maCommandeActif()

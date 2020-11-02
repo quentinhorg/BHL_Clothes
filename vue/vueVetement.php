@@ -119,8 +119,7 @@
     <ul class="listeAvis">
     <?php
         
-        foreach ($listeAvis as $avis) {
-            $date= new DateTime($avis->date()); ?>
+        foreach ($listeAvis as $avis) { ?>
             <li class="blocAvis">
                 
                 <div class="contenuBloc">
@@ -146,7 +145,7 @@
                         
                             </div>
  
-                        <span class="date"><?php echo "Le ".date_format($date, 'd/m/Y à H\hi') ; ?></span> 
+                        <span class="date"><?php echo "Le ".$avis->date('d/m/Y à H\hi'); ?></span> 
                     </div>
             
                     

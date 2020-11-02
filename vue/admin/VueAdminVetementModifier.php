@@ -181,8 +181,7 @@
           <select class='form-control' name="taille" id="selectTaille">
 
               <?php foreach ($listTaille as $taille) { ?>
-          
-                <option <?php if ($vetement->possedeTaille($taille->libelle() ) == true) {echo "disabled"; }?> value="<?php echo $taille->libelle() ?>"> <?php echo $taille->libelle() ?></option>
+                <option <?php if ($vetement->possedeTaille($taille->libelle()) == true) {echo "disabled"; }?> value="<?php echo $taille->libelle() ?>"> <?php echo $taille->libelle() ?></option>
                 <?php  } ?>
 
               
