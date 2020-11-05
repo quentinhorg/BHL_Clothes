@@ -5,7 +5,7 @@ class ControleurCompte{
     public function  __construct($url){
       
         if( isset($url) && count($url) > 3 ){
-            throw new Exception(null, 404);
+            throw new Exception(null, 404); //Erreur 404
         }
         else{
 
@@ -24,7 +24,7 @@ class ControleurCompte{
                                 )) ;
                             }else{ throw new Exception('La commande ne vous appartient pas', 423); }
                         } else{ throw new Exception('La commande n\'existe pas', 404); }
-                    } else{ throw new Exception(null, 404); }
+                    } else{ throw new Exception(null, 404); } //Erreur 404 
                    
                 }
                 else{

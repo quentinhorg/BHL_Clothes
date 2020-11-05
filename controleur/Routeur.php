@@ -2,82 +2,59 @@
 //Gestionnaire d'erreur personalisé 
 set_error_handler('exceptions_error_handler');
 function exceptions_error_handler($severity, $message, $filename, $lineno) {
-
    if (error_reporting() == 0) {
       return;
    }
    if (error_reporting() & $severity) {
-      
       throw new ErrorException($message, 500, $severity, $filename, $lineno);
-      
    }
- 
 }
 
-header("Cache-Control: no-cache, must-revalidate");
+header("Cache-Control: no-cache, must-revalidate"); //Empêche le cache
+
 require_once('vue/Popup.php');
 require_once('vue/Vue.php');
 require_once('vue/admin/VueAdmin.php');
 
 class Routeur{
    
+   //Attributs
    private $url;
    private $ctrl;
    private $vue;
 
+   //Constructeur
    public function __construct( $url = array("Accueil") ){
       $this->url = $url ;
    }
 
-   private function setControleur($base = null){
 
+   private function setControleur(){
          //Vérifie sur on navigue sur une page
          if( !empty($this->url) ){
-          
-
             $controleur = ucfirst(strtolower($this->url[0])); //Tranform la première du ctrl en MAJ (pour convention fichier)
-            if($base != null ){
-               
-               if( !isset($this->url[1]) ) {$this->url[1] = "Accueil" ;}
-               $controleurClasse = "Controleur".$controleur.ucfirst(strtolower($this->url[1])); // Récupération du nom du  de la classe Controleur
-            }
-            else{
-               $controleurClasse = "Controleur".$controleur; // Récupération du nom du  de la classe Controleur
-            }
-
-           
-            
-            $controleurFichier = "Controleur/$base/".$controleurClasse.".php"; // Récupération du path nom Controleur
-            
-
-
+          
+            $controleurClasse = "Controleur".$controleur; // Récupération du nom du  de la classe Controleur
+       
+            $controleurFichier = "Controleur/".$controleurClasse.".php"; // Récupération du path nom Controleur
 
            //Si le fichier controleur existe
             if( file_exists($controleurFichier) ){
-             
-               
                require_once($controleurFichier); //Intègre le controleur
                $this->ctrl = new $controleurClasse($this->url); //Affection du la classe controleur
-               
-             
-
-               
             }
             else{
-               throw new Exception (null,404);  
-           
+               throw new Exception (null,404);  //Création d'une erreur 404
             }
          }
-         
          else{
             $this->url = [''];
             require_once('controleur/ControleurAccueil.php');
             $this->ctrl = new ControleurAccueil($this->url);
          }
-
-      
    }
 
+   //Obtention de l'utilisateur en ligne
    public function UtilisateurEnLigne(){
       if(  isset($_SESSION["id_client_en_ligne"]) ){
          $ClientManager = new ClientManager;
@@ -86,10 +63,10 @@ class Routeur{
       else{ return null ;}
   }
    
+   //Routeur
    public function routerLaPage(){
-
       try{
-         ob_start();
+         ob_start(); //Ouverture de la mémoire tampon
          //Permet d'auto générer les modèles necessaires pour données appelées
          spl_autoload_register(function($classe){
             require_once('Modele/'.$classe.'.php');
@@ -104,13 +81,9 @@ class Routeur{
             $CommandeManager->creerCommandeSession();
          }
          
-         
-       
-            $this->setControleur();
+         //Initialisation du controleur de la page actif
+         $this->setControleur();
         
-         
-      
-     
       
       }
       //GESTION DES ERREURS
@@ -168,13 +141,12 @@ class Routeur{
                   $cache = ob_get_clean();
                   echo "<h1> Page d'erreur en BETA : </h1> <br>";
                   echo "<h1> Erreur : </h1> <br> " ;
-                  
                   echo $e->xdebug_message ;
-      
-                  echo "<hr> <br> <br> <br> <br>  <h1> Affichage avant l'erreur: </h1> <br> <br> ". $cache ;
+                  echo "<hr> <br> <br> <br> <br>  <h1> Affichage avant l'erreur: </h1> <br> <br> ".$cache ;
                   exit();
             }
-
+            
+            //Affichage de la vue d'erreur en cas de problème liée au site / serveur
             $this->vue = new Vue('Erreur');
             $this->vue->setListeCss(["public/css/erreur.css"]) ;
             $this->vue->setHeader("vue/header.php") ;

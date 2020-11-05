@@ -12,7 +12,7 @@ class ControleurAdmin{
    public function __construct($url){
       
       if( !isset($url) ){
-         throw new Exception(null, 404);
+         throw new Exception(null, 404); //Erreur 404
       }
       else{
 
@@ -43,7 +43,7 @@ class ControleurAdmin{
    //Obtention du controleur adin du dossier "admin"
    private function getCtrlAdmin($urlAdmin){
       $ctrlName = "ControleurAdmin".ucfirst($urlAdmin);
-      if(!file_exists("controleur/admin/".$ctrlName.".php")){ throw new Exception(null, 404); }
+      if(!file_exists("controleur/admin/".$ctrlName.".php")){ throw new Exception(null, 404);  }//Erreur 404
       return $ctrlName;
    }
 

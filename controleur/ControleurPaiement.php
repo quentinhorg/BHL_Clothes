@@ -7,11 +7,9 @@ class ControleurPaiement{
 
    // CONSTRUCTEUR 
    public function __construct($url){
-      
-      
-   
+
       if( isset($url) && count($url) > 2 ){
-         throw new Exception(null, 404);
+         throw new Exception(null, 404); //Erreur 404
       }
       else if ( isset($url[1]) && $url[1] == "panier" ){
          
@@ -22,23 +20,18 @@ class ControleurPaiement{
         
         if( $this->peutProcederPayePanier() ){
 
-            //Payer le panier si envoi du formulaire
-            if(  isset($_POST["payerCmd"]) ){
-               $this->payerPanierActif();
-            }
-            
-           
-
-               $this->vue = new Vue('Paiement') ; 
-               $donneeVue = array( 
-                  "clientInfo"=> $GLOBALS["user_en_ligne"], 
-                  "maCommande"=> $this->maCommande() 
-               ) ;
-               $this->vue->genererVue($donneeVue) ;
-               
-        
-            
-            
+         //Payer le panier si envoi du formulaire
+         if(  isset($_POST["payerCmd"]) ){
+            $this->payerPanierActif();
+         }
+         
+         //Génération de la vue
+         $this->vue = new Vue('Paiement') ; 
+         $donneeVue = array( 
+            "clientInfo"=> $GLOBALS["user_en_ligne"], 
+            "maCommande"=> $this->maCommande() 
+         ) ;
+         $this->vue->genererVue($donneeVue) ;  
            
         }
          else if ($GLOBALS["user_en_ligne"] == null && COUNT($this->maCommande()->panier()) >= 1 ) {
@@ -48,9 +41,6 @@ class ControleurPaiement{
             throw new Exception("Vous ne pouvez pas procédez au paiement.", 403);
          }
          
-      }
-      else if ( isset($url[1]) && $url[1] == "rechargerSolde" ){
-         //AJOUTER UNE PROCEDURE POUR RECHARGER SON SOLDE CLIENT
       }
       else{
          throw new Exception("L'objet du paiement n'a pas été précisé dans la requête", 400);

@@ -11,7 +11,7 @@ class ControleurAuthentification{
      
       
       if( isset($url) && count($url) > 3 ){
-         throw new Exception(null, 404);
+         throw new Exception(null, 404); //Erreur 404
       }
 
       else {
@@ -99,7 +99,7 @@ class ControleurAuthentification{
                
             
             }
-            else { throw new Exception(null, 404); }
+            else { throw new Exception(null, 404);  }//Erreur 404
 
          }
          else{
@@ -110,7 +110,7 @@ class ControleurAuthentification{
                exit();
             }
             else{
-               throw new Exception(null, 404);
+               throw new Exception(null, 404); //Erreur 404
             }
                  
                

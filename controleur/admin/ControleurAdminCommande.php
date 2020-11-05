@@ -14,7 +14,7 @@ class ControleurAdminCommande{
      
       if( isset($url) && count($url) > 4 ){
        
-         throw new Exception(null, 404);
+         throw new Exception(null, 404); //Erreur 404
       }
       else{
             //Initialisatio ndes managers 
