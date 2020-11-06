@@ -133,6 +133,7 @@ class Commande{
    }
 
    public function prixTTC(){
+      var_dump(parseFloat(number_format($this->prixTTC, 2)));
       return number_format($this->prixTTC, 2) ;
    }
 

@@ -13,45 +13,39 @@ class ControleurPaiement{
       }
       else if ( isset($url[1]) && $url[1] == "panier" ){
          
-         if ($this->verifPanierDispo() == false) {
-            header("Location: ".URL_SITE."panier?panierPasDispo=ok");
-            exit();
-         }
-        
-        if( $this->peutProcederPayePanier() ){
+         if($GLOBALS["user_en_ligne"] != null ){ //Si l'utilisateur est connecté
+            if(  $this->cmdActif()->panier() != null && COUNT($this->cmdActif()->panier()) >= 1){ // Au moins un article
+               if( $this->cmdActif()->Etat() != null && $this->cmdActif()->Etat()->id() == 1 ){ //La commande n'a pas encore été payé
+                  if($this->verifPanierDispo() ){ //Si ne possède pas un article non dispo
 
-         //Payer le panier si envoi du formulaire
-         if(  isset($_POST["payerCmd"]) ){
-            $this->payerPanierActif();
-         }
-         
-         //Génération de la vue
-         $this->vue = new Vue('Paiement') ; 
-         $donneeVue = array( 
-            "clientInfo"=> $GLOBALS["user_en_ligne"], 
-            "maCommande"=> $this->maCommande() 
-         ) ;
-         $this->vue->genererVue($donneeVue) ;  
-           
-        }
-         else if ($GLOBALS["user_en_ligne"] == null && COUNT($this->maCommande()->panier()) >= 1 ) {
-            header("Location: ".URL_SITE."/authentification/inscription");
-         }
-         else{
-            throw new Exception("Vous ne pouvez pas procédez au paiement.", 403);
-         }
-         
-      }
-      else{
-         throw new Exception("L'objet du paiement n'a pas été précisé dans la requête", 400);
-      }
+                     /*---------FORMULAIRE---------*/
+                     if(  isset($_POST["payerCmd"]) ){
+                        $this->payerPanierActif();
+                     }
+                     /* ------------------ */
+                     
+                     /*---------VUE---------*/
+                     $this->vue = new Vue('Paiement') ; 
+                     $donneeVue = array( 
+                        "clientInfo"=> $GLOBALS["user_en_ligne"], 
+                        "maCommande"=> $this->cmdActif() 
+                     ) ;
+                     $this->vue->genererVue($donneeVue) ;  
+                     /*------------------*/
+                     
+                  } else{ $this->message = "" ;}
+               } else{ header("Location: ".URL_SITE."panier?panierPasDispo=ok"); exit(); } // Redirection vers le panier (Possède au moins un article non dispo)
+            } else{ throw new Exception("Vous ne pouvez pas procédez au paiement.", 403); }
+         } else if(COUNT($this->cmdActif()->panier()) >= 1 ){header("Location: ".URL_SITE."/authentification/inscription"); } //Redirection vers l'inscription
+         else{ throw new Exception(null, 401);  } 
+      } else{ throw new Exception("L'objet du paiement n'a pas été précisé dans la requête", 400); }
 
   
    }
 
 
-
-   private function maCommande(){
+   //
+   private function cmdActif(){
       $CommandeManager = new CommandeManager();
       $maCommande = $CommandeManager->getCmdActiveClient();
        
@@ -60,11 +54,10 @@ class ControleurPaiement{
 
    private function payerPanierActif(){
 
-      
       try {
 
          $CommandeManager = new CommandeManager;
-         $numCmdPaye = $this->maCommande()->num();
+         $numCmdPaye = $this->cmdActif()->num();
          
          $CommandeManager->payerPanierActif($GLOBALS["user_en_ligne"]->id());
          header("Location: ".URL_SITE."facture/".$numCmdPaye."&envoyerFactureMail=Ok");
@@ -78,9 +71,8 @@ class ControleurPaiement{
    
    // Retourne vrai si au moins un article du panier est dispo sinon faux 
    private function verifPanierDispo(){
-
       $dispo= true;
-      foreach ($this->maCommande()->panier() as $article) {
+      foreach ($this->cmdActif()->panier() as $article) {
          if ( $article->dispo() == false ) {
             $dispo= false;
          }
@@ -89,16 +81,6 @@ class ControleurPaiement{
 
    }
 
-   private function peutProcederPayePanier(){
-      //Si au moins un article, si la commande n'a pas encore été payé et si on est connecté
-      return 
-      $this->maCommande()->panier() != null //Possède un panier
-      && $this->maCommande()->Etat() != null //Possède un État
-      && $this->maCommande()->Etat()->id() == 1 //La commande n'a pas encore été payé
-      && COUNT($this->maCommande()->panier()) >= 1 // Au moins un article
-      && $GLOBALS["user_en_ligne"] != null; //Un client est en ligne
-      
-   }
    
 
 

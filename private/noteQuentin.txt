@@ -3,10 +3,4 @@ Lien du drive
 https://docs.google.com/document/d/1UmmZH-7tIvOsV58ONVik2No-2Wc_DakHGyOzls1chsU/edit 
 
 
-
------------
-- améliorer la méthode ajout panier dans la BDD pour update la qte si deja une qte
-- corriger bug qte panier en connecté
-- corriger erreur aux mdp
-
-
+Corriger le prolème d'accès a la page quand n'a pas le moment nécessaire pour payer

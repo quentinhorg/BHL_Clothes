@@ -4,6 +4,11 @@ require_once('vue/Vue.php');
 class ControleurCatalogue{
    private $vue;
    private $VetementManager;
+   private $TailleManager;
+   private $GenreManager;
+   private $CouleurManager;
+   private $CategorieManager;
+ 
 
    // CONSTRUCTEUR 
    public function __construct($url){
@@ -12,13 +17,15 @@ class ControleurCatalogue{
          throw new Exception(null, 404); //Erreur 404
       }
       else{
+         /*---------Initialisation des managers---------*/
          $this->VetementManager = new VetementManager;
-         $this->VetementManager->setPagination(10);
-
-     
-   
-         
-
+         $this->TailleManager = new TailleManager;
+         $this->GenreManager = new GenreManager;
+         $this->CouleurManager = new CouleurManager;
+         $this->CategorieManager = new CategorieManager;
+         $this->GenreManager = new GenreManager;
+         $this->VetementManager->setPagination(10); //Propriété de la pagination du catalogue
+         /*------------------*/
           
          $idCateg= null; $codeGenre = null;
          if( isset( $url[2])){ $idCateg = $url[2]; }
@@ -28,85 +35,50 @@ class ControleurCatalogue{
 
          //Systeme de tri
          if( isset($_GET['trier']) || isset($_GET['motCle']) || $idCateg != null || $codeGenre != null  ){
-            
             $listeVetementDispo = $this->recherche($codeGenre, $idCateg);
          }
          //Tous les vêtements
          else{
-           
             $listeVetementDispo =  $this->listeVetementDispo();
-          
          }
       
-        
-
-      
-           
-      
-
          $vuePagination = $this->VetementManager->Pagination->getVuePagination(LIEN_ACTIVE) ;
 
+         /*---------VUE---------*/
          $this->vue = new Vue('Catalogue') ;
          $this->vue->setListeJsScript(["public\script\js\Catalogue.js"]);
          $this->vue->genererVue(array( 
             "listeVetementDispo"=> $listeVetementDispo,
             "vuePagination" => $vuePagination,
             "listeTaille"=> $this->listeTaille() ,
-            "listeGenre"=>$this->listeGenre(),
-            "listClrPrincipale" => $this->listClrPrincipale(),
-            "genreActive" => $this->genre($codeGenre),
-            "categActive" => $this->categ($idCateg)
-          
-            
+            "listeGenre"=> $this->GenreManager->getListeGenre(),
+            "listClrPrincipale" => $this->CouleurManager->getPrincipaleCouleur(),
+            "genreActive" => $this->GenreManager->getGenre($codeGenre),
+            "categActive" => $this->CategorieManager->getCateg($idCateg)
          )) ;
+         /*------------------*/
          
       }
    }
 
    //Retourne la liste des vêtement par catégorie ou non =)
    private function listeVetementDispo(){
-      
       $listeVetementDispo = $this->VetementManager->getListeVetementDispo();
-
       return $listeVetementDispo;
-      
    }
 
+   //Obtention de la liste de tailles (Chiffre et Lettre)
    public function listeTaille(){
-      $TaillesCatalogue = new TailleManager();
-
       $listeTaille = array(
-         "chiffre" => $TaillesCatalogue->getListeTailleChiffre(),
-         "lettre" =>$TaillesCatalogue->getListeTailleLettre()
-       
+         "chiffre" => $this->TailleManager->getListeTailleChiffre(),
+         "lettre" =>$this->TailleManager->getListeTailleLettre()
       );
-
-      return $listeTaille;
+      return $listeTaille; // Tableau associatif d'objets Taille
    }
 
-   public function listClrPrincipale(){
-      $CouleurManager = new CouleurManager();
-      return $CouleurManager->getPrincipaleCouleur();
-   }
 
-   public function genre($code){
-      $this->GenreManager = new GenreManager;
-      $genre = $this->GenreManager->getGenre($code);
-      return $genre;
-   }
 
-   public function categ($idCateg){
-      $this->CategorieManager = new CategorieManager;
-      $categ = $this->CategorieManager->getCateg($idCateg);
-      return $categ;
-   }
-
-   public function listeGenre(){
-      $this->GenreManager = new GenreManager;
-      $listeGenre = $this->GenreManager->getListeGenre();
-      return $listeGenre;
-   }
-
+   //Trier
    public function recherche($genre, $categorie){
       
       $prixIntervale = null;
@@ -129,7 +101,6 @@ class ControleurCatalogue{
      
          $motCle = $_GET['motCle'];
       }
-      
       
       $resultat = $this->VetementManager->getRechercheVetement(
          $prixIntervale, 

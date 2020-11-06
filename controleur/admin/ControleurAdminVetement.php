@@ -16,61 +16,63 @@ class ControleurAdminVetement{
          throw new Exception(null, 404); //Erreur 404
       }
       else{
-            //Initialisation des managers 
-            $this->VetementManager = new VetementManager;
-            $this->TailleManager = new TailleManager;
-            $this->CategorieManager = new CategorieManager;
-            $this->GenreManager = new GenreManager;
-            $this->CouleurManager = new CouleurManager;
-        
+         /*---------Initialisation des managers ---------*/
+         $this->VetementManager = new VetementManager;
+         $this->TailleManager = new TailleManager;
+         $this->CategorieManager = new CategorieManager;
+         $this->GenreManager = new GenreManager;
+         $this->CouleurManager = new CouleurManager;
+         /*------------------*/
 
-            //Vetement
-            if( isset($_POST["modifierVet"]) ){
-               $this->modifierVet($url[2], $_POST["nomVet"], $_POST["prixVet"],  $_POST["motifConfigVet"], $_POST["genreVet"], $_POST["descVet"], $_POST["categVet"]);
-            }
+         //Vetement
+         if( isset($_POST["modifierVet"]) ){
+            $this->modifierVet($url[2], $_POST["nomVet"], $_POST["prixVet"],  $_POST["motifConfigVet"], $_POST["genreVet"], $_POST["descVet"], $_POST["categVet"]);
+         }
 
-            //Couleur du Vetement
-            if( isset($_POST["modifierCouleur"]) ){
-               $this->modifierCouleur($_POST["modifierCouleur"],$_POST["nomClr"] ,$_POST["filterCssCodeClr"], $_POST["dispoClr"]);
-            }
-            else if( isset($_POST["ajouterCouleur"]) ){
-               $this->ajouterCouleur($url[2], $_POST["nomClr"], $_POST["filterCssCodeClr"], $_POST["dispoClr"]);
-            }
-            else if( isset($_POST["supprimerCouleur"]) ){
-               $this->supprimerCouleur($_POST["supprimerCouleur"]);
-            }
+         /*---------FORMULAIRE---------*/
+         //Couleur du Vetement
+         if( isset($_POST["modifierCouleur"]) ){
+            $this->modifierCouleur($_POST["modifierCouleur"],$_POST["nomClr"] ,$_POST["filterCssCodeClr"], $_POST["dispoClr"]);
+         }
+         else if( isset($_POST["ajouterCouleur"]) ){
+            $this->ajouterCouleur($url[2], $_POST["nomClr"], $_POST["filterCssCodeClr"], $_POST["dispoClr"]);
+         }
+         else if( isset($_POST["supprimerCouleur"]) ){
+            $this->supprimerCouleur($_POST["supprimerCouleur"]);
+         }
 
-            //Taille du Vetement
-            if( isset($_POST["supprimerTaille"]) ){
-               $this->supprimerTaille($url[2],$_POST["supprimerTaille"]);
-            }
-            else if( isset($_POST["ajouterTaille"]) ){
-               $this->ajouterTaille($url[2],$_POST["taille"]);
-            }
+         //Taille du Vetement
+         if( isset($_POST["supprimerTaille"]) ){
+            $this->supprimerTaille($url[2],$_POST["supprimerTaille"]);
+         }
+         else if( isset($_POST["ajouterTaille"]) ){
+            $this->ajouterTaille($url[2],$_POST["taille"]);
+         }
+         /*------------------*/
 
-         
-            //Modifier une vetement
-            if( isset($url[2]) && $this->message != "La vetement à bien été supprimé." ){
-               $vue = "AdminVetementModifier" ;
-               $donnee = array( 
-                  "vetement" => $this->vetementInfo($url[2]),
-                  "listTaille" => $this->listTaille(),
-                  "listCateg" => $this->listCateg(),
-                  "listGenre" =>$this->listGenre()
-               );
-            }
-            //Listing des vetements 
-            else{
-               $vue = "AdminVetement" ;
-               $donnee = array( 
-                  "vetementList" =>  $this->listVetement()
-               );
-            }
-            
+         /*---------VUE---------*/
+         //Modifier une vetement
+         if( isset($url[2]) && $this->message != "La vetement à bien été supprimé." ){
+            $vue = "AdminVetementModifier" ;
+            $donnee = array( 
+               "vetement" => $this->vetementInfo($url[2]),
+               "listTaille" => $this->listTaille(),
+               "listCateg" => $this->listCateg(),
+               "listGenre" =>$this->listGenre()
+            );
+         }
+         //Listing des vetements 
+         else{
+            $vue = "AdminVetement" ;
+            $donnee = array( 
+               "vetementList" =>  $this->listVetement()
+            );
+         }
 
          $this->vue = new VueAdmin($vue) ;
          $this->vue->Popup->setMessage($this->message);
          $this->vue->genererVue($donnee) ;
+         /*------------------*/
       }
    }
    

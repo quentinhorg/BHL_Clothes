@@ -13,17 +13,19 @@ class ControleurAdminAuthentification{
          throw new Exception(null, 404); //Erreur 404
       }
       else{
-
+         /*---------FORMULAIRE---------*/
          if( isset($_POST["connectAdmin"])) {
             $this->seConnecter($_POST["pwdAdmin"]) ;
          }
 
+         /*---------VUE---------*/
          $this->vue = new VueAdmin('AdminAuthentification') ;
          $this->vue->Popup->setMessage($this->message);
          $this->vue->genererVue(array()) ;
       }
    }
 
+   //Se connecter 
    private function seConnecter($pwd){
       if($pwd == "admin"){         
          $_SESSION["admin"] = true ;
@@ -33,7 +35,8 @@ class ControleurAdminAuthentification{
          $this->message = "Ididentifiants incorrecte." ;
       }
    }
-
+   
+   //Fermer la session admin (se déconnecter)
    private function closeAdminSession(){
       $_SESSION["admin"] = null;
       unset($_SESSION["admin"]);

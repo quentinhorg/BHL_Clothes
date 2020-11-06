@@ -48,6 +48,7 @@
               <?php 
                   echo "<p style=' font-weight:bold'> Votre solde actuel :  ".$clientInfo->solde()."€" ;
               if($clientInfo->solde() >= $maCommande->prixTTC() ){
+                var_dump($maCommande->prixTTC());
                 $mtnApresAchat = $clientInfo->solde() - $maCommande->prixTTC() ;
                 echo "<p style='color:green; font-weight:bold'> Estimation de votre après l'achat : ".$mtnApresAchat."€" ;
                 $disabled = null;
