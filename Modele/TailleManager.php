@@ -5,13 +5,13 @@ class TailleManager extends DataBase{
     public function getTaille($libelle){
         $req = "SELECT * FROM taille WHERE libelle = ?";
         $this->getBdd();
-        return @$this->getModele($req, [$libelle], "Taille")[0]; // Si une valeur
+        return @$this->getModele("Taille", $req, [$libelle])[0]; // Si une valeur
     }
 
     public function getListeTaille(){
         $req = "SELECT t.* FROM taille t";
         $this->getBdd();
-        return $this->getModele($req,["*"],"Taille");
+        return $this->getModele("Taille", $req,["*"]);
     }
 
     public function insertBDD($idVet, $libelle){
@@ -33,19 +33,19 @@ class TailleManager extends DataBase{
         INNER JOIN taille t ON t.libelle = vt.taille 
         WHERE vt.idVet =?";
         $this->getBdd();
-        return $this->getModele($req,[$idVet],"Taille");
+        return $this->getModele("Taille", $req,[$idVet]);
     }
 
     public function getListeTailleLettre(){
         $req = "SELECT t.* FROM taille t WHERE t.libelle NOT REGEXP '^[0-9]+$'; ";
         $this->getBdd();
-        return $this->getModele($req,["*"],"Taille");
+        return $this->getModele("Taille", $req,["*"]);
     }
 
     public function getListeTailleChiffre(){
         $req = "SELECT t.* FROM taille t WHERE t.libelle REGEXP '^[0-9]+$'; ";
         $this->getBdd();
-        return $this->getModele($req,["*"],"Taille");
+        return $this->getModele("Taille", $req,["*"]);
     }
 
 

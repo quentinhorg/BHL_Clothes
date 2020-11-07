@@ -7,7 +7,7 @@ class AvisManager extends DataBase{
 
         $req="SELECT * FROM avis WHERE idVet=? ORDER BY date DESC";
         $this->getBdd();
-        $avis= $this->getModele($req, [$id], "Avis");
+        $avis= $this->getModele("Avis", $req,  [$id]);
 
         return $avis;
     }

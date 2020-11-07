@@ -12,13 +12,13 @@ class FactureManager extends DataBase{
         $req = $this->reqBase." WHERE f.numCmd = ?";
         $this->getBdd();
     
-        return @$this->getModele($req, [$numCmd], "Facture")[0];
+        return @$this->getModele( "Facture", $req, [$numCmd])[0];
     }
 
     public function getListeFacture(){
         $req = $this->reqBase;
         $this->getBdd();
-        return $this->getModele($req, ["*"], "Facture");
+        return $this->getModele("Facture", $req);
     }
     
     public function supprimerFacture($numCmd){

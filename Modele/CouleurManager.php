@@ -5,7 +5,7 @@ class CouleurManager extends DataBase{
     public function getCouleur($id){
         $req = "SELECT * FROM vet_couleur WHERE num = ?";
         $this->getBdd();
-        return $this->getModele($req, [$id], "Couleur")[0];
+        return $this->getModele( "Couleur", $req, [$id])[0];
 
     }
 
@@ -35,7 +35,7 @@ class CouleurManager extends DataBase{
     public function getListeCouleurForVet($idVet){
         $req = "SELECT * FROM vet_couleur WHERE idVet = ? ORDER BY filterCssCode ASC";
         $this->getBdd();
-        return $this->getModele($req, [$idVet], "Couleur");
+        return $this->getModele( "Couleur",  $req, [$idVet]);
     }
 
     public function getPrincipaleCouleur(){

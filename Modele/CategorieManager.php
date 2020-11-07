@@ -6,14 +6,14 @@ class CategorieManager extends DataBase{
         
         $req = "SELECT * FROM categorie WHERE id = ?";
         $this->getBdd();
-        return @$this->getModele($req, [$id], "Categorie")[0];
+        return @$this->getModele("Categorie", $req, [$id])[0];
 
     }
 
     public function getListeCateg(){
         $req = "SELECT * FROM categorie";
         $this->getBdd();
-        return $this->getModele($req, ["*"], "Categorie");
+        return $this->getModele("Categorie", $req);
     }
 
     public function getListeGategForGenre($codeGenre){
@@ -24,7 +24,7 @@ class CategorieManager extends DataBase{
         WHERE g.code = ?
         order by c.nom";
         $this->getBdd();
-        return $this->getModele($req, [$codeGenre], "Categorie");
+        return $this->getModele( "Categorie",  $req,[$codeGenre]);
     }
 
 

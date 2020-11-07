@@ -13,7 +13,7 @@ class ClientManager extends DataBase{
         $this->getBdd();
        
         
-        return @$this->getModele($req, [$id], "Client")[0];
+        return @$this->getModele( "Client", $req,[$id])[0];
     }
 
 

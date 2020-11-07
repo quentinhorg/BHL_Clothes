@@ -13,7 +13,7 @@
    
 
 
-   public function getReqPagination($OriginalReq, $tabValeur){
+   public function getReqPagination($OriginalReq, $tabValeur = null){
       
       $ligneParPage = $this->ligneParPage ;
       $totalResultat = COUNT(  $this->execBDD($OriginalReq, $tabValeur) );

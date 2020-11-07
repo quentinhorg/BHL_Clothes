@@ -48,9 +48,6 @@ class ControleurAdminCommande{
             
             //Modifier une commande
             if( isset($url[3]) && $url[3] == "facture" ){
-
-               
-
                $facture = $this->commandeInfo($url[2])->getFacture() ;
                $client = $this->commandeInfo($url[2])->Client() ;
                

@@ -12,7 +12,7 @@ class ArticleManager extends DataBase{
                WHERE numCmd = ? ORDER BY ap.ordreArrivee DESC";
       $this->getBdd();
     
-      return $this->getModele($reqArt, [$idCmd], "Article");
+      return $this->getModele("Article", $reqArt, [$idCmd]);
    }
 
    public function updateBDD($idCmd, $idVet, $taille, $idClr, $qte, $ancien){

@@ -6,13 +6,13 @@ class GenreManager extends DataBase{
     public function getGenre($code){
         $req = $this->reqBase." WHERE g.code LIKE ?";
         $this->getBdd();
-        return @$this->getModele($req, [$code], "Genre")[0];
+        return @$this->getModele("Genre", $req, [$code])[0];
     }
 
     public function getListeGenre(){
         $req = $this->reqBase;
         $this->getBdd();
-        return $this->getModele($req, ["*"], "Genre");
+        return $this->getModele("Genre", $req);
     }
 
 

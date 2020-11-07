@@ -29,14 +29,14 @@ class VetementManager extends DataBase{
     public function getNouveaute(){
         $req= "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." ORDER BY v.id DESC LIMIT 3";
         $this->getBdd();
-        return $this->getModele($req, ["*"], "Vetement");
+        return $this->getModele("Vetement", $req);
     }
 
     //Obtient les infos d'un de vêtements
     public function getVetement($id){
         $req = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." WHERE v.id = ?" ;
         $this->getBdd();
-        return $this->getModele($req, [$id], "Vetement")[0];
+        return $this->getModele("Vetement", $req, [$id])[0];
     }
 
     //Obtient la liste des vêtements dispo ou non
@@ -48,13 +48,12 @@ class VetementManager extends DataBase{
 
         $this->getBdd();
         if( $this->Pagination == null){
-            $resultat = $this->getModele($req, ["*"], "Vetement") ;
+            $resultat = $this->getModele("Vetement", $req) ;
         }
         else{
-            $req = $this->Pagination->getReqPagination($req, ["*"]);
-            $resultat = $this->Pagination->getModele($req, ["*"], "Vetement") ;
+            $req = $this->Pagination->getReqPagination($req);
+            $resultat = $this->Pagination->getModele("Vetement", $req) ;
         }
-        var_dump(count($resultat));
         return $resultat;
     }
 
@@ -71,8 +70,8 @@ class VetementManager extends DataBase{
          
             $this->Pagination->getBdd();
 
-            $newReq = $this->Pagination->getReqPagination($reqRecherche, ["*"]);
-            $resultat = $this->Pagination->getModele($newReq, ["*"], "Vetement") ;
+            $newReq = $this->Pagination->getReqPagination($reqRecherche);
+            $resultat = $this->Pagination->getModele("Vetement", $newReq) ;
         }
        
         return $resultat;

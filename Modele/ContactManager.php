@@ -8,12 +8,13 @@ class ContactManager extends DataBase{
         $req= "INSERT INTO contact VALUES(?, ?, ?, ?, ?, ?)";
         $this->getBdd();
         $this->execBDD($req,[$newID, $_POST['nom'], $_POST['email'],$_POST['tel'], $_POST['sujet'],$_POST['message']]);
-
-        
     }
 
-
-
+    public function getListeContact(){
+        $req= "SELECT * FROM contact";
+        $this->getBdd();
+        return $this->getModele( "Contact",  $req,["*"]) ;    
+    }
 
 
 }

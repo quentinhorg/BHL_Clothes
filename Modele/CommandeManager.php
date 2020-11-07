@@ -13,7 +13,7 @@ class CommandeManager extends DataBase{
     public function getListCommande(){
         $req = $this->reqBase;
         $this->getBdd();
-        $commande =  $this->getModele($req, ["*"], "Commande");
+        $commande =  $this->getModele("Commande", $req);
 
         return $commande;
     }
@@ -21,14 +21,14 @@ class CommandeManager extends DataBase{
     public function getListCommandeForClient($idClient){
         $req = $this->reqBase." WHERE c.idClient= ?";
         $this->getBdd();
-        $commande =  $this->getModele($req, [$idClient], "Commande");
+        $commande =  $this->getModele("Commande", $req, [$idClient]);
         return $commande;
     }
 
     public function getCommande($numCmdBDD){
         $req = $this->reqBase." WHERE c.num = ? GROUP BY c.num";
         $this->getBdd();
-        $commande =  @$this->getModele($req, [$numCmdBDD], "Commande")[0];
+        $commande =  @$this->getModele("Commande", $req, [$numCmdBDD])[0];
 
         return $commande;
     }

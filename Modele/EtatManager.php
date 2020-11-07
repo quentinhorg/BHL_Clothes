@@ -6,19 +6,19 @@ class EtatManager extends DataBase{
     public function getEtat($id){
         $req = $this->reqBase." WHERE id = ?";
         $this->getBdd();
-        return @$this->getModele($req, [$id], "Etat")[0];
+        return @$this->getModele("Etat", $req,  [$id])[0];
     }
 
     public function getListEtat(){
         $req = $this->reqBase;
         $this->getBdd();
-        return $this->getModele($req, ["*"], "Etat");
+        return $this->getModele("Etat", $req,  ["*"]);
     }
 
     public function getListeEtatSuivi(){
         $req = $this->reqBase." WHERE id != 1";
         $this->getBdd();
-        return $this->getModele($req, ["*"], "Etat");
+        return $this->getModele("Etat", $req,  ["*"]);
     }
 
 

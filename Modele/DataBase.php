@@ -1,10 +1,5 @@
 <?php 
 
-
-
-
-
-
 include "Pagination.php" ;
 
 
@@ -26,30 +21,22 @@ abstract class DataBase{
    }
 
 
-   protected function getModele($req, $tabValeur, $obj){  
+   protected function getModele($obj, $req, $tabValeur = null ){  
       
       $var = [];
       $req = self::$bdd->prepare($req);
       $req->execute($tabValeur);
-      
+   
       if($req != null || empty($req) ){
-
          while($donnee = $req->fetch(PDO::FETCH_ASSOC)){
-     
             $var[] = new $obj($donnee);
-            
          }
       }
-
       else{
          $var = null;
       }
-
-      
-     
       return $var;
       $req->closeCursor();
-      
 }
 
 
@@ -58,8 +45,6 @@ abstract class DataBase{
 
    protected function execBDD($req, $tabValeur){
       $resultat = null;
-      
-
       $req = self::$bdd->prepare($req);
       if(@!$req->execute($tabValeur) && isset($req->errorInfo()[0]) && !empty($req->errorInfo()[0]) ){
 
@@ -71,13 +56,8 @@ abstract class DataBase{
         
          throw new Exception( $req->errorInfo()[2], $ErrorCode )  ;
       }
-      
- 
-      
       @$resultat = $req->fetchAll(PDO::FETCH_ASSOC) ;
       
-      
-     
       return $resultat ;
       
       $req->closeCursor();
