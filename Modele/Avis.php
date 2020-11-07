@@ -9,12 +9,10 @@ class Avis{
    private  $note;
    private  $date;
 
-   
    public function __construct(array $donnee){
       $this->hydrate($donnee);
    }
 
-   
    //HYDRATATION
    public function hydrate(array $donnee){
       foreach($donnee as $cle => $valeur){

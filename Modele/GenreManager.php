@@ -14,8 +14,6 @@ class GenreManager extends DataBase{
         $this->getBdd();
         return $this->getModele("Genre", $req);
     }
-
-
 }
 
 ?>

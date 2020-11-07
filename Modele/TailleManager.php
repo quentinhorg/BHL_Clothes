@@ -11,7 +11,7 @@ class TailleManager extends DataBase{
     public function getListeTaille(){
         $req = "SELECT t.* FROM taille t";
         $this->getBdd();
-        return $this->getModele("Taille", $req,["*"]);
+        return $this->getModele("Taille", $req);
     }
 
     public function insertBDD($idVet, $libelle){
@@ -39,13 +39,13 @@ class TailleManager extends DataBase{
     public function getListeTailleLettre(){
         $req = "SELECT t.* FROM taille t WHERE t.libelle NOT REGEXP '^[0-9]+$'; ";
         $this->getBdd();
-        return $this->getModele("Taille", $req,["*"]);
+        return $this->getModele("Taille", $req);
     }
 
     public function getListeTailleChiffre(){
         $req = "SELECT t.* FROM taille t WHERE t.libelle REGEXP '^[0-9]+$'; ";
         $this->getBdd();
-        return $this->getModele("Taille", $req,["*"]);
+        return $this->getModele("Taille", $req);
     }
 
 

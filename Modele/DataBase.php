@@ -59,7 +59,6 @@ abstract class DataBase{
       @$resultat = $req->fetchAll(PDO::FETCH_ASSOC) ;
       
       return $resultat ;
-      
       $req->closeCursor();
       
 
@@ -77,9 +76,6 @@ abstract class DataBase{
       
          $req->execute();
          $resultat = $req->fetchAll(PDO::FETCH_ASSOC)[0]["newId"];
-     
-      
-
 
       if( empty($resultat) ){ $resultat = 1 ; }
       return $resultat;

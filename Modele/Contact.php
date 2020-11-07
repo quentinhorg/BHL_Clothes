@@ -8,6 +8,7 @@ class Contact{
    private  $numero;
    private  $sujet;
    private  $message;
+   private  $date;
 
    
    public function __construct(array $donnee){
@@ -53,6 +54,13 @@ class Contact{
             $this->message = $message;
     }
 
+    public function setDate($date){
+
+        if(is_string($date)){
+            $this->date = $date;
+        } 
+    }
+
 
 
    //GETTER
@@ -81,6 +89,10 @@ class Contact{
         return $this->message;
     }
 
+    public function date($format){
+        $date= new DateTime($this->date);
+        return date_format($date, $format); //Format date choisis en paramètre
+    }
 }
 
 ?>
