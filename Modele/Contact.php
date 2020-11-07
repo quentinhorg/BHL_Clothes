@@ -3,6 +3,7 @@
 
 class Contact{
    private  $idContact;
+   private  $idClient;
    private  $nom;
    private  $email;
    private  $numero;
@@ -32,6 +33,10 @@ class Contact{
    //SETTER
     public function setIdContact($idContact){
         $this->idContact = $idContact;
+    }
+
+    public function setIdContact($idClient){
+        $this->idClient = $idClient;
     }
 
     public function setNom($nom){
@@ -67,6 +72,10 @@ class Contact{
 
     public function idContact(){
         return $this->idContact;
+    }
+
+    public function idClient(){
+        return $this->idClient;
     }
 
     public function nom(){

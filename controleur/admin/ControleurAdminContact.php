@@ -20,6 +20,13 @@ class ControleurAdminContact{
          /*---------MANAGER---------*/
          $this->ContactManager= new ContactManager();
          /*------------------*/
+
+      
+         /*---------FORMULAIRE---------*/
+         if( isset($_POST["supMessage"]) ){ //Si formulaire supprimer
+            $this->ContactManager->supprimer($_POST["supMessage"]);
+         }
+         /*------------------*/
      
          /*---------VUE---------*/
          if(isset($url[2])) {

@@ -17,7 +17,7 @@ class ControleurAdminCommande{
          throw new Exception(null, 404); //Erreur 404
       }
       else{
-            //Initialisatio ndes managers 
+            //Initialisation ndes managers 
             $this->CommandeManager = new CommandeManager;
             $this->EtatManager = new EtatManager;
             $this->FactureManager = new FactureManager;
@@ -56,7 +56,7 @@ class ControleurAdminCommande{
                $pdf->Output();
                exit();
             }
-            else if( isset($url[2]) && $this->message != "La commande à bien été supprimé." ){
+            else if( isset($url[2]) && $this->message != "La commande a bien été supprimée." ){
 
                $vue = "AdminCommandeModifier" ;
                $donnee = array( 
@@ -94,7 +94,7 @@ class ControleurAdminCommande{
       try{
          //Apres le vide du panier, la commande se supprime automatiquement  
          $this->CommandeManager->viderPanier($numCmd);
-         $this->message= "La commande à bien été supprimé.";
+         $this->message= "La commande a bien été supprimée.";
   
       } catch (Exception $e) {
 
@@ -119,7 +119,7 @@ class ControleurAdminCommande{
       try{
 
          $this->CommandeManager->modifierEtat($numCmd, $idEtat);
-         $this->message= "L'etat à bien été modifié";
+         $this->message= "L'état a bien été modifié";
   
       } catch (Exception $e) {
      
@@ -135,7 +135,7 @@ class ControleurAdminCommande{
       try{
 
          $this->FactureManager->supprimerFacture($numCmd);
-         $this->message= "La facture à bien été supprimé.";
+         $this->message= "La facture a bien été supprimée.";
   
       } catch (Exception $e) {
      
@@ -152,7 +152,7 @@ class ControleurAdminCommande{
       try{
 
          $this->ArticleManager->supprimer($numCmd, $idVet, $tailleArt, $numClrArt);
-         $this->message= "L'article à bien été supprimé.";
+         $this->message= "L'article a bien été supprimé.";
   
       } catch (Exception $e) {
          
@@ -172,7 +172,7 @@ class ControleurAdminCommande{
       try{
 
          $this->ArticleManager->updateBDD($numCmd, $idVet, $tailleArt, $numClrArt, $qte, $ancienValue);
-         $this->message= "L'article à bien été modifié.";
+         $this->message= "L'article a bien été modifié.";
   
       } catch (Exception $e) {
          if($e->getCode() == 45000){

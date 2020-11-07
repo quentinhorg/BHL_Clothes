@@ -159,8 +159,8 @@ class ControleurAuthentification{
 
    
    private function suppSessionCmd(){
-      $CommandeManager = new CommandeManager();
-      $CommandeManager->effacerCmdSession();
+      $_SESSION["ma_commande"] = null ;
+      unset($_SESSION["ma_commande"]) ;
    }
 
    private function insertPanierSessionToBdd($idCli,Commande $cmdSessionObj){

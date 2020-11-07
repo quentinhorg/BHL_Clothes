@@ -2,7 +2,6 @@
 
 <?php  if($infoVetement != null){ ?>
 
-<!-- <div class="photoVet" style="background-image: url(public/vetement/id2.jpg)"></div> -->
 <div class="cadre">
     <div class="img"> <img src="public/media/vetement/id<?php echo $infoVetement->id() ?>.jpg" alt="Image du vêtement" class="img-responsive"> </div>
 
@@ -32,12 +31,7 @@
         
 
             <label for="">Choississez votre taille: </label>
-            <!-- <ul name="taille" id="taille">  -->
-                <?php //foreach ($infoVetement->listeTailleDispo() as $taille) { ?>
-                    <!-- <option value="<?php //echo $taille->libelle() ?>"> <?php// echo $taille->libelle() ; ?> </option> -->
-                    <!-- <li value="<?php //echo $taille->libelle() ?>"> <div class="divTaille"> <?php //echo $taille->libelle() ; ?> </div> </li> -->
-                <?php //} ?>
-            <!-- </ul> -->
+           
 
             <select name="taille" id="taille">
             <?php foreach ($infoVetement->listeTailleDispo() as $taille) { ?>

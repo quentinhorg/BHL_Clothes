@@ -14,7 +14,6 @@ class CommandeManager extends DataBase{
         $req = $this->reqBase;
         $this->getBdd();
         $commande =  $this->getModele("Commande", $req);
-
         return $commande;
     }
 
@@ -91,11 +90,6 @@ class CommandeManager extends DataBase{
         }
     }
 
-    //Permet également d'effacer la commande (panier) de la session
-    public function effacerCmdSession(){
-        $_SESSION["ma_commande"] = null;
-        unset($_SESSION["ma_commande"]);
-    }
 
     public function getPrixTotalPanierHT($panier){
 
@@ -103,14 +97,9 @@ class CommandeManager extends DataBase{
         foreach ($panier as $article) {
             $req = "SELECT prixTotalArt(?, ?) AS 'prixTotalArt';" ;
             $this->getBdd();
-            
             $prixTotal += floatval( $this->execBdd($req, [$article->id(), $article->qte()])[0]["prixTotalArt"]);
-            
         }
-       
-        return $prixTotal ;
-    
-        
+        return $prixTotal ;  
     }
 
     public function payerPanierActif($idClient){
