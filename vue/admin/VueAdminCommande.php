@@ -37,8 +37,3 @@ $(document).ready(function(){
 
     </table>
 </div>
-
-<?php 
-//Affiche le message du popup si il a été passé dans la vue et n'est pas null
-
-?>

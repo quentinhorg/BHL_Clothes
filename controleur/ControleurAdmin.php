@@ -16,9 +16,8 @@ class ControleurAdmin{
       }
       else{
 
-         //Vérififcatio ndes droits d'accès à la page actif
+         //Vérififcation des droits d'accès à la page actif
 
-         
          if( 
             isset($_SESSION["admin"])
          ){ 

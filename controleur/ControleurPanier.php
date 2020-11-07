@@ -71,6 +71,8 @@ class ControleurPanier{
          }
       
       /*---------- Vue Json ----------*/
+   
+      
       $indiceNouvelArt = $this->maCommandeActif()->indiceArticlePanier($_POST["idVet"], $_POST["taille"], $_POST["numClr"]);
       $nouvelArticle = $this->maCommandeActif()->panier()[$indiceNouvelArt];
       $jsonData = array(
@@ -79,6 +81,7 @@ class ControleurPanier{
          "prixCmdHT" => $this->maCommandeActif()->prixHT(),
          "prixCmdTTC" => $this->maCommandeActif()->prixTTC()
       );
+      
       echo json_encode($jsonData);
       exit();   
    }

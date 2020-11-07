@@ -45,9 +45,7 @@ class Commande{
 
 
    public function setDateCreation($date){
-
-         $this->dateCreation = $date;
-      
+      $this->dateCreation = $date;
    }
 
 
@@ -66,9 +64,8 @@ class Commande{
    public function setPrixTTC($prix){
       
       $prix = (float) $prix;
-
+    
       if($prix > 0){
-      
          $this->prixTTC = $prix;
       }
    }
@@ -133,8 +130,8 @@ class Commande{
    }
 
    public function prixTTC(){
-      var_dump(parseFloat(number_format($this->prixTTC, 2)));
-      return number_format($this->prixTTC, 2) ;
+      //var_dump(parseFloat(number_format($this->prixTTC, 2)));
+      return floatVal(number_format($this->prixTTC,2, '.', '')) ;
    }
 
    public function totalArticle(){

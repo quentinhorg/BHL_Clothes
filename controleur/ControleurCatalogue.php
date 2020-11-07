@@ -63,7 +63,7 @@ class ControleurCatalogue{
 
    //Retourne la liste des vêtement par catégorie ou non =)
    private function listeVetementDispo(){
-      $listeVetementDispo = $this->VetementManager->getListeVetementDispo();
+      $listeVetementDispo = $this->VetementManager->getListeVetement(true);
       return $listeVetementDispo;
    }
 
@@ -76,32 +76,21 @@ class ControleurCatalogue{
       return $listeTaille; // Tableau associatif d'objets Taille
    }
 
-
-
-   //Trier
+   //Trier le catalogue
    public function recherche($genre, $categorie){
       
-      $prixIntervale = null;
-      if (!empty($_GET['budget']) ){
-         $prixIntervale = [0, $_GET['budget']];
-      }
-
+      $prixIntervale = null; 
       $listeTaille = null;
-      if (!empty($_GET['taille'])){
-         $listeTaille = $_GET['taille'];
-      }
-      
       $listeCouleur=null;
-      if(!empty($_GET['couleur'])){
-         $listeCouleur = $_GET['couleur'];
-      }
-
       $motCle=null;
-      if(!empty($_GET['motCle'])){
-     
-         $motCle = $_GET['motCle'];
-      }
-      
+
+      //Obtention des critères de recherche
+      if (!empty($_GET['budget']) ){ $prixIntervale = [0, $_GET['budget']]; }
+      if (!empty($_GET['taille'])){$listeTaille = $_GET['taille'];}
+      if(!empty($_GET['couleur'])){$listeCouleur = $_GET['couleur'];}
+      if(!empty($_GET['motCle'])){$motCle = $_GET['motCle']; }
+
+      //Recherche du vêtement
       $resultat = $this->VetementManager->getRechercheVetement(
          $prixIntervale, 
          $listeTaille, 

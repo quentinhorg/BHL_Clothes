@@ -20,22 +20,6 @@ class ArticleSession extends Article{
       $this->setPrixTotalArt($this->qte * $this->prix);
    }
 
-   
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
 }
 
 ?>

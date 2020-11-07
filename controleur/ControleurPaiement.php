@@ -14,8 +14,10 @@ class ControleurPaiement{
       else if ( isset($url[1]) && $url[1] == "panier" ){
          
          if($GLOBALS["user_en_ligne"] != null ){ //Si l'utilisateur est connecté
-            if(  $this->cmdActif()->panier() != null && COUNT($this->cmdActif()->panier()) >= 1){ // Au moins un article
-               if( $this->cmdActif()->Etat() != null && $this->cmdActif()->Etat()->id() == 1 ){ //La commande n'a pas encore été payé
+            if(  
+               $this->cmdActif()->panier() != null && COUNT($this->cmdActif()->panier()) >= 1 // Au moins un article
+               && $this->cmdActif()->Etat() != null && $this->cmdActif()->Etat()->id() == 1 //La commande n'a pas encore été payé
+            ){ 
                   if($this->verifPanierDispo() ){ //Si ne possède pas un article non dispo
 
                      /*---------FORMULAIRE---------*/
@@ -26,6 +28,7 @@ class ControleurPaiement{
                      
                      /*---------VUE---------*/
                      $this->vue = new Vue('Paiement') ; 
+                     $this->vue->Popup->setMessage($this->message); //Initialisation du message dans 
                      $donneeVue = array( 
                         "clientInfo"=> $GLOBALS["user_en_ligne"], 
                         "maCommande"=> $this->cmdActif() 
@@ -33,8 +36,7 @@ class ControleurPaiement{
                      $this->vue->genererVue($donneeVue) ;  
                      /*------------------*/
                      
-                  } else{ $this->message = "" ;}
-               } else{ header("Location: ".URL_SITE."panier?panierPasDispo=ok"); exit(); } // Redirection vers le panier (Possède au moins un article non dispo)
+                  } else{ header("Location: ".URL_SITE."panier?panierPasDispo=ok"); exit(); } // Redirection vers le panier (Possède au moins un article non dispo)
             } else{ throw new Exception("Vous ne pouvez pas procédez au paiement.", 403); }
          } else if(COUNT($this->cmdActif()->panier()) >= 1 ){header("Location: ".URL_SITE."/authentification/inscription"); } //Redirection vers l'inscription
          else{ throw new Exception(null, 401);  } 
@@ -63,7 +65,7 @@ class ControleurPaiement{
          header("Location: ".URL_SITE."facture/".$numCmdPaye."&envoyerFactureMail=Ok");
 
       } catch (Exception $e) {
-         
+         $this->message = $e->getMessage()."<p> Veuillez <a href='contact'>nous contacter</a> si le problème persiste.</p>";
       }
 
 

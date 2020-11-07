@@ -13,21 +13,21 @@ class ControleurFacture{
       }
       else{
        
-         if( isset($url[1]) ){
-            if( $this->facture($url[1]) != null ){
-               if(  $GLOBALS["user_en_ligne"] != null ){
+         if( isset($url[1]) ){ //2ème section de l'url
+            if( $this->facture($url[1]) != null ){ // Si la facture existe
+               if(  $GLOBALS["user_en_ligne"] != null ){ // Si le client est ligne
                
                   if(
-                     $GLOBALS["user_en_ligne"]->id() == $this->facture($url[1])->Commande()->idClient()
-                     && $this->facture($url[1])->Commande()->Etat()->id() != 1 
+                     $GLOBALS["user_en_ligne"]->id() == $this->facture($url[1])->Commande()->idClient() // Si la facture appartient au client connecté
+                     && $this->facture($url[1])->Commande()->Etat()->id() != 1 // Si la commande eest déjà payé / validé
                   ){
                      $facture = $this->facture($url[1]) ;
                      $client = $this->client($facture->Commande()->idClient()) ;
                     
                      $listeCp = $this->listeCp();
                      
-                     include "vue/vueFacture.php";
-                     $pdf->buildPDF();
+                     include "vue/vueFacture.php"; //Inclusion de la vue Facture
+                     $pdf->buildPDF(); //Constrcution Du PDF
       
                      if( isset($_GET["envoyerFactureMail"]) ){
                         $this->envoyerMailFacture($client, $facture, $pdf);   
@@ -46,27 +46,23 @@ class ControleurFacture{
 
  
    
-   
+   //Facture d'une commande
    public function facture($idCmd){
       $FactureManager = new FactureManager();
-      $facture = $FactureManager->getFacture($idCmd);
-
+      $facture = $FactureManager->getFacture($idCmd); // Object Facture
       return $facture ;
    }
 
-        
+   //Information du client
    private function client($idCli){
       $ClientManager = new ClientManager();
-      return  $ClientManager->getClient( $idCli );
+      return  $ClientManager->getClient( $idCli ); // Object Client
   }
 
-
-
-   //$CodePostalManager->getListCp();
+   //Liste des codes postal
    public function listeCp(){
       $CodePostalManager = new CodePostalManager();
-      $listeCodePostal = $CodePostalManager->getListCp();
-
+      $listeCodePostal = $CodePostalManager->getListCp(); // Ttableau d'Object de Code Postal
       return $listeCodePostal;
    }
 
@@ -87,26 +83,25 @@ class ControleurFacture{
 
       </p>";
 
-      // a random hash will be necessary to send mixed content
+      // Hachage aléatoire sera nécessaire pour envoyer du contenu mixte
       $separator = md5(time());
 
-      // carriage return type (we use a PHP end of line constant)
+      // type de retour chariotx
       $eol = PHP_EOL;
 
-      // attachment name
+      // Fichier joint
       $filename = "Facture N".$Facture->Commande()->num()." - ".$Client->nom()." ".$Client->prenom().".pdf";
 
-      // encode data (puts attachment in proper format)
+      // Encodage
       $pdfdoc = $pdf->Output("", "S");
       $attachment = chunk_split(base64_encode($pdfdoc));
 
-      // main header
+      // Entête princiaple
       $headers  = "From: ".$from.$eol;
       $headers .= "MIME-Version: 1.0".$eol; 
       $headers .= "Content-Type: multipart/mixed; boundary=\"".$separator."\"";
 
-      // no more headers after this, we start the body! //
-
+      // Corps du messages
       $body = "--".$separator.$eol;
       $body .= "Content-Transfer-Encoding: 7bit".$eol.$eol;
     
@@ -117,7 +112,7 @@ class ControleurFacture{
       $body .= "Content-Transfer-Encoding: 8bit".$eol.$eol;
       $body .= $message.$eol;
 
-      // attachment
+      // Fichiers joints
       $body .= "--".$separator.$eol;
       $body .= "Content-Type: application/octet-stream; name=\"".$filename."\"".$eol; 
       $body .= "Content-Transfer-Encoding: base64".$eol;
@@ -125,7 +120,7 @@ class ControleurFacture{
       $body .= $attachment.$eol;
       $body .= "--".$separator."--";
 
-      // send message
+      // Envoyer le mail
       mail($to, $subject, $body, $headers);
       
 

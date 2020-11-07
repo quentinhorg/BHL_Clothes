@@ -1,27 +1,24 @@
 <?php
 
 class VetementManager extends DataBase{
-    private $reqBase = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis
-    FROM vetement v
+    private $liaison = "FROM vetement v
     LEFT JOIN vue_vet_disponibilite vvd ON vvd.idVet = v.id
     LEFT JOIN vet_taille vt ON vt.idVet = v.id 
     LEFT JOIN vet_couleur vc ON vc.idVet= v.id 
     LEFT JOIN categorie c ON c.id= v.idCateg
     LEFT JOIN genre g ON g.code = v.codeGenre
     LEFT JOIN taille t ON t.libelle = vt.taille";
-
     public $Pagination = null;
-
-    
 
     public function setPagination($nbArtPage){
         if( !isset($_GET["page"]) ){ $_GET["page"] = null ; }
         $this->Pagination = new Pagination($_GET["page"], $nbArtPage) ;
     }
-
     
    public function tabAssocVet($idVet){
-        $reqVet = $this->reqBase." WHERE v.id = ?";
+        $reqVet = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".
+        $this->liaison.
+        " WHERE v.id = ?";
         $this->getBdd();
         $dataAricle = $this->execBDD($reqVet, [$idVet]);
         return $dataAricle ;
@@ -30,49 +27,45 @@ class VetementManager extends DataBase{
 
     //Obtient les 3 dernières nouveautés
     public function getNouveaute(){
-        $req= $this->reqBase." ORDER BY v.id DESC LIMIT 3";
+        $req= "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." ORDER BY v.id DESC LIMIT 3";
         $this->getBdd();
         return $this->getModele($req, ["*"], "Vetement");
     }
 
     //Obtient les infos d'un de vêtements
     public function getVetement($id){
-        $req = $this->reqBase." WHERE v.id = ?" ;
+        $req = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." WHERE v.id = ?" ;
         $this->getBdd();
         return $this->getModele($req, [$id], "Vetement")[0];
     }
 
-    //Obtient la liste des vêtements
-    public function getListeVetement(){
-     
-        $req = $this->reqBase." ORDER BY v.id DESC";
-        $this->getBdd();
-        $resultat = $this->getModele($req, ["*"], "Vetement") ;
+    //Obtient la liste des vêtements dispo ou non
+    public function getListeVetement($dispo = false){
+        $condition = null;
+        if($dispo){ $condition = "WHERE vvd.listeNumCouleurDispo IS NOT NULL AND vvd.listeTailleDispo IS NOT NULL" ;}
 
+        $req = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." ".$condition." ORDER BY v.id DESC";
+
+        $this->getBdd();
+        if( $this->Pagination == null){
+            $resultat = $this->getModele($req, ["*"], "Vetement") ;
+        }
+        else{
+            $req = $this->Pagination->getReqPagination($req, ["*"]);
+            $resultat = $this->Pagination->getModele($req, ["*"], "Vetement") ;
+        }
+        var_dump(count($resultat));
         return $resultat;
     }
 
     //Obtient toute la liste de vêtements dispo
-    public function getListeVetementDispo(){
-        $resultat = null;
-        if( $this->Pagination != null){
-            $req = $this->reqBase." WHERE vvd.listeNumCouleurDispo IS NOT NULL
-            AND vvd.listeTailleDispo IS NOT NULL ORDER BY v.id DESC";
-            $this->Pagination->getBdd();
-            
-            $newReq = $this->Pagination->getReqPagination($req, ["*"]);
-            $resultat = $this->Pagination->getModele($newReq, ["*"], "Vetement") ;
-        }
-       
-        return $resultat;
-    }
 
     public function getRechercheVetement($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre, $motCle){
        
         $resultat = null;
         if( $this->Pagination != null){
             $Recherche = new Recherche($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre, $motCle) ;
-            $reqRecherche = $this->reqBase." WHERE vvd.listeNumCouleurDispo IS NOT NULL
+            $reqRecherche = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." WHERE vvd.listeNumCouleurDispo IS NOT NULL
             AND vvd.listeTailleDispo IS NOT NULL ".$Recherche->getReqFinal() ;
 
          
