@@ -23,7 +23,7 @@ class ControleurAdminContact{
 
       
          /*---------FORMULAIRE---------*/
-         if( isset($_POST["supMessage"]) ){ //Si formulaire supprimer
+         if( isset($_POST["supMessage"]) ){ //Si formulaire supprimé
             $this->ContactManager->supprimer($_POST["supMessage"]);
          }
          /*------------------*/

@@ -51,7 +51,7 @@ class ControleurAdminVetement{
          /*------------------*/
 
          /*---------VUE---------*/
-         //Modifier une vetement
+         //Modifier un vetement
          if( isset($url[2]) && $this->message != "La vetement à bien été supprimé." ){
             $vue = "AdminVetementModifier" ;
             $donnee = array( 

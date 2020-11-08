@@ -3,12 +3,13 @@ require_once('vue/Vue.php');
 
 class ControleurVetement{
    private $vue;
+   private $VetementManager;
+   private $AvisManager;
+   private $ClientManager;
+   
    // CONSTRUCTEUR 
    public function __construct($url){
       
-
-   
-
       if( isset($url) && count($url) > 2 ){
          throw new Exception(null, 404); //Erreur 404
       }
@@ -16,13 +17,20 @@ class ControleurVetement{
 
          $id= $url[1] ;
          $msg= null;
+
+         /*---------MANAGER---------*/
+         $this->VetementManager = new VetementManager(); 
+         $this->AvisManager= new AvisManager();
+         $this->ClientManager= new ClientManager();
+         /*------------------*/
          
-         if ( isset($_POST['envoyerAvis']) && !empty($_POST['envoyerAvis'])) {
+         /*---------FORMULAIRE---------*/
+         if ( isset($_POST['envoyerAvis']) && !empty($_POST['envoyerAvis'])) { //si le formulaire est envoyé
             
-            if ( isset($_POST['avis']) && !empty($_POST['avis'])) {
+            if ( isset($_POST['avis']) && !empty($_POST['avis'])) { // vérification de l'avis
                
-               if ( isset($_POST['note']) && !empty($_POST['note'])) {
-                  $this->insertAvis($id);
+               if ( isset($_POST['note']) && !empty($_POST['note'])) { // vérification de la note
+                  $this->insertAvis($id); // insertion
                   
                   $msg="Votre avis a bien été posté.";
                }
@@ -34,6 +42,8 @@ class ControleurVetement{
                $msg= "Veuillez ajouter un avis.";
             }
          }
+         /*------------------*/
+
           if(  $this->infoVetement($id)->dispoPourVendre() == true){
             $this->vue = new Vue('Vetement') ;
             $this->vue->setListeJsScript(["public/script/js/bootstrapNote.js", 
@@ -55,9 +65,9 @@ class ControleurVetement{
 
    }
    
+   // retourne les informations d'un vêtement
    private function infoVetement($id){
-      $VetementManageur = new VetementManager();
-      $infoVetement= $VetementManageur->getVetement($id);
+      $infoVetement= $this->VetementManager->getVetement($id);
       
       return $infoVetement;
      
@@ -65,10 +75,7 @@ class ControleurVetement{
 
    // afficher les avis selon le vêtement
    private function listeAvis($id){
-
-      $AvisManager= new AvisManager();
-
-      $listeAvis= $AvisManager->getListeAvis($id);
+      $listeAvis= $this->AvisManager->getListeAvis($id);
 
       return $listeAvis;
 
@@ -76,16 +83,10 @@ class ControleurVetement{
 
    // insérer un avis
    private function insertAvis($idVet){
-      $AvisManager = new AvisManager();
-      $ClientManager= new ClientManager();
       $idClient= $GLOBALS["user_en_ligne"]->id();
 
-      $AvisManager->insertAvis($idVet, $idClient);
+      $this->AvisManager->insertAvis($idVet, $idClient);
    }
-
-
-  
-
 }
 
 ?>

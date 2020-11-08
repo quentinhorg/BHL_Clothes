@@ -258,7 +258,7 @@ class ControleurAuthentification{
    private function envoyerMailVerifCompte($email){
 
       $ClientManager = new ClientManager;
-      $cle = $ClientManager->getCleClient($email);
+      $cle = $ClientManager->getCleEmail($email);
       
       $baseDirectory = "btssio/BTS2/BHL_Clothes" ;
       $urlActivation = "http://".$_SERVER["SERVER_NAME"]."/".$baseDirectory."/authentification/activation?email=".$email."&cle=".$cle;

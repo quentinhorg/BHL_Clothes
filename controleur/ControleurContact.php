@@ -22,11 +22,8 @@ class ControleurContact{
          $this->vue->setHeader("vue/header.php") ;
          $this->vue->genererVue(array( 
 
-          )) ;
-         
+          )) ; 
       }
-
-  
    }
 
    //retourne les 3 derniers vetements
@@ -72,16 +69,8 @@ class ControleurContact{
 
       } catch (Exception $e) {
          $this->message= $e->getMessage();
-      }
-
-
-     
+      } 
    }
-
-
-
-
-
 }
 
 ?>

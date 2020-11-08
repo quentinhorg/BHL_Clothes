@@ -1,9 +1,5 @@
 <?php 
 
-
-
-
-
 class ControleurAdmin{
    private $vue;
    public $message;
@@ -16,7 +12,7 @@ class ControleurAdmin{
       }
       else{
 
-         //Vérififcation des droits d'accès à la page actif
+         //Vérififcation des droits d'accès à la page active
 
          if( 
             isset($_SESSION["admin"])
@@ -39,7 +35,7 @@ class ControleurAdmin{
 
    }
 
-   //Obtention du controleur adin du dossier "admin"
+   //Obtention du controleur admin du dossier "admin"
    private function getCtrlAdmin($urlAdmin){
       $ctrlName = "ControleurAdmin".ucfirst($urlAdmin);
       if(!file_exists("controleur/admin/".$ctrlName.".php")){ throw new Exception(null, 404);  }//Erreur 404

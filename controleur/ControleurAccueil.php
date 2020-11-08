@@ -4,7 +4,9 @@ require_once('vue/Vue.php');
 
 class ControleurAccueil{
    private $vue;
-   public $message;
+   public  $message;
+   private $VetementManager;
+   private $GenreManager;
 
    // CONSTRUCTEUR 
    public function __construct($url){
@@ -13,6 +15,11 @@ class ControleurAccueil{
          throw new Exception(null, 404); //Erreur 404
       }
       else{
+
+         /*---------MANAGER---------*/
+         $this->VetementManager= new VetementManager();
+         $this->GenreManager= new GenreManager();
+         /*------------------*/
 
          $this->vue = new Vue('Accueil') ;
        
@@ -26,18 +33,15 @@ class ControleurAccueil{
 
    //retourne les 3 derniers vetements
    private function nouveauteVetement(){
-      $VetementManageur = new VetementManager();
-      
-      
-      $listeNouv= $VetementManageur->getNouveaute();
+      $listeNouv= $this->VetementManager->getNouveaute();
 
       return $listeNouv;  
    }
 
+   //retourne la liste de tous les genres
    public function listeGenre(){
-      $GenreManager= new GenreManager();
       
-      $listeGenre= $GenreManager->getListeGenre();
+      $listeGenre= $this->GenreManager->getListeGenre();
 
       return $listeGenre;
    }

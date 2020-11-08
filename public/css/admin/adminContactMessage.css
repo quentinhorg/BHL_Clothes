@@ -2,28 +2,24 @@ body{margin-top:20px;
     background:#eee;
     }
     
-    /* ========================================================================
-     * MESSAGES
-     * ======================================================================== */
-    
 
-    .message-wrapper {
-      position: relative;
-      padding: 0px;
-      background-color: #ffffff;
-      margin: 0px;
-    }
-    
-    .message-wrapper .message-sideright[class*="col-"] {
-      padding: 30px;
-    }
-    
-    .message-wrapper .media small {
-      color: #999999;
-      font-weight: 400;
-    }
+.message-wrapper {
+  position: relative;
+  padding: 0px;
+  background-color: #ffffff;
+  margin: 0px;
+}
 
-    .col-md-8{
-      flex: unset;
-      max-width: unset;
-    }
+.message-wrapper .message-sideright[class*="col-"] {
+  padding: 30px;
+}
+
+.message-wrapper .media small {
+  color: #999999;
+  font-weight: 400;
+}
+
+.col-md-8{
+  flex: unset;
+  max-width: unset;
+}
