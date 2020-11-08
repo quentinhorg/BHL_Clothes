@@ -67,8 +67,6 @@ class ControleurFacture{
    }
 
    public function envoyerMailFacture(Client $Client, Facture $Facture, facturePDF $pdf ){
-
-
       // email stuff (change data below)
       $to = $Client->email(); 
       $from = "email.test.qh@gmail.com" ; 
@@ -80,7 +78,6 @@ class ControleurFacture{
             Encore un grand merci et à très bientôt.<br> <br>
       
             L'équipe BHL.
-
       </p>";
 
       // Hachage aléatoire sera nécessaire pour envoyer du contenu mixte

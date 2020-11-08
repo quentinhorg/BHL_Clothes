@@ -16,7 +16,7 @@ class ControleurPaiement{
          if($GLOBALS["user_en_ligne"] != null ){ //Si l'utilisateur est connecté
             if(  
                $this->cmdActif()->panier() != null && COUNT($this->cmdActif()->panier()) >= 1 // Au moins un article
-               && $this->cmdActif()->Etat() != null && $this->cmdActif()->Etat()->id() == 1 //La commande n'a pas encore été payé
+               && $this->cmdActif()->Etat() != null && $this->cmdActif()->Etat()->id() == 1 //La commande n'a pas encore été payée
             ){ 
                   if($this->verifPanierDispo() ){ //Si ne possède pas un article non dispo
 

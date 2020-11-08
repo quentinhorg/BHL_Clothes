@@ -24,15 +24,18 @@
                 </p>
 
                 <hr>
-
-                <div class="media mt-3">
-                      <div class="media-body">
-                          <textarea class="wysihtml5 form-control" rows="9" placeholder="Répondre ici..."></textarea>
-                      </div>
-                  </div>
-                  <div class="text-right">
-                      <button type="button" class="btn btn-primary waves-effect waves-light mt-3"><i class="fa fa-send mr-1"></i> Envoyer</button>
-                  </div>
+                <form action="" method="POST">
+                    <div class="media mt-3">
+                        <div class="media-body">
+                            <textarea name="reponseMail" class="wysihtml5 form-control" rows="9" placeholder="Répondre ici..."><?php echo "Bonjour ".$contactInfo->nom()."..." ?></textarea>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" name="reponseEnvoi" class="btn btn-primary waves-effect waves-light mt-3">
+                            <i class="fa fa-send mr-1"></i> Envoyer
+                        </button>
+                    </div>
+                </form>
                
                 
             </div><!-- /.panel-body -->

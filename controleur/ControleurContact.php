@@ -67,10 +67,32 @@ class ControleurContact{
          $ContactManager->insertBDDContact($idCli, $nom, $email, $tel, $sujet, $message);
          $this->message= "Votre message a bien été envoyé.";
 
+         // envoyer la réponse au problème par mail
+         if (isset($_POST['reponseEnvoi'])) {
+            $this->envoyerReponseContact($_POST['email']);
+         }else{  echo "Il y a eu un problème lors de l'envoi. Réessayez."; }
+
       } catch (Exception $e) {
          $this->message= $e->getMessage();
       } 
    }
+
+//    private function envoyerReponseContact($email){
+        
+//       $header="MIME-Version: 1.0\r\n";
+//       $header.='From:"Andrea"<support@nomdomaine.com>'."\n";
+//       $header.='Content-Type:text/html; charset="uft-8"'."\n";
+//       $header.='Content-Transfer-Encoding: 8bit';
+
+//       $to = $email; 
+//       $from = "email.test.qh@gmail.com" ; 
+//       $subject = "Réponse à votre problème"; 
+//       $message = $_POST['reponseMail'];
+
+//       mail($to, $subject, $message, $header);
+     
+//   }
+
 }
 
 ?>

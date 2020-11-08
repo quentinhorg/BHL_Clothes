@@ -15,7 +15,23 @@ class ContactManager extends DataBase{
     public function getListeContact(){
         $req= "SELECT * FROM contact";
         $this->getBdd();
-        return $this->getModele( "Contact",  $req) ;    
+        return $this->getModele( "Contact",  $req) ;
+    }
+
+     // Obtention de la liste des réponses d'un contact
+     public function getReponse($idContact){
+        $req= "SELECT * FROM contact_reponse
+               WHERE idContact=?
+               ORDER BY date desc";
+        $this->getBdd();
+        return $this->getModele( "ContactReponse",  $req,[$idContact]); 
+    }
+
+     // Insérer uen réponse à un contact
+     public function insertReponse($idContact, $reponse){
+        $req= "INSERT INTO contact_reponse VALUES(?, ?, NOW())";
+        $this->getBdd();
+        $this->execBDD($req,[$idContact, $reponse]);
     }
 
     // obtenir un contact
@@ -33,6 +49,8 @@ class ContactManager extends DataBase{
 
         $this->execBdd($req, [$idContact]);
     }
+
+    
 
 
 }

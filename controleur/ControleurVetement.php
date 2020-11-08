@@ -43,23 +43,21 @@ class ControleurVetement{
             }
          }
          /*------------------*/
-
-          if(  $this->infoVetement($id)->dispoPourVendre() == true){
-            $this->vue = new Vue('Vetement') ;
-            $this->vue->setListeJsScript(["public/script/js/bootstrapNote.js", 
-                                          "public/script/js/jqueryNote.js",
-                                          "public/script/js/Vetement.js"]);
-            $this->vue->setListeCss(["public/css/fontawesomeNote.css"]); 
-            $this->vue->genererVue(array( 
-               "infoVetement"     => $this->infoVetement($id),
-               "msg"              => $msg,
-               "listeAvis" => $this->listeAvis($id),
-               "client" => $GLOBALS["user_en_ligne"]
-            )) ;
-         }
-       else{
-          throw new Exception("Produit indisponible", 423);
-       }
+         if( $this->infoVetement($url[1]) != null ){ // Si la facture existe
+            if(  $this->infoVetement($id)->dispoPourVendre() == true){
+               $this->vue = new Vue('Vetement') ;
+               $this->vue->setListeJsScript(["public/script/js/bootstrapNote.js", 
+                                             "public/script/js/jqueryNote.js",
+                                             "public/script/js/Vetement.js"]);
+               $this->vue->setListeCss(["public/css/fontawesomeNote.css"]); 
+               $this->vue->genererVue(array( 
+                  "infoVetement"     => $this->infoVetement($id),
+                  "msg"              => $msg,
+                  "listeAvis" => $this->listeAvis($id),
+                  "client" => $GLOBALS["user_en_ligne"]
+               )) ;
+            } else{ throw new Exception("Le produit n'est plus indisponible", 423); }
+         } else{ throw new Exception("Ce produit n'existe pas", 423); }    
          
       }
 

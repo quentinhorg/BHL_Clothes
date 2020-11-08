@@ -109,9 +109,24 @@ class Contact{
         return $this->message;
     }
 
+    public function listeReponse(){
+        $ContactManager = new ContactManager;
+        return $ContactManager->getReponse($this->idContact);
+    }
+
+
     public function date($format){
   
         return date_format($this->date, $format); //Format date choisis en paramètre
+    }
+    public function Client(){
+        
+        if($this->idClient != null){
+            $ClientManager = new ClientManager;
+            return  $ClientManager->getClient($this->idClient) ;
+        }else{ return null ;}
+       
+      
     }
 }
 

@@ -36,7 +36,7 @@ class VetementManager extends DataBase{
     public function getVetement($id){
         $req = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." WHERE v.id = ?" ;
         $this->getBdd();
-        return $this->getModele("Vetement", $req, [$id])[0];
+        return @$this->getModele("Vetement", $req, [$id])[0];
     }
 
     //Obtient la liste des vêtements dispo ou non
