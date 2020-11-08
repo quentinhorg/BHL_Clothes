@@ -12,7 +12,6 @@ class Vetement{
 
 
    public function __construct(array $donnee){
-      //var_dump($donnee);
       foreach($donnee as $cle => $valeur){
          $methode = 'set'.ucfirst($cle);
       
@@ -42,8 +41,10 @@ class Vetement{
 
 
    public function setPrix($prix){
-
+      $prix = (float) $prix;
+      if($prix > 0){
          $this->prix = $prix;
+      }
 
    } 
    
@@ -149,7 +150,7 @@ class Vetement{
 
    //AUTRES MÉTHODES
 
-   //Retourne VRAI si l'article peut se vendre (possède au moins uen taille et une couleur)
+   //Indique si larticle est disponible pour la vente
    public function dispoPourVendre(){
       $peutVendre = true ;
       if( $this->listeTailleDispo() == null ){
@@ -158,10 +159,11 @@ class Vetement{
       if( $this->listeCouleurDispo() == null ){
          $peutVendre = false ;
       }
-      return $peutVendre;
+      return $peutVendre;   //Retourne VRAI si l'article peut se vendre (possède au moins uen taille et une couleur)
    }
 
 
+   //Indique si la taille est rensigner est possédé par le vêtement
    public function possedeTaille($taille){
       $possedeTaille=false;
 
@@ -172,10 +174,10 @@ class Vetement{
          }
       }
       
-      return $possedeTaille;
+      return $possedeTaille; // Retourne VRAI si la taille choisie existe
    }
 
-   
+   //Affiche le motif du vet. (cadre de couleur du vêtement)
    public function vueMotif(Couleur $Couleur){
       $checked = null;
       $idMotif = "Vet".$this->id."_motif_Clr".$Couleur->num();

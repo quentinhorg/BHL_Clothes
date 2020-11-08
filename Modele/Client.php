@@ -15,21 +15,17 @@ class Client{
 
 
    
-   
+   //CONSTRUCTEUR
    public function __construct(array $donnee){
       $this->hydrate($donnee);
-      
-
    }
 
    //HYDRATATION
    public function hydrate(array $donnee){
       foreach($donnee as $cle => $valeur){
          $methode = 'set'.ucfirst($cle);
-       
          if(method_exists($this, $methode)){
             $this->$methode(htmlspecialchars($valeur));
-
          }
       }
    }
@@ -64,7 +60,6 @@ class Client{
         }
     }
 
-    
     public function setPrenom($prenom){
         if(is_string($prenom)){
             $this->prenom = $prenom;
@@ -104,8 +99,9 @@ class Client{
     }
 
     public function setDateInscription($dateInscription){
-
-        $this->dateInscription = $dateInscription;
+        if($dateInscription != null){
+            $this->dateInscription = new DateTime($dateInscription);
+        }
     }
 
 
@@ -125,16 +121,17 @@ class Client{
    
 
     public function nom(){
-        return $this->nom;
+        return ucfirst($this->nom);
     }
 
     public function prenom(){
-        return $this->prenom;
+        return ucfirst($this->prenom);
     }
 
     public function rue(){
         return $this->rue;
     }
+
     public function CodePostal(){
         $CodePostalManager = new CodePostalManager;   
         $CodePostal =  $CodePostalManager->getCp($this->codePostal);
@@ -177,26 +174,22 @@ class Client{
 
     public function dateInscription($format){
         $dateFormat = null ;
-        
         if( $this->dateInscription != null){
-           $date= new DateTime($this->dateInscription);
-           $dateFormat = date_format($date, $format) ;
+           $dateFormat = date_format($this->dateInscription, $format) ;
         }
-  
         return $dateFormat;
     }
 
 
 
     // AUTRE METHODE
+
+    //Verifie si le compte à été activé
     public function compteActive(){
         $active= true;
-        
         if ($this->active == 0) {
             $active= false;
         }
-
-
         return $active;
     }
 

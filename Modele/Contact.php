@@ -32,19 +32,28 @@ class Contact{
    
    //SETTER
     public function setIdContact($idContact){
-        $this->idContact = $idContact;
+        $idContact = (int) $idContact;
+        if($idContact > 0){
+            $this->idContact = $idContact;
+        }
     }
 
-    public function setIdContact($idClient){
-        $this->idClient = $idClient;
-    }
+    public function setIdClient($idClient){
+        $idClient = (int) $idClient;
+        if($idClient > 0){
+            $this->idClient = $idClient;
+        }    }
 
     public function setNom($nom){
-        $this->nom = $nom ;
+        if(is_string($nom)){
+            $this->nom = $nom ;
+        }
     }
 
     public function setEmail($email){
-        $this->email = $email;      
+        if(is_string($email)){
+            $this->email = $email; 
+        }     
     }
 
     public function setNumero($numero){
@@ -52,7 +61,9 @@ class Contact{
     }
 
    public function setSujet($sujet){
+        if(is_string($sujet)){
             $this->sujet = $sujet;
+        }
     }
 
     public function setMessage($message){
@@ -62,7 +73,7 @@ class Contact{
     public function setDate($date){
 
         if(is_string($date)){
-            $this->date = $date;
+            $this->date = new DateTime($date);;
         } 
     }
 
@@ -99,8 +110,8 @@ class Contact{
     }
 
     public function date($format){
-        $date= new DateTime($this->date);
-        return date_format($date, $format); //Format date choisis en paramètre
+  
+        return date_format($this->date, $format); //Format date choisis en paramètre
     }
 }
 

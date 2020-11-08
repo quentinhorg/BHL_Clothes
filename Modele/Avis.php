@@ -56,11 +56,9 @@ class Avis{
     }
 
     public function setDate($date){
-
         if(is_string($date)){
-            $this->date = $date;
+            $this->date = new DateTime($date);
         }
-       
     }
 
 
@@ -88,10 +86,13 @@ class Avis{
     public function note(){
         return $this->note;
     }
-
+    
     public function date($format){
-        $date= new DateTime($this->date);
-        return date_format($date, $format); //Format date choisis en paramètre
+        $dateFormat = null ;
+        if( $this->date != null){
+           $dateFormat = date_format($this->date, $format);
+        }
+        return $dateFormat; //Format date choisis en paramètre
     }
 
 

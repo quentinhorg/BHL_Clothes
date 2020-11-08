@@ -75,14 +75,13 @@ class Facture{
    
    
    public function setCpLiv($cpLiv){
-
       $this->cpLiv = $cpLiv;
    }
 
    public function setDatePaiement($date){
-
-         $this->datePaiement = $date;
-  
+      if($date != null){
+         $this->datePaiement = new DateTime($date);
+      }
    } 
 
 
@@ -120,16 +119,11 @@ class Facture{
 
 
    public function datePaiement($format){
-
       $dateFormat = null ;
-
       if( $this->datePaiement != null){
-         $date= new DateTime($this->datePaiement);
-         $dateFormat = date_format($date, $format) ;
+         $dateFormat = date_format($this->datePaiement, $format) ;
       }
-
       return $dateFormat;
-      
    }
 
    public function rueLiv(){
@@ -137,10 +131,8 @@ class Facture{
    }
 
    public function CodePostal(){
-
       $CodePostalManager= new CodePostalManager;
       $CodePostal = $CodePostalManager->getCp($this->cpLiv);
-
       return $CodePostal;
    }
 

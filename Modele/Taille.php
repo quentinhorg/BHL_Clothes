@@ -3,8 +3,6 @@
 class Taille{
 
    private  $libelle;
-
-   
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
@@ -22,16 +20,12 @@ class Taille{
    }
 
 
-   
    //SETTER
    public function setLibelle($libelle){
       if(is_string($libelle)){
          $this->libelle = $libelle;
       }
    }
-
-
- 
 
    //GETTER
    public function libelle(){

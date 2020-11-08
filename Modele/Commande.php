@@ -9,31 +9,23 @@ class Commande{
    private  $totalArticle;
    protected  $prixHT;
    
- 
-   
-   
    public function __construct(array $donnee){
-      $this->totalArticle= 0;
+      $this->totalArticle=0;
       $this->hydrate($donnee);
    }
 
    
    //HYDRATATION
    public function hydrate(array $donnee){
-      
       foreach($donnee as $cle => $valeur){
          $methode = 'set'.ucfirst($cle);
          if(method_exists($this, $methode)){
             $this->$methode($valeur);
          }
       }
-    
    }
 
-   
 
-
-   
    //SETTER
    public function setIdClient($idClient){
       $idClient = (int) $idClient;
@@ -41,11 +33,14 @@ class Commande{
       if($idClient > 0){
          $this->idClient = $idClient;
       }
+
    }
 
 
    public function setDateCreation($date){
-      $this->dateCreation = $date;
+      if($date != null){
+         $this->dateCreation = new DateTime($date);
+      }
    }
 
 
@@ -71,16 +66,21 @@ class Commande{
    }
 
    public function setTotalArticle($totalArticle){
-
       if($totalArticle == null){
          $totalArticle = 0 ;
       }
-      
+      $totalArticle = (int) $totalArticle;
       $this->totalArticle = $totalArticle;
    }
 
    public function setPrixHT($prixHT){
-      $this->prixHT = $prixHT;
+
+      $prixHT = (float) $prixHT;
+    
+      if($prixHT > 0){
+         $this->prixHT = $prixHT;
+      }
+
    }
 
 
@@ -104,10 +104,8 @@ class Commande{
 
    public function dateCreation($format){
       $dateFormat = null ;
-
       if( $this->dateCreation != null){
-         $date= new DateTime($this->dateCreation);
-         $dateFormat = date_format($date, $format) ;
+         $dateFormat = date_format($this->dateCreation, $format) ;
       }
 
       return $dateFormat;
@@ -152,9 +150,7 @@ class Commande{
 
    //AUTRES METHODES
 
-   
-
-
+   //Recherche de l'indice d'un article du panier de la commande
    public function indiceArticlePanier( $idVet, $taille, $numClr){
       $indicePanier = null;
 
@@ -174,7 +170,7 @@ class Commande{
          }
       }
     
-     return $indicePanier;
+     return $indicePanier; // Retourne l'indice
    }
 
 

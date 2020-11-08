@@ -3,44 +3,38 @@
 
 class ClientManager extends DataBase{
 
+    //
     public function getClient($id){
         $req = "SELECT c.*
                 FROM client c 
                 LEFT JOIN commande co ON c.id = co.idClient 
                 WHERE c.id = ?
                 GROUP BY c.id";
-                
         $this->getBdd();
-       
-        
         return @$this->getModele( "Client", $req,[$id])[0];
     }
 
-
-
-    public function getCleClient($email){
-
+    //Obtention de la clé d'un email renseigné 
+    public function getCleEmail($email){
         $this->getBdd(); //Autoriser l'access a la BDD
         $req = "SELECT cleActivation AS 'cle' FROM client WHERE email LIKE ?"; 
         return @$this->execBDD($req,[$email])[0]['cle'];
-    
     }
 
+    //Vérifie si l'email existe
     public function emailExiste($email){
         $existe = false ;
-
         $this->getBdd(); //Autoriser l'access a la BDD
         $req = "SELECT COUNT(*) AS 'nbEmail' FROM client WHERE email LIKE ?"; 
 
         if( $this->execBDD($req,[$email])[0]['nbEmail'] == 1 ){
             $existe = true ;
         }
-        
-        return $existe ;
+        return $existe ; //Retourne vrais ou faux
     }
 
+    //Désactive un compte
     public function desactiveCompte($email, $cle){
-     
         $this->getBdd(); //Autoriser l'access a la BDD
         $req = "CALL desactiveCompte(?,?)"; 
         $this->execBDD($req,[$email, $cle]);

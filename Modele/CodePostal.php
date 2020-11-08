@@ -27,16 +27,13 @@ class CodePostal{
    
    //SETTER
     public function setCp($cp){
- 
         $this->cp = $cp;
-
     }
 
     public function setLibelle($libelle){
         if(is_string($libelle)){
             $this->libelle = $libelle;
         }
-        
     }
 
     public function setPrixLiv($prixLiv){

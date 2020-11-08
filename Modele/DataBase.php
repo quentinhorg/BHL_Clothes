@@ -7,12 +7,13 @@ abstract class DataBase{
    private static $bdd;
  
 
-
+   //Mise en place de la BDD
    private static function setBdd(){
       self::$bdd = new PDO('mysql:host=localhost;dbname=bhl_clothes;charset=utf8', 'btssio', 'btssio');
       self::$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
    }
 
+   //Obtenir la BDD
    protected function getBdd(){
       if(self::$bdd == null){
          $this->setBdd();
@@ -20,7 +21,7 @@ abstract class DataBase{
       }
    }
 
-
+   //Obtention d'un Model
    protected function getModele($obj, $req, $tabValeur = null ){  
       
       $var = [];
@@ -35,14 +36,14 @@ abstract class DataBase{
       else{
          $var = null;
       }
-      return $var;
+      return $var; //Retourne une liste d'objet(s)
       $req->closeCursor();
 }
 
 
 
 
-
+   //Exécute une requête dans la BDD 
    protected function execBDD($req, $tabValeur){
       $resultat = null;
       $req = self::$bdd->prepare($req);
@@ -58,7 +59,7 @@ abstract class DataBase{
       }
       @$resultat = $req->fetchAll(PDO::FETCH_ASSOC) ;
       
-      return $resultat ;
+      return $resultat ; //Retourne un résultat si un SELECT
       $req->closeCursor();
       
 
@@ -67,21 +68,16 @@ abstract class DataBase{
 
 
    
-
+   //Obtention d'un nouvel ID pour insérer dans la table rnesigner 
    protected function getNewIdTable($table, $pk){
 
       $var = [];
-     
          $req = self::$bdd->prepare("SELECT max($pk)+1 as 'newId' FROM $table");
-      
          $req->execute();
          $resultat = $req->fetchAll(PDO::FETCH_ASSOC)[0]["newId"];
-
       if( empty($resultat) ){ $resultat = 1 ; }
       return $resultat;
       $req->closeCursor();
-
-
 
    }
 

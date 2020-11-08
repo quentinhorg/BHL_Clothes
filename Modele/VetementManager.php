@@ -32,7 +32,7 @@ class VetementManager extends DataBase{
         return $this->getModele("Vetement", $req);
     }
 
-    //Obtient les infos d'un de vêtements
+    //Obtient les infos d'un des vêtements
     public function getVetement($id){
         $req = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." WHERE v.id = ?" ;
         $this->getBdd();
@@ -65,13 +65,10 @@ class VetementManager extends DataBase{
         if( $this->Pagination != null){
             $Recherche = new Recherche($prixIntervale, $listeTaille, $listeCouleur, $categorie, $genre, $motCle) ;
             $reqRecherche = "SELECT DISTINCT(v.id), v.* , vvd.*, (SELECT COUNT(id) FROM avis WHERE idVet=v.id) AS nbAvis ".$this->liaison." WHERE vvd.listeNumCouleurDispo IS NOT NULL
-            AND vvd.listeTailleDispo IS NOT NULL ".$Recherche->getReqFinal() ;
-
-         
+            AND vvd.listeTailleDispo IS NOT NULL ".$Recherche->getReqFinal();
             $this->Pagination->getBdd();
-
             $newReq = $this->Pagination->getReqPagination($reqRecherche);
-            $resultat = $this->Pagination->getModele("Vetement", $newReq) ;
+            $resultat = $this->Pagination->getModele("Vetement", $newReq);
         }
        
         return $resultat;
@@ -80,7 +77,7 @@ class VetementManager extends DataBase{
     }
 
 
-    //Retourne vrai si la taille et la couleur du vestement sont dispo
+    //Retourne vrai si la taille et la couleur du vetement sont dispo
     public function verifDisponibiliteTailleCouleur($idVet, $numClr, $taille){
         $dispo = false;
   
@@ -113,8 +110,6 @@ class VetementManager extends DataBase{
         $req="UPDATE vetement SET nom=?, prix=?, motifPosition=?, codeGenre=?, description=?, idCateg = ? WHERE id= ?";
         $this->getBdd();
         $this->execBDD($req, [$nom, $prix ,$motifPosition ,$codeGenre ,$description ,$idCateg, $id]);
-      
-
     }
 
 }

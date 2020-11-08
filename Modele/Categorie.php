@@ -7,8 +7,6 @@ class Categorie{
    
    public function __construct(array $donnee){
       $this->hydrate($donnee);
- 
-
    }
 
    //HYDRATATION
@@ -21,8 +19,6 @@ class Categorie{
          }
       }
    }
-
-
    
    //SETTER
    public function setId($id){
@@ -40,7 +36,6 @@ class Categorie{
    }
 
  
-   
 
    //GETTER
 
