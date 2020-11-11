@@ -212,14 +212,17 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (12,	9,	'M',	12,	1,	3),
 (3,	10,	'36',	13,	1,	5),
 (6,	10,	'36',	13,	1,	6),
-(13,	11,	'38',	9,	1,	2),
+(22,	12,	'L',	29,	1,	1),
 (11,	15,	'L',	32,	1,	2),
 (14,	15,	'L',	42,	1,	2),
 (16,	15,	'L',	41,	1,	2),
 (18,	15,	'L',	44,	1,	1),
 (18,	17,	'M',	36,	1,	2),
+(20,	17,	'M',	40,	1,	1),
+(21,	17,	'M',	40,	1,	1),
 (12,	18,	'L',	34,	1,	2),
 (17,	18,	'XL',	34,	2,	3),
+(20,	18,	'L',	34,	1,	2),
 (11,	25,	'M',	25,	1,	1),
 (11,	28,	'M',	46,	1,	5),
 (11,	28,	'M',	48,	1,	4),
@@ -228,13 +231,10 @@ INSERT INTO `article_panier` (`numCmd`, `idVet`, `taille`, `numClr`, `qte`, `ord
 (16,	30,	'34',	104,	2,	3),
 (11,	33,	'36',	56,	1,	6),
 (17,	37,	'38',	92,	1,	4),
+(20,	45,	'L',	71,	1,	3),
 (12,	47,	'M',	80,	1,	4),
-(19,	47,	'M',	81,	1,	1),
-(19,	47,	'M',	82,	1,	2),
-(13,	48,	'L',	77,	1,	3),
-(13,	48,	'M',	77,	1,	4),
 (12,	49,	'38',	58,	1,	1),
-(13,	50,	'36',	59,	1,	1);
+(19,	50,	'36',	59,	6,	1);
 
 DELIMITER ;;
 
@@ -331,7 +331,7 @@ CREATE TABLE `avis` (
   KEY `idVet` (`idVet`),
   CONSTRAINT `avis_ibfk_1` FOREIGN KEY (`idClient`) REFERENCES `client` (`id`),
   CONSTRAINT `avis_ibfk_2` FOREIGN KEY (`idVet`) REFERENCES `vetement` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 INSERT INTO `avis` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VALUES
 (1,	8,	1,	'woooooaaaww',	4,	'2020-10-05 21:48:01'),
@@ -359,7 +359,8 @@ INSERT INTO `avis` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VA
 (34,	22,	23,	'Robe sympa pour l\'été. Matière de bonne qualité',	5,	'2020-10-29 03:45:52'),
 (35,	13,	16,	'Ce tshirt est sympa, de bonne qualité mais j\'ai pris la mauvaise taille. Pensez à prendre plus petit que votre taille habituelle ',	4,	'2020-05-15 16:20:00'),
 (36,	6,	10,	'Bonne qualité de tissu',	4,	'2020-07-07 05:50:52'),
-(37,	8,	41,	'Superbe short d\'été !',	4,	'2020-11-01 19:53:08');
+(37,	8,	41,	'Superbe short d\'été !',	4,	'2020-11-01 19:53:08'),
+(38,	26,	25,	'Super jupe.',	5,	'2020-11-11 09:01:00');
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
@@ -401,7 +402,7 @@ CREATE TABLE `client` (
   UNIQUE KEY `email_unique` (`email`),
   KEY `codePostal` (`codePostal`),
   CONSTRAINT `client_ibfk_1` FOREIGN KEY (`codePostal`) REFERENCES `code_postal` (`cp`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`, `tel`, `solde`, `cleActivation`, `active`, `dateInscription`) VALUES
 (1,	'andrea974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Andréa',	'Andréa',	'97480',	'4 rue papangue',	'0692466990',	9779,	'4az486zvfez68g4e86g45sq48er4err469859',	1,	'2020-02-01 17:05:09'),
@@ -415,7 +416,9 @@ INSERT INTO `client` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`, `rue`
 (11,	'antho@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'RIVIÈRE ',	'Anthony',	'97480',	'34 rue des fleurs',	'0693455667',	200,	'544107c473636dc8ee1a114774d35d91a475293c',	0,	'2020-05-08 13:05:09'),
 (13,	'leahoareau@orange.fr',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'Hoareau',	'Léa',	'97480',	'10 rue par ici, ter la',	'0692818484',	846,	'7z84v6re4g68468az4eg854g8gz2e87z48713',	1,	'2020-10-19 17:05:09'),
 (22,	'andrea.bigot974@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'BIGOT',	'Andréa',	'97480',	'22 rue des macarons',	'0692466990',	4841.68,	'a3fc12f37f04ba3fa82daefe36bd945eee45682f',	1,	'2020-10-25 19:14:02'),
-(23,	'ophelien.abufera.bts@gmail.com',	'ae835c4e4a9d5a8876f773313d82f0499ca3dbc6',	'ABUFERA',	'Ophelien',	'97480',	'119 rue leconte de lisle',	'0692991200',	61.61,	'cf72565d2a62067e4e33e16d9e81e366ad08dd54',	1,	'2020-10-25 19:32:53');
+(23,	'ophelien.abufera.bts@gmail.com',	'ae835c4e4a9d5a8876f773313d82f0499ca3dbc6',	'ABUFERA',	'Ophelien',	'97480',	'119 rue leconte de lisle',	'0692991200',	61.61,	'cf72565d2a62067e4e33e16d9e81e366ad08dd54',	1,	'2020-10-25 19:32:53'),
+(26,	'nelsiemorel20@gmail.com',	'159b0c4aee9a825be489507183f1cec03951da63',	'Morel',	'Nelsie',	'97480',	'Ididn ',	'0692334445',	200,	'ad5d322a2a88170ddfe69081ec309e7483aabb7d',	1,	'2020-11-11 08:58:12'),
+(27,	'laurent.grondin.bts@gmail.com',	'eeb3075f677d345c31958b4691b99fcd55aca2df',	'Grondin ',	'Laurent ',	'97480',	'30 chemin des anémones',	'0692217331',	623.01,	'ec262f6b6a06990a6526c471a38734ffa2574114',	1,	'2020-11-11 09:07:54');
 
 DELIMITER ;;
 
@@ -725,7 +728,13 @@ INSERT INTO `client_histo` (`id`, `email`, `mdp`, `nom`, `prenom`, `codePostal`,
 (25,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zzzz',	'zzzz',	'97400',	'zzzzz',	'zzzzz',	100,	'',	0,	'0000-00-00 00:00:00',	'2020-10-19 23:24:11',	'DELETE'),
 (25,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zz',	'zzz',	'97413',	'36 azazazzazr ',	'888888',	200,	'44b2c939d5bc4eeb7035959385a8d1afe5c22e6e',	0,	'2020-11-07 19:32:08',	'2020-11-07 19:32:47',	'UPDATE'),
 (25,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'zz',	'zzz',	'97413',	'36 azazazzazr ',	'888888',	200,	'44b2c939d5bc4eeb7035959385a8d1afe5c22e6e',	1,	'2020-11-07 19:32:08',	'2020-11-07 19:41:31',	'DELETE'),
+(26,	'nelsiemorel20@gmail.com',	'159b0c4aee9a825be489507183f1cec03951da63',	'Morel',	'Nelsie',	'97480',	'Ididn ',	'0692334445',	200,	'ad5d322a2a88170ddfe69081ec309e7483aabb7d',	0,	'2020-11-11 08:58:12',	'2020-11-11 08:58:45',	'UPDATE'),
 (27,	'hoareauquentin97480@gmail.com',	'4ad583af22c2e7d40c1c916b2920299155a46464',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'83787f060a59493aefdcd4b2369990e7303e186e',	0,	'0000-00-00 00:00:00',	'2020-10-20 23:45:55',	'DELETE'),
+(27,	'laurent.grondin.bts@gmail.com',	'eeb3075f677d345c31958b4691b99fcd55aca2df',	'Grondin ',	'Laurent ',	'97480',	'30 chemin des anémones',	'0692217331',	200,	'ec262f6b6a06990a6526c471a38734ffa2574114',	0,	'2020-11-11 09:07:54',	'2020-11-11 09:08:19',	'UPDATE'),
+(27,	'laurent.grondin.bts@gmail.com',	'eeb3075f677d345c31958b4691b99fcd55aca2df',	'Grondin ',	'Laurent ',	'97480',	'30 chemin des anémones',	'0692217331',	200,	'ec262f6b6a06990a6526c471a38734ffa2574114',	1,	'2020-11-11 09:07:54',	'2020-11-11 09:13:42',	'UPDATE'),
+(27,	'laurent.grondin.bts@gmail.com',	'eeb3075f677d345c31958b4691b99fcd55aca2df',	'Grondin ',	'Laurent ',	'97480',	'30 chemin des anémones',	'0692217331',	155,	'ec262f6b6a06990a6526c471a38734ffa2574114',	1,	'2020-11-11 09:07:54',	'2020-11-11 09:14:51',	'UPDATE'),
+(27,	'laurent.grondin.bts@gmail.com',	'eeb3075f677d345c31958b4691b99fcd55aca2df',	'Grondin ',	'Laurent ',	'97480',	'30 chemin des anémones',	'0692217331',	143,	'ec262f6b6a06990a6526c471a38734ffa2574114',	1,	'2020-11-11 09:07:54',	'2020-11-11 09:23:54',	'UPDATE'),
+(27,	'laurent.grondin.bts@gmail.com',	'eeb3075f677d345c31958b4691b99fcd55aca2df',	'Grondin ',	'Laurent ',	'97480',	'30 chemin des anémones',	'0692217331',	643,	'ec262f6b6a06990a6526c471a38734ffa2574114',	1,	'2020-11-11 09:07:54',	'2020-11-11 09:27:39',	'UPDATE'),
 (29,	'hoareauquentin97480@gmail.com',	'4ad583af22c2e7d40c1c916b2920299155a46464',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'f890d752d330caf426a52643f6510d6efd597f3e',	0,	'0000-00-00 00:00:00',	'2020-10-20 23:46:22',	'DELETE'),
 (30,	'hoareauquentin97480@gmail.com',	'4ad583af22c2e7d40c1c916b2920299155a46464',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'ed573491383d5d7052276dd09beebea1637ac2a3',	0,	'0000-00-00 00:00:00',	'2020-10-20 23:47:21',	'UPDATE'),
 (30,	'hoareauquentin97480@gmail.com',	'8aa40001b9b39cb257fe646a561a80840c806c55',	'xxxx',	'xxx',	'97412',	'xxx',	'xxxxx',	100,	'ed573491383d5d7052276dd09beebea1637ac2a3',	0,	'2020-10-20 23:47:21',	'2020-10-20 23:48:04',	'UPDATE'),
@@ -817,18 +826,20 @@ CREATE TABLE `commande` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `commande` (`num`, `idClient`, `dateCreation`, `idEtat`) VALUES
-(3,	8,	'2020-10-22 10:42:31',	5),
+(3,	8,	'2020-10-22 10:42:31',	4),
 (4,	8,	'2020-10-24 20:45:40',	2),
 (6,	8,	'2020-10-24 20:45:38',	5),
 (11,	22,	'2020-10-25 19:18:12',	3),
 (12,	23,	'2020-10-25 19:32:58',	4),
-(13,	8,	'2020-11-08 16:00:02',	1),
 (14,	13,	'2020-11-08 16:05:26',	2),
 (15,	13,	'2020-11-08 16:07:46',	1),
 (16,	22,	'2020-11-08 16:11:39',	2),
 (17,	7,	'2020-11-08 16:18:17',	2),
 (18,	7,	'2020-11-08 16:21:56',	4),
-(19,	7,	'2020-11-08 16:24:13',	1);
+(19,	8,	'2020-11-11 07:57:34',	1),
+(20,	27,	'2020-11-11 09:11:35',	2),
+(21,	27,	'2020-11-11 09:14:40',	2),
+(22,	27,	'2020-11-11 09:27:00',	4);
 
 DELIMITER ;;
 
@@ -877,21 +888,21 @@ CREATE TABLE `contact` (
   `sujet` varchar(40) NOT NULL,
   `message` text NOT NULL,
   `date` datetime NOT NULL,
-  `dateMaj` datetime NOT NULL,
   PRIMARY KEY (`idContact`),
   KEY `idClient` (`idClient`),
   CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`idClient`) REFERENCES `client` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
-INSERT INTO `contact` (`idContact`, `idClient`, `nom`, `email`, `numero`, `sujet`, `message`, `date`, `dateMaj`) VALUES
-(1,	1,	'Hoareau Quentin',	'goldow974@gmail.com',	692466980,	'idOublie',	'J\'ai oublié mon mot de passe.',	'2020-02-17 00:00:00',	'0000-00-00 00:00:00'),
-(2,	NULL,	'Grondin Charlotte',	'grondin.charlotte@gmail.com',	693238645,	'idOublie',	'Problème avec mes identifiants, comment les récupérer?',	'2020-09-17 12:45:52',	'0000-00-00 00:00:00'),
-(4,	NULL,	'ABUFERA ',	'ophelien.abufera.bts@gmail.com',	692991200,	'suiviCommande',	'J\'aimerais savoir si vous effectuez des livraisons le samedi.',	'2020-10-25 08:30:30',	'0000-00-00 00:00:00'),
-(7,	NULL,	'Hoareau Léa',	'leajuliehoareau@orange.fr',	692818484,	'retourVet',	'Bonjour, est-ce possible de faire un retour d\'article svp? Si oui, comment?',	'2020-04-11 23:21:02',	'0000-00-00 00:00:00'),
-(8,	NULL,	'Robin Jean',	'roro13@gmail.com',	692458595,	'suiviCommande',	'Bonjour, est-ce normal que certains articles arrivent un par un? ',	'2020-07-30 15:48:00',	'0000-00-00 00:00:00'),
-(9,	NULL,	'Rivière Anthony',	'antho@gmail.com',	693455667,	'questionVet',	'Bonjour, il y a quelques jours j\'ai repéré un article intéressant. Aujourd\'hui je vais sur le site mais il n\'est plus là. Sera-t-il disponible à nouveau?\r\n\r\nBonne journée. ',	'2020-03-03 19:50:00',	'0000-00-00 00:00:00'),
-(10,	NULL,	'BIGOT Andréa',	'andrea.bigot974@gmail.com',	692466990,	'compteVole',	'Bonjour, j\'ai l\'impression qu\'il y a un problème avec mon compte. Serait-il volé? Que faire?',	'2020-06-29 21:52:00',	'0000-00-00 00:00:00'),
-(11,	NULL,	'Morel Seb',	'seb_morel@outlook.com',	692987874,	'remboursement',	'Le remboursement ne s\'est pas effectué correctement, il me manque une partie. Pourquoi?',	'2020-01-05 23:30:52',	'0000-00-00 00:00:00');
+INSERT INTO `contact` (`idContact`, `idClient`, `nom`, `email`, `numero`, `sujet`, `message`, `date`) VALUES
+(1,	1,	'Hoareau Quentin',	'goldow974@gmail.com',	692466980,	'idOublie',	'J\'ai oublié mon mot de passe.',	'2020-02-17 00:00:00'),
+(2,	NULL,	'Grondin Charlotte',	'grondin.charlotte@gmail.com',	693238645,	'idOublie',	'Problème avec mes identifiants, comment les récupérer?',	'2020-09-17 12:45:52'),
+(4,	NULL,	'ABUFERA ',	'ophelien.abufera.bts@gmail.com',	692991200,	'suiviCommande',	'J\'aimerais savoir si vous effectuez des livraisons le samedi.',	'2020-10-25 08:30:30'),
+(7,	NULL,	'Hoareau Léa',	'leajuliehoareau@orange.fr',	692818484,	'retourVet',	'Bonjour, est-ce possible de faire un retour d\'article svp? Si oui, comment?',	'2020-04-11 23:21:02'),
+(8,	NULL,	'Robin Jean',	'roro13@gmail.com',	692458595,	'suiviCommande',	'Bonjour, est-ce normal que certains articles arrivent un par un? ',	'2020-07-30 15:48:00'),
+(9,	NULL,	'Rivière Anthony',	'antho@gmail.com',	693455667,	'questionVet',	'Bonjour, il y a quelques jours j\'ai repéré un article intéressant. Aujourd\'hui je vais sur le site mais il n\'est plus là. Sera-t-il disponible à nouveau?\r\n\r\nBonne journée. ',	'2020-03-03 19:50:00'),
+(10,	NULL,	'BIGOT Andréa',	'andrea.bigot974@gmail.com',	692466990,	'compteVole',	'Bonjour, j\'ai l\'impression qu\'il y a un problème avec mon compte. Serait-il volé? Que faire?',	'2020-06-29 21:52:00'),
+(11,	NULL,	'Morel Seb',	'seb_morel@outlook.com',	692987874,	'remboursement',	'Le remboursement ne s\'est pas effectué correctement, il me manque une partie. Pourquoi?',	'2020-01-05 23:30:52'),
+(12,	22,	'BIGOT Andréa',	'andrea.bigot974@gmail.com',	692466990,	'Problème lié au compte',	'zerfghtrd',	'2020-11-11 09:00:28');
 
 DROP TABLE IF EXISTS `contact_reponse`;
 CREATE TABLE `contact_reponse` (
@@ -919,7 +930,9 @@ INSERT INTO `contact_reponse` (`idContact`, `reponse`, `date`) VALUES
 (1,	'Bonjour Hoareau Quentin...',	'2020-11-08 20:03:19'),
 (1,	'Bonjour Hoareau Quentin...azaz',	'2020-11-08 20:04:07'),
 (1,	'Bonjour Hoareau Quentin... heiiin',	'2020-11-08 20:04:52'),
-(9,	'Bonjour Rivière Anthony, oui tous nos articles se recharge en stock toutes les semaines. Bonne journée à toi.',	'2020-11-08 20:06:56');
+(9,	'Bonjour Rivière Anthony, oui tous nos articles se recharge en stock toutes les semaines. Bonne journée à toi.',	'2020-11-08 20:06:56'),
+(1,	'Bonjour Hoareau Quentin...\r\ntest',	'2020-11-11 08:48:17'),
+(10,	'Bonjour BIGOT Andréa... \r\ntest aaaa',	'2020-11-11 08:49:15');
 
 DROP TABLE IF EXISTS `etat`;
 CREATE TABLE `etat` (
@@ -960,7 +973,10 @@ INSERT INTO `facture` (`numCmd`, `nomProp`, `prenomProp`, `rueLiv`, `cpLiv`, `ty
 (14,	'Hoareau',	'Léa',	'10 rue par ici, ter la',	'97480',	'Solde',	'2020-11-08 16:06:10'),
 (16,	'BIGOT',	'Andréa',	'22 rue des macarons',	'97480',	'Solde',	'2020-11-08 16:12:11'),
 (17,	'MOREL',	'Seb',	'3 rue de lameme',	'97480',	'Solde',	'2020-11-08 16:18:49'),
-(18,	'MOREL',	'Seb',	'3 rue de lameme',	'97480',	'Solde',	'2020-11-08 16:22:10');
+(18,	'MOREL',	'Seb',	'3 rue de lameme',	'97480',	'Solde',	'2020-11-08 16:22:10'),
+(20,	'Grondin ',	'Laurent ',	'30 chemin des anémones',	'97480',	'Solde',	'2020-11-11 09:13:42'),
+(21,	'Grondin ',	'Laurent ',	'30 chemin des anémones',	'97480',	'Solde',	'2020-11-11 09:14:51'),
+(22,	'Grondin ',	'Laurent ',	'30 chemin des anémones',	'97480',	'Solde',	'2020-11-11 09:27:39');
 
 DELIMITER ;;
 
@@ -1155,7 +1171,7 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (28,	24,	'Noir',	NULL,	1),
 (29,	12,	'Noir à motif rond rouge',	NULL,	1),
 (30,	27,	'Jean',	NULL,	1),
-(31,	17,	'Blanc à rayure jaune',	NULL,	0),
+(31,	17,	'Blanc à rayure jaune',	NULL,	1),
 (32,	15,	'Rose ',	NULL,	1),
 (33,	16,	'Violet ',	NULL,	1),
 (34,	18,	'Noir',	NULL,	1),
@@ -1163,7 +1179,7 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (36,	17,	'Blanc à rayure vert',	'hue-rotate(45deg)',	1),
 (38,	26,	'Vert',	'hue-rotate(100deg)',	1),
 (39,	26,	'Rose',	'hue-rotate(300deg)',	1),
-(40,	17,	'Blanc à rayure vert',	'hue-rotate(190deg)',	1),
+(40,	17,	'Blanc à rayure bleu',	'hue-rotate(190deg)',	1),
 (41,	15,	'Vert',	'hue-rotate(100deg)',	1),
 (42,	15,	'Bleu',	'hue-rotate(200deg)',	1),
 (43,	16,	'Jaune',	'hue-rotate(120deg)',	1),
@@ -1187,7 +1203,7 @@ INSERT INTO `vet_couleur` (`num`, `idVet`, `nom`, `filterCssCode`, `dispo`) VALU
 (61,	34,	'Jaune',	NULL,	1),
 (62,	35,	'Motif bleu et blanc',	NULL,	1),
 (63,	36,	'Vert',	NULL,	1),
-(64,	38,	'Coloré jaune vert rouge noir',	NULL,	0),
+(64,	38,	'Coloré jaune vert rouge noir',	NULL,	1),
 (65,	39,	'Marron clair',	NULL,	1),
 (66,	40,	'Multicolore et noir ',	NULL,	1),
 (67,	41,	'Bleu et blanc',	NULL,	1),
@@ -1450,4 +1466,4 @@ CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeNumCouleurDispo` me
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-11-08 18:15:01
+-- 2020-11-11 05:37:04

@@ -20,6 +20,7 @@ $(document).ready(function(){
             <th scope="col">Tél</th>
             <th scope="col">Objet</th>
             <th scope="col">Dernière réponse</th>
+            <th scope="col">Réponse</th>
             <th scope="col">Action</th>
          </tr>
       </thead>
@@ -32,6 +33,7 @@ $(document).ready(function(){
                <td><?php echo $contact->numero();  ?></td>
                <td><?php echo $contact->sujet();  ?></td>
                <td><?php echo $contact->date('d/m/Y à H\hi');  ?></td>
+               <td><?php echo "aaa" ?></td>
                <td>
                   <a href="admin/contact/<?php echo $contact->idContact(); ?>"><button type='button' class='form-control'> Voir le message </button></a>
                   <form action="" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer ce message ?")' type='submit' value="<?php echo $contact->idContact(); ?>" name='supMessage' class='form-control'> Supprimer </button> </form>
