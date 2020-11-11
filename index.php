@@ -1,11 +1,15 @@
 <?php
 
 
+
 $test = str_replace("index.php", "", (isset($_SERVER['HTTPS']) ? "https" : "http" . "://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']) ) ;
 define('URL_SITE',  $test) ;
 
-$lienActive = str_replace("/btssio/BTS2/BHL_Clothes/","",$_SERVER['REQUEST_URI']) ;
+$dossierServer= dirname($_SERVER['PHP_SELF'])."/";
+$lienActive = str_replace($dossierServer,"",$_SERVER['REQUEST_URI']) ;
+
 define('LIEN_ACTIVE',  $lienActive) ;
+define('DOSSIER_SERVER',  $dossierServer) ;
 
 require_once('controleur/Routeur.php');
 

@@ -17,7 +17,7 @@ class Vue{
     //Construction de la vue
    public function __construct($page){
       //Initialisation par défaut
-      $this->base = dirname($_SERVER['PHP_SELF'])."/";
+      $this->base = DOSSIER_SERVER;
       $this->fichier= 'vue/vue'.ucfirst($page).'.php';
       $this->template= "vue/template.php" ;
       $this->titre= $page;

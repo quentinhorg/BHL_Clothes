@@ -260,11 +260,9 @@ class ControleurAuthentification{
       $ClientManager = new ClientManager;
       $cle = $ClientManager->getCleEmail($email);
       
-      $baseDirectory = "btssio/BTS2/BHL_Clothes" ;
+      $baseDirectory = DOSSIER_SERVER ;
       $urlActivation = "http://".$_SERVER["SERVER_NAME"]."/".$baseDirectory."/authentification/activation?email=".$email."&cle=".$cle;
       $urlDesactivation = "http://".$_SERVER["SERVER_NAME"]."/".$baseDirectory."/authentification/desactivation?email=".$email."&cle=".$cle;
-      
-
       
       // email stuff (change data below)
       $to = $email; 

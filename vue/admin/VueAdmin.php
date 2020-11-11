@@ -6,7 +6,7 @@ class VueAdmin extends Vue{
       //Construction de la vue
      public function __construct($page){
         //Initialisation par défaut
-        $this->base = dirname($_SERVER['PHP_SELF'])."/";
+        $this->base = DOSSIER_SERVER;
         $this->fichier= 'vue/admin/vue'.ucfirst($page).'.php';
         $this->template= "vue/admin/adminTemplate.php" ;
         $this->titre= $page;

@@ -6,8 +6,6 @@
     <base href="<?php echo $base ?>">  <!-- Permet d'avoir tous les liens sur la même base -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    
-  
     <link rel="stylesheet" href="public\bootstrap-4.3.1\bootstrap.min.css">
     <link rel="icon" type="image/png" href="public\media\bhl_clothes\logo_icon.png" />
     

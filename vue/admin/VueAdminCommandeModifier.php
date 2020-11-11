@@ -72,7 +72,7 @@
       <th scope="row">Action</th>
       
         <td class='form-inline'> 
-            <a href="facture/<?php echo $commande->num(); ?>"><button type='button' <?php if($commande->getFacture() == null){echo "disabled title='Aucune facture ne correspond à cette commande' " ;} ?>> Voir la facture PDF</button> </a>
+            <a href="admin/commande/<?php echo $commande->num(); ?>/facture"><button type='button' <?php if($commande->getFacture() == null){echo "disabled title='Aucune facture ne correspond à cette commande' " ;} ?>> Voir la facture PDF</button> </a>
             <?php if($commande->getFacture() != null) { ?>
                 <form action="" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer cette facture ?")' type='submit' name='supprimerFacture'> Supprimer la facture </form>
             <?php } ?>
