@@ -23,9 +23,6 @@ only screen and (max-width: 900px){
 
 @media 
 only screen and (max-width: 650px){
-
-   
-
 	/* Changer l'affichage du tableau en générale (pasasge à la ligne) */
 	table, thead, tbody, th, td, tr { 
 		display: block; 

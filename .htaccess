@@ -18,4 +18,3 @@ RewriteRule ^(.*)/$ /$1 [L,R]
    RewriteCond %{REMOTE_ADDR} !=102.35.41.122
    RewriteRule ^(.*) /
 
-

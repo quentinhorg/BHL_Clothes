@@ -3,21 +3,22 @@
 class Vue{
 
    // ATTRIBUTS
-    protected $fichier;
-    protected $template;
-    protected $titre;
-    protected $listeCss;
-    protected $nav;
-    protected $header;
-    protected $listeJsScript;
-    protected $footer;
-    public $Popup;
+   public    $base;
+   protected $fichier;
+   protected $template;
+   protected $titre;
+   protected $listeCss;
+   protected $nav;
+   protected $header;
+   protected $listeJsScript;
+   protected $footer;
+   public     $Popup;
     
     //Construction de la vue
    public function __construct($page){
       //Initialisation par défaut
+      $this->base = dirname($_SERVER['PHP_SELF'])."/";
       $this->fichier= 'vue/vue'.ucfirst($page).'.php';
-
       $this->template= "vue/template.php" ;
       $this->titre= $page;
       $this->listeCss= ["public/css/".strtolower($page).".css"] ;
@@ -111,6 +112,7 @@ class Vue{
      
       //Génération final
       $vue = $this->genererFichier($this->template, array(
+         'base' => $this->base, 
          'titre' => $this->titre, 
          'contenu' => $contenu,
          'nav' => $nav,
