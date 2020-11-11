@@ -24,14 +24,14 @@ $(document).ready(function(){
          </tr>
       </thead>
       <tbody>
-         <?php var_dump($contactList); foreach ($contactList as $contact) { ?>
+         <?php foreach ($contactList as $contact) { ?>
             <tr>
                <th scope="row"> <?php echo $contact->idContact();  ?> </th>
                <td><?php echo $contact->nom();  ?></td>
                <td><?php echo $contact->email();  ?></td>
                <td><?php echo $contact->numero();  ?></td>
                <td><?php echo $contact->sujet();  ?></td>
-               <td><?php echo $contact->date();  ?></td>
+               <td><?php echo $contact->date('d/m/Y à H\hi');  ?></td>
                <td>
                   <a href="admin/contact/<?php echo $contact->idContact(); ?>"><button type='button' class='form-control'> Voir le message </button></a>
                   <form action="" method='POST'> <button onclick='return confirm("Voulez-vous vraiment supprimer ce message ?")' type='submit' value="<?php echo $contact->idContact(); ?>" name='supMessage' class='form-control'> Supprimer </button> </form>
