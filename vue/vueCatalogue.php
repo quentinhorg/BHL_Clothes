@@ -24,7 +24,7 @@
 
     }
     else{
-        echo "<h3> Tous le catalogue </h3>" ;
+        echo "<h3> Tout le catalogue </h3>" ;
 
      
         echo "<ul>";
@@ -116,7 +116,7 @@
         $budget = $_GET["budget"];
     }
     ?>
-    <input placeholder="Aucun" type="number" name="budget" value="<?php echo $budget ?>">€
+    <input placeholder="Aucun" min="1" type="number" name="budget" value="<?php echo $budget ?>">€
 
      <input type="submit" id="filtrer" value="Trier le catalogue" name='trier'>           
     </form>
@@ -132,7 +132,7 @@
 <div id="listVetement">
 
 
-<p id="currentPage"> <?php if($genreActive != null){ echo "<a href='catalogue/".$genreActive->code()."'>".$genreActive->libelle()."</a>" ;} else{ echo "Tous le catalogue" ;} if($categActive != null) {echo " > ".$categActive->nom(); } ?> </p>
+<p id="currentPage"> <?php if($genreActive != null){ echo "<a href='catalogue/".$genreActive->code()."'>".$genreActive->libelle()."</a>" ;} else{ echo "Tout le catalogue" ;} if($categActive != null) {echo " > ".$categActive->nom(); } ?> </p>
 
 
 <hr>

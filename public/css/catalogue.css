@@ -201,6 +201,7 @@ input[type="checkbox"]:checked  {
    font-size: 1rem;
    font-weight: normal;
    color: #9e9e9e;
+   padding: 10px;
 }
 
 input[name=trier]{

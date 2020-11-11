@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="BHL Clothes est un projet scolaire. Il s'agit d'un site e-commerce comportant diverses fonctionnalités." />
     <base href="<?php echo $base ?>">  <!-- Permet d'avoir tous les liens sur la même base -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
