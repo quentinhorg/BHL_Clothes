@@ -11,7 +11,7 @@ class CommandeManager extends DataBase{
     LEFT JOIN article_panier ap ON ap.numCmd=c.num" ;
 
     public function getListCommande(){
-        $req = $this->reqBase;
+        $req = $this->reqBase." ORDER BY c.dateCreation ASC";
         $this->getBdd();
         $commande =  $this->getModele("Commande", $req);
         return $commande;

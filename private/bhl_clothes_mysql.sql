@@ -318,12 +318,14 @@ END;;
 
 DELIMITER ;
 
+SET NAMES utf8mb4;
+
 DROP TABLE IF EXISTS `avis`;
 CREATE TABLE `avis` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idClient` int(11) NOT NULL,
   `idVet` int(11) NOT NULL,
-  `commentaire` text NOT NULL,
+  `commentaire` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `note` int(11) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -334,7 +336,7 @@ CREATE TABLE `avis` (
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 INSERT INTO `avis` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VALUES
-(1,	8,	1,	'woooooaaaww',	4,	'2020-10-05 21:48:01'),
+(1,	8,	1,	'woooooaaaww 😊',	4,	'2020-10-05 21:48:01'),
 (2,	1,	7,	'Tshirt de bonne qualité qui taille un peu large. Parfait pour faire un style oversize ! ',	5,	'2020-10-09 17:30:14'),
 (3,	5,	6,	'Short de bonne qualité, conforme à la photo',	4,	'2020-10-01 21:55:01'),
 (4,	1,	1,	'Je trouve que la robe est un peu transparente à la lumière mais ce problème est vite réglé avec un petit short en dessous',	4,	'2020-10-06 21:57:09'),
@@ -360,7 +362,8 @@ INSERT INTO `avis` (`id`, `idClient`, `idVet`, `commentaire`, `note`, `date`) VA
 (35,	13,	16,	'Ce tshirt est sympa, de bonne qualité mais j\'ai pris la mauvaise taille. Pensez à prendre plus petit que votre taille habituelle ',	4,	'2020-05-15 16:20:00'),
 (36,	6,	10,	'Bonne qualité de tissu',	4,	'2020-07-07 05:50:52'),
 (37,	8,	41,	'Superbe short d\'été !',	4,	'2020-11-01 19:53:08'),
-(38,	26,	25,	'Super jupe.',	5,	'2020-11-11 09:01:00');
+(38,	26,	25,	'Super jupe.',	5,	'2020-11-11 09:01:00'),
+(39,	8,	1,	'oooooaaaww 😊',	4,	'2020-11-11 09:43:06');
 
 DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE `categorie` (
@@ -1466,4 +1469,4 @@ CREATE TABLE `vue_vet_disponibilite` (`idVet` int(11), `listeNumCouleurDispo` me
 DROP TABLE IF EXISTS `vue_vet_disponibilite`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vue_vet_disponibilite` AS select `v`.`id` AS `idVet`,(select group_concat(`vcl2`.`num` separator ',') from `vet_couleur` `vcl2` where `vcl2`.`idVet` = `v`.`id` and `vcl2`.`dispo` = 1 order by `vcl2`.`filterCssCode`) AS `listeNumCouleurDispo`,group_concat(distinct `vt`.`taille` separator ',') AS `listeTailleDispo` from ((`vetement` `v` left join `vet_couleur` `vcl` on(`vcl`.`idVet` = `v`.`id`)) left join `vet_taille` `vt` on(`vt`.`idVet` = `v`.`id`)) group by `v`.`id`;
 
--- 2020-11-11 05:37:04
+-- 2020-11-11 06:13:02
