@@ -12,6 +12,7 @@ _(N'oubliez pas de changer les identifiants de connexion à la base de données 
 3) Vous pouvez les dossiers/fichiers, innutiles pour le fonctionnement du site : 
     - ".gitattributes"
     - "gitignore"
+    - ".github"
     
 # A savoir
 Le site a besoin d'un protocole SMTP pour les envois d'envoi d'email, mais il faudra configurer votre serveur pour permettre l'envoi d'email à l'aide de la fonction php 'mail(...)'.
