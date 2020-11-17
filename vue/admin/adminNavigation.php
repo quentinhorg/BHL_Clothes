@@ -1,5 +1,5 @@
 <div id="navAdmin" class="sidebar">
-  <h5> <a href="#" style="display: contents;"><i class="fa fa-sign-out "></i></a>  Espace Admin</h5>
+  <h5> <i class="fa fa-user"></i> Espace Admin</h5>
   <a href="admin/vetement">Gérer les vêtements</a>
   <a href="admin/commande">Gérer les commandes</a>
   <a href="admin/contact">Gérer les contacts</a>

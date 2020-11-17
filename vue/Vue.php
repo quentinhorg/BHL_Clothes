@@ -12,7 +12,7 @@ class Vue{
    protected $header;
    protected $listeJsScript;
    protected $footer;
-   public     $Popup;
+   public    $Popup;
     
     //Construction de la vue
    public function __construct($page){
