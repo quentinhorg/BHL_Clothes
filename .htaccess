@@ -15,6 +15,6 @@ RewriteRule ^(.*)/$ /$1 [L,R]
    RewriteCond %{HTTP_HOST} !=127.0.0.1
    RewriteCond %{HTTP_HOST} !=localhost
 # Ip Andrea
-   RewriteCond %{REMOTE_ADDR} !=102.35.41.122
+   RewriteCond %{REMOTE_ADDR} !=10.10.0.15
    RewriteRule ^(.*) /
 
