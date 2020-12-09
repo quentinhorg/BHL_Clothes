@@ -9,7 +9,7 @@ abstract class DataBase{
 
    //Mise en place de la BDD
    private static function setBdd(){
-      self::$bdd = new PDO('mysql:host=localhost;dbname=bhl_clothes;charset=utf8mb4', 'btssio', 'btssio');
+      self::$bdd = new PDO('mysql:host=localhost;dbname=bhl_clothes;charset=utf8mb4', 'root', 'root');
       self::$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
    }
 
