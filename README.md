@@ -16,5 +16,5 @@ _(N'oubliez pas de changer les identifiants de connexion à la base de données 
     - "private"
     
 # A savoir
-Le site a besoin d'un protocole SMTP pour les envois d'envoi d'email, mais il faudra configurer votre serveur pour permettre l'envoi d'email à l'aide de la fonction php 'mail(...)'.
+Le projet nécessite un protocole SMTP pour les envois d'envoi d'email, mais il faudra configurer votre serveur pour permettre l'envoi d'email à l'aide de la fonction php 'mail(...)'.
 Le protocole/configuration SMTP d'envoi d'email, n'est pas fourni avec le code source
