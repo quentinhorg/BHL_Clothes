@@ -3,7 +3,7 @@ E-commerce website, school project. Site de vêtement en ligne pour ados et adul
 
 # Installation / Utilisation 
 
-1) Téléchargez la  [dernière version](https://github.com/quentinhorg/BHL_Clothes/releases/latest) du site, et glissez les fichiers dans un dossier où le php est actif (ex: htdocs ou www)
+1) Téléchargez la  [dernière version](https://github.com/quentinhorg/BHL_Clothes/releases/latest) testé du projet , et glissez les fichiers dans un dossier où le php est actif (ex: htdocs ou www)
     
 2) Pour finir, importez la base de données (MySQL) : 
 [bhl_clothes_mysql.sql](https://github.com/quentinhoareau/BHL_Clothes/blob/master/private/bhl_clothes_mysql.sql)
