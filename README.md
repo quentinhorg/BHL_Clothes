@@ -13,7 +13,6 @@ _(N'oubliez pas de changer les identifiants de connexion à la base de données 
     - ".gitattributes"
     - "gitignore"
     - ".github"
-    - "private"
     
 # A savoir
 Le projet nécessite un protocole SMTP pour les envois d'envoi d'email, il faudra donc configurer votre serveur pour permettre l'envoi d'email à l'aide de la fonction php 'mail(...)'.
